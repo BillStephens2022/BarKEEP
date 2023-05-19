@@ -18,10 +18,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    transactions: [
+    cocktails: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Transaction'
+        ref: 'Cocktail'
       }
     ]
   },
