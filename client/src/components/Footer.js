@@ -16,7 +16,7 @@ const Footer = () => {
                 </a>
               </div>
               <div className="col-md-4">
-                <p className="m-0">Contact us: contact@expensetracker.com</p>
+                <p className="m-0">Contact us: contact@barkeep.com</p>
 
               </div>
             </div>
