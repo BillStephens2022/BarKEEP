@@ -20,19 +20,19 @@ const typeDefs = gql`
   }
   type Query {
     me: User
-    transactions: [Transaction]
+    cocktails: [Cocktail]
   }
   type Mutation {
     addUser(username: String, email: String, password: String): Auth
     login(email: String, password: String): Auth
-    addTransaction(
+    addCocktail(
       date: String!
       amount: Float!
       highLevelCategory: String!
       category: String!
       description: String!
-    ) : Transaction
-    deleteTransaction(transactionId: ID!): Transaction
+    ) : Cocktail
+    deleteCocktail(cocktailId: ID!): Cocktail
   }
 `;
 
