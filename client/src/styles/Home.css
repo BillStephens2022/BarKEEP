@@ -140,3 +140,24 @@
   text-align: center;
   background-color: var(--yellow);
 }
+
+/* Button component */
+.btn {
+  background-color: var(--blue);
+  margin: 0.5rem;
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background-color: var(--darkgray);
+}
+
+.register_form_page {
+  color: white;
+}
+
+.login_form_page {
+  color: white;
+}
+
