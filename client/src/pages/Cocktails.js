@@ -5,8 +5,9 @@ const Cocktails = () => {
 
 
     return (
-        <div>
-            <h1>My Cocktail Recipes</h1>
+        <div className="cocktails-main">
+            <h1 className="title">BarKEEP</h1>
+            <h2 className="subtitle">My Cocktail Recipes</h2>
         </div>
     )
 }

@@ -10,7 +10,7 @@ import { setContext } from "@apollo/client/link/context";
 import Home from './pages/Home';
 import Cocktails from './pages/Cocktails';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+
 
 
 const httpLink = createHttpLink({
@@ -58,7 +58,6 @@ function App() {
               element={<h1 className="display-2">Wrong page!</h1>}
             />
           </Routes>
-          <Footer />
         </>
       </Router>
     </ApolloProvider>
