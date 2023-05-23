@@ -9,18 +9,29 @@ const cocktailSchema = new Schema({
     {
       name: {
         type: String,
+        required: true
       },
       quantity: {
         type: String,
+        required: true
       },
     },
   ],
   imageURL: {
-    type: String,
+    type: String
   },
   glassware: {
-    type: String,
+    type: String
   },
+  instructions: {
+    type: String
+  },
+  tags: [
+    {
+      type: String,
+      required: true
+    }
+  ]
 });
 
 const Cocktail = model("Cocktail", cocktailSchema);
