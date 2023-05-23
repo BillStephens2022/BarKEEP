@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
-  return <h1>Navbar</h1>
+  return (
+    <div className="navigation">
+      <ul className='navigation_list'>
+        <li className='navigation_item'>
+          <Link to='/' className='navigation_link'>Home</Link>
+        </li>
+        <li className='navigation_item'>
+          <Link to='/cocktails' className='navigation_link'>My Cocktails</Link>
+        </li>
+      </ul>
+    </div>
+  )
    
 };
 

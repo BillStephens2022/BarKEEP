@@ -8,6 +8,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import Home from './pages/Home';
+import Cocktails from './pages/Cocktails';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -42,20 +43,20 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route
-              path="/transactions"
-              element={<Transactions transactions={transactions} setTransactions={setTransactions} />}
-            />
             <Route
-              path="/transactions/add"
-              element={
-                <TransactionForm />
-              }
+              path="/cocktails"
+              element={<Cocktails />}
             />
+            {/* <Route
+              path="/cocktails/add"
+              element={
+                <CocktailForm />
+              }
+            /> */}
             <Route
               path="*"
               element={<h1 className="display-2">Wrong page!</h1>}
-            /> */}
+            />
           </Routes>
           <Footer />
         </>
