@@ -8,11 +8,13 @@ const typeDefs = gql`
     cocktails: [Cocktail]
   }
   type Cocktail {
-    _id: ID
-    name: String
-    ingredients: [String]
-    imageURL: String
-    glassware: String
+    _id: ID!
+    name: String!
+    ingredients: [String!]!
+    imageURL: String!
+    glassware: String!
+    instructions: String!
+    tags: [String!]!
   }
   type Auth {
     token: ID
