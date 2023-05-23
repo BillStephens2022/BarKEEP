@@ -7,10 +7,14 @@ const typeDefs = gql`
     email: String!
     cocktails: [Cocktail]
   }
+  type Ingredient {
+    name: String!
+    quantity: String!
+  }
   type Cocktail {
     _id: ID!
     name: String!
-    ingredients: [String!]!
+    ingredients: [Ingredient!]!
     imageURL: String!
     glassware: String!
     instructions: String!
@@ -28,11 +32,12 @@ const typeDefs = gql`
     addUser(username: String, email: String, password: String): Auth
     login(email: String, password: String): Auth
     addCocktail(
-      date: String!
-      amount: Float!
-      highLevelCategory: String!
-      category: String!
-      description: String!
+      name: String!
+      ingredients: [Ingredient!]
+      instructions: String!
+      glassware: [String!]
+      imageURL: String!
+      tags: String!
     ) : Cocktail
     deleteCocktail(cocktailId: ID!): Cocktail
   }
