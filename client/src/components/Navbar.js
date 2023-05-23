@@ -12,6 +12,9 @@ const Navbar = () => {
         <li className='navigation_item'>
           <Link to='/cocktails' className='navigation_link'>My Cocktails</Link>
         </li>
+        <li className='navigation_item'>
+          <Link to='/login' className='navigation_link'>Log In / Register</Link>
+        </li>
       </ul>
     </div>
   )

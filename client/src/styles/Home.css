@@ -5,6 +5,7 @@
   --darkgray: #333;
   --lightgray: #ccc;
   --black: #000;
+  --yellow: goldenrod;
 }
 
 #root {
@@ -129,4 +130,13 @@
   list-style-type: none;
   margin-top: 0.75rem;
   text-align: left;
+}
+
+/* Login Page */
+
+.login_page {
+  flex: 1;
+  color: var(--white);
+  text-align: center;
+  background-color: var(--yellow);
 }

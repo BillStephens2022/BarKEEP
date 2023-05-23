@@ -7,9 +7,10 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Cocktails from './pages/Cocktails';
-import Navbar from './components/Navbar';
+import Login from './pages/Login';
 
 
 
@@ -46,6 +47,10 @@ function App() {
             <Route
               path="/cocktails"
               element={<Cocktails />}
+            />
+            <Route
+              path="/login"
+              element={<Login />}
             />
             {/* <Route
               path="/cocktails/add"
