@@ -68,7 +68,7 @@
 
 .home_photo_image {
   width: 60%;
-  border: 5px solid white;
+  border: 5px solid var(--white);
   border-radius: 1%;
 }
 
@@ -100,7 +100,7 @@
 }
 
 .card {
-  background-color: var(--black);
+  background-color: var(--darkgray);
   color: var(--white);
   max-width: 15vw;
   margin: 1.5rem;
@@ -111,6 +111,7 @@
   padding: 0.3rem;
   text-transform: uppercase;
   font-size: 1.5rem;
+  letter-spacing: 0.3rem;
 }
 
 .card_photo {
