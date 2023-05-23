@@ -66,3 +66,27 @@
     text-align: center;
     background-color: var(--lightgray);
 }
+
+.card_container {
+    display: flex;
+}
+
+.card {
+    color: var(--darkgray);
+    max-width: 15vw;
+    margin: 1.5rem;
+}
+
+.card_photo {
+    margin: 0;
+    padding: 0;
+}
+
+.cocktail_photo {
+    width: 30%;
+    margin: 0;
+}
+
+.ingredients_list {
+    list-style-type: none;
+}
