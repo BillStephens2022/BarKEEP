@@ -58,6 +58,7 @@
 .subtitle {
     font-size: 2rem;
     letter-spacing: 0.4rem;
+    margin-bottom: 3rem;
 }
 
 .cocktails-main {
@@ -65,6 +66,20 @@
     color: var(--white);
     text-align: center;
     background-color: var(--lightgray);
+}
+
+.add_cocktail_button {
+    color: var(--white);
+    background-color: var(--blue);
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    border: solid var(--white) 1px;
+    border-radius: 5%;
+    text-decoration: none;
+    box-shadow: 3px 3px 7px var(--darkgray);
+    text-transform: uppercase;
+    padding: 1rem;
+   
 }
 
 .card_container {
