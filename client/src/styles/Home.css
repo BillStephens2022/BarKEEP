@@ -1,10 +1,10 @@
 :root {
-    --blue: steelblue;
-    --white: #fff;
-    --maroon: #BA265D;;
-    --darkgray: #333;
-    --lightgray: #ccc;
-    --black: #000;
+  --blue: steelblue;
+  --white: #fff;
+  --maroon: #ba265d;
+  --darkgray: #333;
+  --lightgray: #ccc;
+  --black: #000;
 }
 
 #root {
@@ -15,106 +15,117 @@
   min-height: 100vh;
 }
 
+/* Navigation Sidebar */
 .navigation {
-    background-color: var(--blue);
-    flex: 0 0 18%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-size: 1.4rem;
+  background-color: var(--blue);
+  flex: 0 0 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 1.4rem;
 }
 
 .navigation_list {
-    list-style-type: none;
-    margin-top: 5rem;
+  list-style-type: none;
+  margin-top: 5rem;
 }
 
 .navigation_item {
-    text-decoration: none;
-    margin: 5rem 0;
-    text-transform: uppercase;
-    font-size: 1.5rem;
-    letter-spacing: 0.3rem;
+  text-decoration: none;
+  margin: 5rem 0;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: 0.3rem;
 }
 
 .navigation_link {
-    text-decoration: none;
-    color: var(--white);
+  text-decoration: none;
+  color: var(--white);
 }
 
+/* Home Page */
+
 .main {
-    flex: 1;
-    background-color: var(--maroon);
-    color: var(--white);
-    text-align: center;
+  flex: 1;
+  background-color: var(--maroon);
+  color: var(--white);
+  text-align: center;
 }
 
 .title {
-    font-size: 6rem;
-    letter-spacing: 1rem;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
+  font-size: 6rem;
+  letter-spacing: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
 }
 
 .subtitle {
-    font-size: 2rem;
-    letter-spacing: 0.4rem;
-    margin-bottom: 3rem;
+  font-size: 2rem;
+  letter-spacing: 0.4rem;
+  margin-bottom: 3rem;
 }
 
+
+.home_photo_image {
+  width: 60%;
+  border: 5px solid white;
+  border-radius: 1%;
+}
+
+/* Cocktails Page */
+
 .cocktails-main {
-    flex: 1;
-    color: var(--white);
-    text-align: center;
-    background-color: var(--lightgray);
+  flex: 1;
+  color: var(--white);
+  text-align: center;
+  background-color: var(--lightgray);
 }
 
 .add_cocktail_button {
-    color: var(--white);
-    background-color: var(--blue);
-    font-weight: 700;
-    letter-spacing: 0.2rem;
-    border: solid var(--white) 1px;
-    border-radius: 5%;
-    text-decoration: none;
-    box-shadow: 3px 3px 7px var(--darkgray);
-    text-transform: uppercase;
-    padding: 1rem;
-   
+  color: var(--white);
+  background-color: var(--blue);
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+  border: solid var(--white) 1px;
+  border-radius: 5%;
+  text-decoration: none;
+  box-shadow: 3px 3px 7px var(--darkgray);
+  text-transform: uppercase;
+  padding: 1rem;
 }
 
 .card_container {
-    display: flex;
-    margin-top: 2rem;
+  display: flex;
+  margin-top: 2rem;
 }
 
 .card {
-    background-color: var(--black);
-    color: var(--white);
-    max-width: 15vw;
-    margin: 1.5rem;
-    border: 2px white solid;
+  background-color: var(--black);
+  color: var(--white);
+  max-width: 15vw;
+  margin: 1.5rem;
+  border: 2px white solid;
 }
 
 .card_title {
-    padding: 0.3rem;
-    text-transform: uppercase;
-    font-size: 1.5rem;
+  padding: 0.3rem;
+  text-transform: uppercase;
+  font-size: 1.5rem;
 }
 
 .card_photo {
-    margin: 0.5rem 0;
-    padding: 0;
+  margin: 0.5rem 0;
+  padding: 0;
 }
 
 .cocktail_photo {
-    width: 30%;
-    margin: 0;
-    border-radius: 50%;
+  width: 30%;
+  margin: 0;
+  border-radius: 50%;
 }
 
 .ingredients_list {
-    list-style-type: none;
-    margin-top: 0.75rem;
-    text-align: left;
+  list-style-type: none;
+  margin-top: 0.75rem;
+  text-align: left;
 }
