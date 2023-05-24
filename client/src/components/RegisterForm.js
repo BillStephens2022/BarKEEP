@@ -5,7 +5,7 @@ import '../styles/Home.css';
 const RegisterForm = () => {
     return (
         <div className='register_form_page'>
-          <h3 className='form_title'>Register Form</h3>
+          <h3 className='form_title'>Registration Form</h3>
           <form className='register_form'>
             <label className="form_label" htmlFor='username'>Username</label>
             <input className="form_input" name='username' placeholder='username'></input>
