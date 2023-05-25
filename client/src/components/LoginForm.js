@@ -46,12 +46,12 @@ const LoginForm = () => {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} className="form_login" onSubmit={handleFormSubmit}>
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
         </Alert>
         <Form.Group>
-          <Form.Label htmlFor='email'>Email (you can use 'bill@gmail.com' to test drive with pre-loaded data)</Form.Label>
+          <Form.Label htmlFor='email'>Email (use 'bill@gmail.com' to test drive with pre-loaded data)</Form.Label>
           <Form.Control
             type='text'
             placeholder='Your email'
@@ -64,7 +64,7 @@ const LoginForm = () => {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor='password'>Password (you can use 'password' to test drive with pre-loaded data)</Form.Label>
+          <Form.Label htmlFor='password'>Password (use 'password' to test drive with pre-loaded data)</Form.Label>
           <Form.Control
             type='password'
             placeholder='Your password'
@@ -78,8 +78,8 @@ const LoginForm = () => {
         <Button
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
-          // variant='success'
-          className='login-signup-button'>
+          variant='success'
+          className='login_signup_button'>
           Submit
         </Button>
       </Form>

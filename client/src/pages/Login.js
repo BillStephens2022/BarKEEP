@@ -22,10 +22,12 @@ const Login = () => {
     <div className="login_page">
       <h1 className="title">BarKEEP</h1>
       <h2 className="subtitle">Log In / Register</h2>
-      <Button onClick={handleRegisterClick} text="Register" />
       <Button onClick={handleLoginClick} text="Log In" />
-      {showRegisterForm ? (<RegisterForm />) : null}
-      {showLoginForm ? (<LoginForm />): null}
+      <Button onClick={handleRegisterClick} text="Register" />
+      <div className="form_container">
+        {showRegisterForm ? (<RegisterForm />) : null}
+        {showLoginForm ? (<LoginForm />): null}
+      </div>
     </div>
   );
 };

@@ -142,46 +142,31 @@
 
 /* Button component */
 .btn {
-  background-color: var(--blue);
+  background-color: var(--darkgray);
   margin: 0.5rem;
   color: var(--white);
   font-size: 1rem;
 }
 
 .btn:hover {
-  background-color: var(--darkgray);
+  background-color: var(--blue);
 }
 
-/* Register Form component */
-.register_form_page {
-  color: white;
+/* Register / Login Forms */
+
+
+.form_container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  height: 25vh; /* Optional: Adjust the height as needed */
 }
 
-.form_title {
-  margin-top: 2rem;
+.login_signup_button {
+  margin-top: 1.25rem;
 }
 
-form {
+.form_register, .form_login {
   width: 25vw;
-  align-self: center;
-  justify-self: center;
 }
 
-.form_label {
-  padding: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.25rem;
-}
-
-.form_input {
-  margin-bottom: 1rem;
-}
-
-/* Login Form component */
-.login_form_page {
-  color: white;
-  display: flex;
-  flex-direction: column;
-}
