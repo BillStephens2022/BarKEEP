@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Auth from "../utils/auth";
+
 
 const Navbar = () => {
 
@@ -14,6 +16,9 @@ const Navbar = () => {
         </li>
         <li className='navigation_item'>
           <Link to='/login' className='navigation_link'>Log In / Register</Link>
+        </li>
+        <li className='navigation_item'>
+          <Link to='/logout' className='navigation_link' onClick={Auth.logout}>Log Out</Link>
         </li>
       </ul>
     </div>

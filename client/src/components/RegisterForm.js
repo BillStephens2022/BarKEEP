@@ -24,7 +24,7 @@ const RegisterForm = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserFormData({ ...ADD_USER, [name]: value });
+    setUserFormData({ ...userFormData, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
@@ -35,6 +35,7 @@ const RegisterForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
+    console.log(userFormData);
 
     try {
       const { data } = await addUser({
