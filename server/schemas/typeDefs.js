@@ -31,16 +31,17 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String, email: String, password: String): Auth
     login(email: String, password: String): Auth
-    addCocktail(
-      name: String!
-      ingredients: [Ingredient!]
-      instructions: String!
-      glassware: [String!]
-      imageURL: String!
-      tags: String!
-    ) : Cocktail
-    deleteCocktail(cocktailId: ID!): Cocktail
   }
 `;
 
 module.exports = typeDefs;
+
+// addCocktail(
+//   name: String!
+//   ingredients: [Ingredient!]
+//   instructions: String!
+//   glassware: [String!]
+//   imageURL: String!
+//   tags: String!
+// ) : Cocktail
+// deleteCocktail(cocktailId: ID!): Cocktail
