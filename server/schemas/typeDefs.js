@@ -11,9 +11,6 @@ const typeDefs = gql`
     name: String!
     quantity: String!
   }
-  input TagInput {
-    name: String!
-  }
   input IngredientInput {
     name: String!
     quantity: String!
@@ -44,7 +41,7 @@ const typeDefs = gql`
       imageURL: String!
       glassware: String!
       instructions: String!
-      tags: [TagInput!]!
+      tags: [String!]!
     ) : Cocktail
     deleteCocktail(cocktailId: ID!): Cocktail
   }
