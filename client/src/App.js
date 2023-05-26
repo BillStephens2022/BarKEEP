@@ -36,7 +36,9 @@ const client = new ApolloClient({
 });
 
 function App() {
-  
+
+  const [cocktails, setCocktails] = useState([]);
+
   return (
     <ApolloProvider client={client}>
       <Router basename={process.env.PUBLIC_URL}>
@@ -46,7 +48,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route
               path="/cocktails"
-              element={<Cocktails />}
+              element={<Cocktails cocktails={cocktails} setCocktails={setCocktails} />}
             />
             <Route
               path="/login"
