@@ -29,6 +29,8 @@ const CocktailCard = ({ data, loading, cocktails, setCocktails }) => {
                 <li className="ingredient">{ingredient.quantity} {ingredient.name}</li>
                 ))}
               </ul>
+              <h5>Instructions</h5>
+              <p className="p_instructions">{cocktail.instructions}</p>
             </div>
           </div>
           <div className="card_footer"></div>
