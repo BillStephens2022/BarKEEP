@@ -11,6 +11,13 @@ const typeDefs = gql`
     name: String!
     quantity: String!
   }
+  input TagInput {
+    name: String!
+  }
+  input IngredientInput {
+    name: String!
+    quantity: String!
+  }
   type Cocktail {
     _id: ID!
     name: String!
@@ -31,6 +38,15 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String, email: String, password: String): Auth
     login(email: String, password: String): Auth
+    addCocktail(
+      name: String!, 
+      ingredients: [IngredientInput!]!,
+      imageURL: String!
+      glassware: String!
+      instructions: String!
+      tags: [TagInput!]!
+    ) : Cocktail
+    deleteCocktail(cocktailId: ID!): Cocktail
   }
 `;
 

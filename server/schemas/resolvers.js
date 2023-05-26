@@ -14,7 +14,7 @@ const resolvers = {
     cocktails: async (parent, args) => {
       
      
-      return await Cocktail.find({}).populate('username').sort({ date: 'desc' });
+      return await Cocktail.find({}).sort({ date: 'desc' });
 
       
     
@@ -46,56 +46,58 @@ const resolvers = {
 
       return { token, user };
     },
-//     // add a transaction
-//     addCocktail: async (parent, { name, ingredients, imageURL, glassware }, context) => {
-//       try {
-//         if (context.user) {
-//           console.log('trying to add cocktail!')
-//           console.log(context.user.username);
-//           const cocktail = await Cocktail.create(
-//             {
-//               name,
-//               ingredients,
-//               imageURL,
-//               glassware,
-//             }
-//           );
+    // add a cocktail
+    addCocktail: async (parent, { name, ingredients, imageURL, glassware, instructions, tags }, context) => {
+      try {
+        if (context.user) {
+          console.log('trying to add cocktail!')
+          console.log(context.user.username);
+          const cocktail = await Cocktail.create(
+            {
+              name,
+              ingredients,
+              imageURL,
+              glassware,
+              instructions,
+              tags
+            }
+          );
 
-//           console.log("cocktail", cocktail);
-//           console.log("context.user._id", context.user._id);
+          console.log("cocktail", cocktail);
+          console.log("context.user._id", context.user._id);
 
-//           const user = await User.findOneAndUpdate(
-//             { _id: context.user._id },
-//             { $addToSet: { cocktails: cocktail._id } }
-//           );
-//           console.log(cocktail);
-//           console.log(user);
-//           return cocktail;
+          const user = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $addToSet: { cocktails: cocktail._id } }
+          );
+          console.log(cocktail);
+          console.log(user);
+          return cocktail;
 
-//         } else {
-//           throw new AuthenticationError("You need to be logged in!");
-//         }
-//       } catch (err) {
-//         console.log(err);
-//         throw new AuthenticationError(err);
-//       }
-//     },
-//     // delete a transaction
-//     deleteCocktail: async (parent, { cocktailId }, context) => {
-//       if (context.user) {
-//         const cocktail = await Cocktail.findOneAndDelete({
-//           _id: cocktailId,
-//         });
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.log(err);
+        throw new AuthenticationError(err);
+      }
+    },
+    // delete a transaction
+    deleteCocktail: async (parent, { cocktailId }, context) => {
+      if (context.user) {
+        const cocktail = await Cocktail.findOneAndDelete({
+          _id: cocktailId,
+        });
 
-//         await User.findOneAndUpdate(
-//           { _id: context.user._id },
-//           { $pull: { cocktails: cocktail._id } }
-//         );
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { cocktails: cocktail._id } }
+        );
 
-//         return cocktail;
-//       }
-//       throw new AuthenticationError('You need to be logged in!');
-//     }
+        return cocktail;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    }
    }
 };
 
