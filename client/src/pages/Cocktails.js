@@ -3,6 +3,7 @@ import "../styles/Home.css";
 import CocktailCard from "../components/CocktailCard";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
+import { ADD_COCKTAIL } from "../utils/mutations";
 
 const Cocktails = ({ cocktails, setCocktails }) => {
   const { data, loading, refetch } = useQuery(QUERY_ME);
