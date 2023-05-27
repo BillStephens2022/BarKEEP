@@ -14,7 +14,10 @@ const CocktailForm = () => {
   const [tagInput, setTagInput] = useState("");
 
   const handleIngredientAdd = () => {
-    const newIngredient = { name: ingredientName, quantity: ingredientQuantity };
+    const newIngredient = {
+      name: ingredientName,
+      quantity: ingredientQuantity,
+    };
     setIngredients([...ingredients, newIngredient]);
     setIngredientName("");
     setIngredientQuantity("");
@@ -49,93 +52,87 @@ const CocktailForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name:</label>
-      <input
-        type="text"
-        id="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
+    <div className="form-container">
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-      <label htmlFor="ingredients">Ingredients:</label>
-      <div>
-        {ingredients.map((ingredient, index) => (
-          <div key={index}>
-            <input
-              type="text"
-              value={ingredient.name}
-              readOnly
-            />
-            <input
-              type="text"
-              value={ingredient.quantity}
-              readOnly
-            />
-          </div>
-        ))}
-      </div>
-      <input
-        type="text"
-        placeholder="Ingredient Name"
-        value={ingredientName}
-        onChange={(e) => setIngredientName(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Quantity"
-        value={ingredientQuantity}
-        onChange={(e) => setIngredientQuantity(e.target.value)}
-        required
-      />
-      <button type="button" onClick={handleIngredientAdd}>
-        Add Ingredient
-      </button>
+        <label htmlFor="ingredients">Ingredients:</label>
+        <div>
+          {ingredients.map((ingredient, index) => (
+            <div key={index}>
+              <input type="text" value={ingredient.name} readOnly />
+              <input type="text" value={ingredient.quantity} readOnly />
+            </div>
+          ))}
+        </div>
+        <input
+          type="text"
+          placeholder="Ingredient Name"
+          value={ingredientName}
+          onChange={(e) => setIngredientName(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Quantity"
+          value={ingredientQuantity}
+          onChange={(e) => setIngredientQuantity(e.target.value)}
+          required
+        />
+        <button type="button" onClick={handleIngredientAdd}>
+          Add Ingredient
+        </button>
 
-      <label htmlFor="imageURL">Image URL:</label>
-      <input
-        type="text"
-        id="imageURL"
-        value={imageURL}
-        onChange={(e) => setImageURL(e.target.value)}
-      />
+        <label htmlFor="imageURL">Image URL:</label>
+        <input
+          type="text"
+          id="imageURL"
+          value={imageURL}
+          onChange={(e) => setImageURL(e.target.value)}
+        />
 
-      <label htmlFor="glassware">Glassware:</label>
-      <input
-        type="text"
-        id="glassware"
-        value={glassware}
-        onChange={(e) => setGlassware(e.target.value)}
-      />
+        <label htmlFor="glassware">Glassware:</label>
+        <input
+          type="text"
+          id="glassware"
+          value={glassware}
+          onChange={(e) => setGlassware(e.target.value)}
+        />
 
-      <label htmlFor="instructions">Instructions:</label>
-      <textarea
-        id="instructions"
-        value={instructions}
-        onChange={(e) => setInstructions(e.target.value)}
-      ></textarea>
+        <label htmlFor="instructions">Instructions:</label>
+        <textarea
+          id="instructions"
+          value={instructions}
+          onChange={(e) => setInstructions(e.target.value)}
+        ></textarea>
 
-      <label htmlFor="tags">Tags:</label>
-      <div>
-        {tags.map((tag, index) => (
-          <div key={index}>{tag}</div>
-        ))}
-      </div>
-      <input
-        type="text"
-        placeholder="Tag"
-        value={tagInput}
-        onChange={(e) => setTagInput(e.target.value)}
-        required
-      />
-      <button type="button" onClick={handleTagAdd}>
-        Add Tag
-      </button>
+        <label htmlFor="tags">Tags:</label>
+        <div>
+          {tags.map((tag, index) => (
+            <div key={index}>{tag}</div>
+          ))}
+        </div>
+        <input
+          type="text"
+          placeholder="Tag"
+          value={tagInput}
+          onChange={(e) => setTagInput(e.target.value)}
+          required
+        />
+        <button type="button" onClick={handleTagAdd}>
+          Add Tag
+        </button>
 
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 };
 
