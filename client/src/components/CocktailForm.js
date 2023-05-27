@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Home.css";
+import "../styles/CocktailForm.css";
 import { Button } from "react-bootstrap";
 
 const CocktailForm = () => {
