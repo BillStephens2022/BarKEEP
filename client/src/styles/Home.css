@@ -81,19 +81,6 @@
   background-color: var(--lightgray);
 }
 
-.add_cocktail_button {
-  color: var(--white);
-  background-color: var(--blue);
-  font-weight: 700;
-  letter-spacing: 0.2rem;
-  border: solid var(--white) 1px;
-  border-radius: 5%;
-  text-decoration: none;
-  box-shadow: 3px 3px 7px var(--darkgray);
-  text-transform: uppercase;
-  padding: 1rem;
-}
-
 .card_container {
   display: flex;
   margin-top: 2rem;
