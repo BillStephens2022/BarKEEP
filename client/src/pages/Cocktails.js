@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
 import CocktailCard from "../components/CocktailCard";
-import CocktailForm from "../components/CocktailForm";
+import AddCocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 import { ADD_COCKTAIL } from "../utils/mutations";

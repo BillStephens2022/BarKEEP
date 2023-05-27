@@ -1,66 +1,142 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "../styles/Home.css";
 import { Button } from "react-bootstrap";
 
-const CocktailForm = ({ setShowCocktailForm }) => {
-    const [errorMessage, setErrorMessage] = useState("");
-    const handleSubmit = () => {
-        return
-    }
+const CocktailForm = () => {
+  const [name, setName] = useState("");
+  const [ingredients, setIngredients] = useState([]);
+  const [ingredientName, setIngredientName] = useState("");
+  const [ingredientQuantity, setIngredientQuantity] = useState("");
+  const [imageURL, setImageURL] = useState("");
+  const [glassware, setGlassware] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState("");
 
-    const handleChange = () => {
-        return
-    }
+  const handleIngredientAdd = () => {
+    const newIngredient = { name: ingredientName, quantity: ingredientQuantity };
+    setIngredients([...ingredients, newIngredient]);
+    setIngredientName("");
+    setIngredientQuantity("");
+  };
+
+  const handleTagAdd = () => {
+    setTags([...tags, tagInput]);
+    setTagInput("");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Send form data to the server
+    const formData = {
+      name,
+      ingredients,
+      imageURL,
+      glassware,
+      instructions,
+      tags,
+    };
+    // Reset form fields
+    setName("");
+    setIngredients([]);
+    setIngredientName("");
+    setIngredientQuantity("");
+    setImageURL("");
+    setGlassware("");
+    setInstructions("");
+    setTags([]);
+    setTagInput("");
+  };
 
   return (
-    <>
-      <div className="form_cocktail">
-        <div className="form_cocktail_image">
-          <img src="https://i0.wp.com/vintageamericancocktails.com/wp-content/uploads/2022/01/patricia.jpg?resize=750%2C750&ssl=1" alt="cocktail pic" className="form_cocktail_pic" />
-        </div>
-        <form onSubmit={handleSubmit}>
-          
-          <div className="form-group">
-            <label htmlFor="name">Cocktail Name:</label>
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+
+      <label htmlFor="ingredients">Ingredients:</label>
+      <div>
+        {ingredients.map((ingredient, index) => (
+          <div key={index}>
             <input
-              className="form-control"
-              id="cocktail_name"
-              name="name"
-              onChange={handleChange}
+              type="text"
+              value={ingredient.name}
+              readOnly
+            />
+            <input
+              type="text"
+              value={ingredient.quantity}
+              readOnly
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="imageURL">Image URL:</label>
-            <input
-              className="form-control"
-              id="imageURL"
-              name="imageURL"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="instructions">Instructions:</label>
-            <textarea
-              name="instructions"
-              className="form-control"
-              id="instructions"
-              rows="20"
-              onChange={handleChange}
-            ></textarea>
-          </div>
-          <div className="form-group">
-            <Button variant="primary" type="submit">
-              Add Cocktail
-            </Button>
-            {errorMessage ? (
-              <p className="error-message">{errorMessage}</p>
-            ) : null}
-          </div>
-        </form>
+        ))}
       </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    </>
+      <input
+        type="text"
+        placeholder="Ingredient Name"
+        value={ingredientName}
+        onChange={(e) => setIngredientName(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Quantity"
+        value={ingredientQuantity}
+        onChange={(e) => setIngredientQuantity(e.target.value)}
+        required
+      />
+      <button type="button" onClick={handleIngredientAdd}>
+        Add Ingredient
+      </button>
+
+      <label htmlFor="imageURL">Image URL:</label>
+      <input
+        type="text"
+        id="imageURL"
+        value={imageURL}
+        onChange={(e) => setImageURL(e.target.value)}
+      />
+
+      <label htmlFor="glassware">Glassware:</label>
+      <input
+        type="text"
+        id="glassware"
+        value={glassware}
+        onChange={(e) => setGlassware(e.target.value)}
+      />
+
+      <label htmlFor="instructions">Instructions:</label>
+      <textarea
+        id="instructions"
+        value={instructions}
+        onChange={(e) => setInstructions(e.target.value)}
+      ></textarea>
+
+      <label htmlFor="tags">Tags:</label>
+      <div>
+        {tags.map((tag, index) => (
+          <div key={index}>{tag}</div>
+        ))}
+      </div>
+      <input
+        type="text"
+        placeholder="Tag"
+        value={tagInput}
+        onChange={(e) => setTagInput(e.target.value)}
+        required
+      />
+      <button type="button" onClick={handleTagAdd}>
+        Add Tag
+      </button>
+
+      <button type="submit">Submit</button>
+    </form>
   );
-}
+};
 
 export default CocktailForm;
