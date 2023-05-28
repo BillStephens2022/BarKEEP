@@ -25,11 +25,12 @@ const SearchCocktails = () => {
       const response = await searchCocktails(searchInput);
 
       if (response.status !== 200) {
-        console.log("response status: ", response.status);
+        console.log("response: ", response);
         throw new Error("something went wrong!");
       }
-
+      console.log("RESPONSE: ", response);
       const { items } = await response.json();
+      
       const cocktailData = items.map((cocktail) => ({
         name: cocktail.drinks[0].strDrink,
         imageURL: cocktail.drinks[0].strDrinkThumb,
