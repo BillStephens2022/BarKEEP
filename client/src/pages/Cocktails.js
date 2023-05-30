@@ -3,13 +3,77 @@ import "../styles/Home.css";
 import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_ME } from "../utils/queries";
+import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
 import { ADD_COCKTAIL } from "../utils/mutations";
 import { Modal } from "react-bootstrap";
+import Auth from "../utils/auth";
 
 const Cocktails = ({ cocktails, setCocktails }) => {
   const [showCocktailForm, setShowCocktailForm] = useState(false);
+  const [cocktailFormState, setCocktailFormState] = useState({
+    name: "",
+    ingredients: [
+      {
+        name: "",
+        quantity: ""
+      }
+    ],
+    imageURL: "",
+    glassware: "",
+    instructions: "",
+    tags: ""
+  });
+
   const { data, loading, refetch } = useQuery(QUERY_ME);
+  
+  const [addCocktail] = useMutation(ADD_COCKTAIL, {
+    update(cache, { data: { addCocktail } }) {
+      try {
+        const { cocktails } = cache.readQuery({
+          query: QUERY_COCKTAILS,
+        }) ?? { cocktails: [] };
+
+        cache.writeQuery({
+          query: QUERY_COCKTAILS,
+          data: { cocktails: [addCocktail, ...cocktails] },
+        });
+
+        const { me } = cache.readQuery({ query: QUERY_ME });
+
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: {
+            me: { 
+              ...me, 
+              cocktails: [addCocktail, ...me.cocktails ],
+            },
+          },
+        });
+
+      } catch (e) {
+        console.log("error with mutation!");
+        console.error(e);
+      }
+      
+      
+      
+      console.log("updated cache:", cache.data.data);
+    },
+    variables: {
+      name: cocktailFormState.name,
+      ingredients: [
+        {
+          name: cocktailFormState.ingredients.name,
+          quantity: cocktailFormState.ingredients.quantity
+        }
+      ],
+      imageURL: cocktailFormState.imageURL,
+      glassware: cocktailFormState.glassware,
+      instructions: cocktailFormState.instructions,
+      tags: [cocktailFormState.tags],
+      username: Auth.getProfile().data.username,
+    },
+  });
 
   useEffect(() => {
     if (data?.me?.cocktails) {
@@ -37,6 +101,11 @@ const Cocktails = ({ cocktails, setCocktails }) => {
                 <Modal.Body>
                   <CocktailForm
                     setShowCocktailForm={setShowCocktailForm}
+                    addCocktail={addCocktail}
+                    cocktails={cocktails}
+                    setCocktails={setCocktails}
+                    cocktailFormState={cocktailFormState}
+                    setCocktailFormState={setCocktailFormState}
                   />
                 </Modal.Body>
               </Modal>

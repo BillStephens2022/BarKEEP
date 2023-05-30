@@ -14,7 +14,7 @@ const resolvers = {
     cocktails: async (parent, args) => {
       
      
-      return await Cocktail.find({}).sort({ date: 'desc' });
+      return await Cocktail.find({}).sort({ name: 'asc' });
 
       
     

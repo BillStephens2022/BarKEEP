@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../styles/CocktailForm.css";
 import { Button } from "react-bootstrap";
 
-const CocktailForm = () => {
+const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktails, cocktailFormState, setCocktailFormState }) => {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
@@ -28,28 +28,34 @@ const CocktailForm = () => {
     setTagInput("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Send form data to the server
-    const formData = {
-      name,
-      ingredients,
-      imageURL,
-      glassware,
-      instructions,
-      tags,
-    };
-    // Reset form fields
-    setName("");
-    setIngredients([]);
-    setIngredientName("");
-    setIngredientQuantity("");
-    setImageURL("");
-    setGlassware("");
-    setInstructions("");
-    setTags([]);
-    setTagInput("");
-    console.log(formData);
+    try {
+      const formData = await addCocktail({
+        variables: {
+          name,
+          ingredients,
+          imageURL,
+          glassware,
+          instructions,
+          tags,
+        }
+      });
+      // Reset form fields
+      setName("");
+      setIngredients([]);
+      setIngredientName("");
+      setIngredientQuantity("");
+      setImageURL("");
+      setGlassware("");
+      setInstructions("");
+      setTags([]);
+      setTagInput("");
+      console.log(formData);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

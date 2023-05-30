@@ -21,3 +21,20 @@ query Me {
     }
   }
 `;
+
+export const QUERY_COCKTAILS = gql`
+query Cocktails {
+  cocktails {
+    _id
+    glassware
+    imageURL
+    ingredients {
+      name
+      quantity
+    }
+    instructions
+    name
+    tags
+  }
+}
+`;
