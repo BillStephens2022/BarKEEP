@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Home.css";
-import { GoTrashcan } from "react-icons/go";
+import { GoPencil, GoTrashcan } from "react-icons/go";
 import Auth from "../utils/auth";
 
 const CocktailCard = ({ data, loading, cocktails, setCocktails }) => {
@@ -13,6 +13,10 @@ const CocktailCard = ({ data, loading, cocktails, setCocktails }) => {
   }
 
   const handleDeleteCocktail = () => {
+    return
+  }
+
+  const handleEditCocktail = () => {
     return
   }
 
@@ -45,6 +49,13 @@ const CocktailCard = ({ data, loading, cocktails, setCocktails }) => {
               onClick={handleDeleteCocktail}
               >
               <GoTrashcan />
+            </button>
+            <button
+              className="btn"
+              id={cocktail._id}
+              onClick={handleEditCocktail}
+              >
+              <GoPencil />
             </button>
           </div>
         </div>
