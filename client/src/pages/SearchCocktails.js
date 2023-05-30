@@ -22,6 +22,7 @@ const SearchCocktails = () => {
       return false;
     }
     try {
+        // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB
       const response = await searchCocktails(searchInput);
 
       if (response.status !== 200) {
@@ -39,6 +40,7 @@ const SearchCocktails = () => {
         ingredients: [],
         tags: [],
       }));
+      // will need to map ingredients and quantities from API call into ingredients array.
       console.log("SEARCH RESULTS: ", cocktailData);
       setSearchedCocktails(cocktailData);
       setSearchInput("");

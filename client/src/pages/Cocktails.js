@@ -21,16 +21,11 @@ const Cocktails = ({ cocktails, setCocktails }) => {
     return <div>Loading...</div>;
   }
 
-  const handleSearchClick = () => {
-    return
-  }
 
   return (
     <div className="cocktails-main">
       <h1 className="title">BarKEEP</h1>
       <h2 className="subtitle">My Cocktail Recipes</h2>
-      <input type="text" className="input_search_cocktails" placeholder="Search for a cocktail..."></input>
-      <a className="btn button_search_cocktails" onClick={() => handleSearchClick()}>Go!</a>
       <a className="btn add_cocktail_button" onClick={() => setShowCocktailForm(!showCocktailForm)}>Add Your Own Cocktail</a>
       {showCocktailForm && (
           <div className="modal-background">
