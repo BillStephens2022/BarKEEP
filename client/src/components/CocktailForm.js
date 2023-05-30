@@ -49,6 +49,7 @@ const CocktailForm = () => {
     setInstructions("");
     setTags([]);
     setTagInput("");
+    console.log(formData);
   };
 
   return (
