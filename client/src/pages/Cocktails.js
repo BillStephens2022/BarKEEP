@@ -57,15 +57,15 @@ const Cocktails = ({ cocktails, setCocktails }) => {
       console.log("updated cache:", cache.data.data);
     },
     variables: {
-      name: cocktailFormState.name,
+      name: cocktailFormState.name || undefined,
       ingredients: cocktailFormState.ingredients.map((ingredient) => ({
-        name: ingredient.name,
-        quantity: ingredient.quantity
+        name: ingredient.name || undefined,
+        quantity: ingredient.quantity || undefined
       })), 
-      imageURL: cocktailFormState.imageURL,
-      glassware: cocktailFormState.glassware,
-      instructions: cocktailFormState.instructions,
-      tags: cocktailFormState.tags
+      imageURL: cocktailFormState.imageURL || undefined,
+      glassware: cocktailFormState.glassware || undefined,
+      instructions: cocktailFormState.instructions || undefined,
+      tags: cocktailFormState.tags || undefined
     },
   });
 
@@ -149,6 +149,7 @@ const Cocktails = ({ cocktails, setCocktails }) => {
           loading={loading}
           cocktails={cocktails}
           setCocktails={setCocktails}
+          deleteCocktail={deleteCocktail}
         />
       </div>
     </div>

@@ -94,7 +94,7 @@ const resolvers = {
           { $pull: { cocktails: cocktail._id } }
         );
 
-        return cocktail;
+        return { _id: cocktail._id };
       }
       throw new AuthenticationError('You need to be logged in!');
     }

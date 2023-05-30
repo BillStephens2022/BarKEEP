@@ -48,13 +48,3 @@ const typeDefs = gql`
 `;
 
 module.exports = typeDefs;
-
-// addCocktail(
-//   name: String!
-//   ingredients: [Ingredient!]
-//   instructions: String!
-//   glassware: [String!]
-//   imageURL: String!
-//   tags: String!
-// ) : Cocktail
-// deleteCocktail(cocktailId: ID!): Cocktail

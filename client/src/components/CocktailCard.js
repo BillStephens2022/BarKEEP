@@ -14,7 +14,7 @@ const CocktailCard = ({ data, loading, cocktails, setCocktails, deleteCocktail }
 
   const handleDeleteCocktail = async (e) => {
     e.preventDefault();
-    const cocktailId = e.target.id;
+    const cocktailId = e.currentTarget.id;
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) return false;
     console.log("deleting cocktail!")
@@ -43,19 +43,20 @@ const CocktailCard = ({ data, loading, cocktails, setCocktails, deleteCocktail }
   return (
     <>
       {cocktails.map((cocktail) => (
-        <div className="card">
+        <div className="card" key={cocktail._id}>
           <div className="card_title">{cocktail.name}</div>
           <div className="card_body">
             <div className="card_photo">
               <img
                 className="cocktail_photo"
                 src={cocktail.imageURL}
+                alt="cocktail"
               ></img>
             </div>
             <div className="card_recipe">
               <ul className="ingredients_list">
-                {cocktail.ingredients.map((ingredient) => (
-                <li className="ingredient">{ingredient.quantity} {ingredient.name}</li>
+                {cocktail.ingredients.map((ingredient, index) => (
+                <li className="ingredient" key={index}>{ingredient.quantity} {ingredient.name}</li>
                 ))}
               </ul>
               <h5>Instructions</h5>
