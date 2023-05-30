@@ -21,7 +21,7 @@ const Cocktails = ({ cocktails, setCocktails }) => {
     imageURL: "",
     glassware: "",
     instructions: "",
-    tags: ""
+    tags: []
   });
 
   const { data, loading, refetch } = useQuery(QUERY_ME);
