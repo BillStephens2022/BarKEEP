@@ -26,8 +26,8 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_COCKTAIL = gql`
-  mutation AddCocktail($name: String!, $ingredients: [IngredientInput!]!, $imageUrl: String!, $glassware: String!, $instructions: String!, $tags: [String!]!) {
-    addCocktail(name: $name, ingredients: $ingredients, imageURL: $imageUrl, glassware: $glassware, instructions: $instructions, tags: $tags) {
+  mutation AddCocktail($name: String!, $ingredients: [IngredientInput!]!, $imageURL: String!, $glassware: String!, $instructions: String!, $tags: [String!]!) {
+    addCocktail(name: $name, ingredients: $ingredients, imageURL: $imageURL, glassware: $glassware, instructions: $instructions, tags: $tags) {
       _id
       glassware
       imageURL

@@ -34,6 +34,14 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("FORM DATA: ", {
+      name,
+      ingredients,
+      imageURL,
+      glassware,
+      instructions,
+      tags,
+    });
     // Check if any required fields are empty
     if (!name || !ingredients.length || !tags.length) {
       console.log("Please fill in all required fields");
@@ -51,7 +59,7 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
           tags,
         }
       });
-      console.log("FORM DATA: ", formData);
+      console.log(formData);
       // Reset form fields
       setName("");
       setIngredients([]);
