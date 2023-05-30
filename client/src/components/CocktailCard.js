@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Home.css";
+import { GoTrashcan } from "react-icons/go";
 import Auth from "../utils/auth";
 
 const CocktailCard = ({ data, loading, cocktails, setCocktails }) => {
@@ -9,6 +10,10 @@ const CocktailCard = ({ data, loading, cocktails, setCocktails }) => {
 
   if (!cocktails.length) {
     return <h3>No Cocktails Saved Yet</h3>;
+  }
+
+  const handleDeleteCocktail = () => {
+    return
   }
 
   return (
@@ -33,7 +38,15 @@ const CocktailCard = ({ data, loading, cocktails, setCocktails }) => {
               <p className="p_instructions">{cocktail.instructions}</p>
             </div>
           </div>
-          <div className="card_footer"></div>
+          <div className="card_footer">
+            <button
+              className="btn"
+              id={cocktail._id}
+              onClick={handleDeleteCocktail}
+              >
+              <GoTrashcan />
+            </button>
+          </div>
         </div>
       ))}
     </>
