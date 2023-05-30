@@ -29,12 +29,15 @@ const SearchCocktails = () => {
         throw new Error("something went wrong!");
       }
       console.log("RESPONSE: ", response);
-      const { items } = await response.json();
-      
-      const cocktailData = items.map((cocktail) => ({
-        name: cocktail.drinks[0].strDrink,
-        imageURL: cocktail.drinks[0].strDrinkThumb,
-        instructions: cocktail.drinks[0].strInstructions,
+      const items = await response.json();
+      console.log(items.drinks);
+      const cocktailData = items.drinks.map((cocktail) => ({
+        name: cocktail.strDrink,
+        imageURL: cocktail.strDrinkThumb,
+        instructions: cocktail.strInstructions,
+        glassware: cocktail.strGlass,
+        ingredients: [],
+        tags: [],
       }));
       console.log("SEARCH RESULTS: ", cocktailData);
       setSearchedCocktails(cocktailData);
