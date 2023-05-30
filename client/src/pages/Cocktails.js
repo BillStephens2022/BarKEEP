@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
 import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
@@ -72,11 +72,11 @@ const Cocktails = ({ cocktails, setCocktails }) => {
     },
   });
 
-  // useEffect(() => {
-  //   if (data?.me?.cocktails) {
-  //     setCocktails(data?.me?.cocktails);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data?.me?.cocktails) {
+      setCocktails(data?.me?.cocktails);
+    }
+  }, [data]);
 
   if (loading) {
     return <div>Loading...</div>;
