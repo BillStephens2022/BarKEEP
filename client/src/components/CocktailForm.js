@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/CocktailForm.css";
-import { Button } from "react-bootstrap";
+
 
 const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktails, cocktailFormState, setCocktailFormState }) => {
   const [name, setName] = useState("");
@@ -14,22 +14,31 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
   const [tagInput, setTagInput] = useState("");
 
   const handleIngredientAdd = () => {
-    const newIngredient = {
-      name: ingredientName,
-      quantity: ingredientQuantity,
-    };
-    setIngredients([...ingredients, newIngredient]);
-    setIngredientName("");
-    setIngredientQuantity("");
+    if (ingredientName && ingredientQuantity) {
+      const newIngredient = {
+        name: ingredientName,
+        quantity: ingredientQuantity
+      };
+      setIngredients([...ingredients, newIngredient]);
+      setIngredientName("");
+      setIngredientQuantity("");
+    }
   };
 
   const handleTagAdd = () => {
-    setTags([...tags, tagInput]);
-    setTagInput("");
+    if (tagInput) {
+      setTags([...tags, tagInput]);
+      setTagInput("");
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Check if any required fields are empty
+    if (!name || !ingredients.length || !tags.length) {
+      console.log("Please fill in all required fields");
+      return
+    }
     // Send form data to the server
     try {
       const formData = await addCocktail({
@@ -42,6 +51,7 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
           tags,
         }
       });
+      console.log("FORM DATA: ", formData);
       // Reset form fields
       setName("");
       setIngredients([]);
@@ -52,7 +62,7 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
       setInstructions("");
       setTags([]);
       setTagInput("");
-      console.log(formData);
+      
     } catch (err) {
       console.error(err);
     }

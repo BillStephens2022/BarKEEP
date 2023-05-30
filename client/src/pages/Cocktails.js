@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/Home.css";
 import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
@@ -6,7 +6,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
 import { ADD_COCKTAIL } from "../utils/mutations";
 import { Modal } from "react-bootstrap";
-import Auth from "../utils/auth";
+
 
 const Cocktails = ({ cocktails, setCocktails }) => {
   const [showCocktailForm, setShowCocktailForm] = useState(false);
@@ -24,7 +24,7 @@ const Cocktails = ({ cocktails, setCocktails }) => {
     tags: []
   });
 
-  const { data, loading, refetch } = useQuery(QUERY_ME);
+  const { data, loading } = useQuery(QUERY_ME);
   
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     update(cache, { data: { addCocktail } }) {
@@ -61,25 +61,22 @@ const Cocktails = ({ cocktails, setCocktails }) => {
     },
     variables: {
       name: cocktailFormState.name,
-      ingredients: [
-        {
-          name: cocktailFormState.ingredients.name,
-          quantity: cocktailFormState.ingredients.quantity
-        }
-      ],
+      ingredients: cocktailFormState.ingredients.map((ingredient) => ({
+        name: ingredient.name,
+        quantity: ingredient.quantity
+      })), 
       imageURL: cocktailFormState.imageURL,
       glassware: cocktailFormState.glassware,
       instructions: cocktailFormState.instructions,
-      tags: [cocktailFormState.tags],
-      username: Auth.getProfile().data.username,
+      tags: cocktailFormState.tags
     },
   });
 
-  useEffect(() => {
-    if (data?.me?.cocktails) {
-      setCocktails(data?.me?.cocktails);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data?.me?.cocktails) {
+  //     setCocktails(data?.me?.cocktails);
+  //   }
+  // }, [data]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -90,7 +87,7 @@ const Cocktails = ({ cocktails, setCocktails }) => {
     <div className="cocktails-main">
       <h1 className="title">BarKEEP</h1>
       <h2 className="subtitle">My Cocktail Recipes</h2>
-      <a className="btn add_cocktail_button" onClick={() => setShowCocktailForm(!showCocktailForm)}>Add Your Own Cocktail</a>
+      <button className="btn add_cocktail_button" onClick={() => setShowCocktailForm(!showCocktailForm)}>Add Your Own Cocktail</button>
       {showCocktailForm && (
           <div className="modal-background">
             <div className="modal">

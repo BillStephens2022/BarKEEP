@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Auth from "../utils/auth";
 import { ADD_COCKTAIL } from "../utils/mutations";
 import { searchCocktails } from "../utils/API";
 
@@ -10,7 +9,7 @@ const SearchCocktails = () => {
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
 
-  const [addCocktail] = useMutation(ADD_COCKTAIL);
+  // const [addCocktail] = useMutation(ADD_COCKTAIL);
 
   // create state to hold saved bookId values in local storage - need to add function in utils folder
   // const [savedCocktailIds, setSavedCocktailIds] = useState(getSavedCocktailIds());
