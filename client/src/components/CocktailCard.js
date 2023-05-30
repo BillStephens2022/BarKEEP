@@ -3,7 +3,7 @@ import "../styles/Home.css";
 import { GoPencil, GoTrashcan } from "react-icons/go";
 import Auth from "../utils/auth";
 
-const CocktailCard = ({ data, loading, cocktails, setCocktails }) => {
+const CocktailCard = ({ data, loading, cocktails, setCocktails, deleteCocktail }) => {
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -12,12 +12,32 @@ const CocktailCard = ({ data, loading, cocktails, setCocktails }) => {
     return <h3>No Cocktails Saved Yet</h3>;
   }
 
-  const handleDeleteCocktail = () => {
-    return
+  const handleDeleteCocktail = async (e) => {
+    e.preventDefault();
+    const cocktailId = e.target.id;
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) return false;
+    console.log("deleting cocktail!")
+    try {
+      const { data } = await deleteCocktail({
+        variables: { cocktailId },
+      });
+      if (!data) {
+        throw new Error("something went wrong!");
+      }
+      console.log("done!");
+    } catch (err) {
+      console.error(err);
+    }
+    setCocktails(
+      cocktails.filter((cocktails) => cocktails._id !== cocktailId)
+    );
+    console.log(data);
   }
 
   const handleEditCocktail = () => {
-    return
+    console.log("editing cocktail!")
+    return;
   }
 
   return (

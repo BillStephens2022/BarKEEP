@@ -4,7 +4,7 @@ import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
-import { ADD_COCKTAIL } from "../utils/mutations";
+import { ADD_COCKTAIL, DELETE_COCKTAIL } from "../utils/mutations";
 import { Modal } from "react-bootstrap";
 
 
@@ -24,7 +24,7 @@ const Cocktails = ({ cocktails, setCocktails }) => {
     tags: []
   });
 
-  const { data, loading } = useQuery(QUERY_ME);
+  const { data, loading, refetch } = useQuery(QUERY_ME);
   
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     update(cache, { data: { addCocktail } }) {
@@ -54,9 +54,6 @@ const Cocktails = ({ cocktails, setCocktails }) => {
         console.log("error with mutation!");
         console.error(e);
       }
-      
-      
-      
       console.log("updated cache:", cache.data.data);
     },
     variables: {
@@ -69,6 +66,43 @@ const Cocktails = ({ cocktails, setCocktails }) => {
       glassware: cocktailFormState.glassware,
       instructions: cocktailFormState.instructions,
       tags: cocktailFormState.tags
+    },
+  });
+
+  const [deleteCocktail] = useMutation(DELETE_COCKTAIL, {
+    update(cache, { data: { deleteCocktail } }) {
+      try {
+        const { cocktails } = cache.readQuery({
+          query: QUERY_COCKTAILS,
+        }) ?? { cocktails: [] };
+  
+        const updatedCocktails = cocktails.filter(
+          (cocktail) => cocktail._id !== deleteCocktail._id
+        );
+  
+        cache.writeQuery({
+          query: QUERY_COCKTAILS,
+          data: { cocktails: updatedCocktails },
+        });
+  
+        const { me } = cache.readQuery({ query: QUERY_ME });
+  
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: {
+            me: {
+              ...me,
+              cocktails: updatedCocktails,
+            },
+          },
+        });
+      } catch (e) {
+        console.log("error with mutation!");
+        console.error(e);
+      }
+      
+      console.log("updated cache:", cache.data.data);
+      refetch();
     },
   });
 

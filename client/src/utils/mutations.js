@@ -41,3 +41,12 @@ export const ADD_COCKTAIL = gql`
     }
   }
 `;
+
+export const DELETE_COCKTAIL = gql`
+  mutation DeleteCocktail($cocktailId: ID!) {
+    deleteCocktail(cocktailId: $cocktailId) {
+      _id
+      name
+    }
+  }
+`;
