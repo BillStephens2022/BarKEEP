@@ -80,7 +80,7 @@ const CocktailCard = ({
             </div>
           </div>
           <div className="card-side card-back">
-            <h5>Instructions</h5>
+            <h5 className="h_instructions">Instructions</h5>
             <p className="p_instructions">{cocktail.instructions}</p>
           </div>
           <div className="card_footer">

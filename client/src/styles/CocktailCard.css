@@ -3,6 +3,8 @@
   width: 20rem;
   height: 30rem;
   perspective: 1000px;
+  margin: 1rem;
+  background-color: var(--darkgray);
 }
 
 .card-front,
@@ -20,6 +22,7 @@
 }
 
 .card-back {
+  padding: 1.25rem;
   transform: rotateY(180deg);
 }
 
@@ -34,13 +37,15 @@
 .card_title {
   font-size: 24px;
   font-weight: bold;
-  color: var(--darkgray);
+  color: var(--white);
+  padding: 1rem;
+  letter-spacing: 0.25rem;
 }
 
 .card_body {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+
   height: 100%;
 }
 
@@ -51,7 +56,8 @@
 }
 
 .ingredients_list {
-  color: var(--darkgray);
+  margin-top: 1rem;
+  color: var(--white);
   list-style-type: none;
   padding: 0;
 }
@@ -61,12 +67,27 @@
 }
 
 .card-side.card-back {
+  background-color: var(--maroon);
   transform: rotateY(180deg);
 }
-/*   
-  .card-side.card-back .p_instructions {
-    transform: rotateY(180deg);
-  } */
+
+.card-side.card-back .p_instructions,
+.h_instructions {
+  color: var(--white);
+}
+
+.h_instructions {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.2rem;
+    padding: 1rem;
+}
+
+.p_instructions {
+    font-size: 1.25rem;
+}
+
+
 
 .card_footer {
   display: flex;
@@ -81,7 +102,7 @@
 .btn {
   background-color: transparent;
   border: none;
-  color: #000;
+  color: var(--white);
   cursor: pointer;
   font-size: 24px;
   margin-right: 8px;
