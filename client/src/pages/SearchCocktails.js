@@ -37,13 +37,15 @@ const SearchCocktails = () => {
         const ingredients = [];
         for (let i = 1; i <= 15; i++) {
           const ingredient = cocktail[`strIngredient${i}`];
+          const quantity = cocktail[`strMeasure${i}`];
           if (ingredient) {
-            ingredients.push(ingredient);
+            ingredients.push({name: ingredient, quantity: quantity});
           } else {
             break; // stop iterating if no more ingredients are found
           }
         }
         return {
+        _id: cocktail.idDrink,
         name: cocktail.strDrink,
         imageURL: cocktail.strDrinkThumb,
         instructions: cocktail.strInstructions,
