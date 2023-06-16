@@ -26,6 +26,7 @@ const SearchCocktails = () => {
 
       if (response.status !== 200) {
         console.log("response: ", response);
+        console.log(response.status);
         throw new Error("something went wrong!");
       }
       console.log("RESPONSE: ", response);

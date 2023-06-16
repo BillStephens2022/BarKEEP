@@ -7,7 +7,7 @@ export const searchCocktails = async (query) => {
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
     }
-    return response.json();
+    return response;
   } catch (err) {
     console.error('Error fetching cocktail data: ', err);
     throw err;
