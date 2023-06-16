@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_COCKTAIL } from "../utils/mutations";
 import { searchCocktails } from "../utils/API";
+import CocktailCard from "../components/CocktailCard";
 
 const SearchCocktails = () => {
   // create state for holding returned google api data
@@ -77,6 +78,12 @@ const SearchCocktails = () => {
           Go!
         </button>
       </form>
+      <CocktailCard
+          cocktails={searchedCocktails}
+          
+        />
+
+
     </div>
   );
 };
