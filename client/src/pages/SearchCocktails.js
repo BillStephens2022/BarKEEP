@@ -80,12 +80,12 @@ const SearchCocktails = () => {
           Go!
         </button>
       </form>
+      <div className="card_container">
       <CocktailCard
           cocktails={searchedCocktails}
           
         />
-
-
+      </div>
     </div>
   );
 };
