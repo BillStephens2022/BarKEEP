@@ -30,16 +30,27 @@ const SearchCocktails = () => {
         throw new Error("something went wrong!");
       }
       console.log("RESPONSE: ", response);
-      const items = await response.json();
-      console.log(items.drinks);
-      const cocktailData = items.drinks.map((cocktail) => ({
+      const searchResults = await response.json();
+      console.log(searchResults.drinks);
+      const cocktailData = searchResults.drinks.map((cocktail) => {
+        const ingredients = [];
+        for (let i = 1; i <= 15; i++) {
+          const ingredient = cocktail[`strIngredient${i}`];
+          if (ingredient) {
+            ingredients.push(ingredient);
+          } else {
+            break; // stop iterating if no more ingredients are found
+          }
+        }
+        return {
         name: cocktail.strDrink,
         imageURL: cocktail.strDrinkThumb,
         instructions: cocktail.strInstructions,
         glassware: cocktail.strGlass,
-        ingredients: [],
+        ingredients: ingredients,
         tags: [],
-      }));
+        };
+      });
       // will need to map ingredients and quantities from API call into ingredients array.
       console.log("SEARCH RESULTS: ", cocktailData);
       setSearchedCocktails(cocktailData);
