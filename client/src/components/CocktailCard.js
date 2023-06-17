@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/CocktailCard.css";
-import { GoPencil, GoTrashcan } from "react-icons/go";
+import { GoPencil, GoTrashcan, GoPlus } from "react-icons/go";
 import Auth from "../utils/auth";
 
 const CocktailCard = ({
@@ -44,6 +44,11 @@ const CocktailCard = ({
 
   const handleEditCocktail = () => {
     console.log("editing cocktail!");
+    return;
+  };
+
+  const handleAddCocktail = () => {
+    console.log("adding cocktail!");
     return;
   };
 
@@ -104,7 +109,12 @@ const CocktailCard = ({
             </>
           )}
           {page === "SearchCocktails" && (
-            <button className="btn">Add</button>
+            <button 
+              className="btn"
+              id={cocktail._id}
+              onClick={handleAddCocktail}>
+                <GoPlus />
+            </button>
           )}
           </div>
         </div>
