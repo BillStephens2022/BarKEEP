@@ -32,14 +32,16 @@ const SearchCocktails = () => {
       }
       console.log("RESPONSE: ", response);
       const searchResults = await response.json();
-      console.log(searchResults.drinks);
+      console.log(searchResults);
       const cocktailData = searchResults.drinks.map((cocktail) => {
         const ingredients = [];
+        const tags = [];
         for (let i = 1; i <= 15; i++) {
           const ingredient = cocktail[`strIngredient${i}`];
           const quantity = cocktail[`strMeasure${i}`];
           if (ingredient) {
             ingredients.push({name: ingredient, quantity: quantity});
+            tags.push(ingredient)
           } else {
             break; // stop iterating if no more ingredients are found
           }
@@ -51,7 +53,7 @@ const SearchCocktails = () => {
         instructions: cocktail.strInstructions,
         glassware: cocktail.strGlass,
         ingredients: ingredients,
-        tags: [],
+        tags: tags,
         };
       });
       // will need to map ingredients and quantities from API call into ingredients array.
