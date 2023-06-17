@@ -67,6 +67,7 @@ const Cocktails = ({ cocktails, setCocktails }) => {
       instructions: cocktailFormState.instructions || undefined,
       tags: cocktailFormState.tags || undefined
     },
+    refetchQueries: [{ query: QUERY_COCKTAILS }]
   });
 
   const [deleteCocktail] = useMutation(DELETE_COCKTAIL, {
@@ -110,7 +111,8 @@ const Cocktails = ({ cocktails, setCocktails }) => {
     if (data?.me?.cocktails) {
       setCocktails(data?.me?.cocktails);
     }
-  }, [data]);
+  }, [data, refetch]);
+  
 
   if (loading) {
     return <div>Loading...</div>;
