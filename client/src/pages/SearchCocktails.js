@@ -10,7 +10,19 @@ const SearchCocktails = () => {
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
 
-  // const [addCocktail] = useMutation(ADD_COCKTAIL);
+  const [addCocktail] = useMutation(ADD_COCKTAIL);
+
+  const handleAddCocktail = async (cocktailData) => {
+    console.log(cocktailData);
+    try {
+      const { data } = await addCocktail({
+        variables: cocktailData,
+      });
+      console.log("Cocktail added: ", data.addCocktail);
+    } catch (error) {
+      console.error("Error adding cocktail:", error)
+    }
+  };
 
   // create state to hold saved bookId values in local storage - need to add function in utils folder
   // const [savedCocktailIds, setSavedCocktailIds] = useState(getSavedCocktailIds());
@@ -86,6 +98,7 @@ const SearchCocktails = () => {
       <CocktailCard
           cocktails={searchedCocktails}
           page="SearchCocktails"
+          handleAddCocktail = {handleAddCocktail}
         />
       </div>
     </div>

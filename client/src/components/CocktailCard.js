@@ -9,7 +9,8 @@ const CocktailCard = ({
   cocktails,
   setCocktails,
   deleteCocktail,
-  page
+  page,
+  handleAddCocktail
 }) => {
   const [flippedCard, setFlippedCard] = useState(null);
 
@@ -44,11 +45,6 @@ const CocktailCard = ({
 
   const handleEditCocktail = () => {
     console.log("editing cocktail!");
-    return;
-  };
-
-  const handleAddCocktail = () => {
-    console.log("adding cocktail!");
     return;
   };
 
@@ -112,7 +108,7 @@ const CocktailCard = ({
             <button 
               className="btn"
               id={cocktail._id}
-              onClick={handleAddCocktail}>
+              onClick={() => handleAddCocktail(cocktail)}>
                 <GoPlus />
             </button>
           )}
