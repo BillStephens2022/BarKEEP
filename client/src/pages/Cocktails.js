@@ -150,6 +150,7 @@ const Cocktails = ({ cocktails, setCocktails }) => {
           cocktails={cocktails}
           setCocktails={setCocktails}
           deleteCocktail={deleteCocktail}
+          page="Cocktails"
         />
       </div>
     </div>

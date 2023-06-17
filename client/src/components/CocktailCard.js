@@ -9,6 +9,7 @@ const CocktailCard = ({
   cocktails,
   setCocktails,
   deleteCocktail,
+  page
 }) => {
   const [flippedCard, setFlippedCard] = useState(null);
 
@@ -84,6 +85,8 @@ const CocktailCard = ({
             <p className="p_instructions">{cocktail.instructions}</p>
           </div>
           <div className="card_footer">
+          {page === "Cocktails" && (
+            <>
             <button
               className="btn"
               id={cocktail._id}
@@ -98,6 +101,11 @@ const CocktailCard = ({
             >
               <GoPencil />
             </button>
+            </>
+          )}
+          {page === "SearchCocktails" && (
+            <button className="btn">Add</button>
+          )}
           </div>
         </div>
       ))}

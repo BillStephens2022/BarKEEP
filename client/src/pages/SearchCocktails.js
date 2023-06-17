@@ -83,7 +83,7 @@ const SearchCocktails = () => {
       <div className="card_container">
       <CocktailCard
           cocktails={searchedCocktails}
-          
+          page="SearchCocktails"
         />
       </div>
     </div>
