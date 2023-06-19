@@ -83,7 +83,9 @@
 
 .card_container {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 2rem;
+  justify-content: center;
 }
 
 /* Login Page */
