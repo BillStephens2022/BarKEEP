@@ -9,6 +9,7 @@ import { Modal } from "react-bootstrap";
 
 
 const Cocktails = ({ cocktails, setCocktails }) => {
+  
   const [showCocktailForm, setShowCocktailForm] = useState(false);
   const [cocktailFormState, setCocktailFormState] = useState({
     name: "",
