@@ -19,7 +19,7 @@ const CocktailCard = ({
   }
 
   if (!cocktails.length) {
-    return <h3>No Cocktails Saved Yet</h3>;
+    return <h3 className="cocktail_card_error">No Cocktails to display yet</h3>;
   }
 
   const handleDeleteCocktail = async (e) => {
@@ -89,14 +89,14 @@ const CocktailCard = ({
           {page === "Cocktails" && (
             <>
             <button
-              className="btn"
+              className="btn cocktail_card_btn"
               id={cocktail._id}
               onClick={handleDeleteCocktail}
             >
               <GoTrashcan />
             </button>
             <button
-              className="btn"
+              className="btn cocktail_card_btn"
               id={cocktail._id}
               onClick={handleEditCocktail}
             >

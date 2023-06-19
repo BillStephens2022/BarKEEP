@@ -58,12 +58,14 @@
   letter-spacing: 1rem;
   margin-top: 3rem;
   margin-bottom: 2rem;
+  color: var(--white);
 }
 
 .subtitle {
   font-size: 2rem;
   letter-spacing: 0.4rem;
   margin-bottom: 3rem;
+  color: var(--white);
 }
 
 .home_photo_image {
@@ -99,14 +101,14 @@
 
 /* Button component */
 .btn {
-  background-color: var(--darkgray);
+  background-color: var(--blue);
   margin: 0.5rem;
   color: var(--white);
   font-size: 1rem;
 }
 
-.btn:hover {
-  background-color: var(--blue);
+.add_cocktail_button:hover, .search_cocktail_button:hover {
+  background-color: var(--yellow);
 }
 
 /* Register / Login Forms */

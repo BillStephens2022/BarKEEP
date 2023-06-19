@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Home.css";
 import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
 import { ADD_COCKTAIL, DELETE_COCKTAIL } from "../utils/mutations";
 import { Modal } from "react-bootstrap";
+import "../styles/Home.css";
 
 
 const Cocktails = ({ cocktails, setCocktails }) => {
@@ -125,6 +125,7 @@ const Cocktails = ({ cocktails, setCocktails }) => {
       <h1 className="title">BarKEEP</h1>
       <h2 className="subtitle">My Cocktail Recipes</h2>
       <button className="btn add_cocktail_button" onClick={() => setShowCocktailForm(!showCocktailForm)}>Add Your Own Cocktail</button>
+      <button className="btn search_cocktail_button">Search for a new Cocktail</button>
       {showCocktailForm && (
           <div className="modal-background">
             <div className="modal">

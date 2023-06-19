@@ -4,6 +4,7 @@ import { ADD_COCKTAIL } from "../utils/mutations";
 import { searchCocktails } from "../utils/API";
 import CocktailCard from "../components/CocktailCard";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
+import "../styles/Home.css";
 
 const SearchCocktails = () => {
   // create state for holding returned google api data

@@ -99,7 +99,7 @@
   padding: 8px;
 }
 
-.btn {
+.cocktail_card_btn {
   background-color: transparent;
   border: none;
   color: var(--white);
@@ -107,6 +107,10 @@
   font-size: 24px;
   margin-right: 8px;
   padding: 0;
+}
+
+.cocktail_card_error {
+  color: var(--maroon);
 }
 
 .btn-trashcan {
