@@ -9,6 +9,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import RandomCocktail from './pages/RandomCocktail';
 import Cocktails from './pages/Cocktails';
 import SearchCocktails from './pages/SearchCocktails';
 import Login from './pages/Login';
@@ -47,6 +48,10 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route
+              path="/randomCocktail"
+              element={<RandomCocktail />}
+            />
             <Route
               path="/cocktails"
               element={<Cocktails cocktails={cocktails} setCocktails={setCocktails} />}

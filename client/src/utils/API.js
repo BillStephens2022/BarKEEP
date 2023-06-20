@@ -13,3 +13,16 @@ export const searchCocktails = async (query) => {
     throw err;
   }
 };
+
+export const getRandomCocktail = async () => {
+  try {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+    return response;
+  } catch (err) {
+    console.error('Error fetching cocktail data: ', err);
+    throw err;
+  }
+};
