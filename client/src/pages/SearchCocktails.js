@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, useApolloClient } from "@apollo/client";
 import { ADD_COCKTAIL } from "../utils/mutations";
 import { searchCocktails, getCocktailsbyIngredient } from "../utils/API";
@@ -12,15 +12,22 @@ const SearchCocktails = () => {
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
   const [selectedIngredient, setSelectedIngredient] = useState();
-  const handleIngredientChange = (event) => {
-    console.log(event.target.value);
-    setSelectedIngredient(event.target.value);
-    handleSearchSubmit();
-  };
+  
   const client = useApolloClient();
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     refetchQueries: [{ query: QUERY_ME }],
   });
+
+  const handleIngredientChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedIngredient(selectedValue);
+    setSearchInput("");
+    
+  };
+
+  useEffect(() => {
+    handleSearchSubmit();
+  }, [selectedIngredient]);
 
   const handleAddCocktail = async (cocktailData) => {
     try {
@@ -124,6 +131,10 @@ const SearchCocktails = () => {
       }
       // will need to map ingredients and quantities from API call into ingredients array.
       setSearchedCocktails(cocktailData);
+      if (event) {
+        event.preventDefault();
+      }
+      setSelectedIngredient("");
     } catch (err) {
       console.error(err);
     }
