@@ -44,46 +44,79 @@ const SearchCocktails = () => {
   const handleSearchSubmit = async (event) => {
     // add asynchronous function to handle cocktail searches from the API
     event.preventDefault();
-    if (!searchInput) {
+    if (!searchInput && !selectedIngredient) {
       return false;
     }
-    try {
-      // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB
-      const response = await searchCocktails(searchInput);
 
-      if (response.status !== 200) {
-        console.log("response: ", response);
-        console.log(response.status);
-        throw new Error("something went wrong!");
-      }
-      console.log("RESPONSE: ", response);
-      const searchResults = await response.json();
-      console.log(searchResults);
-      const cocktailData = searchResults.drinks.map((cocktail) => {
-        const ingredients = [];
-        const tags = [];
-        for (let i = 1; i <= 15; i++) {
-          const ingredient = cocktail[`strIngredient${i}`];
-          const quantity = cocktail[`strMeasure${i}`];
-          if (ingredient) {
-            ingredients.push({ name: ingredient, quantity: quantity });
-            tags.push(ingredient);
-          } else {
-            break; // stop iterating if no more ingredients are found
-          }
+    try {
+      let cocktailData = [];
+      if (searchInput) {
+        
+        // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB to search recipes by cocktail name
+        const response = await searchCocktails(searchInput);
+        if (response.status !== 200) {
+          console.log("response: ", response);
+          console.log(response.status);
+          throw new Error("something went wrong!");
         }
-        return {
-          _id: cocktail.idDrink,
-          name: cocktail.strDrink,
-          imageURL: cocktail.strDrinkThumb,
-          instructions: cocktail.strInstructions,
-          glassware: cocktail.strGlass,
-          ingredients: ingredients,
-          tags: tags,
-        };
-      });
+        const searchResults = await response.json();
+        cocktailData = searchResults.drinks.map((cocktail) => {
+          const ingredients = [];
+          const tags = [];
+          for (let i = 1; i <= 15; i++) {
+            const ingredient = cocktail[`strIngredient${i}`];
+            const quantity = cocktail[`strMeasure${i}`];
+            if (ingredient) {
+              ingredients.push({ name: ingredient, quantity: quantity });
+              tags.push(ingredient);
+            } else {
+              break; // stop iterating if no more ingredients are found
+            }
+          }
+          return {
+            _id: cocktail.idDrink,
+            name: cocktail.strDrink,
+            imageURL: cocktail.strDrinkThumb,
+            instructions: cocktail.strInstructions,
+            glassware: cocktail.strGlass,
+            ingredients: ingredients,
+            tags: tags,
+          };
+        });
+      } else if (selectedIngredient) {
+        // getCocktailsByIngredient is a helper function in utilities folder for API call to CocktailDB to search recipes by ingredient
+        const response = await getCocktailsbyIngredient(selectedIngredient);
+        if (response.status !== 200) {
+          console.log("response: ", response);
+          console.log(response.status);
+          throw new Error("something went wrong!");
+        }
+        const searchResults = await response.json();
+        cocktailData = searchResults.drinks.map((cocktail) => {
+          const ingredients = [];
+          const tags = [];
+          for (let i = 1; i <= 15; i++) {
+            const ingredient = cocktail[`strIngredient${i}`];
+            const quantity = cocktail[`strMeasure${i}`];
+            if (ingredient) {
+              ingredients.push({ name: ingredient, quantity: quantity });
+              tags.push(ingredient);
+            } else {
+              break; // stop iterating if no more ingredients are found
+            }
+          }
+          return {
+            _id: cocktail.idDrink,
+            name: cocktail.strDrink,
+            imageURL: cocktail.strDrinkThumb,
+            instructions: cocktail.strInstructions,
+            glassware: cocktail.strGlass,
+            ingredients: ingredients,
+            tags: tags,
+          };
+        });
+      }
       // will need to map ingredients and quantities from API call into ingredients array.
-      console.log("SEARCH RESULTS: ", cocktailData);
       setSearchedCocktails(cocktailData);
       setSearchInput("");
     } catch (err) {
