@@ -13,7 +13,9 @@ const SearchCocktails = () => {
   const [searchInput, setSearchInput] = useState("");
   const [selectedIngredient, setSelectedIngredient] = useState();
   const handleIngredientChange = (event) => {
+    console.log(event.target.value);
     setSelectedIngredient(event.target.value);
+    handleSearchSubmit();
   };
   const client = useApolloClient();
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
@@ -43,7 +45,7 @@ const SearchCocktails = () => {
 
   const handleSearchSubmit = async (event) => {
     // add asynchronous function to handle cocktail searches from the API
-    event.preventDefault();
+  
     if (!searchInput && !selectedIngredient) {
       return false;
     }
@@ -51,7 +53,9 @@ const SearchCocktails = () => {
     try {
       let cocktailData = [];
       if (searchInput) {
-        
+        if (event) {
+          event.preventDefault();
+        }
         // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB to search recipes by cocktail name
         const response = await searchCocktails(searchInput);
         if (response.status !== 200) {
@@ -85,7 +89,9 @@ const SearchCocktails = () => {
         });
       } else if (selectedIngredient) {
         // getCocktailsByIngredient is a helper function in utilities folder for API call to CocktailDB to search recipes by ingredient
+        console.log("thanks for selecting an ingredient: ", selectedIngredient);
         const response = await getCocktailsbyIngredient(selectedIngredient);
+        
         if (response.status !== 200) {
           console.log("response: ", response);
           console.log(response.status);
@@ -118,7 +124,6 @@ const SearchCocktails = () => {
       }
       // will need to map ingredients and quantities from API call into ingredients array.
       setSearchedCocktails(cocktailData);
-      setSearchInput("");
     } catch (err) {
       console.error(err);
     }
@@ -148,11 +153,11 @@ const SearchCocktails = () => {
         onChange={handleIngredientChange}
       >
         <option value="">Select an Ingredient</option>
-        <option value="Gin">Gin</option>
-        <option value="Gin">Rum</option>
-        <option value="Gin">Tequila</option>
-        <option value="Gin">Vodka</option>
-        <option value="Gin">Whiskey</option>
+        <option value="gin">Gin</option>
+        <option value="rum">Rum</option>
+        <option value="tequila">Tequila</option>
+        <option value="vodka">Vodka</option>
+        <option value="whiskey">Whiskey</option>
       </select>
       <div className="card_container">
         <CocktailCard

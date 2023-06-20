@@ -35,6 +35,7 @@ export const getRandomCocktail = async () => {
 
 export const getCocktailsbyIngredient = async (ingredient) => {
   try {
+    console.log('searching by ingredient', ingredient);
     const response = await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
     );
