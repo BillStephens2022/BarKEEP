@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, useApolloClient } from "@apollo/client";
 import { ADD_COCKTAIL } from "../utils/mutations";
-import { searchCocktails } from "../utils/API";
+import { searchCocktails, getCocktailsbyIngredient } from "../utils/API";
 import CocktailCard from "../components/CocktailCard";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
 import "../styles/Home.css";
@@ -11,6 +11,10 @@ const SearchCocktails = () => {
   const [searchedCocktails, setSearchedCocktails] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
+  const [selectedIngredient, setSelectedIngredient] = useState();
+  const handleIngredientChange = (event) => {
+    setSelectedIngredient(event.target.value);
+  };
   const client = useApolloClient();
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     refetchQueries: [{ query: QUERY_ME }],
@@ -22,7 +26,7 @@ const SearchCocktails = () => {
         variables: cocktailData,
       });
       console.log("Cocktail added: ", data.addCocktail);
-  
+
       // Manually update the cache with the newly added cocktail
       const { cocktails } = client.readQuery({ query: QUERY_COCKTAILS });
       client.writeQuery({
@@ -33,7 +37,6 @@ const SearchCocktails = () => {
       console.error("Error adding cocktail:", error);
     }
   };
-  
 
   // create state to hold saved bookId values in local storage - need to add function in utils folder
   // const [savedCocktailIds, setSavedCocktailIds] = useState(getSavedCocktailIds());
@@ -45,7 +48,7 @@ const SearchCocktails = () => {
       return false;
     }
     try {
-        // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB
+      // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB
       const response = await searchCocktails(searchInput);
 
       if (response.status !== 200) {
@@ -63,20 +66,20 @@ const SearchCocktails = () => {
           const ingredient = cocktail[`strIngredient${i}`];
           const quantity = cocktail[`strMeasure${i}`];
           if (ingredient) {
-            ingredients.push({name: ingredient, quantity: quantity});
-            tags.push(ingredient)
+            ingredients.push({ name: ingredient, quantity: quantity });
+            tags.push(ingredient);
           } else {
             break; // stop iterating if no more ingredients are found
           }
         }
         return {
-        _id: cocktail.idDrink,
-        name: cocktail.strDrink,
-        imageURL: cocktail.strDrinkThumb,
-        instructions: cocktail.strInstructions,
-        glassware: cocktail.strGlass,
-        ingredients: ingredients,
-        tags: tags,
+          _id: cocktail.idDrink,
+          name: cocktail.strDrink,
+          imageURL: cocktail.strDrinkThumb,
+          instructions: cocktail.strInstructions,
+          glassware: cocktail.strGlass,
+          ingredients: ingredients,
+          tags: tags,
         };
       });
       // will need to map ingredients and quantities from API call into ingredients array.
@@ -91,7 +94,7 @@ const SearchCocktails = () => {
   return (
     <div>
       <h1 className="title">BarKEEP</h1>
-      <h2 className="subtitle">Search for a Cocktail</h2>
+      <h2 className="subtitle">Search for a Cocktail by Name</h2>
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"
@@ -105,11 +108,24 @@ const SearchCocktails = () => {
           Go!
         </button>
       </form>
+      <h2 className="subtitle">Search for Cocktails by Ingredient</h2>
+      <select
+        className="ingredient_dropdown"
+        value={selectedIngredient}
+        onChange={handleIngredientChange}
+      >
+        <option value="">Select an Ingredient</option>
+        <option value="Gin">Gin</option>
+        <option value="Gin">Rum</option>
+        <option value="Gin">Tequila</option>
+        <option value="Gin">Vodka</option>
+        <option value="Gin">Whiskey</option>
+      </select>
       <div className="card_container">
-      <CocktailCard
+        <CocktailCard
           cocktails={searchedCocktails}
           page="SearchCocktails"
-          handleAddCocktail = {handleAddCocktail}
+          handleAddCocktail={handleAddCocktail}
         />
       </div>
     </div>

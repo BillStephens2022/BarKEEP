@@ -46,7 +46,8 @@ const RandomCocktail = () => {
   
   return (
     <div>
-      <h1>Random Cocktail</h1>
+      <h1 className="title">BarKEEP</h1>
+      <h2 className="subtitle">Random Cocktail</h2>
       <CocktailCard cocktails={randomCocktail} />
     </div>
   );
