@@ -11,7 +11,7 @@ const SearchCocktailName = () => {
   const [searchedCocktails, setSearchedCocktails] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
-
+  const [addedCocktailId, setAddedCocktailId] = useState(null);
   const client = useApolloClient();
 
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
@@ -19,6 +19,8 @@ const SearchCocktailName = () => {
   });
 
   const handleAddCocktail = async (cocktailData) => {
+    setAddedCocktailId(cocktailData._id);
+    console.log(addedCocktailId);
     try {
       const { data } = await addCocktail({
         variables: cocktailData,
@@ -26,7 +28,7 @@ const SearchCocktailName = () => {
       console.log("Cocktail added: ", data.addCocktail);
 
       // Manually update the cache with the newly added cocktail
-      const { cocktails } = client.readQuery({ query: QUERY_COCKTAILS });
+      const { cocktails } = client.readQuery({ query: QUERY_COCKTAILS }) || { cocktails: [] };
       client.writeQuery({
         query: QUERY_COCKTAILS,
         data: { cocktails: [data.addCocktail, ...cocktails] },
@@ -86,6 +88,7 @@ const SearchCocktailName = () => {
 
       // will need to map ingredients and quantities from API call into ingredients array.
       setSearchedCocktails(cocktailData);
+     
     } catch (err) {
       console.error(err);
     }
@@ -111,10 +114,11 @@ const SearchCocktailName = () => {
           cocktails={searchedCocktails}
           page="SearchCocktails"
           handleAddCocktail={handleAddCocktail}
+          addedCocktailId={addedCocktailId}
         />
       </div>
     </div>
   );
-};
+}
 
 export default SearchCocktailName;

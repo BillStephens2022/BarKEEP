@@ -3,6 +3,7 @@ import "../styles/CocktailCard.css";
 import { GoPencil, GoTrashcan, GoPlus } from "react-icons/go";
 import Auth from "../utils/auth";
 
+
 const CocktailCard = ({
   data,
   loading,
@@ -10,9 +11,11 @@ const CocktailCard = ({
   setCocktails,
   deleteCocktail,
   page,
-  handleAddCocktail
+  handleAddCocktail,
+  addedCocktailId,
 }) => {
   const [flippedCard, setFlippedCard] = useState(null);
+  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -112,6 +115,7 @@ const CocktailCard = ({
                 <GoPlus />
             </button>
           )}
+          {cocktail._id === addedCocktailId && <p className="success_message">Successfully added to My Cocktails page!</p>}
           </div>
         </div>
       ))}
