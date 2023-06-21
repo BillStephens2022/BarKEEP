@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useMutation, useApolloClient } from "@apollo/client";
 import { ADD_COCKTAIL } from "../utils/mutations";
 import { searchCocktails, getCocktailsbyIngredient } from "../utils/API";
@@ -12,7 +12,7 @@ const SearchCocktails = () => {
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
   const [selectedIngredient, setSelectedIngredient] = useState();
-  
+
   const client = useApolloClient();
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     refetchQueries: [{ query: QUERY_ME }],
@@ -22,12 +22,9 @@ const SearchCocktails = () => {
     const selectedValue = event.target.value;
     setSelectedIngredient(selectedValue);
     setSearchInput("");
-    
   };
 
-  useEffect(() => {
-    handleSearchSubmit();
-  }, [selectedIngredient]);
+ 
 
   const handleAddCocktail = async (cocktailData) => {
     try {
@@ -50,55 +47,30 @@ const SearchCocktails = () => {
   // create state to hold saved bookId values in local storage - need to add function in utils folder
   // const [savedCocktailIds, setSavedCocktailIds] = useState(getSavedCocktailIds());
 
-  const handleSearchSubmit = async (event) => {
+  const handleSearchSubmit = useCallback(async (event) => {
     // add asynchronous function to handle cocktail searches from the API
-  
+
     if (!searchInput && !selectedIngredient) {
       return false;
     }
 
+    if (event) {
+      event.preventDefault();
+    }
+
     try {
       let cocktailData = [];
+      let response = false;
       if (searchInput) {
-        if (event) {
-          event.preventDefault();
-        }
         // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB to search recipes by cocktail name
-        const response = await searchCocktails(searchInput);
-        if (response.status !== 200) {
-          console.log("response: ", response);
-          console.log(response.status);
-          throw new Error("something went wrong!");
-        }
-        const searchResults = await response.json();
-        cocktailData = searchResults.drinks.map((cocktail) => {
-          const ingredients = [];
-          const tags = [];
-          for (let i = 1; i <= 15; i++) {
-            const ingredient = cocktail[`strIngredient${i}`];
-            const quantity = cocktail[`strMeasure${i}`];
-            if (ingredient) {
-              ingredients.push({ name: ingredient, quantity: quantity });
-              tags.push(ingredient);
-            } else {
-              break; // stop iterating if no more ingredients are found
-            }
-          }
-          return {
-            _id: cocktail.idDrink,
-            name: cocktail.strDrink,
-            imageURL: cocktail.strDrinkThumb,
-            instructions: cocktail.strInstructions,
-            glassware: cocktail.strGlass,
-            ingredients: ingredients,
-            tags: tags,
-          };
-        });
+        response = await searchCocktails(searchInput);
       } else if (selectedIngredient) {
         // getCocktailsByIngredient is a helper function in utilities folder for API call to CocktailDB to search recipes by ingredient
         console.log("thanks for selecting an ingredient: ", selectedIngredient);
-        const response = await getCocktailsbyIngredient(selectedIngredient);
-        
+        response = await getCocktailsbyIngredient(selectedIngredient);
+      }
+
+      if (response) {
         if (response.status !== 200) {
           console.log("response: ", response);
           console.log(response.status);
@@ -128,17 +100,20 @@ const SearchCocktails = () => {
             tags: tags,
           };
         });
+
+        // will need to map ingredients and quantities from API call into ingredients array.
+        setSearchedCocktails(cocktailData);
+
+        setSelectedIngredient("");
       }
-      // will need to map ingredients and quantities from API call into ingredients array.
-      setSearchedCocktails(cocktailData);
-      if (event) {
-        event.preventDefault();
-      }
-      setSelectedIngredient("");
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [searchInput, selectedIngredient]);
+  
+  useEffect(() => {
+    handleSearchSubmit();
+  }, [selectedIngredient, handleSearchSubmit]);
 
   return (
     <div>

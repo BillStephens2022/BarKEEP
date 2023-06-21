@@ -42,8 +42,8 @@ export const getCocktailsbyIngredient = async (ingredient) => {
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
     }
-    const searchResults = await response.json();
-    console.log(searchResults.drinks[0]);
+    // const searchResults = await response.json();
+    // console.log(searchResults.drinks[0]);
 
     return response;
   } catch (err) {
