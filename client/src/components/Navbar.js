@@ -25,7 +25,12 @@ const Navbar = () => {
             </li>
             <li className="navigation_item">
               <Link to="/searchCocktails" className="navigation_link">
-                Search API for new Cocktail recipes
+                Search API
+              </Link>
+            </li>
+            <li className="navigation_item">
+              <Link to="/searchCocktailsTest" className="navigation_link">
+                Search API - Test
               </Link>
             </li>
             <li className="navigation_item">

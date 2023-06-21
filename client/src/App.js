@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import RandomCocktail from './pages/RandomCocktail';
 import Cocktails from './pages/Cocktails';
 import SearchCocktails from './pages/SearchCocktails';
+import SearchCocktailsTest from './pages/SearchCocktailsTest';
 import Login from './pages/Login';
 
 
@@ -61,15 +62,13 @@ function App() {
               element={<SearchCocktails />}
             />
             <Route
+              path="/searchCocktailsTest"
+              element={<SearchCocktailsTest />}
+            />
+            <Route
               path="/login"
               element={<Login />}
             />
-            {/* <Route
-              path="/cocktails/add"
-              element={
-                <CocktailForm />
-              }
-            /> */}
             <Route
               path="*"
               element={<h1 className="display-2">Wrong page!</h1>}
