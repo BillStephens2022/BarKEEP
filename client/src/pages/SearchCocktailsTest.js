@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import SearchCocktailName from "../components/SearchCocktailName";
 import SearchCocktailIngredient from "../components/SearchCocktailIngredient";
 import "../styles/Home.css";

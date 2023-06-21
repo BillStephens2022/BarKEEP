@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
@@ -125,7 +126,9 @@ const Cocktails = ({ cocktails, setCocktails }) => {
       <h1 className="title">BarKEEP</h1>
       <h2 className="subtitle">My Cocktail Recipes</h2>
       <button className="btn add_cocktail_button" onClick={() => setShowCocktailForm(!showCocktailForm)}>Add Your Own Cocktail</button>
-      <button className="btn search_cocktail_button">Search for a new Cocktail</button>
+      <Link to="/searchCocktailsTest" className="btn search_cocktail_button">
+        Search for a new Cocktail
+      </Link>
       {showCocktailForm && (
           <div className="modal-background">
             <div className="modal">
