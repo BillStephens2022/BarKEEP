@@ -27,7 +27,6 @@ const SearchCocktailIngredient = () => {
     "kahlua",
     "mezcal",
     "rum",
-    "sake",
     "scotch",
     "tequila",
     "vermouth",
