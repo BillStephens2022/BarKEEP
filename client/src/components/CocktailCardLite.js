@@ -1,12 +1,7 @@
 import React from "react";
 import "../styles/CocktailCardLite.css";
 
-const CocktailCardLite = ({
-  loading,
-  cocktails,
-  handleAddCocktail,
-  
-}) => {
+const CocktailCardLite = ({ loading, cocktails }) => {
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -15,29 +10,18 @@ const CocktailCardLite = ({
     return <h3 className="cocktail_card_error">No Cocktails to display yet</h3>;
   }
 
-
   return (
     <>
       {cocktails.map((cocktail) => (
-        <div className="card card-cocktail-lite" key={cocktail._id}>
-          <div className="card-side card-front">
-            <div className="card_title">{cocktail.name}</div>
-            <div className="card_body">
-              <div className="card_photo">
-                <img
-                  className="cocktail_photo"
-                  src={cocktail.imageURL}
-                  alt="cocktail"
-                ></img>
-              </div>
-            </div>
-          </div>
-          <div className="card_footer">
-            <button
-              className="btn btn-seeRecipe"
-              id={cocktail._id}
-              onClick={() => handleAddCocktail(cocktail)}
-            >
+        <div
+          className="card card-cocktail-lite"
+          key={cocktail._id}
+          style={{ backgroundImage: `url(${cocktail.imageURL})` }}
+        >
+          <div className="card_title">{cocktail.name}</div>
+
+          <div className="card-cocktail-lite-footer">
+            <button className="btn btn-seeRecipe" id={cocktail._id}>
               See Recipe
             </button>
           </div>
