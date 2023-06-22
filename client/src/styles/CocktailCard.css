@@ -55,11 +55,16 @@
   object-fit: cover;
 }
 
+.card_recipe {
+  text-align: center;
+  align-items: center;
+}
+
 .ingredients_list {
   margin-top: 1rem;
   color: var(--white);
   list-style-type: none;
-  padding: 0;
+  letter-spacing: 0.1rem;
 }
 
 .ingredient {

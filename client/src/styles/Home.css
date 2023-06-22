@@ -128,3 +128,27 @@
 .form_register, .form_login {
   width: 25vw;
 }
+
+.searchCocktails {
+  background-color: var(--lightgray);
+  width: 100%;
+}
+
+.input_search_cocktails {
+  margin-left: 0.5rem;
+}
+
+.ingredient_dropdown {
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  height: 2rem;
+  width: 11.5rem;
+}
+
+.btn-search:hover {
+  background-color: #ff0000; 
+}
+
+.btn-search.active {
+  background-color: #ff0000; 
+}

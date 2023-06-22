@@ -96,7 +96,7 @@ const SearchCocktailName = () => {
 
   return (
     <div className="searchName">
-      <form onSubmit={handleSearchSubmit}>
+      <form className="searchNameForm" onSubmit={handleSearchSubmit}>
         <input
           type="text"
           className="input_search_cocktails"
