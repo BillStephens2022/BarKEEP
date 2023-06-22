@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getCocktailsbyIngredient } from "../utils/API";
-import CocktailCard from "./CocktailCard";
+import CocktailCardLite from "./CocktailCardLite";
 import "../styles/Home.css";
 
 const SearchCocktailIngredient = () => {
@@ -98,7 +98,7 @@ const SearchCocktailIngredient = () => {
         ))}
       </select>
       <div className="card_container">
-        <CocktailCard cocktails={searchedCocktails} page="SearchCocktails" />
+        <CocktailCardLite cocktails={searchedCocktails} page="SearchCocktails" />
       </div>
     </div>
   );
