@@ -34,7 +34,7 @@ const SearchCocktailsTest = () => {
   return (
     <div className="searchCocktails">
       <h1 className="title">BarKEEP</h1>
-      <h2 className="search-header">Search by:</h2>
+      <h2 className="search-header">Search by: <span className="searchBy-text">{searchBy.charAt(0).toUpperCase() + searchBy.slice(1)}</span></h2>
       <div className="div-search-btn">
         <button className="btn btn-search btn-searchByName" onClick={() => setSearchBy("name")}>Name</button>
         <button className="btn btn-search btn-searchByIngredient" onClick={() => setSearchBy("ingredient")}>Ingredient</button>

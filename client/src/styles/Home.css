@@ -153,6 +153,10 @@
   text-align: center;
 }
 
+.searchBy-text {
+  color: var(--maroon);
+}
+
 .input_search_cocktails {
   margin-left: 1.5rem;
   padding: 0.4rem;
