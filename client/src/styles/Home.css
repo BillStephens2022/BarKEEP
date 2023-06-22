@@ -1,5 +1,6 @@
 :root {
   --blue: steelblue;
+  --lightblue: darkcyan;
   --white: #fff;
   --maroon: #ba265d;
   --darkgray: #333333;
@@ -12,8 +13,7 @@
 #root {
   display: flex;
   max-width: 120rem;
-  background-color: darkcyan;
-  box-shadow: var(--shadow-dark);
+  background-color: var(--blue);
   min-height: 100vh;
 }
 

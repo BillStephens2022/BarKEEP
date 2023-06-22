@@ -1,7 +1,7 @@
 .card {
   position: relative;
   width: 20rem;
-  height: 33rem;
+  height: 38rem;
   margin: 1rem;
   background-color: var(--darkgray);
 }
@@ -35,7 +35,7 @@
 
 .card_title {
   font-size: 1.25rem;
-  font-weight: bold;
+  font-weight: 700;
   color: var(--white);
   padding: 1rem;
   letter-spacing: 0.25rem;
@@ -67,7 +67,8 @@
 
 .ingredient {
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .card-side.card-back {
@@ -129,3 +130,19 @@
   color: white;
   font-size: 1rem;
 }
+
+.btn-add {
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+  padding: 0.5rem;
+  background-color: transparent;
+}
+
+.btn-add:hover {
+  background-color: var(--blue);
+  color: var(--white);
+  transform: scale(1.1);
+
+}
+

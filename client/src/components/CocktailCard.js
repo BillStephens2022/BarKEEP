@@ -109,10 +109,10 @@ const CocktailCard = ({
           )}
           {page === "SearchCocktails" && (
             <button 
-              className="btn"
+              className="btn btn-add"
               id={cocktail._id}
               onClick={() => handleAddCocktail(cocktail)}>
-                <GoPlus />
+                <GoPlus /> Add to My Cockails
             </button>
           )}
           {cocktail._id === addedCocktailId && <p className="success_message">Successfully added to My Cocktails page!</p>}
