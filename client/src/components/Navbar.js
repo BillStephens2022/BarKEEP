@@ -12,10 +12,10 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="navigation_item">
-          <Link to="/randomCocktail" className="navigation_link">
-            Random Cocktail
-          </Link>
-        </li>
+              <Link to="/randomCocktail" className="navigation_link">
+                Random Cocktail
+              </Link>
+            </li>
         {Auth.loggedIn() ? (
           <>
             <li className="navigation_item">
@@ -28,11 +28,7 @@ const Navbar = () => {
                 Search API
               </Link>
             </li>
-            <li className="navigation_item">
-              <Link to="/searchCocktailsTest" className="navigation_link">
-                Search API - Test
-              </Link>
-            </li>
+            
             <li className="navigation_item">
               <Link
                 to="/logout"

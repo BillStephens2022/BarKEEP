@@ -12,7 +12,6 @@ import Home from './pages/Home';
 import RandomCocktail from './pages/RandomCocktail';
 import Cocktails from './pages/Cocktails';
 import SearchCocktails from './pages/SearchCocktails';
-import SearchCocktailsTest from './pages/SearchCocktailsTest';
 import Login from './pages/Login';
 
 
@@ -60,10 +59,6 @@ function App() {
             <Route
               path="/searchCocktails"
               element={<SearchCocktails />}
-            />
-            <Route
-              path="/searchCocktailsTest"
-              element={<SearchCocktailsTest />}
             />
             <Route
               path="/login"

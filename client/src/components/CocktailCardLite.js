@@ -7,7 +7,7 @@ const CocktailCardLite = ({ loading, cocktails }) => {
   }
 
   if (!cocktails.length) {
-    return <h3 className="cocktail_card_error">No Cocktails to display yet</h3>;
+    return <h3 className="cocktail_card_error">No cocktails to display yet</h3>;
   }
 
   return (

@@ -126,7 +126,7 @@ const Cocktails = ({ cocktails, setCocktails }) => {
       <h1 className="title">BarKEEP</h1>
       <h2 className="subtitle">My Cocktail Recipes</h2>
       <button className="btn add_cocktail_button" onClick={() => setShowCocktailForm(!showCocktailForm)}>Add Your Own Cocktail</button>
-      <Link to="/searchCocktailsTest" className="btn search_cocktail_button">
+      <Link to="/searchCocktails" className="btn search_cocktail_button">
         Search for a new Cocktail
       </Link>
       {showCocktailForm && (
