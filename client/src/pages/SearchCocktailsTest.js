@@ -34,10 +34,15 @@ const SearchCocktailsTest = () => {
   return (
     <div className="searchCocktails">
       <h1 className="title">BarKEEP</h1>
-      <h2 className="subtitle">Search by:</h2>
-      <button className="btn btn-search btn-searchByName" onClick={() => setSearchBy("name")}>Name</button>
-      <button className="btn btn-search btn-searchByIngredient" onClick={() => setSearchBy("ingredient")}>Ingredient</button>
+      <h2 className="search-header">Search by:</h2>
+      <div className="div-search-btn">
+        <button className="btn btn-search btn-searchByName" onClick={() => setSearchBy("name")}>Name</button>
+        <button className="btn btn-search btn-searchByIngredient" onClick={() => setSearchBy("ingredient")}>Ingredient</button>
+      </div>
+      <div className="div-search-component">
       {renderSearchComponent()}
+      </div>
+      
     </div>
   );
 };
