@@ -1,8 +1,7 @@
 .card {
   position: relative;
   width: 20rem;
-  height: 30rem;
-  perspective: 1000px;
+  height: 33rem;
   margin: 1rem;
   background-color: var(--darkgray);
 }
@@ -35,7 +34,7 @@
 }
 
 .card_title {
-  font-size: 24px;
+  font-size: 1.25rem;
   font-weight: bold;
   color: var(--white);
   padding: 1rem;
@@ -45,7 +44,6 @@
 .card_body {
   display: flex;
   flex-direction: column;
-
   height: 100%;
 }
 
@@ -68,7 +66,8 @@
 }
 
 .ingredient {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .card-side.card-back {

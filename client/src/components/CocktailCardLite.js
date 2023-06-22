@@ -18,7 +18,7 @@ const CocktailCardLite = ({ loading, cocktails }) => {
           key={cocktail._id}
           style={{ backgroundImage: `url(${cocktail.imageURL})` }}
         >
-          <div className="card_title">{cocktail.name}</div>
+          <div className="card-title-lite">{cocktail.name}</div>
 
           <div className="card-cocktail-lite-footer">
             <button className="btn btn-seeRecipe" id={cocktail._id}>
