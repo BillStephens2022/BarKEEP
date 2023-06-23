@@ -1,3 +1,7 @@
+// function for formatting data received back from API calls.  Formats data so that it is
+// consistent with database schema. This allows user to save favorite cocktails to the database so
+// that they render on their 'favorites' page.
+
 const formatCocktailData = (cocktail) => {
   const ingredients = [];
   const tags = [];
@@ -25,6 +29,7 @@ const formatCocktailData = (cocktail) => {
   };
 };
 
+// API call to to search by cocktail name
 export const searchCocktails = async (query) => {
   try {
     const response = await fetch(
@@ -44,25 +49,7 @@ export const searchCocktails = async (query) => {
   }
 };
 
-export const getRandomCocktail = async () => {
-  try {
-    const response = await fetch(
-      "https://www.thecocktaildb.com/api/json/v1/1/random.php"
-    );
-
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
-    }
-
-    const randomCocktail = await response.json();
-    const cocktailData = randomCocktail.drinks.map(formatCocktailData);
-    return cocktailData;
-  } catch (err) {
-    console.error("Error fetching cocktail data: ", err);
-    throw err;
-  }
-};
-
+// API call to retrieve cocktails containing a specific ingredient
 export const getCocktailsbyIngredient = async (ingredient) => {
   try {
     console.log("searching by ingredient", ingredient);
@@ -76,6 +63,26 @@ export const getCocktailsbyIngredient = async (ingredient) => {
 
     const searchResults = await response.json();
     const cocktailData = searchResults.drinks.map(formatCocktailData);
+    return cocktailData;
+  } catch (err) {
+    console.error("Error fetching cocktail data: ", err);
+    throw err;
+  }
+};
+
+// API call to retrieve a random cocktail
+export const getRandomCocktail = async () => {
+  try {
+    const response = await fetch(
+      "https://www.thecocktaildb.com/api/json/v1/1/random.php"
+    );
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const randomCocktail = await response.json();
+    const cocktailData = randomCocktail.drinks.map(formatCocktailData);
     return cocktailData;
   } catch (err) {
     console.error("Error fetching cocktail data: ", err);
