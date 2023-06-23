@@ -30,11 +30,9 @@ const CocktailCardLite = ({ loading, cocktails }) => {
               : ""
           }`}
           key={cocktail._id}
+          
         >
-          <div
-            className="card-content"
-            style={{ backgroundImage: `url(${cocktail.imageURL})` }}
-          >
+          <div className="card-content" style={{ backgroundImage: `url(${cocktail.imageURL})` }}>
             <div className="card-title-lite">{cocktail.name}</div>
             <div className="card-cocktail-lite-footer">
               <button
@@ -48,16 +46,16 @@ const CocktailCardLite = ({ loading, cocktails }) => {
           </div>
           {expandedCocktail && expandedCocktail._id === cocktail._id && (
             <div className="expanded-content">
-              <h3>Ingredients:</h3>
-              <ul>
+              <h3 className="card-lite-h3">Ingredients:</h3>
+              <ul className="card-lite-list">
                 {expandedCocktail.ingredients.map((ingredient, index) => (
                   <li key={index}>
                     {ingredient.quantity} {ingredient.name}
                   </li>
                 ))}
               </ul>
-              <h3>Instructions:</h3>
-              <p>{expandedCocktail.instructions}</p>
+              <h3 className="card-lite-h3">Instructions:</h3>
+              <p className="card-lite-instructions">{expandedCocktail.instructions}</p>
             </div>
           )}
         </div>
