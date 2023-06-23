@@ -112,10 +112,10 @@ const CocktailCard = ({
               className="btn btn-add"
               id={cocktail._id}
               onClick={() => handleAddCocktail(cocktail)}>
-                <GoPlus /> Add to My Cockails
+                <GoPlus /> Add to Favorites
             </button>
           )}
-          {cocktail._id === addedCocktailId && <p className="success_message">Successfully added to My Cocktails page!</p>}
+          {cocktail._id === addedCocktailId && <p className="success_message">Added to Favorites!</p>}
           </div>
         </div>
       ))}

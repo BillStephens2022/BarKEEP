@@ -127,8 +127,13 @@
 }
 
 .success_message {
-  color: white;
-  font-size: 1rem;
+  background-color: chartreuse;
+  color: var(--darkgray);
+  font-size: 0.65rem;
+  padding: 0.5rem;
+  letter-spacing: 0.2rem;
+  border-radius: 50%;
+  margin-right: 1rem;
 }
 
 .btn-add {

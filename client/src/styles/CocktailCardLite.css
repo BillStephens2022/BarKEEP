@@ -1,48 +1,79 @@
 .card-cocktail-lite {
-    position: relative;
-    width: 20rem;
-    height: 20rem;
-    perspective: 1000px;
-    margin: 1rem;
-    background-size: cover;
-    background-position: center;
-    border: solid var(--darkgray) 1px;
-    box-shadow: 4px 4px 8px rgba(51, 51, 51, 0.75);
-  }
-  
-  .card-title-lite {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--white);
-    padding: 1rem;
-    letter-spacing: 0.25rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
-  }
+  position: relative;
+  width: 20rem;
+  height: 20rem;
+  perspective: 1000px;
+  margin: 1rem;
+  background-size: cover;
+  background-position: center;
+  border: solid var(--darkgray) 1px;
+  box-shadow: 4px 4px 8px rgba(51, 51, 51, 0.75);
+  transition: width 0.3s;
+  display: flex;
+}
 
+.card-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  width: 20rem;
+  height: 20rem;
+}
 
-  
-  .card-cocktail-lite-footer {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 8px;
-  }
-  
-  .btn-seeRecipe {
-    background-color: transparent;
-    border: none;
-    color: var(--white);
-    cursor: pointer;
-    font-size: 24px;
-    margin-right: 8px;
-    padding: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
-  }
-  
-  .btn-seeRecipe:hover {
-    color: chartreuse;
-    transform: scale(1.1);
-  }
+.card-title-lite {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--white);
+  padding: 1rem;
+  letter-spacing: 0.25rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.card-cocktail-lite-footer {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+}
+
+.btn-seeRecipe {
+  background-color: transparent;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 24px;
+  margin-right: 8px;
+  padding: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.btn-seeRecipe:hover {
+  color: chartreuse;
+  transform: scale(1.1);
+}
+
+.card-cocktail-lite.expanded {
+  width: 40rem;
+}
+
+.expanded-content {
+  position: absolute;
+  top: 0;
+  right: -20rem; /* Position the expanded section outside the card */
+  width: 20rem; /* Set the initial width of the expanded section */
+  height: 100%;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 4px 0 8px rgba(51, 51, 51, 0.75);
+  transition: right 0.3s, width 0.3s;
+}
+
+.card-cocktail-lite.expanded .expanded-content {
+  right: 0; /* Move the expanded section into view */
+  width: 20rem; /*  width of the expanded section */
+}
