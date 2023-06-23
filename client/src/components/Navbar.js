@@ -13,6 +13,11 @@ const Navbar = () => {
         </li>
         {Auth.loggedIn() ? (
           <>
+          <li className="navigation_item">
+              <Link to="/feed" className="navigation_link">
+                Feed
+              </Link>
+            </li>
             <li className="navigation_item">
               <Link to="/favorites" className="navigation_link">
                 Favorites
