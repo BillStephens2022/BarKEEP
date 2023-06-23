@@ -4,6 +4,9 @@ import SearchCocktailIngredient from "../components/SearchCocktailIngredient";
 import "../styles/Home.css";
 
 const SearchCocktails = () => {
+
+  // state variable will drive which component is shown on the screen depending on whether user chooses
+  // to search by cocktail name or ingredient
   const [searchBy, setSearchBy] = useState("");
 
   const renderSearchComponent = () => {
@@ -18,7 +21,9 @@ const SearchCocktails = () => {
   };
 
   var buttons = document.getElementsByClassName("btn-search");
-
+   
+  // determines which button is active and uses the active class to change styling when
+  // button is active. 
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click", function() {
       var current = document.getElementsByClassName("active");

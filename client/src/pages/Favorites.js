@@ -9,7 +9,7 @@ import { Modal } from "react-bootstrap";
 import "../styles/Home.css";
 
 
-const Cocktails = ({ cocktails, setCocktails }) => {
+const Favorites = ({ cocktails, setCocktails }) => {
   
   const [showCocktailForm, setShowCocktailForm] = useState(false);
   const [cocktailFormState, setCocktailFormState] = useState({
@@ -164,4 +164,4 @@ const Cocktails = ({ cocktails, setCocktails }) => {
   );
 };
 
-export default Cocktails;
+export default Favorites;

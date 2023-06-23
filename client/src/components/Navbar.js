@@ -19,8 +19,8 @@ const Navbar = () => {
         {Auth.loggedIn() ? (
           <>
             <li className="navigation_item">
-              <Link to="/cocktails" className="navigation_link">
-                My Cocktails
+              <Link to="/favorites" className="navigation_link">
+                Favorites
               </Link>
             </li>
             <li className="navigation_item">

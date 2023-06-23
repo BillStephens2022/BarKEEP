@@ -3,15 +3,19 @@ import { getCocktailsbyIngredient } from "../utils/API";
 import CocktailCardLite from "./CocktailCardLite";
 import "../styles/Home.css";
 
+
+// component for when user chooses to search cocktails by ingredient
+
 const SearchCocktailIngredient = () => {
   const [selectedIngredient, setSelectedIngredient] = useState("");
   const [searchedCocktails, setSearchedCocktails] = useState([]);
 
+  // picks up selected value from dropdown menu so search can be done by the specific ingredient chosen
   const handleIngredientChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedIngredient(selectedValue);
   };
-
+  // array of specific ingredients - used to populate dropdown menu(Select element options)
   const ingredientOptions = [
     "",
     "absinthe",
@@ -46,32 +50,7 @@ const SearchCocktailIngredient = () => {
             console.log(response.status);
             throw new Error("Something went wrong!");
           }
-          const searchResults = await response.json();
-          let cocktailData = [];
-          cocktailData = searchResults.drinks.map((cocktail) => {
-            const ingredients = [];
-            const tags = [];
-            for (let i = 1; i <= 15; i++) {
-              const ingredient = cocktail[`strIngredient${i}`];
-              const quantity = cocktail[`strMeasure${i}`];
-              if (ingredient) {
-                ingredients.push({ name: ingredient, quantity: quantity });
-                tags.push(ingredient);
-              } else {
-                break; // stop iterating if no more ingredients are found
-              }
-            }
-            return {
-              _id: cocktail.idDrink,
-              name: cocktail.strDrink,
-              imageURL: cocktail.strDrinkThumb,
-              instructions: cocktail.strInstructions,
-              glassware: cocktail.strGlass,
-              ingredients: ingredients,
-              tags: tags,
-            };
-          });
-          setSearchedCocktails(cocktailData);
+          setSearchedCocktails(response.cocktailData);
         } catch (error) {
           console.error(error);
           setSearchedCocktails([]);

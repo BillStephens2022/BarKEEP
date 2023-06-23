@@ -8,7 +8,32 @@ export const searchCocktails = async (query) => {
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
     }
-    return response;
+    const searchResults = await response.json();
+    let cocktailData = [];
+    cocktailData = searchResults.drinks.map((cocktail) => {
+      const ingredients = [];
+      const tags = [];
+      for (let i = 1; i <= 15; i++) {
+        const ingredient = cocktail[`strIngredient${i}`];
+        const quantity = cocktail[`strMeasure${i}`];
+        if (ingredient) {
+          ingredients.push({ name: ingredient, quantity: quantity });
+          tags.push(ingredient);
+        } else {
+          break; // stop iterating if no more ingredients are found
+        }
+      }
+      return {
+        _id: cocktail.idDrink,
+        name: cocktail.strDrink,
+        imageURL: cocktail.strDrinkThumb,
+        instructions: cocktail.strInstructions,
+        glassware: cocktail.strGlass,
+        ingredients: ingredients,
+        tags: tags,
+      }
+    });
+    return cocktailData;
   } catch (err) {
     console.error("Error fetching cocktail data: ", err);
     throw err;
@@ -32,7 +57,7 @@ export const getRandomCocktail = async () => {
 
 export const getCocktailsbyIngredient = async (ingredient) => {
   try {
-    console.log('searching by ingredient', ingredient);
+    console.log("searching by ingredient", ingredient);
     const response = await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
     );
