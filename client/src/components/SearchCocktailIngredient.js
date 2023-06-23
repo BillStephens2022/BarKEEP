@@ -64,7 +64,7 @@ const SearchCocktailIngredient = () => {
           </option>
         ))}
       </select>
-      <div className="card_container">
+      <div className="card-container">
         <CocktailCardLite cocktails={searchedCocktails} page="SearchCocktails" />
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getRandomCocktail } from "../utils/API";
-import CocktailCard from "../components/CocktailCard";
+import CocktailCard from "./CocktailCard";
 
 const RandomCocktail = () => {
   const [randomCocktail, setRandomCocktails] = useState([]);
@@ -14,9 +14,7 @@ const RandomCocktail = () => {
   }, []);
 
   return (
-    <div>
-      <h1 className="title">BarKEEP</h1>
-      <h2 className="subtitle">Random Cocktail</h2>
+    <div className="card-container">
       <CocktailCard cocktails={randomCocktail} />
     </div>
   );

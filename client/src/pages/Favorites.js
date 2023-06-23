@@ -150,7 +150,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
             </div>
           </div>
         )}
-      <div className="card_container">
+      <div className="card-container">
         <CocktailCard
           data={data}
           loading={loading}

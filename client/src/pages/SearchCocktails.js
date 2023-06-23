@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchCocktailName from "../components/SearchCocktailName";
 import SearchCocktailIngredient from "../components/SearchCocktailIngredient";
 import "../styles/Home.css";
-import RandomCocktail from "./RandomCocktail";
+import RandomCocktail from "../components/RandomCocktail";
 
 const SearchCocktails = () => {
 

@@ -9,7 +9,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import RandomCocktail from './pages/RandomCocktail';
+import RandomCocktail from './components/RandomCocktail';
 import Favorites from './pages/Favorites';
 import SearchCocktails from './pages/SearchCocktails';
 import Login from './pages/Login';
@@ -48,10 +48,6 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/randomCocktail"
-              element={<RandomCocktail />}
-            />
             <Route
               path="/Favorites"
               element={<Favorites cocktails={cocktails} setCocktails={setCocktails} />}

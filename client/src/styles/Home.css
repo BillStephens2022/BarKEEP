@@ -142,7 +142,7 @@
   background-color: var(--lightgray);
 }
 
-.card_container {
+.card-container {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
@@ -265,3 +265,4 @@
   letter-spacing: 0.1rem;
   font-weight: 700;
 }
+

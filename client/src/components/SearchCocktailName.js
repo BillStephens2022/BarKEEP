@@ -75,7 +75,7 @@ const SearchCocktailName = () => {
           Go!
         </button>
       </form>
-      <div className="card_container">
+      <div className="card-container">
         <CocktailCard
           cocktails={searchedCocktails}
           page="SearchCocktails"
