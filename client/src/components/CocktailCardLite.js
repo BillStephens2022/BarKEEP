@@ -14,10 +14,12 @@ const CocktailCardLite = ({ loading, cocktails }) => {
   }
 
   const handleSeeRecipe = async (cocktail) => {
-    console.log("looking up recipe for: ", cocktail.name);
     const cocktailRecipe = await searchCocktails(cocktail.name);
-    console.log("cocktail recipe: ", cocktailRecipe[0]);
-    setExpandedCocktail(cocktailRecipe[0]);
+    if (expandedCocktail && expandedCocktail._id === cocktail._id) {
+      setExpandedCocktail(null); // If already expanded, hide the recipe
+    } else {
+      setExpandedCocktail(cocktailRecipe[0]);
+    }
   };
 
   return (
@@ -40,7 +42,7 @@ const CocktailCardLite = ({ loading, cocktails }) => {
                 id={cocktail._id}
                 onClick={() => handleSeeRecipe(cocktail)}
               >
-                See Recipe
+                {expandedCocktail && expandedCocktail._id === cocktail._id ? "Hide Recipe" : "See Recipe"}
               </button>
             </div>
           </div>

@@ -65,7 +65,7 @@
   position: absolute;
   top: 0;
   right: -20rem; /* Position the expanded section outside the card */
-  width: 20rem; /* Set the initial width of the expanded section */
+  width: 0; /* Set the initial width of the expanded section */
   height: 100%;
   background-color: var(--darkgray);
   color: white;
@@ -73,6 +73,7 @@
   box-shadow: 4px 0 8px rgba(51, 51, 51, 0.75);
   transition: right 0.3s, width 0.3s;
   font-size: 0.75rem;
+  transition: right 0.3s, width 0.3s; /* Adds a transition for the width property to eliminate jumpiness*/
 }
 
 .card-cocktail-lite.expanded .expanded-content {
@@ -81,11 +82,12 @@
 }
 
 .card-lite-h3 {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
-.card-lite-list, .card-lite-instructions {
+.card-lite-list,
+.card-lite-instructions {
   text-align: left;
 }
