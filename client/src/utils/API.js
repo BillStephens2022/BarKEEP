@@ -13,6 +13,8 @@ export const searchCocktails = async (query) => {
     cocktailData = searchResults.drinks.map((cocktail) => {
       const ingredients = [];
       const tags = [];
+      // maps ingredients and quantities from API call into the ingredients array to be
+      // consistent with database schema.
       for (let i = 1; i <= 15; i++) {
         const ingredient = cocktail[`strIngredient${i}`];
         const quantity = cocktail[`strMeasure${i}`];
@@ -31,7 +33,7 @@ export const searchCocktails = async (query) => {
         glassware: cocktail.strGlass,
         ingredients: ingredients,
         tags: tags,
-      }
+      };
     });
     return cocktailData;
   } catch (err) {
@@ -64,7 +66,34 @@ export const getCocktailsbyIngredient = async (ingredient) => {
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
     }
-    return response;
+    const searchResults = await response.json();
+    let cocktailData = [];
+    cocktailData = searchResults.drinks.map((cocktail) => {
+      const ingredients = [];
+      const tags = [];
+      // maps ingredients and quantities from API call into the ingredients array to be
+      // consistent with database schema.
+      for (let i = 1; i <= 15; i++) {
+        const ingredient = cocktail[`strIngredient${i}`];
+        const quantity = cocktail[`strMeasure${i}`];
+        if (ingredient) {
+          ingredients.push({ name: ingredient, quantity: quantity });
+          tags.push(ingredient);
+        } else {
+          break; // stop iterating if no more ingredients are found
+        }
+      }
+      return {
+        _id: cocktail.idDrink,
+        name: cocktail.strDrink,
+        imageURL: cocktail.strDrinkThumb,
+        instructions: cocktail.strInstructions,
+        glassware: cocktail.strGlass,
+        ingredients: ingredients,
+        tags: tags,
+      };
+    });
+    return cocktailData;
   } catch (err) {
     console.error("Error fetching cocktail data: ", err);
     throw err;

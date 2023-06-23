@@ -28,7 +28,9 @@ const SearchCocktailName = () => {
       console.log("Cocktail added: ", data.addCocktail);
 
       // Manually update the cache with the newly added cocktail
-      const { cocktails } = client.readQuery({ query: QUERY_COCKTAILS }) || { cocktails: [] };
+      const { cocktails } = client.readQuery({ query: QUERY_COCKTAILS }) || {
+        cocktails: [],
+      };
       client.writeQuery({
         query: QUERY_COCKTAILS,
         data: { cocktails: [data.addCocktail, ...cocktails] },
@@ -51,23 +53,11 @@ const SearchCocktailName = () => {
       return false;
     }
 
-    try {
-      let cocktailData = [];
-      // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB to search recipes by cocktail name
-      const response = await searchCocktails(searchInput);
+    // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB to search recipes by cocktail name
+    const cocktailData = await searchCocktails(searchInput);
 
-      if (response.status !== 200) {
-        console.log("response: ", response);
-        console.log(response.status);
-        throw new Error("something went wrong!");
-      }
-
-      // will need to map ingredients and quantities from API call into ingredients array.
-      setSearchedCocktails(response.cocktailData);
-     
-    } catch (err) {
-      console.error(err);
-    }
+   
+    setSearchedCocktails(cocktailData);
   };
 
   return (
@@ -95,6 +85,6 @@ const SearchCocktailName = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SearchCocktailName;

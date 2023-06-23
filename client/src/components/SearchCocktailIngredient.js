@@ -21,7 +21,7 @@ const SearchCocktailIngredient = () => {
     "absinthe",
     "amaretto",
     "aperol",
-    "baileys",
+    "baileys Irish Cream",
     "bourbon",
     "brandy",
     "campari",
@@ -41,20 +41,8 @@ const SearchCocktailIngredient = () => {
   useEffect(() => {
     const handleSearchbyIngredient = async () => {
       if (selectedIngredient) {
-        try {
-          console.log("API call triggered");
-          const response = await getCocktailsbyIngredient(selectedIngredient);
-          if (response.status !== 200) {
-            console.log("API call failed");
-            console.log("response: ", response);
-            console.log(response.status);
-            throw new Error("Something went wrong!");
-          }
-          setSearchedCocktails(response.cocktailData);
-        } catch (error) {
-          console.error(error);
-          setSearchedCocktails([]);
-        }
+          const cocktailData = await getCocktailsbyIngredient(selectedIngredient);
+          setSearchedCocktails(cocktailData);
       } else {
         setSearchedCocktails([]);
       }

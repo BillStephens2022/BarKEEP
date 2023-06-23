@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SearchCocktailName from "../components/SearchCocktailName";
 import SearchCocktailIngredient from "../components/SearchCocktailIngredient";
 import "../styles/Home.css";
+import RandomCocktail from "./RandomCocktail";
 
 const SearchCocktails = () => {
 
@@ -15,6 +16,8 @@ const SearchCocktails = () => {
         return <SearchCocktailName />;
       case "ingredient":
         return <SearchCocktailIngredient />;
+      case "random":
+        return <RandomCocktail />;
       default:
         return null;
     }
@@ -43,6 +46,7 @@ const SearchCocktails = () => {
       <div className="div-search-btn">
         <button className="btn btn-search btn-searchByName" onClick={() => setSearchBy("name")}>Name</button>
         <button className="btn btn-search btn-searchByIngredient" onClick={() => setSearchBy("ingredient")}>Ingredient</button>
+        <button className="btn btn-search btn-searchByRandom" onClick={() => setSearchBy("random")}>Random</button>
       </div>
       <div className="div-search-component">
       {renderSearchComponent()}
