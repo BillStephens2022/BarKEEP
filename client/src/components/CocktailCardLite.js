@@ -24,7 +24,11 @@ const CocktailCardLite = ({ data, loading, cocktails, setCocktails, page, handle
         setExpandedCocktail(cocktailRecipe[0]);
       }
     } else {
-      setExpandedCocktail(cocktail);
+      if (expandedCocktail && expandedCocktail._id === cocktail._id) {
+        setExpandedCocktail(null); // If already expanded, hide the recipe
+      } else {
+        setExpandedCocktail(cocktail);
+      }
     }
   };
 

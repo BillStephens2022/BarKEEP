@@ -3,7 +3,6 @@ import { getCocktailsbyIngredient } from "../utils/API";
 import CocktailCardLite from "./CocktailCardLite";
 import "../styles/Home.css";
 
-
 // component for when user chooses to search cocktails by ingredient
 
 const SearchCocktailIngredient = () => {
@@ -41,8 +40,8 @@ const SearchCocktailIngredient = () => {
   useEffect(() => {
     const handleSearchbyIngredient = async () => {
       if (selectedIngredient) {
-          const cocktailData = await getCocktailsbyIngredient(selectedIngredient);
-          setSearchedCocktails(cocktailData);
+        const cocktailData = await getCocktailsbyIngredient(selectedIngredient);
+        setSearchedCocktails(cocktailData);
       } else {
         setSearchedCocktails([]);
       }
@@ -65,7 +64,10 @@ const SearchCocktailIngredient = () => {
         ))}
       </select>
       <div className="card-container">
-        <CocktailCardLite cocktails={searchedCocktails} page="SearchCocktails" />
+        <CocktailCardLite
+          cocktails={searchedCocktails}
+          page="SearchCocktails"
+        />
       </div>
     </div>
   );
