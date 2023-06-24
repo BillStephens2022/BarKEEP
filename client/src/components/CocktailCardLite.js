@@ -14,11 +14,15 @@ const CocktailCardLite = ({ loading, cocktails }) => {
   }
 
   const handleSeeRecipe = async (cocktail) => {
-    const cocktailRecipe = await searchCocktails(cocktail.name);
-    if (expandedCocktail && expandedCocktail._id === cocktail._id) {
-      setExpandedCocktail(null); // If already expanded, hide the recipe
+    if (!cocktail.ingredients.length) {
+      const cocktailRecipe = await searchCocktails(cocktail.name);
+      if (expandedCocktail && expandedCocktail._id === cocktail._id) {
+        setExpandedCocktail(null); // If already expanded, hide the recipe
+      } else {
+        setExpandedCocktail(cocktailRecipe[0]);
+      }
     } else {
-      setExpandedCocktail(cocktailRecipe[0]);
+      setExpandedCocktail(cocktail);
     }
   };
 

@@ -3,7 +3,7 @@ import { useMutation, useApolloClient } from "@apollo/client";
 import { ADD_COCKTAIL } from "../utils/mutations";
 import { searchCocktails } from "../utils/API";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
-import CocktailCard from "./CocktailCard";
+import CocktailCardLite from "./CocktailCardLite";
 import "../styles/Home.css";
 
 const SearchCocktailName = () => {
@@ -76,7 +76,7 @@ const SearchCocktailName = () => {
         </button>
       </form>
       <div className="card-container">
-        <CocktailCard
+        <CocktailCardLite
           cocktails={searchedCocktails}
           page="SearchCocktails"
           handleAddCocktail={handleAddCocktail}
