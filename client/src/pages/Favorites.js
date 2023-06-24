@@ -157,7 +157,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
           cocktails={cocktails}
           setCocktails={setCocktails}
           deleteCocktail={deleteCocktail}
-          page="Cocktails"
+          page="Favorites"
         />
       </div>
     </div>
