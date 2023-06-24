@@ -79,6 +79,7 @@
 .card-cocktail-lite.expanded .expanded-content {
   right: 0; /* Move the expanded section into view */
   width: 20rem; /*  width of the expanded section */
+  overflow: auto;
 }
 
 .card-lite-h3 {
