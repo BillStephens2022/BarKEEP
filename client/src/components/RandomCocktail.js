@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getRandomCocktail } from "../utils/API";
-import CocktailCard from "./CocktailCard";
+import CocktailCardLite from "./CocktailCardLite";
 
 const RandomCocktail = () => {
   const [randomCocktail, setRandomCocktails] = useState([]);
@@ -15,7 +15,7 @@ const RandomCocktail = () => {
 
   return (
     <div className="card-container">
-      <CocktailCard cocktails={randomCocktail} />
+      <CocktailCardLite cocktails={randomCocktail} page="SearchCocktails" />
     </div>
   );
 };
