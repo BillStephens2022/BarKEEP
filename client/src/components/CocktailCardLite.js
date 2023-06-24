@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "../styles/CocktailCardLite.css";
 import { searchCocktails } from "../utils/API";
+import { GoPencil, GoTrashcan, GoPlus } from "react-icons/go";
+import Auth from "../utils/auth";
 
-const CocktailCardLite = ({ loading, cocktails }) => {
+const CocktailCardLite = ({ data, loading, cocktails, setCocktails, page, handleAddCocktail, deleteCocktail }) => {
   const [expandedCocktail, setExpandedCocktail] = useState(null);
 
   if (loading) {
@@ -14,12 +16,46 @@ const CocktailCardLite = ({ loading, cocktails }) => {
   }
 
   const handleSeeRecipe = async (cocktail) => {
-    const cocktailRecipe = await searchCocktails(cocktail.name);
-    if (expandedCocktail && expandedCocktail._id === cocktail._id) {
-      setExpandedCocktail(null); // If already expanded, hide the recipe
+    if (!cocktail.ingredients.length) {
+      const cocktailRecipe = await searchCocktails(cocktail.name);
+      if (expandedCocktail && expandedCocktail._id === cocktail._id) {
+        setExpandedCocktail(null); // If already expanded, hide the recipe
+      } else {
+        setExpandedCocktail(cocktailRecipe[0]);
+      }
     } else {
-      setExpandedCocktail(cocktailRecipe[0]);
+      if (expandedCocktail && expandedCocktail._id === cocktail._id) {
+        setExpandedCocktail(null); // If already expanded, hide the recipe
+      } else {
+        setExpandedCocktail(cocktail);
+      }
     }
+  };
+
+  const handleDeleteCocktail = async (e) => {
+    e.preventDefault();
+    const cocktailId = e.currentTarget.id;
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) return false;
+    console.log("deleting cocktail!");
+    try {
+      const { data } = await deleteCocktail({
+        variables: { cocktailId },
+      });
+      if (!data) {
+        throw new Error("something went wrong!");
+      }
+      console.log("done!");
+    } catch (err) {
+      console.error(err);
+    }
+    setCocktails(cocktails.filter((cocktails) => cocktails._id !== cocktailId));
+    console.log(data);
+  };
+
+  const handleEditCocktail = () => {
+    console.log("editing cocktail!");
+    return;
   };
 
   return (
@@ -58,6 +94,34 @@ const CocktailCardLite = ({ loading, cocktails }) => {
               </ul>
               <h3 className="card-lite-h3">Instructions:</h3>
               <p className="card-lite-instructions">{expandedCocktail.instructions}</p>
+              <div className="card-lite-expanded-footer">
+              {page === "Favorites" && (
+            <>
+            <button
+              className="btn cocktail_card_btn"
+              id={cocktail._id}
+              onClick={handleDeleteCocktail}
+            >
+              <GoTrashcan />
+            </button>
+            <button
+              className="btn cocktail_card_btn"
+              id={cocktail._id}
+              onClick={handleEditCocktail}
+            >
+              <GoPencil />
+            </button>
+            </>
+          )}
+          {page === "SearchCocktails" && (
+            <button 
+              className="btn btn-add"
+              id={cocktail._id}
+              onClick={() => handleAddCocktail(cocktail)}>
+                <GoPlus /> Add to Favorites
+            </button>
+          )}
+              </div>
             </div>
           )}
         </div>

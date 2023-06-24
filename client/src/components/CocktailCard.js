@@ -89,7 +89,7 @@ const CocktailCard = ({
             <p className="p_instructions">{cocktail.instructions}</p>
           </div>
           <div className="card_footer">
-          {page === "Cocktails" && (
+          {page === "Favorites" && (
             <>
             <button
               className="btn cocktail_card_btn"
