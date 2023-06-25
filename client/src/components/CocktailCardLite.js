@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import "../styles/CocktailCardLite.css";
-import { searchCocktails } from "../utils/API";
 import { GoPencil, GoTrashcan, GoPlus } from "react-icons/go";
+import { QUERY_ME } from "../utils/queries";
+import { searchCocktails } from "../utils/API";
 import Auth from "../utils/auth";
+import "../styles/CocktailCardLite.css";
 
-const CocktailCardLite = ({ data, loading, cocktails, setCocktails, page, handleAddCocktail, deleteCocktail }) => {
+const CocktailCardLite = ({
+  data,
+  loading,
+  cocktails,
+  setCocktails,
+  page,
+  handleAddCocktail,
+  deleteCocktail,
+}) => {
   const [expandedCocktail, setExpandedCocktail] = useState(null);
 
   if (loading) {
@@ -41,6 +50,7 @@ const CocktailCardLite = ({ data, loading, cocktails, setCocktails, page, handle
     try {
       const { data } = await deleteCocktail({
         variables: { cocktailId },
+        refetchQueries: [{ query: QUERY_ME }]
       });
       if (!data) {
         throw new Error("something went wrong!");
@@ -50,7 +60,6 @@ const CocktailCardLite = ({ data, loading, cocktails, setCocktails, page, handle
       console.error(err);
     }
     setCocktails(cocktails.filter((cocktails) => cocktails._id !== cocktailId));
-    console.log(data);
   };
 
   const handleEditCocktail = () => {
@@ -68,9 +77,11 @@ const CocktailCardLite = ({ data, loading, cocktails, setCocktails, page, handle
               : ""
           }`}
           key={cocktail._id}
-          
         >
-          <div className="card-content" style={{ backgroundImage: `url(${cocktail.imageURL})` }}>
+          <div
+            className="card-content"
+            style={{ backgroundImage: `url(${cocktail.imageURL})` }}
+          >
             <div className="card-title-lite">{cocktail.name}</div>
             <div className="card-cocktail-lite-footer">
               <button
@@ -78,7 +89,9 @@ const CocktailCardLite = ({ data, loading, cocktails, setCocktails, page, handle
                 id={cocktail._id}
                 onClick={() => handleSeeRecipe(cocktail)}
               >
-                {expandedCocktail && expandedCocktail._id === cocktail._id ? "Hide Recipe" : "See Recipe"}
+                {expandedCocktail && expandedCocktail._id === cocktail._id
+                  ? "Hide Recipe"
+                  : "See Recipe"}
               </button>
             </div>
           </div>
@@ -93,34 +106,37 @@ const CocktailCardLite = ({ data, loading, cocktails, setCocktails, page, handle
                 ))}
               </ul>
               <h3 className="card-lite-h3">Instructions:</h3>
-              <p className="card-lite-instructions">{expandedCocktail.instructions}</p>
+              <p className="card-lite-instructions">
+                {expandedCocktail.instructions}
+              </p>
               <div className="card-lite-expanded-footer">
-              {page === "Favorites" && (
-            <>
-            <button
-              className="btn cocktail_card_btn"
-              id={cocktail._id}
-              onClick={handleDeleteCocktail}
-            >
-              <GoTrashcan />
-            </button>
-            <button
-              className="btn cocktail_card_btn"
-              id={cocktail._id}
-              onClick={handleEditCocktail}
-            >
-              <GoPencil />
-            </button>
-            </>
-          )}
-          {page === "SearchCocktails" && (
-            <button 
-              className="btn btn-add"
-              id={cocktail._id}
-              onClick={() => handleAddCocktail(cocktail)}>
-                <GoPlus /> Add to Favorites
-            </button>
-          )}
+                {page === "Favorites" && (
+                  <>
+                    <button
+                      className="btn cocktail_card_btn"
+                      id={cocktail._id}
+                      onClick={handleDeleteCocktail}
+                    >
+                      <GoTrashcan />
+                    </button>
+                    <button
+                      className="btn cocktail_card_btn"
+                      id={cocktail._id}
+                      onClick={handleEditCocktail}
+                    >
+                      <GoPencil />
+                    </button>
+                  </>
+                )}
+                {page === "SearchCocktails" && (
+                  <button
+                    className="btn btn-add"
+                    id={cocktail._id}
+                    onClick={() => handleAddCocktail(cocktail)}
+                  >
+                    <GoPlus /> Add to Favorites
+                  </button>
+                )}
               </div>
             </div>
           )}

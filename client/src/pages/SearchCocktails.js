@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation, useApolloClient } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
 import { ADD_COCKTAIL } from "../utils/mutations";
+import { searchCocktails } from "../utils/API"
 import SearchCocktailName from "../components/SearchCocktailName";
 import SearchCocktailIngredient from "../components/SearchCocktailIngredient";
 import RandomCocktail from "../components/RandomCocktail";
@@ -19,9 +20,22 @@ const SearchCocktails = () => {
     refetchQueries: [{ query: QUERY_ME }],
   });
 
+  useEffect(() => {
+    console.log(addedCocktailId);
+  }, [addedCocktailId]);
+
   const handleAddCocktail = async (cocktailData) => {
+    
+    console.log(cocktailData._id);
+    
+    if (!cocktailData.ingredients.length) {
+      const searchData = await searchCocktails(cocktailData.name);
+      cocktailData = searchData[0];
+      setAddedCocktailId(cocktailData._id);
+    }
     setAddedCocktailId(cocktailData._id);
     console.log(addedCocktailId);
+    console.log("Cocktail data:", cocktailData);
     try {
       const { data } = await addCocktail({
         variables: cocktailData,
