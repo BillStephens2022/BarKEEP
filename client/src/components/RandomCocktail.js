@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getRandomCocktail } from "../utils/API";
 import CocktailCardLite from "./CocktailCardLite";
 
-const RandomCocktail = () => {
+const RandomCocktail = ({ handleAddCocktail, addedCocktailId }) => {
   const [randomCocktail, setRandomCocktails] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,12 @@ const RandomCocktail = () => {
 
   return (
     <div className="card-container">
-      <CocktailCardLite cocktails={randomCocktail} page="SearchCocktails" />
+      <CocktailCardLite
+        cocktails={randomCocktail}
+        page="SearchCocktails"
+        handleAddCocktail={handleAddCocktail}
+        addedCocktailId={addedCocktailId}
+      />
     </div>
   );
 };
