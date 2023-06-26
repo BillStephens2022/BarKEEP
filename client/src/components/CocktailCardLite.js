@@ -13,6 +13,7 @@ const CocktailCardLite = ({
   page,
   handleAddCocktail,
   deleteCocktail,
+  handleEditCocktail
 }) => {
   const [expandedCocktail, setExpandedCocktail] = useState(null);
 
@@ -60,11 +61,6 @@ const CocktailCardLite = ({
       console.error(err);
     }
     setCocktails(cocktails.filter((cocktails) => cocktails._id !== cocktailId));
-  };
-
-  const handleEditCocktail = () => {
-    console.log("editing cocktail!");
-    return;
   };
 
   return (
@@ -122,7 +118,7 @@ const CocktailCardLite = ({
                     <button
                       className="btn cocktail_card_btn"
                       id={cocktail._id}
-                      onClick={handleEditCocktail}
+                      onClick={() => handleEditCocktail(cocktail)}
                     >
                       <GoPencil />
                     </button>

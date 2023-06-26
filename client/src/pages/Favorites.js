@@ -12,6 +12,7 @@ import "../styles/Home.css";
 const Favorites = ({ cocktails, setCocktails }) => {
   
   const [showCocktailForm, setShowCocktailForm] = useState(false);
+  const [selectedCocktail, setSelectedCocktail] = useState(null);
   const [cocktailFormState, setCocktailFormState] = useState({
     name: "",
     ingredients: [
@@ -109,6 +110,12 @@ const Favorites = ({ cocktails, setCocktails }) => {
     },
   });
 
+  const handleEditCocktail = (cocktail) => {
+    setSelectedCocktail(cocktail);
+    setShowCocktailForm(true);
+    console.log('editing cocktail: ', cocktail);
+  }
+
   useEffect(() => {
     if (data?.me?.cocktails) {
       setCocktails(data?.me?.cocktails);
@@ -157,6 +164,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
           cocktails={cocktails}
           setCocktails={setCocktails}
           deleteCocktail={deleteCocktail}
+          handleEditCocktail={handleEditCocktail}
           page="Favorites"
         />
       </div>
