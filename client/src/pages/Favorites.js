@@ -8,9 +8,7 @@ import { ADD_COCKTAIL, DELETE_COCKTAIL } from "../utils/mutations";
 import { Modal } from "react-bootstrap";
 import "../styles/Home.css";
 
-
 const Favorites = ({ cocktails, setCocktails }) => {
-  
   const [showCocktailForm, setShowCocktailForm] = useState(false);
   const [selectedCocktail, setSelectedCocktail] = useState(null);
   const [cocktailFormState, setCocktailFormState] = useState({
@@ -18,17 +16,17 @@ const Favorites = ({ cocktails, setCocktails }) => {
     ingredients: [
       {
         name: "",
-        quantity: ""
-      }
+        quantity: "",
+      },
     ],
     imageURL: "",
     glassware: "",
     instructions: "",
-    tags: []
+    tags: [],
   });
 
   const { data, loading, refetch } = useQuery(QUERY_ME);
-  
+
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     update(cache, { data: { addCocktail } }) {
       try {
@@ -46,13 +44,12 @@ const Favorites = ({ cocktails, setCocktails }) => {
         cache.writeQuery({
           query: QUERY_ME,
           data: {
-            me: { 
-              ...me, 
-              cocktails: [addCocktail, ...me.cocktails ],
+            me: {
+              ...me,
+              cocktails: [addCocktail, ...me.cocktails],
             },
           },
         });
-
       } catch (e) {
         console.log("error with mutation!");
         console.error(e);
@@ -63,14 +60,14 @@ const Favorites = ({ cocktails, setCocktails }) => {
       name: cocktailFormState.name || undefined,
       ingredients: cocktailFormState.ingredients.map((ingredient) => ({
         name: ingredient.name || undefined,
-        quantity: ingredient.quantity || undefined
-      })), 
+        quantity: ingredient.quantity || undefined,
+      })),
       imageURL: cocktailFormState.imageURL || undefined,
       glassware: cocktailFormState.glassware || undefined,
       instructions: cocktailFormState.instructions || undefined,
-      tags: cocktailFormState.tags || undefined
+      tags: cocktailFormState.tags || undefined,
     },
-    refetchQueries: [{ query: QUERY_COCKTAILS }]
+    refetchQueries: [{ query: QUERY_COCKTAILS }],
   });
 
   const [deleteCocktail] = useMutation(DELETE_COCKTAIL, {
@@ -79,18 +76,18 @@ const Favorites = ({ cocktails, setCocktails }) => {
         const { cocktails } = cache.readQuery({
           query: QUERY_COCKTAILS,
         }) ?? { cocktails: [] };
-  
+
         const updatedCocktails = cocktails.filter(
           (cocktail) => cocktail._id !== deleteCocktail._id
         );
-  
+
         cache.writeQuery({
           query: QUERY_COCKTAILS,
           data: { cocktails: updatedCocktails },
         });
-  
+
         const { me } = cache.readQuery({ query: QUERY_ME });
-  
+
         cache.writeQuery({
           query: QUERY_ME,
           data: {
@@ -104,7 +101,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
         console.log("error with mutation!");
         console.error(e);
       }
-      
+
       console.log("updated cache:", cache.data.data);
       refetch();
     },
@@ -113,50 +110,57 @@ const Favorites = ({ cocktails, setCocktails }) => {
   const handleEditCocktail = (cocktail) => {
     setSelectedCocktail(cocktail);
     setShowCocktailForm(true);
-    console.log('editing cocktail: ', cocktail);
-  }
+    console.log("editing cocktail: ", cocktail);
+  };
 
   useEffect(() => {
     if (data?.me?.cocktails) {
       setCocktails(data?.me?.cocktails);
     }
   }, [data, refetch]);
-  
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-
   return (
     <div className="cocktails-main">
       <h1 className="title">BarKEEP</h1>
       <h2 className="subtitle">My Cocktail Recipes</h2>
-      <button className="btn add_cocktail_button" onClick={() => setShowCocktailForm(!showCocktailForm)}>Add Your Own Cocktail</button>
+      <button
+        className="btn add_cocktail_button"
+        onClick={() => {
+          setSelectedCocktail(null);
+          setShowCocktailForm(!showCocktailForm)}
+        }
+      >
+        Add Your Own Cocktail
+      </button>
       <Link to="/searchCocktails" className="btn search_cocktail_button">
         Search for a new Cocktail
       </Link>
       {showCocktailForm && (
-          <div className="modal-background">
-            <div className="modal">
-              <Modal show={true} onHide={() => setShowCocktailForm(false)}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Add Cocktail</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <CocktailForm
-                    setShowCocktailForm={setShowCocktailForm}
-                    addCocktail={addCocktail}
-                    cocktails={cocktails}
-                    setCocktails={setCocktails}
-                    cocktailFormState={cocktailFormState}
-                    setCocktailFormState={setCocktailFormState}
-                  />
-                </Modal.Body>
-              </Modal>
-            </div>
+        <div className="modal-background">
+          <div className="modal">
+            <Modal show={true} onHide={() => setShowCocktailForm(false)}>
+              <Modal.Header closeButton>
+                <Modal.Title>Add Cocktail</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <CocktailForm
+                  setShowCocktailForm={setShowCocktailForm}
+                  addCocktail={addCocktail}
+                  cocktails={cocktails}
+                  setCocktails={setCocktails}
+                  cocktailFormState={cocktailFormState}
+                  setCocktailFormState={setCocktailFormState}
+                  selectedCocktail={selectedCocktail}
+                />
+              </Modal.Body>
+            </Modal>
           </div>
-        )}
+        </div>
+      )}
       <div className="card-container">
         <CocktailCardLite
           data={data}
@@ -165,6 +169,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
           setCocktails={setCocktails}
           deleteCocktail={deleteCocktail}
           handleEditCocktail={handleEditCocktail}
+          selectedCocktail={selectedCocktail}
           page="Favorites"
         />
       </div>

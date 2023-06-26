@@ -1,25 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/CocktailForm.css";
 
+const initialState = {
+  name: "",
+  ingredients: [
+    {
+      name: "",
+      quantity: "",
+    },
+  ],
+  imageURL: "",
+  glassware: "",
+  instructions: "",
+  tags: [],
+};
 
-const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktails, cocktailFormState, setCocktailFormState }) => {
-  const [name, setName] = useState("");
-  const [ingredients, setIngredients] = useState([]);
+const CocktailForm = ({
+  setShowCocktailForm,
+  addCocktail,
+  cocktails,
+  setCocktails,
+  cocktailFormState,
+  setCocktailFormState,
+  selectedCocktail,
+}) => {
+  // const [name, setName] = useState("");
+  // const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
-  const [imageURL, setImageURL] = useState("");
-  const [glassware, setGlassware] = useState("");
-  const [instructions, setInstructions] = useState("");
-  const [tags, setTags] = useState([]);
+  // const [imageURL, setImageURL] = useState("");
+  // const [glassware, setGlassware] = useState("");
+  // const [instructions, setInstructions] = useState("");
+  // const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
 
   const handleIngredientAdd = () => {
     if (ingredientName && ingredientQuantity) {
       const newIngredient = {
         name: ingredientName,
-        quantity: ingredientQuantity
+        quantity: ingredientQuantity,
       };
-      setIngredients([...ingredients, newIngredient]);
+      setCocktailFormState((prevState) => ({
+        ...prevState,
+        ingredients: [...prevState.ingredients, newIngredient],
+      }));
       setIngredientName("");
       setIngredientQuantity("");
     }
@@ -27,25 +51,22 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
 
   const handleTagAdd = () => {
     if (tagInput) {
-      setTags([...tags, tagInput]);
+      setCocktailFormState((prevState) => ({
+        ...prevState,
+        tags: [...prevState.tags, tagInput],
+      }));
       setTagInput("");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("FORM DATA: ", {
-      name,
-      ingredients,
-      imageURL,
-      glassware,
-      instructions,
-      tags,
-    });
+    const { name, ingredients, imageURL, glassware, instructions, tags } =
+      cocktailFormState;
     // Check if any required fields are empty
     if (!name || !ingredients.length || !tags.length) {
       console.log("Please fill in all required fields");
-      return
+      return;
     }
     // Send form data to the server
     try {
@@ -57,24 +78,48 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
           glassware,
           instructions,
           tags,
-        }
+        },
       });
       console.log(formData);
       // Reset form fields
-      setName("");
-      setIngredients([]);
+      setCocktailFormState(initialState);
       setIngredientName("");
       setIngredientQuantity("");
-      setImageURL("");
-      setGlassware("");
-      setInstructions("");
-      setTags([]);
       setTagInput("");
-      
     } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    console.log("SELECTED COCKTAIL: ", selectedCocktail);
+    if (selectedCocktail) {
+      // Set the initial form state with the values of the selected cocktail
+      setCocktailFormState(selectedCocktail);
+    } else {
+      // Reset the form state
+      setCocktailFormState(initialState);
+    }
+    // Clean up the form state when the component is unmounted or when selectedCocktail changes
+    return () => {
+      setCocktailFormState({
+        name: "",
+        ingredients: [
+          {
+            name: "",
+            quantity: "",
+          },
+        ],
+        imageURL: "",
+        glassware: "",
+        instructions: "",
+        tags: [],
+      });
+    };
+  }, [selectedCocktail, setCocktailFormState]);
+
+  const { name, ingredients, imageURL, glassware, instructions, tags } =
+    cocktailFormState;
 
   return (
     <div className="form-container">
@@ -84,7 +129,12 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
           type="text"
           id="name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) =>
+            setCocktailFormState((prevState) => ({
+              ...prevState,
+              name: e.target.value,
+            }))
+          }
           required
         />
 
@@ -120,7 +170,12 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
           type="text"
           id="imageURL"
           value={imageURL}
-          onChange={(e) => setImageURL(e.target.value)}
+          onChange={(e) =>
+            setCocktailFormState((prevState) => ({
+              ...prevState,
+              imageURL: e.target.value,
+            }))
+          }
         />
 
         <label htmlFor="glassware">Glassware:</label>
@@ -128,14 +183,24 @@ const CocktailForm = ({ setShowCocktailForm, addCocktail, cocktails, setCocktail
           type="text"
           id="glassware"
           value={glassware}
-          onChange={(e) => setGlassware(e.target.value)}
+          onChange={(e) =>
+            setCocktailFormState((prevState) => ({
+              ...prevState,
+              glassware: e.target.value,
+            }))
+          }
         />
 
         <label htmlFor="instructions">Instructions:</label>
         <textarea
           id="instructions"
           value={instructions}
-          onChange={(e) => setInstructions(e.target.value)}
+          onChange={(e) =>
+            setCocktailFormState((prevState) => ({
+              ...prevState,
+              instructions: e.target.value,
+            }))
+          }
         ></textarea>
 
         <label htmlFor="tags">Tags:</label>
