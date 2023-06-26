@@ -92,3 +92,8 @@
 .card-lite-instructions {
   text-align: left;
 }
+
+.card-lite-expanded-footer {
+  display: flex;
+  justify-content: space-around;
+}
