@@ -7,23 +7,20 @@ const resolvers = {
     // me: User
     me: async (parent, args, context) => {
       if (context.user) {
-        return await User.findOne({ _id: context.user._id }).populate('cocktails');
+        return await User.findOne({ _id: context.user._id }).populate(
+          "cocktails"
+        );
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     cocktails: async (parent, args) => {
-      
-     
-      return await Cocktail.find({}).sort({ name: 'asc' });
-
-      
-    
+      return await Cocktail.find({}).sort({ name: "asc" });
     },
   },
   Mutation: {
     // addUser
     addUser: async (parent, { username, email, password }) => {
-      console.log('back end response: ', username, email, password);
+      console.log("back end response: ", username, email, password);
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
@@ -47,21 +44,23 @@ const resolvers = {
       return { token, user };
     },
     // add a cocktail
-    addCocktail: async (parent, { name, ingredients, imageURL, glassware, instructions, tags }, context) => {
+    addCocktail: async (
+      parent,
+      { name, ingredients, imageURL, glassware, instructions, tags },
+      context
+    ) => {
       try {
         if (context.user) {
-          console.log('trying to add cocktail!')
+          console.log("trying to add cocktail!");
           console.log(context.user.username);
-          const cocktail = await Cocktail.create(
-            {
-              name,
-              ingredients,
-              imageURL,
-              glassware,
-              instructions,
-              tags
-            }
-          );
+          const cocktail = await Cocktail.create({
+            name,
+            ingredients,
+            imageURL,
+            glassware,
+            instructions,
+            tags,
+          });
 
           console.log("cocktail", cocktail);
           console.log("context.user._id", context.user._id);
@@ -73,7 +72,6 @@ const resolvers = {
           console.log(cocktail);
           console.log(user);
           return cocktail;
-
         } else {
           throw new AuthenticationError("You need to be logged in!");
         }
@@ -96,9 +94,50 @@ const resolvers = {
 
         return { success: true };
       }
-      throw new AuthenticationError('You need to be logged in!');
-    }
-   }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    editCocktail: async (
+      parent,
+      {
+        cocktailId,
+        name,
+        ingredients,
+        imageURL,
+        glassware,
+        instructions,
+        tags,
+      },
+      context
+    ) => {
+      try {
+        if (context.user) {
+          const updatedCocktail = await Cocktail.findOneAndUpdate(
+            { _id: cocktailId },
+            {
+              name,
+              ingredients,
+              imageURL,
+              glassware,
+              instructions,
+              tags,
+            },
+            { new: true }
+          );
+
+          if (!updatedCocktail) {
+            throw new Error("Cocktail not found");
+          }
+
+          return updatedCocktail;
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.log(err);
+        throw new Error(err);
+      }
+    },
+  },
 };
 
 module.exports = resolvers;

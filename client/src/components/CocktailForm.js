@@ -17,6 +17,7 @@ const initialState = {
 
 const CocktailForm = ({
   addCocktail,
+  editCocktail,
   cocktailFormState,
   setCocktailFormState,
   selectedCocktail,
@@ -62,17 +63,33 @@ const CocktailForm = ({
     }
     // Send form data to the server
     try {
-      const formData = await addCocktail({
-        variables: {
-          name,
-          ingredients,
-          imageURL,
-          glassware,
-          instructions,
-          tags,
-        },
-      });
-      console.log(formData);
+      if (formType === 'add') {
+        const formData = await addCocktail({
+          variables: {
+            name,
+            ingredients,
+            imageURL,
+            glassware,
+            instructions,
+            tags,
+          },
+        });
+        console.log(formData);
+      } else {
+        const formData = await editCocktail({
+          variables: {
+            cocktailId: selectedCocktail._id,
+            name,
+            ingredients,
+            imageURL,
+            glassware,
+            instructions,
+            tags,
+          },
+        });
+        console.log(formData);
+      }
+      
       // Reset form fields
       setCocktailFormState(initialState);
       setIngredientName("");
