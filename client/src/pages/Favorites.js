@@ -24,7 +24,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
     instructions: "",
     tags: [],
   });
-  const [modalTitle, setModalTitle] = useState("Add Cocktail");
+  const [formType, setFormType] = useState("add");
 
   const { data, loading, refetch } = useQuery(QUERY_ME);
 
@@ -111,7 +111,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
   const handleEditCocktail = (cocktail) => {
     setSelectedCocktail(cocktail);
     setShowCocktailForm(true);
-    setModalTitle("Edit Cocktail");
+    setFormType("edit");
     console.log("editing cocktail: ", cocktail);
   };
 
@@ -134,7 +134,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
         onClick={() => {
           setSelectedCocktail(null);
           setShowCocktailForm(!showCocktailForm);
-          setModalTitle("Add Cocktail");
+          setFormType("add");
           }
         }
       >
@@ -148,7 +148,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
           <div className="modal">
             <Modal show={true} onHide={() => setShowCocktailForm(false)}>
               <Modal.Header closeButton>
-                <Modal.Title>{modalTitle}</Modal.Title>
+                <Modal.Title>{formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <CocktailForm
@@ -159,7 +159,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
                   cocktailFormState={cocktailFormState}
                   setCocktailFormState={setCocktailFormState}
                   selectedCocktail={selectedCocktail}
-                  modalTitle={modalTitle}
+                  formType={formType}
                 />
               </Modal.Body>
             </Modal>

@@ -20,6 +20,7 @@ const CocktailForm = ({
   cocktailFormState,
   setCocktailFormState,
   selectedCocktail,
+  formType
 }) => {
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
@@ -211,7 +212,7 @@ const CocktailForm = ({
           Add Tag
         </button>
 
-        <button type="submit">Submit</button>
+        <button type="submit">{formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail</button>
       </form>
     </div>
   );
