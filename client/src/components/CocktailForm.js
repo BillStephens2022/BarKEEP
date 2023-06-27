@@ -16,22 +16,15 @@ const initialState = {
 };
 
 const CocktailForm = ({
-  setShowCocktailForm,
   addCocktail,
-  cocktails,
-  setCocktails,
+  editCocktail,
   cocktailFormState,
   setCocktailFormState,
   selectedCocktail,
+  formType
 }) => {
-  // const [name, setName] = useState("");
-  // const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
-  // const [imageURL, setImageURL] = useState("");
-  // const [glassware, setGlassware] = useState("");
-  // const [instructions, setInstructions] = useState("");
-  // const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
 
   const handleIngredientAdd = () => {
@@ -70,17 +63,33 @@ const CocktailForm = ({
     }
     // Send form data to the server
     try {
-      const formData = await addCocktail({
-        variables: {
-          name,
-          ingredients,
-          imageURL,
-          glassware,
-          instructions,
-          tags,
-        },
-      });
-      console.log(formData);
+      if (formType === 'add') {
+        const formData = await addCocktail({
+          variables: {
+            name,
+            ingredients,
+            imageURL,
+            glassware,
+            instructions,
+            tags,
+          },
+        });
+        console.log(formData);
+      } else {
+        const formData = await editCocktail({
+          variables: {
+            cocktailId: selectedCocktail._id,
+            name,
+            ingredients,
+            imageURL,
+            glassware,
+            instructions,
+            tags,
+          },
+        });
+        console.log(formData);
+      }
+      
       // Reset form fields
       setCocktailFormState(initialState);
       setIngredientName("");
@@ -220,7 +229,7 @@ const CocktailForm = ({
           Add Tag
         </button>
 
-        <button type="submit">Submit</button>
+        <button type="submit">{formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail</button>
       </form>
     </div>
   );

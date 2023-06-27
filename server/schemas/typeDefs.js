@@ -44,6 +44,15 @@ const typeDefs = gql`
       tags: [String!]!
     ) : Cocktail
     deleteCocktail(cocktailId: ID!): Cocktail
+    editCocktail(
+      cocktailId: ID!
+      name: String!
+      ingredients: [IngredientInput!]!
+      imageURL: String!
+      glassware: String!
+      instructions: String!
+      tags: [String!]!
+    ): Cocktail
   }
 `;
 

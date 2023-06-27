@@ -4,7 +4,7 @@ import CocktailCardLite from "../components/CocktailCardLite";
 import CocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
-import { ADD_COCKTAIL, DELETE_COCKTAIL } from "../utils/mutations";
+import { ADD_COCKTAIL, DELETE_COCKTAIL, EDIT_COCKTAIL } from "../utils/mutations";
 import { Modal } from "react-bootstrap";
 import "../styles/Home.css";
 
@@ -24,7 +24,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
     instructions: "",
     tags: [],
   });
-  const [modalTitle, setModalTitle] = useState("Add Cocktail");
+  const [formType, setFormType] = useState("add");
 
   const { data, loading, refetch } = useQuery(QUERY_ME);
 
@@ -108,10 +108,63 @@ const Favorites = ({ cocktails, setCocktails }) => {
     },
   });
 
+  const [editCocktail] = useMutation(EDIT_COCKTAIL, {
+    update(cache, { data: { editCocktail } }) {
+      try {
+        const { cocktails } = cache.readQuery({
+          query: QUERY_COCKTAILS,
+        }) ?? { cocktails: [] };
+  
+        const updatedCocktails = cocktails.map((cocktail) => {
+          if (cocktail._id === editCocktail._id) {
+            return {
+              ...cocktail,
+              name: cocktailFormState.name || cocktail.name,
+              ingredients: cocktailFormState.ingredients.map((ingredient, index) => ({
+                name: ingredient.name || cocktail.ingredients[index].name,
+                quantity: ingredient.quantity || cocktail.ingredients[index].quantity,
+              })),
+              imageURL: cocktailFormState.imageURL || cocktail.imageURL,
+              glassware: cocktailFormState.glassware || cocktail.glassware,
+              instructions: cocktailFormState.instructions || cocktail.instructions,
+              tags: cocktailFormState.tags || cocktail.tags,
+            };
+          } else {
+            return cocktail;
+          }
+        });
+  
+        cache.writeQuery({
+          query: QUERY_COCKTAILS,
+          data: { cocktails: updatedCocktails },
+        });
+  
+        const { me } = cache.readQuery({ query: QUERY_ME });
+  
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: {
+            me: {
+              ...me,
+              cocktails: updatedCocktails,
+            },
+          },
+        });
+      } catch (e) {
+        console.log("error with mutation!");
+        console.error(e);
+      }
+  
+      console.log("updated cache:", cache.data.data);
+    },
+    refetchQueries: [{ query: QUERY_COCKTAILS }],
+  });
+  
+
   const handleEditCocktail = (cocktail) => {
     setSelectedCocktail(cocktail);
     setShowCocktailForm(true);
-    setModalTitle("Edit Cocktail");
+    setFormType("edit");
     console.log("editing cocktail: ", cocktail);
   };
 
@@ -134,7 +187,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
         onClick={() => {
           setSelectedCocktail(null);
           setShowCocktailForm(!showCocktailForm);
-          setModalTitle("Add Cocktail");
+          setFormType("add");
           }
         }
       >
@@ -148,18 +201,19 @@ const Favorites = ({ cocktails, setCocktails }) => {
           <div className="modal">
             <Modal show={true} onHide={() => setShowCocktailForm(false)}>
               <Modal.Header closeButton>
-                <Modal.Title>{modalTitle}</Modal.Title>
+                <Modal.Title>{formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <CocktailForm
                   setShowCocktailForm={setShowCocktailForm}
                   addCocktail={addCocktail}
+                  editCocktail={editCocktail}
                   cocktails={cocktails}
                   setCocktails={setCocktails}
                   cocktailFormState={cocktailFormState}
                   setCocktailFormState={setCocktailFormState}
                   selectedCocktail={selectedCocktail}
-                  modalTitle={modalTitle}
+                  formType={formType}
                 />
               </Modal.Body>
             </Modal>
