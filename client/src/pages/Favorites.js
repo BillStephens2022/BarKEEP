@@ -4,7 +4,7 @@ import CocktailCardLite from "../components/CocktailCardLite";
 import CocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
-import { ADD_COCKTAIL, DELETE_COCKTAIL } from "../utils/mutations";
+import { ADD_COCKTAIL, DELETE_COCKTAIL, EDIT_COCKTAIL } from "../utils/mutations";
 import { Modal } from "react-bootstrap";
 import "../styles/Home.css";
 

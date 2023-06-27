@@ -50,3 +50,37 @@ export const DELETE_COCKTAIL = gql`
     }
   }
 `;
+
+export const EDIT_COCKTAIL = gql`
+  mutation EditCocktail(
+    $cocktailId: ID!
+    $name: String
+    $ingredients: [IngredientInput!]
+    $imageURL: String
+    $glassware: String
+    $instructions: String
+    $tags: [String!]
+  ) {
+    editCocktail(
+      cocktailId: $cocktailId
+      name: $name
+      ingredients: $ingredients
+      imageURL: $imageURL
+      glassware: $glassware
+      instructions: $instructions
+      tags: $tags
+    ) {
+      _id
+      name
+      ingredients {
+        name
+        quantity
+      }
+      imageURL
+      glassware
+      instructions
+      tags
+    }
+  }
+`;
+
