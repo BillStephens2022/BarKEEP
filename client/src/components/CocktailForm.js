@@ -16,22 +16,13 @@ const initialState = {
 };
 
 const CocktailForm = ({
-  setShowCocktailForm,
   addCocktail,
-  cocktails,
-  setCocktails,
   cocktailFormState,
   setCocktailFormState,
   selectedCocktail,
 }) => {
-  // const [name, setName] = useState("");
-  // const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
-  // const [imageURL, setImageURL] = useState("");
-  // const [glassware, setGlassware] = useState("");
-  // const [instructions, setInstructions] = useState("");
-  // const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
 
   const handleIngredientAdd = () => {
