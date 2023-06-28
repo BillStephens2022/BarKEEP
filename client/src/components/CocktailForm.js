@@ -21,7 +21,7 @@ const CocktailForm = ({
   cocktailFormState,
   setCocktailFormState,
   selectedCocktail,
-  formType
+  formType,
 }) => {
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
@@ -63,7 +63,7 @@ const CocktailForm = ({
     }
     // Send form data to the server
     try {
-      if (formType === 'add') {
+      if (formType === "add") {
         const formData = await addCocktail({
           variables: {
             name,
@@ -89,7 +89,7 @@ const CocktailForm = ({
         });
         console.log(formData);
       }
-      
+
       // Reset form fields
       setCocktailFormState(initialState);
       setIngredientName("");
@@ -130,6 +130,19 @@ const CocktailForm = ({
   const { name, ingredients, imageURL, glassware, instructions, tags } =
     cocktailFormState;
 
+  const handleIngredientChange = (index, field, value, isEditable) => {
+    if (isEditable) {
+      setCocktailFormState((prevState) => {
+        const updatedIngredients = [...prevState.ingredients];
+        updatedIngredients[index][field] = value;
+        return {
+          ...prevState,
+          ingredients: updatedIngredients,
+        };
+      });
+    }
+  };
+
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
@@ -151,8 +164,32 @@ const CocktailForm = ({
         <div>
           {ingredients.map((ingredient, index) => (
             <div key={index}>
-              <input type="text" value={ingredient.name} readOnly />
-              <input type="text" value={ingredient.quantity} readOnly />
+              <input
+                type="text"
+                value={ingredient.name}
+                onChange={(e) =>
+                  handleIngredientChange(
+                    index,
+                    "name",
+                    e.target.value,
+                    formType === "edit"
+                  )
+                }
+                readOnly={formType === "edit" ? false : true}
+              />
+              <input
+                type="text"
+                value={ingredient.quantity}
+                onChange={(e) =>
+                  handleIngredientChange(
+                    index,
+                    "quantity",
+                    e.target.value,
+                    formType === "edit"
+                  )
+                }
+                readOnly={formType === "edit" ? false : true}
+              />
             </div>
           ))}
         </div>
@@ -229,7 +266,9 @@ const CocktailForm = ({
           Add Tag
         </button>
 
-        <button type="submit">{formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail</button>
+        <button type="submit">
+          {formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail
+        </button>
       </form>
     </div>
   );
