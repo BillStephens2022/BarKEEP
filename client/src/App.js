@@ -7,15 +7,13 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import RandomCocktail from './components/RandomCocktail';
-import Feed from './pages/Feed';
-import Favorites from './pages/Favorites';
-import SearchCocktails from './pages/SearchCocktails';
-import Login from './pages/Login';
-
-
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import RandomCocktail from "./components/RandomCocktail";
+import Feed from "./pages/Feed";
+import Favorites from "./pages/Favorites";
+import SearchCocktails from "./pages/SearchCocktails";
+import Login from "./pages/Login";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -35,11 +33,28 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Cocktail: {
+        fields: {
+          ingredients: {
+            merge(existing, incoming) {
+              // Remove __typename field from each ingredient
+              const updatedIngredients = incoming.map((ingredient) => {
+                const { __typename, ...rest } = ingredient;
+                return rest;
+              });
+
+              return updatedIngredients;
+            },
+          },
+        },
+      },
+    },
+  }),
 });
 
 function App() {
-
   const [cocktails, setCocktails] = useState([]);
 
   return (
@@ -49,22 +64,15 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/Feed"
-              element={<Feed />}
-            />
+            <Route path="/Feed" element={<Feed />} />
             <Route
               path="/Favorites"
-              element={<Favorites cocktails={cocktails} setCocktails={setCocktails} />}
+              element={
+                <Favorites cocktails={cocktails} setCocktails={setCocktails} />
+              }
             />
-            <Route
-              path="/searchCocktails"
-              element={<SearchCocktails />}
-            />
-            <Route
-              path="/login"
-              element={<Login />}
-            />
+            <Route path="/searchCocktails" element={<SearchCocktails />} />
+            <Route path="/login" element={<Login />} />
             <Route
               path="*"
               element={<h1 className="display-2">Wrong page!</h1>}
