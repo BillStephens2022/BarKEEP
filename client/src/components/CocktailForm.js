@@ -165,6 +165,10 @@ const CocktailForm = ({
     setCocktailFormState((prevState) => {
       const updatedIngredients = [...prevState.ingredients];
       updatedIngredients[index][field] = value;
+
+      // Remove the __typename field
+      delete updatedIngredients[index].__typename;
+
       return {
         ...prevState,
         ingredients: updatedIngredients,

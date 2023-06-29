@@ -46,7 +46,7 @@ const resolvers = {
     // add a cocktail
     addCocktail: async (parent, args, context) => {
       const { name, ingredients, imageURL, glassware, instructions, tags } = args;
-      const parsedIngredients = ingredients.map(({ __typename, ...ingredient }) => ingredient);
+      const parsedIngredients = ingredients.map(({ ...ingredient }) => ingredient);
       
       try {
         if (context.user) {
