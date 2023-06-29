@@ -200,10 +200,13 @@ const Favorites = ({ cocktails, setCocktails }) => {
         <div className="modal-background">
           <div className="modal">
             <Modal show={true} onHide={() => setShowCocktailForm(false)}>
-              <Modal.Header closeButton>
+              <Modal.Header className="modal-title">
                 <Modal.Title>{formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail</Modal.Title>
+                <button className="modal-close-button" onClick={() => setShowCocktailForm(false)}>
+    &times;
+  </button>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className="modal-body">
                 <CocktailForm
                   setShowCocktailForm={setShowCocktailForm}
                   addCocktail={addCocktail}
