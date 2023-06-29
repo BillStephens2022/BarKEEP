@@ -195,46 +195,43 @@ const CocktailForm = ({
         <label htmlFor="ingredients">Ingredients:</label>
         <div>
           {ingredients.map((ingredient, index) => (
-            <div key={index}>
+            <div key={index} className="ingredient-inputs">
               <input
                 type="text"
-                value={ingredient.name}
+                value={ingredient.quantity}
+                placeholder="Quantity"
+                className="quantity-input"
                 onChange={(e) =>
-                  handleIngredientChange(
-                    index,
-                    "name",
-                    e.target.value,
-                    
-                  )
+                  handleIngredientChange(index, "quantity", e.target.value)
                 }
               />
               <input
                 type="text"
-                value={ingredient.quantity}
+                value={ingredient.name}
+                placeholder="Ingredient Name"
                 onChange={(e) =>
-                  handleIngredientChange(
-                    index,
-                    "quantity",
-                    e.target.value,
-                    
-                  )
+                  handleIngredientChange(index, "name", e.target.value)
                 }
               />
             </div>
           ))}
         </div>
-        <input
-          type="text"
-          placeholder="Ingredient Name"
-          value={ingredientName}
-          onChange={(e) => setIngredientName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Quantity"
-          value={ingredientQuantity}
-          onChange={(e) => setIngredientQuantity(e.target.value)}
-        />
+        <div className="ingredient-inputs">
+          <input
+            type="text"
+            placeholder="Quantity"
+            value={ingredientQuantity}
+            className="quantity-input"
+            onChange={(e) => setIngredientQuantity(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Ingredient Name"
+            value={ingredientName}
+            onChange={(e) => setIngredientName(e.target.value)}
+          />
+        </div>
+
         <button type="button" onClick={handleIngredientAdd}>
           Add Ingredient
         </button>
