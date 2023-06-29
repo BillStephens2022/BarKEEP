@@ -23,7 +23,7 @@ const CocktailForm = ({
   selectedCocktail,
   formType,
   setShowCocktailForm,
-  setCocktails
+  setCocktails,
 }) => {
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
@@ -151,7 +151,6 @@ const CocktailForm = ({
     }
     // Clean up the form state when the component is unmounted or when selectedCocktail changes
     return () => {
-      
       setCocktailFormState(initialState);
       setIngredientName("");
       setIngredientQuantity("");
@@ -162,17 +161,15 @@ const CocktailForm = ({
   const { name, ingredients, imageURL, glassware, instructions, tags } =
     cocktailFormState;
 
-  const handleIngredientChange = (index, field, value, isEditable) => {
-    if (!isEditable) {
-      setCocktailFormState((prevState) => {
-        const updatedIngredients = [...prevState.ingredients];
-        updatedIngredients[index][field] = value;
-        return {
-          ...prevState,
-          ingredients: updatedIngredients,
-        };
-      });
-    }
+  const handleIngredientChange = (index, field, value) => {
+    setCocktailFormState((prevState) => {
+      const updatedIngredients = [...prevState.ingredients];
+      updatedIngredients[index][field] = value;
+      return {
+        ...prevState,
+        ingredients: updatedIngredients,
+      };
+    });
   };
 
   return (
@@ -203,7 +200,7 @@ const CocktailForm = ({
                     index,
                     "name",
                     e.target.value,
-                    formType === "edit"
+                    
                   )
                 }
               />
@@ -215,7 +212,7 @@ const CocktailForm = ({
                     index,
                     "quantity",
                     e.target.value,
-                    formType === "edit"
+                    
                   )
                 }
               />
