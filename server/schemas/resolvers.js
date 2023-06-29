@@ -44,33 +44,26 @@ const resolvers = {
       return { token, user };
     },
     // add a cocktail
-    addCocktail: async (
-      parent,
-      { name, ingredients, imageURL, glassware, instructions, tags },
-      context
-    ) => {
+    addCocktail: async (parent, args, context) => {
+      const { name, ingredients, imageURL, glassware, instructions, tags } = args;
+      const parsedIngredients = ingredients.map(({ __typename, ...ingredient }) => ingredient);
+      
       try {
         if (context.user) {
-          console.log("trying to add cocktail!");
-          console.log(context.user.username);
           const cocktail = await Cocktail.create({
             name,
-            ingredients,
+            ingredients: parsedIngredients,
             imageURL,
             glassware,
             instructions,
             tags,
           });
-
-          console.log("cocktail", cocktail);
-          console.log("context.user._id", context.user._id);
-
+    
           const user = await User.findOneAndUpdate(
             { _id: context.user._id },
             { $addToSet: { cocktails: cocktail._id } }
           );
-          console.log(cocktail);
-          console.log(user);
+    
           return cocktail;
         } else {
           throw new AuthenticationError("You need to be logged in!");

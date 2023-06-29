@@ -24,6 +24,7 @@ const typeDefs = gql`
     instructions: String!
     tags: [String!]!
   }
+
   type Auth {
     token: ID
     user: User
@@ -46,12 +47,12 @@ const typeDefs = gql`
     deleteCocktail(cocktailId: ID!): Cocktail
     editCocktail(
       cocktailId: ID!
-      name: String!
-      ingredients: [IngredientInput!]!
-      imageURL: String!
-      glassware: String!
-      instructions: String!
-      tags: [String!]!
+      name: String
+      ingredients: [IngredientInput!]
+      imageURL: String
+      glassware: String
+      instructions: String
+      tags: [String!]
     ): Cocktail
   }
 `;
