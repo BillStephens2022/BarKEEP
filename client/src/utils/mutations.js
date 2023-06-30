@@ -68,3 +68,15 @@ mutation EditCocktail($cocktailId: ID!, $name: String, $ingredients: [Ingredient
 }
 `;
 
+export const ADD_POST = gql`
+  mutation AddPost($postTitle: String!, $postContent: String!, $postImageURL: String!) {
+    addPost(postTitle: $postTitle, postContent: $postContent, postImageURL: $postImageURL) {
+      _id
+      postTitle
+      postContent
+      postImageURL
+      author
+    }
+  }
+`;
+
