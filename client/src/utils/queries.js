@@ -18,6 +18,12 @@ query Me {
         name
         tags
       }
+      posts {
+        _id
+        postTitle
+        postContent
+        postImageURL
+      }
     }
   }
 `;
@@ -35,6 +41,18 @@ query Cocktails {
     instructions
     name
     tags
+  }
+}
+`;
+
+export const QUERY_POSTS = gql`
+query Posts {
+  posts {
+    _id
+    postTitle
+    postContent
+    postImageURL
+    author
   }
 }
 `;

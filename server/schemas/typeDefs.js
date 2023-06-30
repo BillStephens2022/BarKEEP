@@ -6,6 +6,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     cocktails: [Cocktail]
+    posts: [Post]
   }
   type Ingredient {
     name: String!
@@ -24,7 +25,13 @@ const typeDefs = gql`
     instructions: String!
     tags: [String!]!
   }
-
+  type Post {
+    _id: ID!
+    postTitle: String!
+    postContent: String!
+    postImageURL: String!
+    author: User
+  }
   type Auth {
     token: ID
     user: User
@@ -32,6 +39,7 @@ const typeDefs = gql`
   type Query {
     me: User
     cocktails: [Cocktail]
+    posts(author: ID!): [Post]
   }
   type Mutation {
     addUser(username: String, email: String, password: String): Auth
@@ -54,6 +62,12 @@ const typeDefs = gql`
       instructions: String
       tags: [String!]
     ): Cocktail
+    addPost(
+      postTitle: String!, 
+      postContent: String!,
+      postImageURL: String,
+      author: ID!
+    ) : Post
   }
 `;
 

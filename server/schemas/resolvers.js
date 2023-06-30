@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Cocktail } = require("../models");
+const { User, Cocktail, Post } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -128,6 +128,32 @@ const resolvers = {
       } catch (err) {
         console.log(err);
         throw new Error(err);
+      }
+    },
+    // add a new post
+    addPost: async (parent, args, context) => {
+      const { postTitle, postContent, postImageURL, author} = args;
+      try {
+        if (context.user) {
+          const post = await Post.create({
+            postTitle,
+            postContent,
+            postImageURL,
+            author
+          });
+    
+          const user = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $addToSet: { posts: post._id } }
+          );
+    
+          return post;
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.log(err);
+        throw new ApolloError("Failed to create a new post.");
       }
     },
   },
