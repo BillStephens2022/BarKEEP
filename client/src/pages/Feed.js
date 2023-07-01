@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_POSTS } from "../utils/queries";
+import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
 import { ADD_POST } from "../utils/mutations";
+import AuthService from "../utils/auth";
 import PostForm from "../components/PostForm";
+import Post from "../components/Post";
 import "../styles/Feed.css";
 import "../styles/CocktailForm.css";
 
-const Feed = () => {
+const Feed = ({ posts, setPosts }) => {
   const [showPostForm, setShowPostForm] = useState(false);
   const [postFormState, setPostFormState] = useState({
     postTitle: "",
@@ -15,7 +17,9 @@ const Feed = () => {
     postImageURL: "",
   });
 
-  const { data, loading, refetch } = useQuery(QUERY_POSTS);
+
+  const { data, loading, refetch } = useQuery(QUERY_ME);
+  const currentUser = data.me._id;
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -40,10 +44,11 @@ const Feed = () => {
     },
     refetchQueries: [{ query: QUERY_POSTS }],
   });
-
+  
   if (loading) {
     return <div>Loading...</div>;
   }
+  
 
   return (
     <div className="feed">
@@ -53,6 +58,7 @@ const Feed = () => {
         <button
           className="btn btn-add-post"
           onClick={() => {
+            console.log(data);
             console.log("create post clicked!");
             setShowPostForm(!showPostForm);
           }}
@@ -78,6 +84,7 @@ const Feed = () => {
                     addPost={addPost}
                     postFormState={postFormState}
                     setPostFormState={setPostFormState}
+                    currentUser={currentUser}
                   />
                 </Modal.Body>
               </Modal>
@@ -85,7 +92,15 @@ const Feed = () => {
           </div>
         )}
       </div>
-      <div className="posts-div"></div>
+      <div className="posts-container">
+        <Post
+          data={data}
+          loading={loading}
+          posts={posts}
+          addPost={addPost}
+          page="Feed"
+        />
+      </div>
     </div>
   );
 };

@@ -12,15 +12,19 @@ const PostForm = ({
   postFormState,
   setPostFormState,
   setShowPostForm,
+  currentUser,
 }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { postTitle, postContent, postImageURL } = postFormState;
+
+ 
     // console.log for debugging purposes
     console.log("Mutation Variables:", {
       postTitle,
       postContent,
       postImageURL,
+      currentUser
     });
     // Check if any required fields are empty
     if (!postTitle || !postContent) {
@@ -30,17 +34,20 @@ const PostForm = ({
 
     // Send form data to the server
     try {
+      console.log(currentUser);
+      console.log(postTitle, postContent, postImageURL, currentUser);
       const formData = await addPost({
         variables: {
           postTitle,
           postContent,
           postImageURL,
+          author: currentUser,
         },
       });
-      console.log(formData);
+      console.log("form data", formData);
+      
       // Reset form fields
       setPostFormState(initialState);
-
       setShowPostForm(false);
     } catch (err) {
       console.error(err);

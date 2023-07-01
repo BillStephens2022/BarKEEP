@@ -52,7 +52,11 @@ query Posts {
     postTitle
     postContent
     postImageURL
-    author
+    author {
+      _id
+      username
+      email
+    }
   }
 }
 `;

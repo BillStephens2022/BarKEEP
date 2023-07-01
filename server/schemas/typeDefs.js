@@ -29,7 +29,7 @@ const typeDefs = gql`
     _id: ID!
     postTitle: String!
     postContent: String!
-    postImageURL: String!
+    postImageURL: String
     author: User
   }
   type Auth {
