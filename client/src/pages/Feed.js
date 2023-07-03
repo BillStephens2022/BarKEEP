@@ -19,7 +19,7 @@ const Feed = ({ posts, setPosts }) => {
 
 
   const { data, loading, refetch } = useQuery(QUERY_ME);
-  const currentUser = data.me._id;
+  const currentUser = data?.me?._id;
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -96,7 +96,7 @@ const Feed = ({ posts, setPosts }) => {
         <Post
           data={data}
           loading={loading}
-          posts={posts}
+          posts={data?.me?.posts || []}
           addPost={addPost}
           page="Feed"
         />

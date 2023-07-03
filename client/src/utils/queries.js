@@ -18,12 +18,6 @@ query Me {
         name
         tags
       }
-      posts {
-        _id
-        postTitle
-        postContent
-        postImageURL
-      }
     }
   }
 `;
@@ -55,7 +49,6 @@ query Posts {
     author {
       _id
       username
-      email
     }
   }
 }

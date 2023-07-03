@@ -9,7 +9,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import RandomCocktail from "./components/RandomCocktail";
+// import RandomCocktail from "./components/RandomCocktail";
 import Feed from "./pages/Feed";
 import Favorites from "./pages/Favorites";
 import SearchCocktails from "./pages/SearchCocktails";

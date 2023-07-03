@@ -8,15 +8,18 @@ const resolvers = {
     // me: User
     me: async (parent, args, context) => {
       if (context.user) {
-        return await User.findOne({ _id: context.user._id }).populate(
-          "cocktails"
-        );
+        return await User.findOne({ _id: context.user._id })
+          .populate("cocktails")
+          .populate("posts");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     cocktails: async (parent, args) => {
       return await Cocktail.find({}).sort({ name: "asc" });
     },
+    posts: async (parent, args) => {
+      return await Post.find({}).populate("author");
+    }
   },
   Mutation: {
     // addUser
@@ -133,22 +136,21 @@ const resolvers = {
     },
     // add a new post
     addPost: async (parent, args, context) => {
-      const { postTitle, postContent, postImageURL, author} = args;
+      const { postTitle, postContent, postImageURL } = args;
       try {
         if (context.user) {
           const post = await Post.create({
             postTitle,
             postContent,
             postImageURL,
-            author
+            author: context.user._id,
           });
     
-          const user = await User.findOneAndUpdate(
-            { _id: context.user._id },
-            { $addToSet: { posts: post._id } }
-          );
+          const populatedPost = await post.populate("author").execPopulate();
+
+          return populatedPost;
     
-          return post;
+     
         } else {
           throw new AuthenticationError("You need to be logged in!");
         }
