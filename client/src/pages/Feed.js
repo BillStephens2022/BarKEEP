@@ -30,7 +30,7 @@ const Feed = ({ posts, setPosts }) => {
 
         cache.writeQuery({
           query: QUERY_POSTS,
-          data: { posts: [addPost, ...posts.reverse()] },
+          data: { posts: [addPost, ...posts].reverse() },
         });
       } catch (e) {
         console.log("error with mutation!");

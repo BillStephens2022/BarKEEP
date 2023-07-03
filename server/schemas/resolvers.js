@@ -145,6 +145,10 @@ const resolvers = {
             postImageURL,
             author: context.user._id,
           });
+
+          await User.findByIdAndUpdate(context.user._id, {
+            $addToSet: { posts: post._id },
+          });
     
           const populatedPost = await post.populate("author").execPopulate();
 
