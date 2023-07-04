@@ -171,11 +171,18 @@ const Favorites = ({ cocktails, setCocktails }) => {
   useEffect(() => {
     if (data?.me?.cocktails) {
       setCocktails(data?.me?.cocktails);
+    } else {
+      console.log(cocktails[0]);
     }
   }, [data, refetch]);
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!cocktails.length) {
+    console.log("no cocktail length!");
+    return <h3 className="cocktail_card_error">No cocktails to display yet</h3>;
   }
 
   return (

@@ -9,7 +9,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import RandomCocktail from "./components/RandomCocktail";
+// import RandomCocktail from "./components/RandomCocktail";
 import Feed from "./pages/Feed";
 import Favorites from "./pages/Favorites";
 import SearchCocktails from "./pages/SearchCocktails";
@@ -56,6 +56,7 @@ const client = new ApolloClient({
 
 function App() {
   const [cocktails, setCocktails] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   return (
     <ApolloProvider client={client}>
@@ -64,7 +65,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Feed" element={<Feed />} />
+            <Route path="/Feed" element={<Feed posts={posts} setPosts={setPosts} />} />
             <Route
               path="/Favorites"
               element={

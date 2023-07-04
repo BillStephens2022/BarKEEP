@@ -1,4 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
+const { ApolloError } = require("apollo-server-errors");
 const { User, Cocktail, Post } = require("../models");
 const { signToken } = require("../utils/auth");
 
@@ -7,14 +8,27 @@ const resolvers = {
     // me: User
     me: async (parent, args, context) => {
       if (context.user) {
-        return await User.findOne({ _id: context.user._id }).populate(
-          "cocktails"
-        );
+        return await User.findOne({ _id: context.user._id })
+          .populate({
+            path: "cocktails",
+            model: "Cocktail",
+          })
+          .populate({
+            path: "posts",
+            model: "Post",
+            populate: {
+              path: "author",
+              model: "User",
+            },
+          });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     cocktails: async (parent, args) => {
       return await Cocktail.find({}).sort({ name: "asc" });
+    },
+    posts: async (parent, args) => {
+      return await Post.find({}).populate("author");
     },
   },
   Mutation: {
@@ -45,9 +59,12 @@ const resolvers = {
     },
     // add a cocktail
     addCocktail: async (parent, args, context) => {
-      const { name, ingredients, imageURL, glassware, instructions, tags } = args;
-      const parsedIngredients = ingredients.map(({ ...ingredient }) => ingredient);
-      
+      const { name, ingredients, imageURL, glassware, instructions, tags } =
+        args;
+      const parsedIngredients = ingredients.map(
+        ({ ...ingredient }) => ingredient
+      );
+
       try {
         if (context.user) {
           const cocktail = await Cocktail.create({
@@ -58,12 +75,12 @@ const resolvers = {
             instructions,
             tags,
           });
-    
+
           const user = await User.findOneAndUpdate(
             { _id: context.user._id },
             { $addToSet: { cocktails: cocktail._id } }
           );
-    
+
           return cocktail;
         } else {
           throw new AuthenticationError("You need to be logged in!");
@@ -132,22 +149,23 @@ const resolvers = {
     },
     // add a new post
     addPost: async (parent, args, context) => {
-      const { postTitle, postContent, postImageURL, author} = args;
+      const { postTitle, postContent, postImageURL } = args;
       try {
         if (context.user) {
           const post = await Post.create({
             postTitle,
             postContent,
             postImageURL,
-            author
+            author: context.user._id,
           });
-    
-          const user = await User.findOneAndUpdate(
-            { _id: context.user._id },
-            { $addToSet: { posts: post._id } }
-          );
-    
-          return post;
+
+          await User.findByIdAndUpdate(context.user._id, {
+            $addToSet: { posts: post._id },
+          });
+
+          const populatedPost = await post.populate("author").execPopulate();
+
+          return populatedPost;
         } else {
           throw new AuthenticationError("You need to be logged in!");
         }
