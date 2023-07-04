@@ -18,8 +18,10 @@ const Feed = ({ posts, setPosts }) => {
   });
 
 
-  const { data, loading, refetch } = useQuery(QUERY_ME);
-  const currentUser = data?.me?._id;
+  const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
+  const { loading: postsLoading, data: postsData, refetch } = useQuery(QUERY_POSTS);
+
+  const currentUser = userData?.me?._id;
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -47,7 +49,7 @@ const Feed = ({ posts, setPosts }) => {
     },
   });
   
-  if (loading) {
+  if (userLoading || postsLoading) {
     return <div>Loading...</div>;
   }
   
@@ -60,8 +62,6 @@ const Feed = ({ posts, setPosts }) => {
         <button
           className="btn btn-add-post"
           onClick={() => {
-            console.log(data);
-            console.log("create post clicked!");
             setShowPostForm(!showPostForm);
           }}
         >
@@ -69,9 +69,9 @@ const Feed = ({ posts, setPosts }) => {
         </button>
         <div className="posts-container">
         <Post
-          data={data}
-          loading={loading}
-          posts={data?.me?.posts || []}
+          data={postsData}
+          loading={postsLoading}
+          posts={postsData?.posts || []}
           addPost={addPost}
           page="Feed"
         />
