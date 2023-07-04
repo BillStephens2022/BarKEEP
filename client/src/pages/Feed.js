@@ -65,6 +65,15 @@ const Feed = ({ posts, setPosts }) => {
         >
           Create a New Post
         </button>
+        <div className="posts-container">
+        <Post
+          data={data}
+          loading={loading}
+          posts={data?.me?.posts || []}
+          addPost={addPost}
+          page="Feed"
+        />
+      </div>
         {showPostForm && (
           <div className="modal-background">
             <div className="modal">
@@ -92,15 +101,7 @@ const Feed = ({ posts, setPosts }) => {
           </div>
         )}
       </div>
-      <div className="posts-container">
-        <Post
-          data={data}
-          loading={loading}
-          posts={data?.me?.posts || []}
-          addPost={addPost}
-          page="Feed"
-        />
-      </div>
+  
     </div>
   );
 };

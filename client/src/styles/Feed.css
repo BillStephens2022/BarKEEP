@@ -1,14 +1,14 @@
 .feed {
-    position: relative;
-    flex: 1;
-    background-color: var(--white);
-    color: var(--blue);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-  }
+  position: relative;
+  flex: 1;
+  background-color: var(--white);
+  color: var(--blue);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .headings {
   position: absolute;
@@ -37,3 +37,62 @@
   margin-top: auto;
 }
 
+.posts-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.post-card {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: var(--blue);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-image {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.post-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: var(--white);
+}
+
+.post-content {
+  margin-top: 10px;
+  color: var(--champagne);
+}
+
+.post-author {
+  margin-top: 10px;
+  color: var(--maroon);
+}
+
+.posts_error {
+  margin-top: 20px;
+  font-size: 18px;
+  color: var(--blue);
+}
+
+@media (max-width: 768px) {
+  .post-card {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .post-image {
+    height: 200px;
+  }
+}

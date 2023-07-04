@@ -3,7 +3,7 @@ import { GoPencil, GoTrashcan, GoPlus } from "react-icons/go";
 import { QUERY_ME, QUERY_POSTS } from "../utils/queries";
 import Auth from "../utils/auth";
 import "../styles/Feed.css";
-import "../styles/CocktailCardLite.css";
+
 
 const Post = ({ data, loading, posts, setPosts, page, addPost }) => {
 
@@ -24,7 +24,7 @@ const Post = ({ data, loading, posts, setPosts, page, addPost }) => {
     <>
       {posts.map((post) => {
         return (
-        <div className="post-container" key={post._id}>
+        <div className="post-card" key={post._id}>
           <div
             className="post-image"
             style={{ backgroundImage: `url(${post.postImageURL})` }}
