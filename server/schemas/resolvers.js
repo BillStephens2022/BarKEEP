@@ -9,8 +9,18 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         return await User.findOne({ _id: context.user._id })
-          .populate("cocktails")
-          .populate("posts");
+          .populate({
+            path: "cocktails",
+            model: "Cocktail",
+          })
+          .populate({
+            path: "posts",
+            model: "Post",
+            populate: {
+              path: "author",
+              model: "User",
+            },
+          });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -19,7 +29,7 @@ const resolvers = {
     },
     posts: async (parent, args) => {
       return await Post.find({}).populate("author");
-    }
+    },
   },
   Mutation: {
     // addUser
@@ -49,9 +59,12 @@ const resolvers = {
     },
     // add a cocktail
     addCocktail: async (parent, args, context) => {
-      const { name, ingredients, imageURL, glassware, instructions, tags } = args;
-      const parsedIngredients = ingredients.map(({ ...ingredient }) => ingredient);
-      
+      const { name, ingredients, imageURL, glassware, instructions, tags } =
+        args;
+      const parsedIngredients = ingredients.map(
+        ({ ...ingredient }) => ingredient
+      );
+
       try {
         if (context.user) {
           const cocktail = await Cocktail.create({
@@ -62,12 +75,12 @@ const resolvers = {
             instructions,
             tags,
           });
-    
+
           const user = await User.findOneAndUpdate(
             { _id: context.user._id },
             { $addToSet: { cocktails: cocktail._id } }
           );
-    
+
           return cocktail;
         } else {
           throw new AuthenticationError("You need to be logged in!");
@@ -149,12 +162,10 @@ const resolvers = {
           await User.findByIdAndUpdate(context.user._id, {
             $addToSet: { posts: post._id },
           });
-    
+
           const populatedPost = await post.populate("author").execPopulate();
 
           return populatedPost;
-    
-     
         } else {
           throw new AuthenticationError("You need to be logged in!");
         }

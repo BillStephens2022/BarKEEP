@@ -6,6 +6,7 @@ import "../styles/Feed.css";
 import "../styles/CocktailCardLite.css";
 
 const Post = ({ data, loading, posts, setPosts, page, addPost }) => {
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -14,19 +15,27 @@ const Post = ({ data, loading, posts, setPosts, page, addPost }) => {
     return <h3 className="posts_error">No posts to display yet</h3>;
   }
 
+  const { me } = data;
+  console.log("me:", me);
+  console.log("posts:", posts);
+  
+
   return (
     <>
-      {posts.map((post) => (
-        <div className="card card-cocktail-lite" key={post._id}>
+      {posts.map((post) => {
+        return (
+        <div className="post-container" key={post._id}>
           <div
-            className="card-content"
+            className="post-image"
             style={{ backgroundImage: `url(${post.postImageURL})` }}
           >
-            <div className="card-title-lite">{post.postTitle}</div>
-            <div className="card-cocktail-lite-footer">{post.postContent}</div>
+            <div className="post-title">{post.postTitle}</div>
+            <div className="post-content">{post.postContent}</div>
+            <div className="post-author">{post.author.username}</div>
           </div>
         </div>
-      ))}
+        );
+      })}
     </>
   );
 };
