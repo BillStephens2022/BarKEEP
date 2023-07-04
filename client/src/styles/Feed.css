@@ -1,11 +1,11 @@
 .feed {
   position: relative;
-  flex: 1;
-  background-color: var(--darkgray);
-  color: var(--blue);
-  text-align: center;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  background-color: var(--white);
+  color: var(--blue);
+  text-align: center;
   justify-content: center;
   align-items: center;
 }
@@ -31,18 +31,21 @@
 .subtitle {
   font-size: 2rem;
   letter-spacing: 0.4rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   color: var(--blue);
   text-align: center;
   margin-top: auto;
 }
 
+.btn-add-post {
+  width: 15rem;
+  align-self: center;
+}
+
 .posts-container {
   margin-top: 1rem;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  
+  flex-wrap: wrap;
 }
 
 
