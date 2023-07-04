@@ -42,7 +42,9 @@ const Feed = ({ posts, setPosts }) => {
       postContent: postFormState.postContent || undefined,
       postImageURL: postFormState.postImageURL || undefined,
     },
-    refetchQueries: [{ query: QUERY_POSTS }],
+    onCompleted: () => {
+      refetch();
+    },
   });
   
   if (loading) {
