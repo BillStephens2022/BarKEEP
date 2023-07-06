@@ -152,10 +152,12 @@ const resolvers = {
       const { postTitle, postContent, postImageURL } = args;
       try {
         if (context.user) {
+          const postDate = moment().tz(context.timezone).toDate();
           const post = await Post.create({
             postTitle,
             postContent,
             postImageURL,
+            postDate,
             author: context.user._id,
           });
 
