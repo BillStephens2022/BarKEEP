@@ -12,6 +12,9 @@ const postSchema = new Schema({
   postImageURL: {
     type: String,
   },
+  postDate: {
+    type: Date,
+  },
   author: {
     type: Schema.Types.ObjectId,
     ref: "User",

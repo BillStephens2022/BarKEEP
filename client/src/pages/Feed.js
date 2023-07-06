@@ -21,7 +21,7 @@ const Feed = ({ posts, setPosts }) => {
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
   const { loading: postsLoading, data: postsData, refetch } = useQuery(QUERY_POSTS);
 
-  const currentUser = userData?.me?._id;
+  
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -52,6 +52,9 @@ const Feed = ({ posts, setPosts }) => {
   if (userLoading || postsLoading) {
     return <div>Loading...</div>;
   }
+   console.log(userData);
+  const currentUser = userData?.me?._id;
+  console.log(currentUser);
   
 
   return (

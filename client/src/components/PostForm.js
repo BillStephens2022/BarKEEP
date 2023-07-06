@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from 'moment-timezone';
 import "../styles/CocktailForm.css";
 
 const initialState = {
@@ -17,7 +18,8 @@ const PostForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { postTitle, postContent, postImageURL } = postFormState;
-
+    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const postDate = moment().tz(userTimeZone).toDate();
  
     // console.log for debugging purposes
     console.log("Mutation Variables:", {
@@ -41,6 +43,7 @@ const PostForm = ({
           postTitle,
           postContent,
           postImageURL,
+          postDate,
           author: currentUser,
         },
       });

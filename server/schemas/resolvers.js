@@ -149,13 +149,14 @@ const resolvers = {
     },
     // add a new post
     addPost: async (parent, args, context) => {
-      const { postTitle, postContent, postImageURL } = args;
+      const { postTitle, postContent, postImageURL, postDate } = args;
       try {
         if (context.user) {
           const post = await Post.create({
             postTitle,
             postContent,
             postImageURL,
+            postDate,
             author: context.user._id,
           });
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { GoPencil, GoTrashcan, GoPlus } from "react-icons/go";
 import { QUERY_ME, QUERY_POSTS } from "../utils/queries";
 import Auth from "../utils/auth";
+import { formatDate } from "../utils/formatting";
 import "../styles/Feed.css";
 
 
@@ -35,6 +36,7 @@ const Post = ({ data, loading, posts, setPosts, page, addPost }) => {
             
           </div>
           <div className="post-author">Posted by: {post.author.username}</div>
+          <div className="post-author">{formatDate(post.postDate)}</div>
         </div>
         );
       })}
