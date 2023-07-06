@@ -149,10 +149,9 @@ const resolvers = {
     },
     // add a new post
     addPost: async (parent, args, context) => {
-      const { postTitle, postContent, postImageURL } = args;
+      const { postTitle, postContent, postImageURL, postDate } = args;
       try {
         if (context.user) {
-          const postDate = moment().tz(context.timezone).toDate();
           const post = await Post.create({
             postTitle,
             postContent,

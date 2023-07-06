@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const moment = require('moment-timezone');
 
 const postSchema = new Schema({
   postTitle: {
@@ -15,7 +14,6 @@ const postSchema = new Schema({
   },
   postDate: {
     type: Date,
-    default: moment().tz('UTC').toDate(), // Set default value to current UTC date
   },
   author: {
     type: Schema.Types.ObjectId,

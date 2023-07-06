@@ -23,6 +23,7 @@ query Me {
       postContent
       postImageURL
       postTitle
+      postDate
       author {
         _id
         username
@@ -56,6 +57,7 @@ query Posts {
     postTitle
     postContent
     postImageURL
+    postDate
     author {
       _id
       username

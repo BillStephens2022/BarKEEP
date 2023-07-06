@@ -30,7 +30,7 @@ const typeDefs = gql`
     postTitle: String!
     postContent: String!
     postImageURL: String
-    postDate: String!
+    postDate: String
     author: User
   }
   type Auth {
@@ -67,6 +67,7 @@ const typeDefs = gql`
       postTitle: String!, 
       postContent: String!,
       postImageURL: String,
+      postDate: String,
       author: ID!
     ) : Post
   }
