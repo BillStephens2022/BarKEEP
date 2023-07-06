@@ -44,9 +44,10 @@ const Login = () => {
     <div className="login_page">
       <h1 className="title">BarKEEP</h1>
       <h2 className="subtitle">Log In / Register</h2>
+      <h5 className="subtitle-2">Try our <span className="subtitle-2-span" onClick={handleGuestClick}> 'Guest Login' </span> for a test drive</h5>
       <Button onClick={handleLoginClick} text="Log In" />
-      <Button onClick={handleRegisterClick} text="Register" />
       <Button onClick={handleGuestClick} text="Guest Login" />
+      <Button onClick={handleRegisterClick} text="Register" />
       <div className="form_container">
         {showRegisterForm ? (<RegisterForm />) : null}
         {showLoginForm ? (<LoginForm />): null}

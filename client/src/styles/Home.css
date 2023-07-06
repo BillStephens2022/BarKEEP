@@ -188,6 +188,23 @@
   width: 25vw;
 }
 
+.subtitle-2 {
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.subtitle-2-span {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--maroon);
+  cursor: pointer;
+}
+
+.subtitle-2-span:hover {
+  text-transform: lowercase;
+  color: var(--blue);
+}
+
 .searchCocktails {
   background-color: var(--lightgray);
   width: 100%;
