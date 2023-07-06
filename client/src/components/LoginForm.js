@@ -51,26 +51,28 @@ const LoginForm = () => {
           Something went wrong with your login credentials!
         </Alert>
         <Form.Group>
-          <Form.Label htmlFor='email'>Email (use 'bill@gmail.com' to test drive with pre-loaded data)</Form.Label>
+          <Form.Label htmlFor='email' className="login-label">Email</Form.Label>
           <Form.Control
             type='text'
             placeholder='Your email'
             name='email'
             onChange={handleInputChange}
             value={userFormData.email}
+            className="login-input"
             required
           />
           <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor='password'>Password (use 'password' to test drive with pre-loaded data)</Form.Label>
+          <Form.Label htmlFor='password' className="login-label">Password</Form.Label>
           <Form.Control
             type='password'
             placeholder='Your password'
             name='password'
             onChange={handleInputChange}
             value={userFormData.password}
+            className="login-input"
             required
           />
           <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
