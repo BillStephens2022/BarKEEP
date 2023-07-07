@@ -30,7 +30,7 @@ const Feed = ({ posts, setPosts }) => {
   const { me } = userData || {};
   const { posts: userPosts = [] } = me || {};
 
-  const [filteredPosts, setFilteredPosts] = useState([...userPosts]);
+  const [filteredPosts, setFilteredPosts] = useState(userPosts.slice());
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -41,11 +41,34 @@ const Feed = ({ posts, setPosts }) => {
 
         const updatedPosts = [addPost, ...posts].reverse();
 
+        
+
         cache.writeQuery({
           query: QUERY_POSTS,
           data: { posts: updatedPosts },
         });
-        setFilteredPosts(updatedPosts);
+
+        const { me } = cache.readQuery({ query: QUERY_ME });
+
+      // Update the user's posts array with the new post
+        const updatedUserPosts = [addPost, ...me.posts];
+        
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: {
+            me: {
+              ...me,
+              posts: updatedUserPosts,
+            },
+          },
+        });
+
+
+        if (isMyPosts) {
+          setFilteredPosts(updatedUserPosts);
+        } else {
+          setFilteredPosts(updatedPosts);
+        }
       } catch (e) {
         console.log("error with mutation!");
         console.error(e);
@@ -96,7 +119,6 @@ const Feed = ({ posts, setPosts }) => {
       }
 
       console.log("updated cache:", cache.data.data);
-      refetch();
     },
   });
 
@@ -105,7 +127,7 @@ const Feed = ({ posts, setPosts }) => {
   const handleAllPostsClick = () => {
     setIsAllPosts(true);
     setIsMyPosts(false);
-    setFilteredPosts(postsData?.posts);
+    setFilteredPosts(postsData?.posts ? [...postsData.posts] : []);
   };
 
   // Function to handle the "My Posts" button click
