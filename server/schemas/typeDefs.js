@@ -70,6 +70,7 @@ const typeDefs = gql`
       postDate: String,
       author: ID!
     ) : Post
+    deletePost(postId: ID!): Post
   }
 `;
 

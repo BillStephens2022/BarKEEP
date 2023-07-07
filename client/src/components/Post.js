@@ -1,9 +1,12 @@
 import React from "react";
+import { GoTrashcan } from "react-icons/go";
+import { QUERY_ME } from "../utils/queries";
+import Auth from "../utils/auth";
 import { formatDate } from "../utils/formatting";
 import "../styles/Feed.css";
 
 
-const Post = ({ data, loading, posts, setPosts, page, addPost }) => {
+const Post = ({ data, loading, posts, setPosts, page, addPost, deletePost }) => {
 
   if (loading) {
     return <div>Loading...</div>;
@@ -19,6 +22,29 @@ const Post = ({ data, loading, posts, setPosts, page, addPost }) => {
 
   const reversedPosts = sortedPosts.reverse();
 
+  const handleDeletePost = async (postId) => {
+    // e.preventDefault();
+    console.log("attempting to delete post: ",  postId);
+    // const postId = e.currentTarget.id;
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) return false;
+    console.log("deleting post!");
+    try {
+      const { data } = await deletePost({
+        variables: { postId },
+        refetchQueries: [{ query: QUERY_ME }]
+      });
+      if (!data) {
+        throw new Error("something went wrong!");
+      }
+      console.log("done!");
+    } catch (err) {
+      console.error(err);
+    }
+    //setPosts(posts.filter((posts) => posts._id !== postId));
+  };
+  
+
   return (
     <>
       {reversedPosts.map((post) => {
@@ -33,6 +59,7 @@ const Post = ({ data, loading, posts, setPosts, page, addPost }) => {
           </div>
           <div className="post-author">Posted by: {post.author.username}</div>
           <div className="post-author">{formatDate(post.postDate)}</div>
+          <button className="btn" id={post._id} onClick={() => handleDeletePost(post._id)}><GoTrashcan /></button>
         </div>
         );
       })}
