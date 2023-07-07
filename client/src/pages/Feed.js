@@ -152,6 +152,7 @@ const Feed = ({ posts, setPosts }) => {
             posts={filteredPosts || []}
             addPost={addPost}
             deletePost={deletePost}
+            isMyPosts={isMyPosts}
             page="Feed"
           />
         </div>
