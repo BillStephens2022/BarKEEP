@@ -17,11 +17,20 @@ const Feed = ({ posts, setPosts }) => {
     postImageURL: "",
   });
 
+  const [isAllPosts, setIsAllPosts] = useState(true);
+  const [isMyPosts, setIsMyPosts] = useState(false);
 
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
-  const { loading: postsLoading, data: postsData, refetch } = useQuery(QUERY_POSTS);
+  const {
+    loading: postsLoading,
+    data: postsData,
+    refetch,
+  } = useQuery(QUERY_POSTS);
 
-  
+  const { me } = userData || {};
+  const { posts: userPosts } = me || {};
+
+  const filteredPosts = isAllPosts ? postsData?.posts : userPosts;
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -89,7 +98,19 @@ const Feed = ({ posts, setPosts }) => {
       refetch();
     },
   });
-  
+
+  // Function to handle the "All Posts" button click
+  const handleAllPostsClick = () => {
+    setIsAllPosts(true);
+    setIsMyPosts(false);
+  };
+
+  // Function to handle the "My Posts" button click
+  const handleMyPostsClick = () => {
+    setIsAllPosts(false);
+    setIsMyPosts(true);
+  };
+
   if (userLoading || postsLoading) {
     return <div>Loading...</div>;
   }
@@ -97,14 +118,25 @@ const Feed = ({ posts, setPosts }) => {
   const currentUser = userData?.me?._id;
   console.log(currentUser);
 
-
-  
-
   return (
     <div className="feed">
       <div className="headings">
         <h1 className="title">BarKEEP</h1>
         <h2 className="subtitle">Cocktail Posts</h2>
+        <div className="view-buttons">
+          <button
+            className={`btn btn-view ${isAllPosts ? "active" : ""}`}
+            onClick={handleAllPostsClick}
+          >
+            All Posts
+          </button>
+          <button
+            className={`btn btn-view ${isMyPosts ? "active" : ""}`}
+            onClick={handleMyPostsClick}
+          >
+            My Posts
+          </button>
+        </div>
         <button
           className="btn btn-add-post"
           onClick={() => {
@@ -114,15 +146,16 @@ const Feed = ({ posts, setPosts }) => {
           Create a New Post
         </button>
         <div className="posts-container">
-        <Post
-          data={postsData}
-          loading={postsLoading}
-          posts={postsData?.posts || []}
-          addPost={addPost}
-          deletePost={deletePost}
-          page="Feed"
-        />
-      </div>
+          <Post
+            data={postsData}
+            loading={postsLoading}
+            posts={filteredPosts || []}
+            addPost={addPost}
+            deletePost={deletePost}
+            isMyPosts={isMyPosts}
+            page="Feed"
+          />
+        </div>
         {showPostForm && (
           <div className="modal-background">
             <div className="modal">
@@ -150,7 +183,6 @@ const Feed = ({ posts, setPosts }) => {
           </div>
         )}
       </div>
-  
     </div>
   );
 };
