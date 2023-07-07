@@ -28,9 +28,9 @@ const Feed = ({ posts, setPosts }) => {
   } = useQuery(QUERY_POSTS);
 
   const { me } = userData || {};
-  const { posts: userPosts } = me || {};
+  const { posts: userPosts = [] } = me || {};
 
-  const filteredPosts = isAllPosts ? postsData?.posts : userPosts;
+  const [filteredPosts, setFilteredPosts] = useState(userPosts.slice());
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -39,22 +39,46 @@ const Feed = ({ posts, setPosts }) => {
           query: QUERY_POSTS,
         }) ?? { posts: [] };
 
+        const updatedPosts = [addPost, ...posts].reverse();
+
+        
+
         cache.writeQuery({
           query: QUERY_POSTS,
-          data: { posts: [addPost, ...posts].reverse() },
+          data: { posts: updatedPosts },
         });
+
+        const { me } = cache.readQuery({ query: QUERY_ME });
+
+      // Update the user's posts array with the new post
+        const updatedUserPosts = [addPost, ...me.posts];
+        
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: {
+            me: {
+              ...me,
+              posts: updatedUserPosts,
+            },
+          },
+        });
+
+
+        if (isMyPosts) {
+          setFilteredPosts(updatedUserPosts);
+        } else {
+          setFilteredPosts(updatedPosts);
+        }
       } catch (e) {
         console.log("error with mutation!");
         console.error(e);
       }
+      
     },
     variables: {
       postTitle: postFormState.postTitle || undefined,
       postContent: postFormState.postContent || undefined,
       postImageURL: postFormState.postImageURL || undefined,
-    },
-    onCompleted: () => {
-      refetch();
     },
   });
 
@@ -95,20 +119,22 @@ const Feed = ({ posts, setPosts }) => {
       }
 
       console.log("updated cache:", cache.data.data);
-      refetch();
     },
   });
+
 
   // Function to handle the "All Posts" button click
   const handleAllPostsClick = () => {
     setIsAllPosts(true);
     setIsMyPosts(false);
+    setFilteredPosts(postsData?.posts ? [...postsData.posts] : []);
   };
 
   // Function to handle the "My Posts" button click
   const handleMyPostsClick = () => {
     setIsAllPosts(false);
     setIsMyPosts(true);
+    setFilteredPosts(userPosts);
   };
 
   if (userLoading || postsLoading) {
