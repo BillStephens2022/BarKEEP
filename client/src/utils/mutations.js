@@ -85,3 +85,11 @@ export const ADD_POST = gql`
   }
 `;
 
+export const DELETE_POST = gql`
+  mutation DeletePost($postId: ID!) {
+    deletePost(postId: $postId) {
+      _id
+    }
+  }
+`;
+

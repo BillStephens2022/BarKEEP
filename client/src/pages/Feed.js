@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
-import { ADD_POST } from "../utils/mutations";
-import AuthService from "../utils/auth";
+import { ADD_POST, DELETE_POST } from "../utils/mutations";
+
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
 import "../styles/Feed.css";
@@ -48,13 +48,56 @@ const Feed = ({ posts, setPosts }) => {
       refetch();
     },
   });
+
+  const [deletePost] = useMutation(DELETE_POST, {
+    update(cache, { data: { deletePost } }) {
+      try {
+        const { posts } = cache.readQuery({
+          query: QUERY_POSTS,
+        }) ?? { posts: [] };
+
+        const updatedPosts = posts.filter(
+          (post) => post._id !== (deletePost?._id || null)
+        );
+
+        console.log("deletePost:", deletePost);
+
+        cache.writeQuery({
+          query: QUERY_POSTS,
+          data: { posts: updatedPosts },
+        });
+
+        const { me } = cache.readQuery({ query: QUERY_ME });
+
+        console.log("posts:", posts);
+
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: {
+            me: {
+              ...me,
+              posts: updatedPosts,
+            },
+          },
+        });
+      } catch (e) {
+        console.log("error with mutation!");
+        console.error(e);
+      }
+
+      console.log("updated cache:", cache.data.data);
+      refetch();
+    },
+  });
   
   if (userLoading || postsLoading) {
     return <div>Loading...</div>;
   }
-   console.log(userData);
+  console.log(userData);
   const currentUser = userData?.me?._id;
   console.log(currentUser);
+
+
   
 
   return (
@@ -76,6 +119,7 @@ const Feed = ({ posts, setPosts }) => {
           loading={postsLoading}
           posts={postsData?.posts || []}
           addPost={addPost}
+          deletePost={deletePost}
           page="Feed"
         />
       </div>

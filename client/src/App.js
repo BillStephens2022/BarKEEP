@@ -65,7 +65,12 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Feed" element={<Feed posts={posts} setPosts={setPosts} />} />
+            <Route
+              path="/Feed"
+              element={
+                <Feed posts={posts} setPosts={setPosts} />
+              }
+            />
             <Route
               path="/Favorites"
               element={
