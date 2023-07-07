@@ -28,9 +28,9 @@ const Feed = ({ posts, setPosts }) => {
   } = useQuery(QUERY_POSTS);
 
   const { me } = userData || {};
-  const { posts: userPosts } = me || {};
+  const { posts: userPosts = [] } = me || {};
 
-  const filteredPosts = isAllPosts ? postsData?.posts : userPosts;
+  const [filteredPosts, setFilteredPosts] = useState([...userPosts]);
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
@@ -39,22 +39,23 @@ const Feed = ({ posts, setPosts }) => {
           query: QUERY_POSTS,
         }) ?? { posts: [] };
 
+        const updatedPosts = [addPost, ...posts].reverse();
+
         cache.writeQuery({
           query: QUERY_POSTS,
-          data: { posts: [addPost, ...posts].reverse() },
+          data: { posts: updatedPosts },
         });
+        setFilteredPosts(updatedPosts);
       } catch (e) {
         console.log("error with mutation!");
         console.error(e);
       }
+      
     },
     variables: {
       postTitle: postFormState.postTitle || undefined,
       postContent: postFormState.postContent || undefined,
       postImageURL: postFormState.postImageURL || undefined,
-    },
-    onCompleted: () => {
-      refetch();
     },
   });
 
@@ -99,16 +100,19 @@ const Feed = ({ posts, setPosts }) => {
     },
   });
 
+
   // Function to handle the "All Posts" button click
   const handleAllPostsClick = () => {
     setIsAllPosts(true);
     setIsMyPosts(false);
+    setFilteredPosts(postsData?.posts);
   };
 
   // Function to handle the "My Posts" button click
   const handleMyPostsClick = () => {
     setIsAllPosts(false);
     setIsMyPosts(true);
+    setFilteredPosts(userPosts);
   };
 
   if (userLoading || postsLoading) {
