@@ -1,5 +1,5 @@
 import React from "react";
-import { GoTrashcan } from "react-icons/go";
+import { GoTrash } from "react-icons/go";
 import { QUERY_ME } from "../utils/queries";
 import Auth from "../utils/auth";
 import { formatDate } from "../utils/formatting";
@@ -70,7 +70,7 @@ const Post = ({
                 id={post._id}
                 onClick={() => handleDeletePost(post._id)}
               >
-                <GoTrashcan />
+                <GoTrash />
               </button>
             )}
           </div>

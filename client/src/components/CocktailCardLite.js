@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GoPencil, GoTrashcan, GoPlus } from "react-icons/go";
+import { GoPencil, GoTrash, GoPlus } from "react-icons/go";
 import { QUERY_ME } from "../utils/queries";
 import { searchCocktails } from "../utils/API";
 import Auth from "../utils/auth";
@@ -113,7 +113,7 @@ const CocktailCardLite = ({
                       id={cocktail._id}
                       onClick={handleDeleteCocktail}
                     >
-                      <GoTrashcan />
+                      <GoTrash />
                     </button>
                     <button
                       className="btn cocktail_card_btn"

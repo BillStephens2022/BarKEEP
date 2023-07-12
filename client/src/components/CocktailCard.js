@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/CocktailCard.css";
-import { GoPencil, GoTrashcan, GoPlus } from "react-icons/go";
+import { GoPencil, GoTrash, GoPlus } from "react-icons/go";
 import Auth from "../utils/auth";
 
 
@@ -96,7 +96,7 @@ const CocktailCard = ({
               id={cocktail._id}
               onClick={handleDeleteCocktail}
             >
-              <GoTrashcan />
+              <GoTrash />
             </button>
             <button
               className="btn cocktail_card_btn"
