@@ -43,7 +43,7 @@ const Feed = ({ posts, setPosts }) => {
           query: QUERY_POSTS,
         }) ?? { posts: [] };
 
-        const updatedPosts = [addPost, ...posts].reverse();
+        const updatedPosts = [addPost, ...posts];
 
         cache.writeQuery({
           query: QUERY_POSTS,
@@ -137,10 +137,21 @@ const Feed = ({ posts, setPosts }) => {
 
   useEffect(() => {
     if (postsData?.posts) {
-      setFilteredPosts([...postsData.posts]);
+      console.log("Posts before sorting:", postsData.posts);
+      let sortedPosts = [...postsData.posts];
+      if (isMyPosts) {
+        sortedPosts = [...userPosts];
+      }
+      sortedPosts.sort((a, b) => {
+        const dateA = parseInt(a.postDate);
+        const dateB = parseInt(b.postDate);
+        return dateB - dateA;
+      });
+      console.log("Posts after sorting:", sortedPosts);
+      setFilteredPosts(sortedPosts);
     }
-  }, [postsData]);
-
+  }, [postsData, isMyPosts, userPosts]);
+  
   // Function to handle the "All Posts" button click
   const handleAllPostsClick = () => {
     setIsAllPosts(true);

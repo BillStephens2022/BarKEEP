@@ -22,11 +22,11 @@ const Post = ({
     return new Date(b.postDate) - new Date(a.postDate);
   });
 
-  const reversedPosts = sortedPosts.reverse();
+  // const reversedPosts = sortedPosts.reverse();
 
   return (
     <>
-      {reversedPosts.map((post) => {
+      {sortedPosts.map((post) => {
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
         return (
           <div className="post-card" key={post._id}>
