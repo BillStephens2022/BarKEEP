@@ -3,12 +3,16 @@ import { Modal } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
 import { ADD_POST, DELETE_POST } from "../utils/mutations";
-
+import { Auth } from "../utils/auth";
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
 import "../styles/Feed.css";
 import "../styles/CocktailForm.css";
 
+
+// 'Feed' page shows all users' posts by default.  User can click on 'My Posts' to only
+// show the current logged in user's posts.  Clicking on 'Create a New Post' will bring
+// up a modal for the PostForm which will allow a user to create a post.
 const Feed = ({ posts, setPosts }) => {
   const [showPostForm, setShowPostForm] = useState(false);
   const [postFormState, setPostFormState] = useState({
@@ -17,6 +21,7 @@ const Feed = ({ posts, setPosts }) => {
     postImageURL: "",
   });
 
+
   const [isAllPosts, setIsAllPosts] = useState(true);
   const [isMyPosts, setIsMyPosts] = useState(false);
 
@@ -24,7 +29,6 @@ const Feed = ({ posts, setPosts }) => {
   const {
     loading: postsLoading,
     data: postsData,
-    refetch,
   } = useQuery(QUERY_POSTS);
 
   const { me } = userData || {};
@@ -41,8 +45,6 @@ const Feed = ({ posts, setPosts }) => {
 
         const updatedPosts = [addPost, ...posts].reverse();
 
-        
-
         cache.writeQuery({
           query: QUERY_POSTS,
           data: { posts: updatedPosts },
@@ -50,9 +52,9 @@ const Feed = ({ posts, setPosts }) => {
 
         const { me } = cache.readQuery({ query: QUERY_ME });
 
-      // Update the user's posts array with the new post
+        // Update the user's posts array with the new post
         const updatedUserPosts = [addPost, ...me.posts];
-        
+
         cache.writeQuery({
           query: QUERY_ME,
           data: {
@@ -63,7 +65,6 @@ const Feed = ({ posts, setPosts }) => {
           },
         });
 
-
         if (isMyPosts) {
           setFilteredPosts(updatedUserPosts);
         } else {
@@ -73,7 +74,6 @@ const Feed = ({ posts, setPosts }) => {
         console.log("error with mutation!");
         console.error(e);
       }
-      
     },
     variables: {
       postTitle: postFormState.postTitle || undefined,
@@ -82,46 +82,58 @@ const Feed = ({ posts, setPosts }) => {
     },
   });
 
+  // useMutation hook to delete a post
   const [deletePost] = useMutation(DELETE_POST, {
     update(cache, { data: { deletePost } }) {
-      try {
-        const { posts } = cache.readQuery({
-          query: QUERY_POSTS,
-        }) ?? { posts: [] };
-
-        const updatedPosts = posts.filter(
-          (post) => post._id !== (deletePost?._id || null)
-        );
-
-        console.log("deletePost:", deletePost);
-
-        cache.writeQuery({
-          query: QUERY_POSTS,
-          data: { posts: updatedPosts },
-        });
-
-        const { me } = cache.readQuery({ query: QUERY_ME });
-
-        console.log("posts:", posts);
-
-        cache.writeQuery({
-          query: QUERY_ME,
-          data: {
-            me: {
-              ...me,
-              posts: updatedPosts,
-            },
+      // Update the cache by removing the deleted post
+      cache.modify({
+        fields: {
+          posts(existingPosts = [], { readField }) {
+            return existingPosts.filter(
+              (postRef) => deletePost?._id !== readField("_id", postRef)
+            );
           },
-        });
-      } catch (e) {
-        console.log("error with mutation!");
-        console.error(e);
-      }
-
-      console.log("updated cache:", cache.data.data);
+        },
+      });
     },
   });
 
+  // Event handler for clicking on the delete button (i.e. the 'trash can' icon) on the post
+  const handleDeletePost = async (postId) => {
+    // Check if user is logged in
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) return false;
+    // If user is logged in execute the deletePost mutation (which uses useMutation hook
+    // defined in function above)
+    try {
+      await deletePost({
+        // defines post ID to be deleted as a variable
+        variables: { postId },
+        // updates Apollo Client cache when the deletePost mutation is successful
+        // this allows us to modify the cache and update the UI (i.e. no longer show the
+        // deleted post)
+        update(cache, { data: { deletePost } }) {
+          cache.modify({
+            fields: {
+              posts(existingPosts = [], { readField }) {
+                //If the post's _id matches the postId, it is filtered out from the array.
+                // This means the deleted post will no longer be present in the existingPosts array.
+                return existingPosts.filter(
+                  (postRef) => postId !== readField("_id", postRef)
+                );
+              },
+            },
+          });
+          // Update the filtered posts state so that page no longer shows the deleted post
+          setFilteredPosts((prevPosts) =>
+            prevPosts.filter((post) => post._id !== postId)
+          );
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // Function to handle the "All Posts" button click
   const handleAllPostsClick = () => {
@@ -177,7 +189,7 @@ const Feed = ({ posts, setPosts }) => {
             loading={postsLoading}
             posts={filteredPosts || []}
             addPost={addPost}
-            deletePost={deletePost}
+            handleDeletePost={handleDeletePost}
             isMyPosts={isMyPosts}
             page="Feed"
           />

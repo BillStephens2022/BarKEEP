@@ -174,7 +174,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
     } else {
       console.log(cocktails[0]);
     }
-  }, [data, refetch]);
+  }, [data, refetch, cocktails, setCocktails]);
 
   if (loading) {
     return <div>Loading...</div>;

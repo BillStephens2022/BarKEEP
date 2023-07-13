@@ -1,19 +1,14 @@
 import React from "react";
 import { GoTrash } from "react-icons/go";
-import { QUERY_ME } from "../utils/queries";
-import Auth from "../utils/auth";
+import { Auth } from "../utils/auth";
 import { formatDate } from "../utils/formatting";
 import "../styles/Feed.css";
 
 const Post = ({
-  data,
   loading,
   posts,
-  setPosts,
-  page,
-  addPost,
-  deletePost,
-  isMyPosts
+  handleDeletePost,
+  isMyPosts,
 }) => {
   if (loading) {
     return <div>Loading...</div>;
@@ -29,26 +24,38 @@ const Post = ({
 
   const reversedPosts = sortedPosts.reverse();
 
-  const handleDeletePost = async (postId) => {
-    // e.preventDefault();
-    console.log("attempting to delete post: ", postId);
-    // const postId = e.currentTarget.id;
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) return false;
-    console.log("deleting post!");
-    try {
-      const { data } = await deletePost({
-        variables: { postId },
-        refetchQueries: [{ query: QUERY_ME }],
-      });
-      if (!data) {
-        throw new Error("something went wrong!");
-      }
-      console.log("done!");
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const handleDeletePost = async (postId) => {
+  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
+  //   if (!token) return false;
+  //   console.log("deleting post!");
+  //   try {
+  //     const { data } = await deletePost({
+  //       variables: { postId },
+  //       refetchQueries: [{ query: QUERY_ME }],
+  //       update(cache) {
+  //         cache.modify({
+  //           fields: {
+  //             posts(existingPosts = [], { readField }) {
+  //               return existingPosts.filter(
+  //                 (postRef) => postId !== readField("_id", postRef)
+  //               );
+  //             },
+  //           },
+  //         });
+
+  //         setPosts((prevPosts) =>
+  //           prevPosts.filter((post) => post._id !== postId)
+  //         );
+  //       },
+  //     });
+  //     if (!data) {
+  //       throw new Error("something went wrong!");
+  //     }
+  //     console.log("done!");
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <>
