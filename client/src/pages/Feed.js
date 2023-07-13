@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
@@ -134,6 +134,12 @@ const Feed = ({ posts, setPosts }) => {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    if (postsData?.posts) {
+      setFilteredPosts([...postsData.posts]);
+    }
+  }, [postsData]);
 
   // Function to handle the "All Posts" button click
   const handleAllPostsClick = () => {
