@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { GoPencil, GoTrash, GoPlus } from "react-icons/go";
 import { QUERY_ME } from "../utils/queries";
 import { searchCocktails } from "../utils/API";
-import Auth from "../utils/auth";
+import { Auth } from "../utils/auth";
 import "../styles/CocktailCardLite.css";
 
 const CocktailCardLite = ({
-  data,
   loading,
   cocktails,
   setCocktails,

@@ -1,19 +1,14 @@
 import React from "react";
 import { GoTrash } from "react-icons/go";
-import { QUERY_ME } from "../utils/queries";
-import Auth from "../utils/auth";
+import { Auth } from "../utils/auth";
 import { formatDate } from "../utils/formatting";
 import "../styles/Feed.css";
 
 const Post = ({
-  data,
   loading,
   posts,
-  setPosts,
-  page,
-  addPost,
-  deletePost,
-  isMyPosts
+  handleDeletePost,
+  isMyPosts,
 }) => {
   if (loading) {
     return <div>Loading...</div>;
@@ -23,36 +18,15 @@ const Post = ({
     return <h3 className="posts_error">No posts to display yet</h3>;
   }
 
-  const sortedPosts = [...posts].sort((a, b) => {
-    return new Date(b.postDate) - new Date(a.postDate);
-  });
+  // const sortedPosts = [...posts].sort((a, b) => {
+  //   return new Date(b.postDate) - new Date(a.postDate);
+  // });
 
-  const reversedPosts = sortedPosts.reverse();
-
-  const handleDeletePost = async (postId) => {
-    // e.preventDefault();
-    console.log("attempting to delete post: ", postId);
-    // const postId = e.currentTarget.id;
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) return false;
-    console.log("deleting post!");
-    try {
-      const { data } = await deletePost({
-        variables: { postId },
-        refetchQueries: [{ query: QUERY_ME }],
-      });
-      if (!data) {
-        throw new Error("something went wrong!");
-      }
-      console.log("done!");
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const reversedPosts = sortedPosts.reverse();
 
   return (
     <>
-      {reversedPosts.map((post) => {
+      {posts.map((post) => {
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
         return (
           <div className="post-card" key={post._id}>
