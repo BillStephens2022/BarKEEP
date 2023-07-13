@@ -30,7 +30,7 @@ const Feed = ({ posts, setPosts }) => {
   const { me } = userData || {};
   const { posts: userPosts = [] } = me || {};
 
-  const [filteredPosts, setFilteredPosts] = useState(userPosts.slice());
+  const [filteredPosts, setFilteredPosts] = useState(postsData?.posts || []);
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
