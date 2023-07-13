@@ -24,39 +24,6 @@ const Post = ({
 
   const reversedPosts = sortedPosts.reverse();
 
-  // const handleDeletePost = async (postId) => {
-  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
-  //   if (!token) return false;
-  //   console.log("deleting post!");
-  //   try {
-  //     const { data } = await deletePost({
-  //       variables: { postId },
-  //       refetchQueries: [{ query: QUERY_ME }],
-  //       update(cache) {
-  //         cache.modify({
-  //           fields: {
-  //             posts(existingPosts = [], { readField }) {
-  //               return existingPosts.filter(
-  //                 (postRef) => postId !== readField("_id", postRef)
-  //               );
-  //             },
-  //           },
-  //         });
-
-  //         setPosts((prevPosts) =>
-  //           prevPosts.filter((post) => post._id !== postId)
-  //         );
-  //       },
-  //     });
-  //     if (!data) {
-  //       throw new Error("something went wrong!");
-  //     }
-  //     console.log("done!");
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
   return (
     <>
       {reversedPosts.map((post) => {
