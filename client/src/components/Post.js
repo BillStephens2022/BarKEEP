@@ -18,15 +18,15 @@ const Post = ({
     return <h3 className="posts_error">No posts to display yet</h3>;
   }
 
-  const sortedPosts = [...posts].sort((a, b) => {
-    return new Date(b.postDate) - new Date(a.postDate);
-  });
+  // const sortedPosts = [...posts].sort((a, b) => {
+  //   return new Date(b.postDate) - new Date(a.postDate);
+  // });
 
   // const reversedPosts = sortedPosts.reverse();
 
   return (
     <>
-      {sortedPosts.map((post) => {
+      {posts.map((post) => {
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
         return (
           <div className="post-card" key={post._id}>

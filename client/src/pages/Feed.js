@@ -9,7 +9,6 @@ import Post from "../components/Post";
 import "../styles/Feed.css";
 import "../styles/CocktailForm.css";
 
-
 // 'Feed' page shows all users' posts by default.  User can click on 'My Posts' to only
 // show the current logged in user's posts.  Clicking on 'Create a New Post' will bring
 // up a modal for the PostForm which will allow a user to create a post.
@@ -21,15 +20,11 @@ const Feed = ({ posts, setPosts }) => {
     postImageURL: "",
   });
 
-
   const [isAllPosts, setIsAllPosts] = useState(true);
   const [isMyPosts, setIsMyPosts] = useState(false);
 
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
-  const {
-    loading: postsLoading,
-    data: postsData,
-  } = useQuery(QUERY_POSTS);
+  const { loading: postsLoading, data: postsData } = useQuery(QUERY_POSTS);
 
   const { me } = userData || {};
   const { posts: userPosts = [] } = me || {};
@@ -107,24 +102,10 @@ const Feed = ({ posts, setPosts }) => {
     // defined in function above)
     try {
       await deletePost({
-        // defines post ID to be deleted as a variable
         variables: { postId },
-        // updates Apollo Client cache when the deletePost mutation is successful
-        // this allows us to modify the cache and update the UI (i.e. no longer show the
-        // deleted post)
-        update(cache, { data: { deletePost } }) {
-          cache.modify({
-            fields: {
-              posts(existingPosts = [], { readField }) {
-                //If the post's _id matches the postId, it is filtered out from the array.
-                // This means the deleted post will no longer be present in the existingPosts array.
-                return existingPosts.filter(
-                  (postRef) => postId !== readField("_id", postRef)
-                );
-              },
-            },
-          });
-          // Update the filtered posts state so that page no longer shows the deleted post
+        update(cache) {
+          cache.evict({ id: cache.identify({ __typename: 'Post', _id: postId }) });
+          cache.gc();
           setFilteredPosts((prevPosts) =>
             prevPosts.filter((post) => post._id !== postId)
           );
@@ -137,7 +118,6 @@ const Feed = ({ posts, setPosts }) => {
 
   useEffect(() => {
     if (postsData?.posts) {
-      console.log("Posts before sorting:", postsData.posts);
       let sortedPosts = [...postsData.posts];
       if (isMyPosts) {
         sortedPosts = [...userPosts];
@@ -147,11 +127,10 @@ const Feed = ({ posts, setPosts }) => {
         const dateB = parseInt(b.postDate);
         return dateB - dateA;
       });
-      console.log("Posts after sorting:", sortedPosts);
       setFilteredPosts(sortedPosts);
     }
   }, [postsData, isMyPosts, userPosts]);
-  
+
   // Function to handle the "All Posts" button click
   const handleAllPostsClick = () => {
     setIsAllPosts(true);
