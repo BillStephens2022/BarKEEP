@@ -7,7 +7,7 @@
   --lightgray: #ccc;
   --black: #000;
   --yellow: goldenrod;
-  --champagne: #F7E7CE;
+  --champagne: #f7e7ce;
 }
 
 #root {
@@ -18,6 +18,7 @@
 }
 
 /* Navigation Sidebar */
+
 .navigation {
   background-color: var(--blue);
   flex: 0 0 18%;
@@ -28,19 +29,67 @@
 
 .navigation_list {
   list-style-type: none;
+  padding: 0;
 }
 
 .navigation_item {
   text-decoration: none;
-  margin: 5rem 0;
+  margin: 2rem 0;
+  padding-left: 2rem;
   text-transform: uppercase;
   font-size: 1.5rem;
   letter-spacing: 0.3rem;
+  position: relative;
+}
+
+.navigation_item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 3px;
+  background-color: var(--blue);
+  transform: scaleY(0);
+  transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s,
+    background-color 0.1s;
+}
+
+.navigation_item:hover::before,
+.navigation_item--active::before {
+  background-color: var(--white);
+  color: var(--darkgray);
+  transform: scaleY(1);
+  width: 100%;
+}
+
+.navigation_item--active .navigation_link,
+.navigation_item--active .navigation_link:link,
+.navigation_item--active .navigation_link:visited {
+  color: var(--darkgray);
+}
+
+.navigation_item:active::before {
+  background-color: var(--white);
 }
 
 .navigation_link {
   text-decoration: none;
+  padding: 1rem 0;
+  z-index: 10;
+}
+
+.navigation_link:link,
+.navigation_link:visited {
+  text-decoration: none;
   color: var(--white);
+  position: relative;
+  display: block;
+  z-index: 10;
+}
+
+.navigation_link:hover {
+  color: var(--darkgray);
 }
 
 /* Home Page */
@@ -53,8 +102,8 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
 }
 
 .headings {
@@ -86,11 +135,11 @@
   margin-bottom: 4rem;
   color: var(--white);
   text-align: center;
-  margin-top: auto; 
+  margin-top: auto;
 }
 
 .home_photo {
-  margin-top: auto; 
+  margin-top: auto;
 }
 
 .home_photo_image {
@@ -111,7 +160,6 @@
   flex-direction: flex-start;
 }
 
-
 @keyframes bubbleAnimation {
   0% {
     transform: translateY(100vh);
@@ -127,16 +175,14 @@
   position: absolute;
   width: var(--randomSize);
   height: var(--randomSize);
-  background-color: rgba(255, 255, 255, 0.4); 
-  border: 1px solid rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 50%;
   animation: bubbleAnimation 10s linear infinite;
   top: 100%;
   left: calc(var(--randomX) * 100%);
   z-index: 5;
 }
-
-
 
 /* Cocktails Page */
 
@@ -173,12 +219,12 @@
   text-shadow: #000 2px 2px 4px;
 }
 
-.add_cocktail_button:hover, .search_cocktail_button:hover {
+.add_cocktail_button:hover,
+.search_cocktail_button:hover {
   background-color: var(--yellow);
 }
 
 /* Register / Login Forms */
-
 
 .form_container {
   display: flex;
@@ -191,7 +237,8 @@
   margin-top: 1.25rem;
 }
 
-.form_register, .form_login {
+.form_register,
+.form_login {
   width: 25vw;
 }
 
@@ -199,7 +246,7 @@
   margin: 0.25rem;
   font-size: 1rem;
   font-weight: 900;
-  letter-spacing: .5rem;
+  letter-spacing: 0.5rem;
   text-transform: uppercase;
 }
 
@@ -219,8 +266,6 @@
   color: var(--maroon);
   cursor: pointer;
 }
-
-
 
 .subtitle-2-span:hover {
   text-transform: lowercase;
@@ -288,10 +333,8 @@
   color: var(--white);
   transform: scale(1.1);
   border: 1px solid var(--black);
-  box-shadow:  3px 3px 10px var(--darkgray);
+  box-shadow: 3px 3px 10px var(--darkgray);
 }
-
-
 
 .button_search_cocktails {
   height: 2.38rem;
