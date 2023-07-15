@@ -155,7 +155,7 @@
   display: flex;
   justify-content: center;
   padding: 2rem;
-  height: 25vh; /* Optional: Adjust the height as needed */
+  height: 25vh; 
 }
 
 .login_signup_button {

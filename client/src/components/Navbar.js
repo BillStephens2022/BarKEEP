@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Auth } from "../utils/auth";
-import "../styles/Navbar.css"
+import "../styles/Navbar.css";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false); // State to track whether Navbar is expanded or not
@@ -9,6 +9,7 @@ const Navbar = () => {
 
   // To toggle between expanded/collapsed state
   const toggleMenu = () => {
+    console.log("toggling MENU!!");
     setIsExpanded(!isExpanded);
   };
 
@@ -80,8 +81,16 @@ const Navbar = () => {
               </li>
             </>
           ) : (
-            <li className="navigation_item">
-              <Link to="/login" className="navigation_link">
+            <li
+              className={`navigation_item ${
+                activeNavItem === "login" ? "navigation_item--active" : ""
+              }`}
+            >
+              <Link
+                to="/login"
+                className="navigation_link"
+                onClick={() => handleNavItemClick("login")}
+              >
                 Log In / Register
               </Link>
             </li>
@@ -159,10 +168,16 @@ const Navbar = () => {
               </li>
             </>
           ) : (
-            <li className={`navigation_item ${
-                  activeNavItem === "login" ? "navigation_item--active" : ""
-                }`}>
-              <Link to="/login" className="navigation_link" onClick={() => handleNavItemClick("login")}>
+            <li
+              className={`navigation_item ${
+                activeNavItem === "login" ? "navigation_item--active" : ""
+              }`}
+            >
+              <Link
+                to="/login"
+                className="navigation_link"
+                onClick={() => handleNavItemClick("login")}
+              >
                 Log In / Register
               </Link>
             </li>
