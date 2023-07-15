@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Auth } from "../utils/auth";
+import "../styles/Navbar.css"
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false); // State to track whether Navbar is expanded or not
@@ -95,9 +96,9 @@ const Navbar = () => {
           onClick={toggleMenu}
         >
           <span className={`hamburger ${isExpanded ? "expanded" : ""}`}>
-            <span className="hamburger-1"></span>
-            <span className="hamburger-2"></span>
-            <span className="hamburger-3"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
           </span>
         </button>
         <ul className={`navigation_list ${isExpanded ? "expanded" : ""}`}>
