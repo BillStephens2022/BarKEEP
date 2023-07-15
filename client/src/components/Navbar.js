@@ -159,8 +159,10 @@ const Navbar = () => {
               </li>
             </>
           ) : (
-            <li className="navigation_item">
-              <Link to="/login" className="navigation_link">
+            <li className={`navigation_item ${
+                  activeNavItem === "login" ? "navigation_item--active" : ""
+                }`}>
+              <Link to="/login" className="navigation_link" onClick={() => handleNavItemClick("login")}>
                 Log In / Register
               </Link>
             </li>
