@@ -12,7 +12,7 @@
 
 #root {
   display: flex;
-  max-width: 120rem;
+  justify-content: flex-end;
   background-color: var(--blue);
   min-height: 100vh;
 }

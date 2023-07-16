@@ -8,23 +8,13 @@
   position: relative;
 }
 
-.sidebar {
-  background-color: var(--blue);
-  flex: 0 0 18%;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease-in-out;
-  z-index: 1;
-}
-
-.sidebar.expanded {
-  transform: translateX(0);
-  z-index: 2;
-}
-
 .hamburger-menu {
-  display: none;
+  display: block;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
   z-index: 1000;
+  opacity: 0.9;
 }
 
 .menu-toggle {
@@ -35,10 +25,6 @@
   cursor: pointer;
   position: relative;
   z-index: 1000;
-}
-
-.menu-toggle.expanded {
-  z-index: 5;
 }
 
 .hamburger {
@@ -61,23 +47,28 @@
 
 .hamburger-line:nth-child(1) {
   top: 0;
+  transform-origin: left center;
+  transition-delay: 0.1s;
 }
 
 .hamburger-line:nth-child(2) {
   top: 50%;
   transform: translateY(-50%);
+  transition-delay: 0s;
 }
 
 .hamburger-line:nth-child(3) {
   bottom: 0;
+  transform-origin: left center;
+  transition-delay: 0.2s;
 }
 
 .hamburger.expanded .hamburger-line {
-  background-color: transparent;
+  transform: rotate(45deg);
 }
 
 .hamburger.expanded .hamburger-line:nth-child(1) {
-  transform: rotate(45deg) translateY(6px);
+  transform: rotate(-45deg) translateX(-7px) translateY(17px);
 }
 
 .hamburger.expanded .hamburger-line:nth-child(2) {
@@ -85,50 +76,37 @@
 }
 
 .hamburger.expanded .hamburger-line:nth-child(3) {
-  transform: rotate(-45deg) translateY(-6px);
-}
-
-.hamburger-menu.expanded .menu-toggle .hamburger {
-  display: none;
-}
-
-.hamburger-menu.expanded .menu-toggle::before,
-.hamburger-menu.expanded .menu-toggle::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  width: 18px;
-  height: 3px;
-  background-color: var(--white);
-  transform: translate(-50%, -50%);
-  z-index: 4;
-}
-
-.hamburger-menu.expanded .menu-toggle::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.hamburger-menu.expanded .menu-toggle::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
+  transform: rotate(45deg) translateX(-7px) translateY(-18px);
 }
 
 .navigation_list {
   list-style-type: none;
-  padding: 0;
-  margin: 0;
+  padding-top: 4rem;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--blue);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
   z-index: 98;
+}
+
+.navigation.expanded .navigation_list {
+  transform: translateX(0);
 }
 
 .navigation_item {
   text-decoration: none;
-  margin: 2rem 0;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 0;
+  margin: 1rem 0;
   text-transform: uppercase;
   font-size: 1.5rem;
   letter-spacing: 0.3rem;
   position: relative;
+  text-align: center;
 }
 
 .navigation_item::before {
@@ -139,15 +117,14 @@
   height: 100%;
   width: 3px;
   background-color: var(--blue);
+  transform-origin: left;
   transform: scaleY(0);
-  transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s,
-    background-color 0.1s;
+  transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s, background-color 0.1s;
 }
 
 .navigation_item:hover::before,
 .navigation_item--active::before {
   background-color: var(--white);
-  color: var(--darkgray);
   transform: scaleY(1);
   width: 100%;
 }
@@ -169,51 +146,10 @@
   color: var(--darkgray);
 }
 
-@media (max-width: 767px) {
-  .sidebar {
-    display: none;
-  }
-
-  .hamburger-menu {
-    display: block;
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1000;
-    opacity: 0.9;
-  }
-
-  .navigation_list {
-    padding-top: 4rem;
-    overflow-y: auto;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    background-color: var(--blue);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 3;
-  }
-
-  .navigation.expanded .navigation_list {
-    transform: translateX(0);
-  }
-
-  .navigation_item {
-    padding-left: 0;
-    margin: 1rem 0;
-    text-align: center;
-  }
-
-  .navigation_item::before {
-    left: 0;
-    transform-origin: left;
-  }
-
-  .navigation_item--active .navigation_link {
-    color: var(--darkgray);
-  }
+.navigation_item--active .navigation_link {
+  color: var(--darkgray);
 }
 
+.menu-toggle.expanded {
+  z-index: 1000;
+}
