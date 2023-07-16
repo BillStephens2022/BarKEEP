@@ -1,0 +1,13 @@
+.favorites-headings {
+  padding: 1rem;
+  background-color: var(--darkgray);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+  .feed-headings {
+    padding-top: 1.5rem;
+  }
+}

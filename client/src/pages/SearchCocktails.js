@@ -6,7 +6,7 @@ import { searchCocktails } from "../utils/API"
 import SearchCocktailName from "../components/SearchCocktailName";
 import SearchCocktailIngredient from "../components/SearchCocktailIngredient";
 import RandomCocktail from "../components/RandomCocktail";
-import "../styles/Home.css";
+import "../styles/SearchCocktails.css";
 
 const SearchCocktails = () => {
   // state variable will drive which component is shown on the screen depending on whether user chooses
@@ -101,6 +101,7 @@ const SearchCocktails = () => {
 
   return (
     <div className="searchCocktails">
+    <div className="search-headings">
       <h1 className="title">BarKEEP</h1>
       <h2 className="search-header">
         Search by:{" "}
@@ -127,6 +128,7 @@ const SearchCocktails = () => {
         >
           Random
         </button>
+      </div>
       </div>
       <div className="div-search-component">{renderSearchComponent()}</div>
     </div>

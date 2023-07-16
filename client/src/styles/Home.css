@@ -10,11 +10,14 @@
   --champagne: #f7e7ce;
 }
 
+
 #root {
   display: flex;
-  justify-content: flex-end;
-  background-color: var(--blue);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
   min-height: 100vh;
+  background-color: var(--blue);
 }
 
 /* Home Page */
@@ -37,6 +40,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+  .headings {
+    padding-top: 1.5rem;
+  }
 }
 
 .title {
