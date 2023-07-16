@@ -154,7 +154,7 @@ const Feed = ({ posts, setPosts }) => {
 
   return (
     <div className="feed">
-      <div className="headings">
+      <div className="feed-headings">
         <h1 className="title">BarKEEP</h1>
         <h2 className="subtitle">Cocktail Posts</h2>
         <div className="view-buttons">
@@ -179,6 +179,7 @@ const Feed = ({ posts, setPosts }) => {
         >
           Create a New Post
         </button>
+      </div>
         <div className="posts-container">
           <Post
             data={postsData}
@@ -216,7 +217,6 @@ const Feed = ({ posts, setPosts }) => {
             </div>
           </div>
         )}
-      </div>
     </div>
   );
 };

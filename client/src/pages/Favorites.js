@@ -4,9 +4,13 @@ import CocktailCardLite from "../components/CocktailCardLite";
 import CocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
-import { ADD_COCKTAIL, DELETE_COCKTAIL, EDIT_COCKTAIL } from "../utils/mutations";
+import {
+  ADD_COCKTAIL,
+  DELETE_COCKTAIL,
+  EDIT_COCKTAIL,
+} from "../utils/mutations";
 import { Modal } from "react-bootstrap";
-import "../styles/Home.css";
+import "../styles/Favorites.css";
 
 const Favorites = ({ cocktails, setCocktails }) => {
   const [showCocktailForm, setShowCocktailForm] = useState(false);
@@ -114,33 +118,37 @@ const Favorites = ({ cocktails, setCocktails }) => {
         const { cocktails } = cache.readQuery({
           query: QUERY_COCKTAILS,
         }) ?? { cocktails: [] };
-  
+
         const updatedCocktails = cocktails.map((cocktail) => {
           if (cocktail._id === editCocktail._id) {
             return {
               ...cocktail,
               name: cocktailFormState.name || cocktail.name,
-              ingredients: cocktailFormState.ingredients.map((ingredient, index) => ({
-                name: ingredient.name || cocktail.ingredients[index].name,
-                quantity: ingredient.quantity || cocktail.ingredients[index].quantity,
-              })),
+              ingredients: cocktailFormState.ingredients.map(
+                (ingredient, index) => ({
+                  name: ingredient.name || cocktail.ingredients[index].name,
+                  quantity:
+                    ingredient.quantity || cocktail.ingredients[index].quantity,
+                })
+              ),
               imageURL: cocktailFormState.imageURL || cocktail.imageURL,
               glassware: cocktailFormState.glassware || cocktail.glassware,
-              instructions: cocktailFormState.instructions || cocktail.instructions,
+              instructions:
+                cocktailFormState.instructions || cocktail.instructions,
               tags: cocktailFormState.tags || cocktail.tags,
             };
           } else {
             return cocktail;
           }
         });
-  
+
         cache.writeQuery({
           query: QUERY_COCKTAILS,
           data: { cocktails: updatedCocktails },
         });
-  
+
         const { me } = cache.readQuery({ query: QUERY_ME });
-  
+
         cache.writeQuery({
           query: QUERY_ME,
           data: {
@@ -154,12 +162,11 @@ const Favorites = ({ cocktails, setCocktails }) => {
         console.log("error with mutation!");
         console.error(e);
       }
-  
+
       console.log("updated cache:", cache.data.data);
     },
     refetchQueries: [{ query: QUERY_COCKTAILS }],
   });
-  
 
   const handleEditCocktail = (cocktail) => {
     setSelectedCocktail(cocktail);
@@ -186,50 +193,57 @@ const Favorites = ({ cocktails, setCocktails }) => {
   }
 
   return (
-    <div className="cocktails-main">
-      <h1 className="title">BarKEEP</h1>
-      <h2 className="subtitle">My Cocktail Recipes</h2>
-      <button
-        className="btn add_cocktail_button"
-        onClick={() => {
-          setSelectedCocktail(null);
-          setShowCocktailForm(!showCocktailForm);
-          setFormType("add");
-          }
-        }
-      >
-        Add Your Own Cocktail
-      </button>
-      <Link to="/searchCocktails" className="btn search_cocktail_button">
-        Search for a new Cocktail
-      </Link>
-      {showCocktailForm && (
-        <div className="modal-background">
-          <div className="modal">
-            <Modal show={true} onHide={() => setShowCocktailForm(false)}>
-              <Modal.Header className="modal-title">
-                <Modal.Title>{formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail</Modal.Title>
-                <button className="modal-close-button" onClick={() => setShowCocktailForm(false)}>
-    &times;
-  </button>
-              </Modal.Header>
-              <Modal.Body className="modal-body">
-                <CocktailForm
-                  setShowCocktailForm={setShowCocktailForm}
-                  addCocktail={addCocktail}
-                  editCocktail={editCocktail}
-                  cocktails={cocktails}
-                  setCocktails={setCocktails}
-                  cocktailFormState={cocktailFormState}
-                  setCocktailFormState={setCocktailFormState}
-                  selectedCocktail={selectedCocktail}
-                  formType={formType}
-                />
-              </Modal.Body>
-            </Modal>
+    <div className="favorites">
+      <div className="favorites-headings">
+        <h1 className="title">BarKEEP</h1>
+        <h2 className="subtitle">My Cocktail Recipes</h2>
+        <button
+          className="btn add_cocktail_button"
+          onClick={() => {
+            setSelectedCocktail(null);
+            setShowCocktailForm(!showCocktailForm);
+            setFormType("add");
+          }}
+        >
+          Add Your Own Cocktail
+        </button>
+        <Link to="/searchCocktails" className="btn search_cocktail_button">
+          Search for a new Cocktail
+        </Link>
+        {showCocktailForm && (
+          <div className="modal-background">
+            <div className="modal">
+              <Modal show={true} onHide={() => setShowCocktailForm(false)}>
+                <Modal.Header className="modal-title">
+                  <Modal.Title>
+                    {formType.charAt(0).toUpperCase() + formType.slice(1)}{" "}
+                    Cocktail
+                  </Modal.Title>
+                  <button
+                    className="modal-close-button"
+                    onClick={() => setShowCocktailForm(false)}
+                  >
+                    &times;
+                  </button>
+                </Modal.Header>
+                <Modal.Body className="modal-body">
+                  <CocktailForm
+                    setShowCocktailForm={setShowCocktailForm}
+                    addCocktail={addCocktail}
+                    editCocktail={editCocktail}
+                    cocktails={cocktails}
+                    setCocktails={setCocktails}
+                    cocktailFormState={cocktailFormState}
+                    setCocktailFormState={setCocktailFormState}
+                    selectedCocktail={selectedCocktail}
+                    formType={formType}
+                  />
+                </Modal.Body>
+              </Modal>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
       <div className="card-container">
         <CocktailCardLite
           data={data}
