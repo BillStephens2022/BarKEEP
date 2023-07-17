@@ -178,7 +178,7 @@ const CocktailForm = ({
 
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
+      <form className="cocktail-form" onSubmit={handleSubmit}>
         <label htmlFor="name">Name:</label>
         <input
           type="text"
@@ -232,7 +232,7 @@ const CocktailForm = ({
           />
         </div>
 
-        <button type="button" onClick={handleIngredientAdd}>
+        <button type="button" onClick={handleIngredientAdd} className="add-ingredient-button">
           Add Ingredient
         </button>
 
@@ -286,7 +286,7 @@ const CocktailForm = ({
           value={tagInput}
           onChange={(e) => setTagInput(e.target.value)}
         />
-        <button type="button" onClick={handleTagAdd}>
+        <button type="button" onClick={handleTagAdd} className="add-tag-button">
           Add Tag
         </button>
 
