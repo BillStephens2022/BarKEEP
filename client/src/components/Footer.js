@@ -1,32 +1,30 @@
 import React from 'react';
+import "../styles/Footer.css";
 
 const Footer = () => {
   return (
-    <div className="footer text-center mt-5 py-3 text-light">
+    <div className="footer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
             <div className="row">
-              <div className="col-md-4">
-                <a href="https://www.facebook.com">
-                  <i className="fab fa-facebook fa-2x text-light mr-2"></i>
+              <div className="contact-icons">
+                <a href="https://www.linkedin.com/in/bill-stephens-04375923/">
+                  <i className="fab fa-linkedin text-light mr-2"></i>
                 </a>
-                <a href="https://www.twitter.com">
-                  <i className="fab fa-twitter fa-2x text-light mr-2"></i>
+                <a href="https://github.com/BillStephens2022">
+                  <i className="fab fa-github text-light"></i>
                 </a>
-                <a href="https://www.instagram.com">
-                  <i className="fab fa-instagram fa-2x text-light"></i>
+                <a href="https://billstephens2022.github.io/my_portfolio/">
+                  <i title="Link to My Portfolio" className="fas fa-code text-light mr-2"></i>
                 </a>
-              </div>
-              <div className="col-md-4">
-                <p className="m-0">Contact us: contact@barkeep.com</p>
-
               </div>
             </div>
-            <div className="mt-1">
+            <div className="footer-text-div">
               <h2 className="footer-text">
-                &copy; 2023. Created by Bill Stephens.
+                &copy; 2023 <a title="Link to My Portfolio" href="https://billstephens2022.github.io/my_portfolio/" className="portfolio-link">Bill Stephens</a>
               </h2>
             </div>
           </div>
   )
 }
 
-export default Footer
+export default Footer;
