@@ -198,7 +198,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
         <h1 className="title">BarKEEP</h1>
         <h2 className="subtitle">My Cocktail Recipes</h2>
         <button
-          className="btn add_cocktail_button"
+          className="btn add-cocktail-button"
           onClick={() => {
             setSelectedCocktail(null);
             setShowCocktailForm(!showCocktailForm);
@@ -207,7 +207,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
         >
           Add Your Own Cocktail
         </button>
-        <Link to="/searchCocktails" className="btn search_cocktail_button">
+        <Link to="/searchCocktails" className="btn search-cocktail-button">
           Search for a new Cocktail
         </Link>
         {showCocktailForm && (

@@ -1,0 +1,102 @@
+/* Login Page */
+
+.login_page {
+  flex: 1;
+  color: var(--white);
+  text-align: center;
+  background-color: var(--yellow);
+}
+
+.subtitle-2 {
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.subtitle-2-span {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--maroon);
+  cursor: pointer;
+}
+
+.subtitle-2-span:hover {
+  text-transform: lowercase;
+  color: var(--blue);
+}
+
+/* Register / Login Forms */
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem;
+  height: 25vh;
+  width: 40vw;
+}
+
+.login-signup-button {
+  margin-top: 1.25rem;
+}
+
+.form-register,
+.form-login {
+  width: 25vw;
+}
+
+.login-label {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+}
+
+.login-input {
+  margin: 1rem auto;
+  height: 3rem;
+}
+
+@media (max-width: 767px) {
+  .title {
+    margin-top: 4rem;
+  }
+  .form-container {
+    width: 90vw;
+    height: 55vh;
+  }
+  .form-login,
+  .form-register {
+    width: 80vw;
+    height: 50vh;
+  }
+  .login-signup-button {
+    width: 40vw;
+    margin: auto;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .title {
+    font-size: 3rem;
+  }
+  .subtitle-2-span {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .title {
+    font-size: 2rem;
+  }
+  .subtitle {
+    font-size: 1.6rem;
+    letter-spacing: 0;
+  }
+  .subtitle-2 {
+    font-size: 1.25rem;
+  }
+  .subtitle-2-span {
+    font-size: 1.25rem;
+  }
+}

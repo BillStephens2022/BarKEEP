@@ -9,7 +9,6 @@ const Navbar = () => {
 
   // To toggle between expanded/collapsed state
   const toggleMenu = () => {
-    console.log("toggling MENU!!");
     setIsExpanded(!isExpanded);
   };
 

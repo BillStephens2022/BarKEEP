@@ -14,6 +14,7 @@ import Feed from "./pages/Feed";
 import Favorites from "./pages/Favorites";
 import SearchCocktails from "./pages/SearchCocktails";
 import Login from "./pages/Login";
+import Footer from "./components/Footer";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -84,6 +85,7 @@ function App() {
               element={<h1 className="display-2">Wrong page!</h1>}
             />
           </Routes>
+          <Footer />
         </>
       </Router>
     </ApolloProvider>

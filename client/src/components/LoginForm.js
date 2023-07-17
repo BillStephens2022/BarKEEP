@@ -46,7 +46,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <Form noValidate validated={validated} className="form_login" onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} className="form-login" onSubmit={handleFormSubmit}>
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
         </Alert>
@@ -81,7 +81,7 @@ const LoginForm = () => {
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
           variant='success'
-          className='login_signup_button'>
+          className='login-signup-button'>
           Submit
         </Button>
       </Form>
