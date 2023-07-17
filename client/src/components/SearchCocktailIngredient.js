@@ -52,7 +52,7 @@ const SearchCocktailIngredient = ({ handleAddCocktail, addedCocktailId }) => {
   return (
     <div className="searchIngredient">
       <select
-        className="ingredient_dropdown"
+        className="ingredient-dropdown"
         value={selectedIngredient}
         onChange={handleIngredientChange}
       >

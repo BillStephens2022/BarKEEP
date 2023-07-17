@@ -61,7 +61,7 @@ const RegisterForm = () => {
   return (
     <>
       {/* This is needed for the validation functionality above */}
-      <Form noValidate validated={validated} className="form_register" onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} className="form-register" onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
         <Alert
           dismissible
@@ -126,7 +126,7 @@ const RegisterForm = () => {
           }
           type="submit"
           variant="success"
-          className='login_signup_button'
+          className='login-signup-button'
         >
           Submit
         </Button>

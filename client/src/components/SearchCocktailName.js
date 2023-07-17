@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { searchCocktails } from "../utils/API";
 import CocktailCardLite from "./CocktailCardLite";
-import "../styles/Home.css";
+import "../styles/SearchCocktails.css";
 
 const SearchCocktailName = ({handleAddCocktail, addedCocktailId}) => {
   // create state for holding returned google api data
@@ -36,7 +36,7 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId}) => {
       <form className="searchNameForm" onSubmit={handleSearchSubmit}>
         <input
           type="text"
-          className="input_search_cocktails"
+          className="input-search-cocktails"
           placeholder="Search for a cocktail..."
           value={searchInput}
           name="searchInput"

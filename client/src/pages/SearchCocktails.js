@@ -100,7 +100,7 @@ const SearchCocktails = () => {
   }
 
   return (
-    <div className="searchCocktails">
+    <div className="search-cocktails">
     <div className="search-headings">
       <h1 className="title">BarKEEP</h1>
       <h2 className="search-header">

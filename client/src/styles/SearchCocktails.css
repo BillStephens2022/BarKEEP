@@ -1,13 +1,89 @@
 .search-headings {
-    padding: 1rem;
-    background-color: var(--darkgray);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--darkgray);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+  .search-headings {
+    padding-top: 1.5rem;
   }
-  
-  @media (max-width: 767px) {
-    .search-headings {
-      padding-top: 1.5rem;
-    }
-  }
+}
+
+.search-cocktails {
+  background-color: var(--lightgray);
+  width: 100%;
+}
+
+.search-header {
+  font-size: 2rem;
+  letter-spacing: 0.4rem;
+  color: var(--white);
+  text-align: center;
+}
+
+.div-search-component {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.div-search-btn {
+  margin: 0;
+  text-align: center;
+}
+
+.searchBy-text {
+  color: var(--maroon);
+}
+
+.input-search-cocktails {
+  margin-left: 1.5rem;
+  padding: 0.4rem;
+  height: 2.4rem;
+}
+
+.ingredient-dropdown {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  height: 2.4rem;
+  width: 11.5rem;
+  padding: 0.4rem;
+}
+
+.btn-search {
+  transition: transform 0.3s;
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+  width: 12rem;
+  margin: 1rem;
+}
+
+.btn-search:hover {
+  background-color: #ff0000;
+  font-weight: 700;
+  color: var(--lightgray);
+  transform: scale(1.1);
+}
+
+.btn-search.active {
+  background-color: #ff0000;
+  font-weight: 700;
+  color: var(--white);
+  transform: scale(1.1);
+  border: 1px solid var(--black);
+  box-shadow: 3px 3px 10px var(--darkgray);
+}
+
+.button-search-cocktails {
+  height: 2.38rem;
+  width: 3rem;
+  margin: 0;
+  margin-top: -3px;
+  margin-left: -2px;
+  padding: 0;
+  border-radius: 0;
+  letter-spacing: 0.1rem;
+  font-weight: 700;
+}

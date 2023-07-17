@@ -1,0 +1,56 @@
+/* Login Page */
+
+.login_page {
+  flex: 1;
+  color: var(--white);
+  text-align: center;
+  background-color: var(--yellow);
+}
+
+.subtitle-2 {
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.subtitle-2-span {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--maroon);
+  cursor: pointer;
+}
+
+.subtitle-2-span:hover {
+  text-transform: lowercase;
+  color: var(--blue);
+}
+
+/* Register / Login Forms */
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  height: 25vh;
+}
+
+.login-signup-button {
+  margin-top: 1.25rem;
+}
+
+.form-register,
+.form-login {
+  width: 25vw;
+}
+
+.login-label {
+  margin: 0.25rem;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+}
+
+.login-input {
+  margin: 1rem;
+  height: 3rem;
+}

@@ -11,3 +11,24 @@
     padding-top: 1.5rem;
   }
 }
+
+.add-cocktail-button:hover,
+.search-cocktail-button:hover {
+  background-color: var(--yellow);
+}
+
+/* Favorites Page */
+
+.cocktails-main {
+  flex: 1;
+  color: var(--white);
+  text-align: center;
+  background-color: var(--lightgray);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  justify-content: center;
+}

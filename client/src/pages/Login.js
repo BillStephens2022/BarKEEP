@@ -6,6 +6,7 @@ import RegisterForm from "../components/RegisterForm";
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import { Auth } from '../utils/auth';
+import "../styles/Login.css";
 
 const Login = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
@@ -48,7 +49,7 @@ const Login = () => {
       <Button onClick={handleLoginClick} text="Log In" />
       <Button onClick={handleGuestClick} text="Guest Login" />
       <Button onClick={handleRegisterClick} text="Register" />
-      <div className="form_container">
+      <div className="form-container">
         {showRegisterForm ? (<RegisterForm />) : null}
         {showLoginForm ? (<LoginForm />): null}
       </div>
