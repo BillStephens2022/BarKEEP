@@ -7,7 +7,7 @@
 }
 
 .contact-icons {
-  width: 35vw;
+  width: 25vw;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -25,8 +25,8 @@
   letter-spacing: 0.1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  width: 65vw;
-  text-align: center;
+  width: 75vw;
+  text-align: right;
 }
 
 .portfolio-link {
@@ -42,10 +42,30 @@
 
 @media (max-width: 767px) {
   .footer-text {
+    width: 65vw;
     font-size: 1rem;
   }
+  .contact-icons {
+    width: 35vw;
+    font-size: 1rem;
+}
   .fab,
   .fas {
     font-size: 1rem;
   }
 }
+
+@media (max-width: 300px) {
+    .footer-text {
+      width: 55vw;
+      font-size: 0.6rem;
+    }
+    .contact-icons {
+        width: 45vw;
+        font-size: 0.6rem;
+    }
+    .fab,
+    .fas {
+      font-size: 1rem;
+    }
+  }
