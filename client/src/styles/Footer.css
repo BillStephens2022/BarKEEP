@@ -48,7 +48,8 @@
   .contact-icons {
     width: 35vw;
     font-size: 1rem;
-}
+    margin-left: 0.25rem;
+  }
   .fab,
   .fas {
     font-size: 1rem;
@@ -56,16 +57,16 @@
 }
 
 @media (max-width: 300px) {
-    .footer-text {
-      width: 55vw;
-      font-size: 0.6rem;
-    }
-    .contact-icons {
-        width: 45vw;
-        font-size: 0.6rem;
-    }
-    .fab,
-    .fas {
-      font-size: 1rem;
-    }
+  .footer-text {
+    width: 55vw;
+    font-size: 0.6rem;
   }
+  .contact-icons {
+    width: 45vw;
+    font-size: 0.6rem;
+  }
+  .fab,
+  .fas {
+    font-size: 1rem;
+  }
+}

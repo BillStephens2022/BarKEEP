@@ -82,6 +82,7 @@
 .navigation_list {
   list-style-type: none;
   padding-top: 4rem;
+  padding-left: 0;
   overflow-y: auto;
   position: fixed;
   top: 0;
