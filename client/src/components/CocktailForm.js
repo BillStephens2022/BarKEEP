@@ -290,7 +290,7 @@ const CocktailForm = ({
           Add Tag
         </button>
 
-        <button type="submit">
+        <button type="submit" className="btn cocktail-form-button">
           {formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail
         </button>
       </form>

@@ -25,7 +25,7 @@
   border-radius: 4px;
 }
 
-.form-container button {
+.cocktail-form-button {
   padding: 10px 20px;
   margin-top: 10px;
   background-color: var(--blue);
@@ -35,7 +35,7 @@
   cursor: pointer;
 }
 
-.form-container button:hover {
+.cocktail-form-button:hover {
   background-color: #0056b3;
 }
 
