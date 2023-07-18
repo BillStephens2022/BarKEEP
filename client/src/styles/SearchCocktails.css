@@ -17,8 +17,28 @@
   width: 100%;
 }
 
-.search-header {
+.search-header-1 {
   font-size: 2rem;
+  letter-spacing: 0.4rem;
+  color: var(--white);
+  text-align: center;
+}
+
+#link-opencocktaildb {
+  text-decoration: none;
+  color: var(--blue);
+  cursor: pointer;
+  transition: font-size 0.3s ease;
+}
+
+#link-opencocktaildb:hover {
+  color: var(--lightblue);
+  font-size: 2.1rem;
+}
+
+.search-header-2 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
   letter-spacing: 0.4rem;
   color: var(--white);
   text-align: center;
