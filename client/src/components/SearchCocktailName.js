@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { searchCocktails } from "../utils/API";
-import CocktailCardLite from "./CocktailCardLite";
+import CocktailCard from "./CocktailCard";
 import "../styles/SearchCocktails.css";
 
 const SearchCocktailName = ({handleAddCocktail, addedCocktailId}) => {
@@ -47,7 +47,7 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId}) => {
         </button>
       </form>
       <div className="card-container">
-        <CocktailCardLite
+        <CocktailCard
           cocktails={searchedCocktails}
           page="SearchCocktails"
           handleAddCocktail={handleAddCocktail}

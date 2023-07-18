@@ -3,9 +3,9 @@ import { GoPencil, GoTrash, GoPlus } from "react-icons/go";
 import { QUERY_ME } from "../utils/queries";
 import { searchCocktails } from "../utils/API";
 import { Auth } from "../utils/auth";
-import "../styles/CocktailCardLite.css";
+import "../styles/CocktailCard.css";
 
-const CocktailCardLite = ({
+const CocktailCard = ({
   loading,
   cocktails,
   setCocktails,
@@ -66,7 +66,7 @@ const CocktailCardLite = ({
     <>
       {cocktails.map((cocktail) => (
         <div
-          className={`card card-cocktail-lite ${
+          className={`card card-cocktail ${
             expandedCocktail && expandedCocktail._id === cocktail._id
               ? "expanded"
               : ""
@@ -77,8 +77,8 @@ const CocktailCardLite = ({
             className="card-content"
             style={{ backgroundImage: `url(${cocktail.imageURL})` }}
           >
-            <div className="card-title-lite">{cocktail.name}</div>
-            <div className="card-cocktail-lite-footer">
+            <div className="card-title">{cocktail.name}</div>
+            <div className="card-cocktail-footer">
               <button
                 className="btn btn-seeRecipe"
                 id={cocktail._id}
@@ -92,19 +92,19 @@ const CocktailCardLite = ({
           </div>
           {expandedCocktail && expandedCocktail._id === cocktail._id && (
             <div className="expanded-content">
-              <h3 className="card-lite-h3">Ingredients:</h3>
-              <ul className="card-lite-list">
+              <h3 className="card-h3">Ingredients:</h3>
+              <ul className="card-list">
                 {expandedCocktail.ingredients.map((ingredient, index) => (
                   <li key={index}>
                     {ingredient.quantity} {ingredient.name}
                   </li>
                 ))}
               </ul>
-              <h3 className="card-lite-h3">Instructions:</h3>
-              <p className="card-lite-instructions">
+              <h3 className="card-h3">Instructions:</h3>
+              <p className="card-instructions">
                 {expandedCocktail.instructions}
               </p>
-              <div className="card-lite-expanded-footer">
+              <div className="card-expanded-footer">
                 {page === "Favorites" && (
                   <>
                     <button
@@ -141,4 +141,4 @@ const CocktailCardLite = ({
   );
 };
 
-export default CocktailCardLite;
+export default CocktailCard;

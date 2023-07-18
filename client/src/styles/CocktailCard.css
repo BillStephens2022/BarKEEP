@@ -1,4 +1,4 @@
-.card-cocktail-lite {
+.card-cocktail {
   position: relative;
   width: 20rem;
   height: 20rem;
@@ -22,7 +22,7 @@
   height: 20rem;
 }
 
-.card-title-lite {
+.card-title {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--white);
@@ -31,7 +31,7 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
-.card-cocktail-lite-footer {
+.card-cocktail-footer {
   display: flex;
   justify-content: center;
   position: absolute;
@@ -57,7 +57,7 @@
   transform: scale(1.1);
 }
 
-.card-cocktail-lite.expanded {
+.card-cocktail.expanded {
   width: 40rem;
 }
 
@@ -76,24 +76,24 @@
   transition: right 0.3s, width 0.3s; /* Adds a transition for the width property to eliminate jumpiness*/
 }
 
-.card-cocktail-lite.expanded .expanded-content {
+.card-cocktail.expanded .expanded-content {
   right: 0; /* Move the expanded section into view */
   width: 20rem; /*  width of the expanded section */
   overflow: auto;
 }
 
-.card-lite-h3 {
+.card-h3 {
   font-size: 1rem;
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
-.card-lite-list,
-.card-lite-instructions {
+.card-list,
+.card-instructions {
   text-align: left;
 }
 
-.card-lite-expanded-footer {
+.card-expanded-footer {
   display: flex;
   justify-content: space-around;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import CocktailCardLite from "../components/CocktailCardLite";
+import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
@@ -245,7 +245,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
         )}
       </div>
       <div className="card-container">
-        <CocktailCardLite
+        <CocktailCard
           data={data}
           loading={loading}
           cocktails={cocktails}

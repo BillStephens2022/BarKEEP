@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getCocktailsbyIngredient } from "../utils/API";
-import CocktailCardLite from "./CocktailCardLite";
+import CocktailCard from "./CocktailCard";
 import "../styles/Home.css";
 
 // component for when user chooses to search cocktails by ingredient
@@ -64,7 +64,7 @@ const SearchCocktailIngredient = ({ handleAddCocktail, addedCocktailId }) => {
         ))}
       </select>
       <div className="card-container">
-        <CocktailCardLite
+        <CocktailCard
           cocktails={searchedCocktails}
           page="SearchCocktails"
           handleAddCocktail={handleAddCocktail}
