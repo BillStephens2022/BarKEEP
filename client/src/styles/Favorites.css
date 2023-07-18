@@ -12,6 +12,21 @@
   }
 }
 
+@media (max-width: 380px) {
+  .favorites-buttons-div {
+    text-align: center;
+  }
+}
+
+.favorites-buttons-div {
+  margin: auto;
+}
+
+.add-cocktail-button,
+.search-cocktail-button {
+  width: 10rem;
+}
+
 .add-cocktail-button:hover,
 .search-cocktail-button:hover {
   background-color: var(--yellow);
