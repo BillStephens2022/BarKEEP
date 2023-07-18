@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GoPencil, GoTrash, GoPlus } from "react-icons/go";
 import { QUERY_ME } from "../utils/queries";
 import { searchCocktails } from "../utils/API";
@@ -12,9 +12,28 @@ const CocktailCard = ({
   page,
   handleAddCocktail,
   deleteCocktail,
-  handleEditCocktail
+  handleEditCocktail,
 }) => {
   const [expandedCocktail, setExpandedCocktail] = useState(null);
+  //
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // 'isMobile' is true with viewport with width < 768px
+    };
+
+    // Add event listener to handle resizing
+    window.addEventListener("resize", handleResize);
+
+    // Call handleResize to set initial value
+    handleResize();
+
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,7 +69,7 @@ const CocktailCard = ({
     try {
       const { data } = await deleteCocktail({
         variables: { cocktailId },
-        refetchQueries: [{ query: QUERY_ME }]
+        refetchQueries: [{ query: QUERY_ME }],
       });
       if (!data) {
         throw new Error("something went wrong!");
@@ -91,7 +110,11 @@ const CocktailCard = ({
             </div>
           </div>
           {expandedCocktail && expandedCocktail._id === cocktail._id && (
-            <div className="expanded-content">
+            <div
+              className={`expanded-content ${
+                isMobile ? "expanded-mobile" : "expanded-desktop"
+              }`}
+            >
               <h3 className="card-h3">Ingredients:</h3>
               <ul className="card-list">
                 {expandedCocktail.ingredients.map((ingredient, index) => (

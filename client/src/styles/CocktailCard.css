@@ -64,7 +64,7 @@
 .expanded-content {
   position: absolute;
   top: 0;
-  right: -20rem; /* Position the expanded section outside the card */
+  /* right: -20rem; Position the expanded section outside the card */
   width: 0; /* Set the initial width of the expanded section */
   height: 100%;
   background-color: var(--darkgray);
@@ -96,4 +96,41 @@
 .card-expanded-footer {
   display: flex;
   justify-content: space-around;
+}
+
+
+@media (max-width: 767px) {
+  .card-cocktail {
+    flex-direction: column; /* Stack the cards vertically on smaller screens */
+  }
+
+  .card-content {
+    order: 2; /* Move the image and title below the expanded section on smaller screens */
+  }
+
+  .expanded-content {
+    order: 2; /* Move the expanded section above the image and title on smaller screens */
+    position: relative; /* Change from absolute to relative positioning */
+    width: 100%; /* Set the width to 100% to expand under the card */
+    height: 0; /* Set the initial height to 0 */
+    opacity: 0; /* Hide the expanded content initially */
+    overflow: hidden; /* Hide any content that overflows */
+    padding: 0 1rem; /* Add padding to separate the expanded content from the original content */
+    transition: height 0.3s, opacity 0.3s; /* Add transitions for smooth expansion */
+  }
+
+  .card-cocktail.expanded {
+    height: 40rem;
+    width: 20rem;
+  }
+
+  .card-cocktail.expanded .expanded-content {
+    height: 20rem; /* Set the height to 20rem to reveal the expanded content */
+    opacity: 1; /* Make the expanded content visible */
+    padding: 1rem;
+  }
+
+  .card-cocktail.expanded.expanded-mobile .expanded-content {
+    margin-top: 1rem; /* Add a margin between the original card and the expanded content */
+  }
 }
