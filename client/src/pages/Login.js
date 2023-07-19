@@ -11,16 +11,20 @@ import "../styles/Login.css";
 const Login = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [activeButton, setActiveButton] = useState('');
+
   const [login] = useMutation(LOGIN_USER);
 
   const handleRegisterClick = () => {
     setShowRegisterForm(true);
     setShowLoginForm(false);
+    setActiveButton('register');
   };
 
   const handleLoginClick = () => {
     setShowRegisterForm(false);
     setShowLoginForm(true);
+    setActiveButton('login');
   };
 
   const handleGuestClick = async () => {
@@ -53,17 +57,16 @@ const Login = () => {
       </h5>
       <Button
         onClick={handleLoginClick}
-        className="btn btn-login"
+        activeButton={activeButton}
         text="Log In"
       />
       <Button
         onClick={handleGuestClick}
-        className="btn btn-login"
         text="Guest Login"
       />
       <Button
         onClick={handleRegisterClick}
-        className="btn btn-login"
+        activeButton={activeButton}
         text="Register"
       />
 

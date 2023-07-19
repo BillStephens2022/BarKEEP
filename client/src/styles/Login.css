@@ -49,6 +49,14 @@
   text-align: left;
 }
 
+.btn-login.active, .btn-register.active {
+  background-color: var(--yellow);
+  color: var(--white);
+  transition: transform 0.2s ease;
+  transform: scale(1.1);
+
+}
+
 /* Register / Login Forms */
 
 .form-container-login {
