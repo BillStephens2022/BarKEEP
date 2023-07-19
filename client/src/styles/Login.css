@@ -8,11 +8,11 @@
   padding: 1rem;
 }
 
-.subtitle {
+.subtitle-login {
   color: var(--blue);
 }
 
-.subtitle-2 {
+.subtitle-login-2 {
   font-size: 1.25rem;
   margin-bottom: 1.25rem;
   color: var(--blue);
@@ -31,7 +31,6 @@
 }
 
 .how-to {
-  
   padding: 0.5rem;
 }
 
@@ -49,12 +48,12 @@
   text-align: left;
 }
 
-.btn-login.active, .btn-register.active {
+.btn-login.active,
+.btn-register.active {
   background-color: var(--yellow);
   color: var(--white);
   transition: transform 0.2s ease;
   transform: scale(1.1);
-
 }
 
 /* Register / Login Forms */
@@ -87,9 +86,16 @@
   text-transform: uppercase;
 }
 
-.login-input, .register-input {
+.login-input,
+.register-input {
   margin: 1rem auto;
   height: 3rem;
+}
+
+@media (max-width: 1023px) {
+  .form-login, .form-register {
+    width: 40vw;
+  }
 }
 
 @media (max-width: 767px) {
@@ -98,12 +104,10 @@
   }
   .form-container-login {
     width: 90vw;
-  
   }
   .form-login,
   .form-register {
     width: 80vw;
-    
   }
   .login-signup-button {
     width: 40vw;

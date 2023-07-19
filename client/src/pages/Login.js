@@ -46,8 +46,8 @@ const Login = () => {
   return (
     <div className="login_page">
       <h1 className="title">BarKEEP</h1>
-      <h2 className="subtitle">Log In / Register</h2>
-      <h5 className="subtitle-2">
+      <h2 className="subtitle-login">Log In / Register</h2>
+      <h5 className="subtitle-login-2">
         Try our{" "}
         <span className="subtitle-2-span" onClick={handleGuestClick}>
           {" "}
