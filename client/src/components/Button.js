@@ -1,8 +1,8 @@
 import React from "react";
 
-const Button = ({ text, onClick }) => {
+const Button = ({ text, onClick, activeButton }) => {
     return (
-        <button className="btn" onClick={onClick}>{text}</button>
+        <button className={`btn btn-${text.replace(/\s/g, "").toLowerCase()} ${activeButton === `${text.replace(/\s/g, "").toLowerCase()}` ? 'active' : ''}`} onClick={onClick}>{text}</button>
     )
 }
 

@@ -103,12 +103,13 @@ const SearchCocktails = () => {
     <div className="search-cocktails">
     <div className="search-headings">
       <h1 className="title">BarKEEP</h1>
-      <h2 className="search-header">
+      <h2 className="search-header-1">Search <a id="link-opencocktaildb" href="https://www.TheCocktailDB.com">'TheCocktailDB'</a> API</h2>
+      <h3 className="search-header-2">
         Search by:{" "}
         <span className="searchBy-text">
           {searchBy.charAt(0).toUpperCase() + searchBy.slice(1)}
         </span>
-      </h2>
+      </h3>
       <div className="div-search-btn">
         <button
           className="btn btn-search btn-searchByName"

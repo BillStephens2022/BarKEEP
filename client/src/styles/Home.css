@@ -66,10 +66,8 @@
 .subtitle {
   font-size: 2rem;
   letter-spacing: 0.4rem;
-  margin-bottom: 4rem;
   color: var(--white);
   text-align: center;
-  margin-top: auto;
 }
 
 @media (max-width: 767px) {
@@ -81,8 +79,23 @@
   }
 }
 
+.btn-get-started {
+  align-self: center;
+  width: 10rem;
+  z-index: 999;
+  box-shadow: 3px 3px 8px var(--darkgray);
+}
+
+.btn-get-started:hover {
+  background-color: var(--lightblue);
+  transform: scale(1.1);
+  cursor: pointer;
+  box-shadow: 3px 3px 10px white;
+
+}
+
 .home_photo {
-  margin-top: auto;
+  margin-top: 1.5rem;
 }
 
 .home_photo_image {

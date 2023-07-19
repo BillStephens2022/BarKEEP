@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import CocktailCard from "../components/CocktailCard";
-import CocktailForm from "../components/CocktailForm";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
 import {
@@ -9,7 +6,10 @@ import {
   DELETE_COCKTAIL,
   EDIT_COCKTAIL,
 } from "../utils/mutations";
+import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
+import CocktailCard from "../components/CocktailCard";
+import CocktailForm from "../components/CocktailForm";
 import "../styles/Favorites.css";
 
 const Favorites = ({ cocktails, setCocktails }) => {

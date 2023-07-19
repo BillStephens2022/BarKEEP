@@ -61,7 +61,12 @@ const RegisterForm = () => {
   return (
     <>
       {/* This is needed for the validation functionality above */}
-      <Form noValidate validated={validated} className="form-register" onSubmit={handleFormSubmit}>
+      <Form
+        noValidate
+        validated={validated}
+        className="form-register"
+        onSubmit={handleFormSubmit}
+      >
         {/* show alert if server response is bad */}
         <Alert
           dismissible
@@ -73,13 +78,16 @@ const RegisterForm = () => {
         </Alert>
 
         <Form.Group>
-          <Form.Label htmlFor="username">Username</Form.Label>
+          <Form.Label htmlFor="username" className="login-label">
+            Username
+          </Form.Label>
           <Form.Control
             type="text"
             placeholder="Your username"
             name="username"
             onChange={handleInputChange}
             value={userFormData.username}
+            className="login-input"
             required
           />
           <Form.Control.Feedback type="invalid">
@@ -88,13 +96,16 @@ const RegisterForm = () => {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor="email">Email</Form.Label>
+          <Form.Label htmlFor="email" className="login-label">
+            Email
+          </Form.Label>
           <Form.Control
             type="email"
             placeholder="Your email address"
             name="email"
             onChange={handleInputChange}
             value={userFormData.email}
+            className="login-input"
             required
           />
           <Form.Control.Feedback type="invalid">
@@ -103,13 +114,16 @@ const RegisterForm = () => {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor="password">Password</Form.Label>
+          <Form.Label htmlFor="password" className="login-label">
+            Password
+          </Form.Label>
           <Form.Control
             type="password"
             placeholder="Your password"
             name="password"
             onChange={handleInputChange}
             value={userFormData.password}
+            className="login-input"
             required
           />
           <Form.Control.Feedback type="invalid">
@@ -126,7 +140,7 @@ const RegisterForm = () => {
           }
           type="submit"
           variant="success"
-          className='login-signup-button'
+          className="login-signup-button"
         >
           Submit
         </Button>

@@ -2,14 +2,20 @@
 
 .login_page {
   flex: 1;
-  color: var(--white);
+  color: var(--blue);
   text-align: center;
-  background-color: var(--yellow);
+  background-color: var(--darkgray);
+  padding: 1rem;
+}
+
+.subtitle {
+  color: var(--blue);
 }
 
 .subtitle-2 {
   font-size: 1.25rem;
   margin-bottom: 1.25rem;
+  color: var(--blue);
 }
 
 .subtitle-2-span {
@@ -24,14 +30,42 @@
   color: var(--blue);
 }
 
+.how-to {
+  
+  padding: 0.5rem;
+}
+
+.how-to-heading {
+  text-align: center;
+}
+
+.how-to-list {
+  color: var(--blue);
+  font-size: 0.9rem;
+  list-style: disc;
+  line-height: 2;
+  margin: auto;
+  width: 20rem;
+  text-align: left;
+}
+
+.btn-login.active, .btn-register.active {
+  background-color: var(--yellow);
+  color: var(--white);
+  transition: transform 0.2s ease;
+  transform: scale(1.1);
+
+}
+
 /* Register / Login Forms */
 
-.form-container {
+.form-container-login {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   padding: 1.25rem;
-  height: 25vh;
-  width: 40vw;
+  width: 60vw;
+  margin: auto;
 }
 
 .login-signup-button {
@@ -40,7 +74,9 @@
 
 .form-register,
 .form-login {
-  width: 25vw;
+  width: 20vw;
+  padding: 0;
+  margin: 0;
 }
 
 .login-label {
@@ -51,7 +87,7 @@
   text-transform: uppercase;
 }
 
-.login-input {
+.login-input, .register-input {
   margin: 1rem auto;
   height: 3rem;
 }
@@ -60,14 +96,14 @@
   .title {
     margin-top: 4rem;
   }
-  .form-container {
+  .form-container-login {
     width: 90vw;
-    height: 55vh;
+  
   }
   .form-login,
   .form-register {
     width: 80vw;
-    height: 50vh;
+    
   }
   .login-signup-button {
     width: 40vw;
