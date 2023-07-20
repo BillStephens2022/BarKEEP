@@ -76,6 +76,7 @@
   }
   .subtitle {
     font-size: 1.5rem;
+    letter-spacing: 0.15rem;
   }
 }
 
@@ -84,14 +85,26 @@
   width: 10rem;
   z-index: 999;
   box-shadow: 3px 3px 8px var(--darkgray);
+  transition: transform 0.5s ease, background-color 0.2s ease;
 }
 
 .btn-get-started:hover {
   background-color: var(--lightblue);
-  transform: scale(1.1);
+  transform: translateY(-3px) scale(1.05);
   cursor: pointer;
   box-shadow: 3px 3px 10px white;
+}
 
+.welcome-message {
+  font-size: 1.25rem;
+  letter-spacing: .15rem;
+}
+
+.welcome-username {
+  color: chartreuse;
+  font-weight: 900;
+  text-shadow: 3px 3px 8px var(--darkgray);
+  letter-spacing: .25rem;
 }
 
 .home_photo {
