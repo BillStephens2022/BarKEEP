@@ -76,6 +76,7 @@
   }
   .subtitle {
     font-size: 1.5rem;
+    letter-spacing: 0.15rem;
   }
 }
 
@@ -91,7 +92,18 @@
   transform: scale(1.1);
   cursor: pointer;
   box-shadow: 3px 3px 10px white;
+}
 
+.welcome-message {
+  font-size: 1.25rem;
+  letter-spacing: .15rem;
+}
+
+.welcome-username {
+  color: chartreuse;
+  font-weight: 900;
+  text-shadow: 3px 3px 8px var(--darkgray);
+  letter-spacing: .25rem;
 }
 
 .home_photo {
