@@ -30,23 +30,32 @@ const Post = ({
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
         return (
           <div className="post-card" key={post._id}>
-            <div className="post-title">{post.postTitle}</div>
-            <div className="post-content">{post.postContent}</div>
-            <div
-              className="post-image"
-              style={{ backgroundImage: `url(${post.postImageURL})` }}
-            ></div>
-            <div className="post-author">Posted by: {post.author.username}</div>
-            <div className="post-author">{formatDate(post.postDate)}</div>
-            {isMyPosts && isMyPost && (
-              <button
-                className="btn"
-                id={post._id}
-                onClick={() => handleDeletePost(post._id)}
-              >
-                <GoTrash />
-              </button>
-            )}
+            <div className="post-main-container">
+              <div
+                className="post-image"
+                style={{ backgroundImage: `url(${post.postImageURL})` }}
+              ></div>
+              <div className="post-title-and-content">
+                <h3 className="post-title">{post.postTitle}</h3>
+                <div className="post-content">{post.postContent}</div>
+              </div>
+            </div>
+
+            <div className="post-footer">
+              <div className="post-author">
+                Posted by: {post.author.username}
+              </div>
+              <div className="post-author">{formatDate(post.postDate)}</div>
+              {isMyPosts && isMyPost && (
+                <button
+                  className="btn"
+                  id={post._id}
+                  onClick={() => handleDeletePost(post._id)}
+                >
+                  <GoTrash />
+                </button>
+              )}
+            </div>
           </div>
         );
       })}
@@ -58,7 +67,6 @@ const Post = ({
           </button>
         </div>
       )}
-
     </>
   );
 };
