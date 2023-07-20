@@ -1,6 +1,6 @@
 import React from "react";
 import moment from 'moment-timezone';
-import "../styles/CocktailForm.css";
+import "../styles/PostForm.css";
 
 const initialState = {
   postTitle: "",
@@ -61,11 +61,12 @@ const PostForm = ({
     postFormState;
 
   return (
-    <div className="form-container">
+    <div className="form-post-container">
       <form onSubmit={handleSubmit}>
         <label htmlFor="postTitle">Title: </label>
         <input
           type="text"
+          className="form-post-input"
           id="postTitle"
           value={postTitle}
           onChange={(e) =>
@@ -76,10 +77,11 @@ const PostForm = ({
           }
         />
 
-        <label htmlFor="postContent">Content: </label>
+        <label htmlFor="input-content">Content: </label>
         <input
           type="text"
-          id="postContent"
+          className="form-post-input"
+          id="input-content"
           value={postContent}
           onChange={(e) =>
             setPostFormState((prevState) => ({
@@ -89,10 +91,11 @@ const PostForm = ({
           }
         />
 
-        <label htmlFor="postImageURL">Image URL:</label>
+        <label htmlFor="input-imageURL">Image URL:</label>
         <input
           type="text"
-          id="postImageURL"
+          className="form-post-input"
+          id="input-imageURL"
           value={postImageURL}
           onChange={(e) =>
             setPostFormState((prevState) => ({
@@ -102,7 +105,7 @@ const PostForm = ({
           }
         />
 
-        <button type="submit">Submit Post</button>
+        <button type="post-submit" className="post-submit-button">Submit Post</button>
       </form>
     </div>
   );

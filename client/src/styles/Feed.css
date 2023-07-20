@@ -78,7 +78,6 @@
   align-self: center;
 }
 
-
 .btn-view.active {
   background-color: var(--maroon);
   color: var(--white);
@@ -91,7 +90,6 @@
   background-color: var(--maroon);
   color: var(--white);
 }
-
 
 .btn-add-post {
   width: 15rem;
@@ -106,29 +104,56 @@
 }
 
 .posts-container {
-  display: flex;
-  flex-wrap: wrap;
-  flex: 1;
-  background-color: var(--maroon);
-  justify-content: space-around;
+  display: block;
+  width: 100%;
+  background-color: var(--blue);
+  text-align: center;
 }
 
-
 .post-card {
-  margin: 1rem;
+  margin: 1rem auto;
   background-color: var(--darkgray);
-  border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  width: 95%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: scale(1.01) translateY(-1px);
+  box-shadow: 2px 2px 5px var(--white);
+}
+
+.post-main-container {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
 }
 
 .post-image {
   position: relative;
-  width: 100%;
-  height: 300px;
-  background-size: cover;
+  height: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
   border-radius: 8px;
   overflow: hidden;
+  background-color: var(--darkgray);
+  align-self: center;
+}
+
+.post-image img {
+  width: 75%;
+  border-radius: 2%;
+}
+
+.post-title-and-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: var(--darkgray);
+  width: 50%;
 }
 
 .post-title {
@@ -136,14 +161,14 @@
   font-weight: 900;
   margin: 1rem;
   color: var(--white);
-  text-shadow: 3px 3px 10px black;
+  text-shadow: 1px 1px 1px black;
 }
 
 .post-content {
   margin: 1rem;
-  color: var(--white);
+  color: var(--champagne);
   font-size: 1rem;
-  text-shadow: 3px 3px 10px black;
+  text-shadow: 1px 1px 1px black;
 }
 
 .post-author {
@@ -151,7 +176,6 @@
   font-size: 1rem;
   font-weight: 500;
   color: var(--white);
-  text-shadow: 3px 3px 3px var(--darkgray);
 }
 
 .posts_error {
@@ -160,13 +184,34 @@
   color: var(--blue);
 }
 
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 768px) {
-  .post-card {
-    width: 100%;
-    padding: 10px;
+  .post-author {
+    font-size: 0.75rem;
   }
 
-  .post-image {
-    height: 200px;
-  }
+  
+}
+
+.see-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.btn-see-more {
+  background-color: var(--maroon);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-see-more:hover {
+  background-color: var(--darkmaroon);
 }

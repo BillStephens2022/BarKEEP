@@ -1,7 +1,7 @@
 import React from "react";
 import { GoTrash } from "react-icons/go";
 import { Auth } from "../utils/auth";
-import { formatDate } from "../utils/formatting";
+import { formatElapsedTime } from "../utils/formatting";
 import "../styles/Feed.css";
 
 const Post = ({
@@ -9,6 +9,8 @@ const Post = ({
   posts,
   handleDeletePost,
   isMyPosts,
+  visiblePosts,
+  setVisiblePosts,
 }) => {
   if (loading) {
     return <div>Loading...</div>;
@@ -18,11 +20,9 @@ const Post = ({
     return <h3 className="posts_error">No posts to display yet</h3>;
   }
 
-  // const sortedPosts = [...posts].sort((a, b) => {
-  //   return new Date(b.postDate) - new Date(a.postDate);
-  // });
-
-  // const reversedPosts = sortedPosts.reverse();
+  const handleSeeMoreClick = () => {
+    setVisiblePosts((prevValue) => prevValue + 10);
+  };
 
   return (
     <>
@@ -30,26 +30,42 @@ const Post = ({
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
         return (
           <div className="post-card" key={post._id}>
-            <div className="post-title">{post.postTitle}</div>
-            <div className="post-content">{post.postContent}</div>
-            <div
-              className="post-image"
-              style={{ backgroundImage: `url(${post.postImageURL})` }}
-            ></div>
-            <div className="post-author">Posted by: {post.author.username}</div>
-            <div className="post-author">{formatDate(post.postDate)}</div>
-            {isMyPosts && isMyPost && (
-              <button
-                className="btn"
-                id={post._id}
-                onClick={() => handleDeletePost(post._id)}
-              >
-                <GoTrash />
-              </button>
-            )}
+            <div className="post-main-container">
+              <div
+                className="post-image"
+              ><img src={post.postImageURL} alt="Post Image" /></div>
+              <div className="post-title-and-content">
+                <h3 className="post-title">{post.postTitle}</h3>
+                <div className="post-content">{post.postContent}</div>
+              </div>
+            </div>
+
+            <div className="post-footer">
+              <div className="post-author">
+                Posted by: {post.author.username}
+              </div>
+              <div className="post-author">{formatElapsedTime(post.postDate)}</div>
+              {isMyPosts && isMyPost && (
+                <button
+                  className="btn"
+                  id={post._id}
+                  onClick={() => handleDeletePost(post._id)}
+                >
+                  <GoTrash />
+                </button>
+              )}
+            </div>
           </div>
         );
       })}
+
+      {visiblePosts <= posts.length && (
+        <div className="see-more-container">
+          <button className="btn btn-see-more" onClick={handleSeeMoreClick}>
+            See More
+          </button>
+        </div>
+      )}
     </>
   );
 };
