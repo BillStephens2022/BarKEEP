@@ -106,37 +106,46 @@
 .posts-container {
   display: block;
   width: 100%;
-  background-color: var(--white);
+  background-color: var(--blue);
   text-align: center;
 }
 
 .post-card {
   margin: 1rem auto;
   background-color: var(--darkgray);
-  border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
   width: 95%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: scale(1.01) translateY(-1px);
+  box-shadow: 2px 2px 5px var(--white);
 }
 
 .post-main-container {
-  display: inline-flex;
-  flex-direction: row;
+  display: flex;
+  align-items: flex-start;
   width: 100%;
   padding: 1rem;
 }
 
 .post-image {
   position: relative;
-  width: 50%;
-  max-width: 500px;
-  height: 0;
-  padding-top: 66.66%; /* Maintain a 2:3 aspect ratio (height:width) */
+  height: auto;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 8px;
   overflow: hidden;
   background-color: var(--darkgray);
+  align-self: center;
+}
+
+.post-image img {
+  width: 75%;
+  border-radius: 2%;
 }
 
 .post-title-and-content {

@@ -1,7 +1,7 @@
 import React from "react";
 import { GoTrash } from "react-icons/go";
 import { Auth } from "../utils/auth";
-import { formatDate } from "../utils/formatting";
+import { formatElapsedTime } from "../utils/formatting";
 import "../styles/Feed.css";
 
 const Post = ({
@@ -33,8 +33,7 @@ const Post = ({
             <div className="post-main-container">
               <div
                 className="post-image"
-                style={{ backgroundImage: `url(${post.postImageURL})` }}
-              ></div>
+              ><img src={post.postImageURL} alt="Post Image" /></div>
               <div className="post-title-and-content">
                 <h3 className="post-title">{post.postTitle}</h3>
                 <div className="post-content">{post.postContent}</div>
@@ -45,7 +44,7 @@ const Post = ({
               <div className="post-author">
                 Posted by: {post.author.username}
               </div>
-              <div className="post-author">{formatDate(post.postDate)}</div>
+              <div className="post-author">{formatElapsedTime(post.postDate)}</div>
               {isMyPosts && isMyPost && (
                 <button
                   className="btn"
