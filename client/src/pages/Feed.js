@@ -19,9 +19,14 @@ const Feed = ({ posts, setPosts }) => {
     postContent: "",
     postImageURL: "",
   });
-
+  
+  // sets state for which view is selected ('All Posts' or 'My Posts')
   const [isAllPosts, setIsAllPosts] = useState(true);
   const [isMyPosts, setIsMyPosts] = useState(false);
+
+  // state to control how many posts are visible at a time, 
+  // user will be able to 'see more'
+  const [visiblePosts, setVisiblePosts] = useState(15);
 
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
   const { loading: postsLoading, data: postsData } = useQuery(QUERY_POSTS);
@@ -148,9 +153,8 @@ const Feed = ({ posts, setPosts }) => {
   if (userLoading || postsLoading) {
     return <div>Loading...</div>;
   }
-  console.log(userData);
+  
   const currentUser = userData?.me?._id;
-  console.log(currentUser);
 
   return (
     <div className="feed">
@@ -181,15 +185,21 @@ const Feed = ({ posts, setPosts }) => {
         </button>
       </div>
         <div className="posts-container">
+        {filteredPosts.length > 0 ? (
           <Post
             data={postsData}
             loading={postsLoading}
-            posts={filteredPosts || []}
+            posts={filteredPosts.slice(0, visiblePosts)}
             addPost={addPost}
             handleDeletePost={handleDeletePost}
             isMyPosts={isMyPosts}
             page="Feed"
+            visiblePosts={visiblePosts}
+            setVisiblePosts={setVisiblePosts}
           />
+        ) : (
+          <h3 className="posts-error">No posts to display yet</h3>
+        )}
         </div>
         {showPostForm && (
           <div className="modal-background">

@@ -9,6 +9,8 @@ const Post = ({
   posts,
   handleDeletePost,
   isMyPosts,
+  visiblePosts,
+  setVisiblePosts,
 }) => {
   if (loading) {
     return <div>Loading...</div>;
@@ -18,11 +20,9 @@ const Post = ({
     return <h3 className="posts_error">No posts to display yet</h3>;
   }
 
-  // const sortedPosts = [...posts].sort((a, b) => {
-  //   return new Date(b.postDate) - new Date(a.postDate);
-  // });
-
-  // const reversedPosts = sortedPosts.reverse();
+  const handleSeeMoreClick = () => {
+    setVisiblePosts((prevValue) => prevValue + 10);
+  };
 
   return (
     <>
@@ -50,6 +50,15 @@ const Post = ({
           </div>
         );
       })}
+
+      {visiblePosts <= posts.length && (
+        <div className="see-more-container">
+          <button className="btn btn-see-more" onClick={handleSeeMoreClick}>
+            See More
+          </button>
+        </div>
+      )}
+
     </>
   );
 };
