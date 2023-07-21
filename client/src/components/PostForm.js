@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { CloudinaryContext, Image, Transformation } from "cloudinary-react";
 import moment from 'moment-timezone';
 import "../styles/PostForm.css";
 
@@ -15,34 +16,29 @@ const PostForm = ({
   setShowPostForm,
   currentUser,
 }) => {
+  const [imageUploadUrl, setImageUploadUrl] = useState("");
+  const cloudinaryCloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { postTitle, postContent, postImageURL } = postFormState;
+    const { postTitle, postContent } = postFormState;
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const postDate = moment().tz(userTimeZone).toDate();
  
-    // console.log for debugging purposes
-    console.log("Mutation Variables:", {
-      postTitle,
-      postContent,
-      postImageURL,
-      currentUser
-    });
     // Check if any required fields are empty
-    if (!postTitle || !postContent) {
+    if (!postTitle || !postContent ) {
       console.log("Please fill in all required fields");
       return;
     }
 
     // Send form data to the server
     try {
-      console.log(currentUser);
-      console.log(postTitle, postContent, postImageURL, currentUser);
       const formData = await addPost({
         variables: {
           postTitle,
           postContent,
-          postImageURL,
+          postImageURL: imageUploadUrl, //using Cloudinary URL here
           postDate,
           author: currentUser,
         },
@@ -57,7 +53,13 @@ const PostForm = ({
     }
   };
 
-  const { postTitle, postContent, postImageURL } =
+  const handleImageUpload = (event) => {
+    // Cloudinary uploads the image and provides a URL
+    // Stores the URL in the component state
+    setImageUploadUrl(event.target.value);
+  };
+
+  const { postTitle, postContent } =
     postFormState;
 
   return (
@@ -91,19 +93,21 @@ const PostForm = ({
           }
         />
 
-        <label htmlFor="input-imageURL">Image URL:</label>
+        <label htmlFor="input-imageURL">Image Upload:</label>
         <input
-          type="text"
+          type="file"
           className="form-post-input"
           id="input-imageURL"
-          value={postImageURL}
-          onChange={(e) =>
-            setPostFormState((prevState) => ({
-              ...prevState,
-              postImageURL: e.target.value,
-            }))
-          }
+          onChange={handleImageUpload} // Use onChange to handle file input
         />
+        {/* Display the uploaded image */}
+        {imageUploadUrl && (
+          <CloudinaryContext cloudName={cloudinaryCloudName}>
+            <Image publicId={imageUploadUrl}>
+              <Transformation width="200" height="200" crop="fill" />
+            </Image>
+          </CloudinaryContext>
+        )}
 
         <button type="post-submit" className="post-submit-button">Submit Post</button>
       </form>
