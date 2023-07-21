@@ -28,8 +28,6 @@ const Login = () => {
   };
 
   const handleGuestClick = async () => {
-    console.log("logging in as guest!");
-
     const guestLoginData = {
       email: "guest@gmail.com",
       password: "password",

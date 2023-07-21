@@ -30,10 +30,23 @@ const Post = ({
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
         return (
           <div className="post-card" key={post._id}>
+            <div className="post-header">
+              <div className="post-author">
+                <img
+                  className="post-author-image"
+                  src="https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+                  alt="user avatar"
+                ></img>
+                <span className="post-author-name">{post.author.username}</span>
+              </div>
+              <div className="post-author-date">
+                {formatElapsedTime(post.postDate)}
+              </div>
+            </div>
             <div className="post-main-container">
-              <div
-                className="post-image"
-              ><img src={post.postImageURL} alt="Post Image" /></div>
+              <div className="post-image">
+                <img src={post.postImageURL} alt="Post" />
+              </div>
               <div className="post-title-and-content">
                 <h3 className="post-title">{post.postTitle}</h3>
                 <div className="post-content">{post.postContent}</div>
@@ -41,13 +54,9 @@ const Post = ({
             </div>
 
             <div className="post-footer">
-              <div className="post-author">
-                Posted by: {post.author.username}
-              </div>
-              <div className="post-author">{formatElapsedTime(post.postDate)}</div>
               {isMyPosts && isMyPost && (
                 <button
-                  className="btn"
+                  className="btn btn-post-delete"
                   id={post._id}
                   onClick={() => handleDeletePost(post._id)}
                 >
