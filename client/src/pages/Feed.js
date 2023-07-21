@@ -26,7 +26,7 @@ const Feed = ({ posts, setPosts }) => {
 
   // state to control how many posts are visible at a time, 
   // user will be able to 'see more'
-  const [visiblePosts, setVisiblePosts] = useState(15);
+  const [visiblePosts, setVisiblePosts] = useState(10);
 
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
   const { loading: postsLoading, data: postsData } = useQuery(QUERY_POSTS);
@@ -120,7 +120,8 @@ const Feed = ({ posts, setPosts }) => {
       console.error(err);
     }
   };
-
+  
+  // ensures posts get re-sorted after there is a new post
   useEffect(() => {
     if (postsData?.posts) {
       let sortedPosts = [...postsData.posts];
