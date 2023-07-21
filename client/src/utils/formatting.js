@@ -17,7 +17,7 @@ export const formatElapsedTime = (postDate) => {
   // Calculate minutes, hours, and days
   const minutes = Math.floor(elapsedTime / (1000 * 60));
   const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
-  const days = Math.floor(elapsedTime / (1000 * 60 * 60 * 24));
+  // const days = Math.floor(elapsedTime / (1000 * 60 * 60 * 24));
 
   if (minutes < 60) {
     return `${minutes}min`;

@@ -58,7 +58,7 @@ const client = new ApolloClient({
 function App() {
   const [cocktails, setCocktails] = useState([]);
   const [posts, setPosts] = useState([]);
-
+  
   return (
     <ApolloProvider client={client}>
       <Router basename={process.env.PUBLIC_URL}>

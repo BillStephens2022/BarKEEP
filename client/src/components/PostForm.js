@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { CloudinaryContext, Image, Transformation } from "cloudinary-react";
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
+// import axios from "axios";
+import { useMutation } from "@apollo/client";
+import { UPLOAD_POST_IMAGE } from "../utils/mutations";
 import "../styles/PostForm.css";
 
 const initialState = {
@@ -17,17 +20,18 @@ const PostForm = ({
   currentUser,
 }) => {
   const [imageUploadUrl, setImageUploadUrl] = useState("");
+  const [uploadPostImage] = useMutation(UPLOAD_POST_IMAGE);
   const cloudinaryCloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
-
+  console.log("HELLO:", cloudinaryCloudName);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { postTitle, postContent } = postFormState;
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const postDate = moment().tz(userTimeZone).toDate();
- 
+
     // Check if any required fields are empty
-    if (!postTitle || !postContent ) {
+    if (!postTitle || !postContent) {
       console.log("Please fill in all required fields");
       return;
     }
@@ -44,7 +48,7 @@ const PostForm = ({
         },
       });
       console.log("form data", formData);
-      
+
       // Reset form fields
       setPostFormState(initialState);
       setShowPostForm(false);
@@ -53,14 +57,23 @@ const PostForm = ({
     }
   };
 
-  const handleImageUpload = (event) => {
-    // Cloudinary uploads the image and provides a URL
-    // Stores the URL in the component state
-    setImageUploadUrl(event.target.value);
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    try {
+      const { data } = await uploadPostImage({
+        variables: { file },
+      });
+
+      // data.uploadPostImage contains the Cloudinary URL for the uploaded image
+      setImageUploadUrl(data.uploadPostImage);
+    } catch (error) {
+      console.error('Error uploading image', error);
+    }
   };
 
-  const { postTitle, postContent } =
-    postFormState;
+  const { postTitle, postContent } = postFormState;
 
   return (
     <div className="form-post-container">
@@ -109,7 +122,9 @@ const PostForm = ({
           </CloudinaryContext>
         )}
 
-        <button type="post-submit" className="post-submit-button">Submit Post</button>
+        <button type="post-submit" className="post-submit-button">
+          Submit Post
+        </button>
       </form>
     </div>
   );

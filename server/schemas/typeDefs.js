@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  scalar Upload
   type User {
     _id: ID!
     username: String!
@@ -66,11 +67,12 @@ const typeDefs = gql`
     addPost(
       postTitle: String!, 
       postContent: String!,
-      postImageURL: String,
+      postImageURL: Upload,
       postDate: String,
       author: ID!
     ) : Post
     deletePost(postId: ID!): Post
+    uploadPostImage(file: Upload!): String!
   }
 `;
 
