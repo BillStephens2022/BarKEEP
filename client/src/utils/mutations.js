@@ -94,7 +94,7 @@ export const DELETE_POST = gql`
 `;
 
 export const UPLOAD_POST_IMAGE = gql`
-  mutation UploadPostImage($file: Upload!) {
+  mutation uploadPostImage($file: Upload!) {
     uploadPostImage(file: $file)
   }
 `;

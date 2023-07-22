@@ -3,6 +3,7 @@ const { ApolloError } = require("apollo-server-errors");
 const { User, Cocktail, Post } = require("../models");
 const { signToken } = require("../utils/auth");
 const { cloudinary } = require('../server');
+const { GraphQLUpload } = require('graphql-upload');
 
 const resolvers = {
   Query: {
@@ -32,6 +33,7 @@ const resolvers = {
       return await Post.find({}).populate("author");
     },
   },
+  Upload: GraphQLUpload,
   Mutation: {
     // addUser
     addUser: async (parent, { username, email, password }) => {
@@ -191,6 +193,7 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     uploadPostImage: async (_, { file }) => {
+      console.log(cloudinary);
       try {
         // 'file' is the uploaded image file received from the frontend
         // Upload the image to Cloudinary using the 'upload' method

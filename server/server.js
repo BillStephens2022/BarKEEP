@@ -55,7 +55,6 @@ const startApolloServer = async (typeDefs, resolvers) => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-      console.log("cloud name:", process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
     })
   })
 };
