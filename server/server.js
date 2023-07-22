@@ -8,7 +8,9 @@ const db = require('./config/connection');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const dotenv = require('dotenv');
 
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -54,7 +56,6 @@ const startApolloServer = async (typeDefs, resolvers) => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
       console.log("cloud name:", process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
-      console.log("cloudinary: ", cloudinary);
     })
   })
 };
