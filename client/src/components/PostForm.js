@@ -11,13 +11,13 @@ const initialState = {
 
 const PostForm = ({
   addPost,
-
   setShowPostForm,
   currentUser,
 }) => {
   const [postFormState, setPostFormState] = useState(initialState);
   const [uploadedImageURL, setUploadedImageURL] = useState("");
   const [imageUploaded, setImageUploaded] = useState(false);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { postTitle, postContent } = postFormState;
@@ -25,7 +25,7 @@ const PostForm = ({
     const postDate = moment().tz(userTimeZone).toDate();
 
     // Check if any required fields are empty
-    if (!postTitle || !postContent || !imageUploaded) {
+    if (!postTitle || !postContent || !imageUploaded ) {
       console.log("Please fill in all required fields");
       return;
     }
@@ -61,8 +61,8 @@ const PostForm = ({
         postImageURL: result.info.secure_url,
       }));
       const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+      setImageUploaded(true);
       setUploadedImageURL(convertedUrl); 
-      setImageUploaded(true); // 
     }
   };
 
@@ -100,18 +100,6 @@ const PostForm = ({
         />
 
         <UploadWidget onSuccess={handleUploadSuccess} />
-
-        {/* <label htmlFor="input-imageURL">Image Upload:</label>
-        <input
-          type="file"
-          className="form-post-input"
-          id="input-imageURL"
-          onChange={(e) =>
-            setPostFormState((prevState) => ({
-              ...prevState,
-              postImageURL: e.target.value,
-            }))} 
-        /> */}
 
         <button
           type="post-submit"
