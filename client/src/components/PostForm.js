@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment-timezone";
 import UploadWidget from "./UploadWidget";
 import "../styles/PostForm.css";
@@ -11,19 +11,21 @@ const initialState = {
 
 const PostForm = ({
   addPost,
-  postFormState,
-  setPostFormState,
+
   setShowPostForm,
   currentUser,
 }) => {
+  const [postFormState, setPostFormState] = useState(initialState);
+  const [uploadedImageURL, setUploadedImageURL] = useState("");
+  const [imageUploaded, setImageUploaded] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { postTitle, postContent, postImageURL } = postFormState;
+    const { postTitle, postContent } = postFormState;
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const postDate = moment().tz(userTimeZone).toDate();
 
     // Check if any required fields are empty
-    if (!postTitle || !postContent) {
+    if (!postTitle || !postContent || !imageUploaded) {
       console.log("Please fill in all required fields");
       return;
     }
@@ -34,7 +36,7 @@ const PostForm = ({
         variables: {
           postTitle,
           postContent,
-          postImageURL,
+          postImageURL: uploadedImageURL,
           postDate,
           author: currentUser,
         },
@@ -43,9 +45,23 @@ const PostForm = ({
 
       // Reset form fields
       setPostFormState(initialState);
+      setUploadedImageURL("");
       setShowPostForm(false);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleUploadSuccess = (result) => {
+    if (result && result.event === "success") {
+      console.log("Done! Here is the image info: ", result.info);
+      console.log("secure_url: ", result.info.secure_url);
+      setPostFormState((prevState) => ({
+        ...prevState,
+        postImageURL: result.info.secure_url,
+      }));
+      setUploadedImageURL(result.info.secure_url); 
+      setImageUploaded(true); // 
     }
   };
 
@@ -82,7 +98,7 @@ const PostForm = ({
           }
         />
 
-        <UploadWidget />
+        <UploadWidget onSuccess={handleUploadSuccess} />
 
         {/* <label htmlFor="input-imageURL">Image Upload:</label>
         <input
