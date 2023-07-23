@@ -6,10 +6,8 @@ class UploadWidget extends Component {
   componentDidMount() {
     const cloudName = cloudinaryCloudName; // replace with your own cloud name
     const uploadPreset = "barkeep"; // replace with your own upload preset
-
-    // Remove the comments from the code below to add
-    // additional functionality.
-    // Note that these are only a few examples, to see
+    
+    
     // the full list of possible parameters that you
     // can add see:
     //   https://cloudinary.com/documentation/upload_widget_reference
@@ -17,7 +15,9 @@ class UploadWidget extends Component {
     var myWidget = window.cloudinary.createUploadWidget(
       {
         cloudName: cloudName,
-        uploadPreset: uploadPreset
+        uploadPreset: uploadPreset,
+        fetchFormat: "auto",  // Automatically convert images to a supported format
+
         // cropping: true, //add a cropping step
         // showAdvancedOptions: true,  //add advanced options (public_id and tag)
         // sources: [ "local", "url"], // restrict the upload sources to URL and local files

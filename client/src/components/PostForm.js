@@ -60,12 +60,13 @@ const PostForm = ({
         ...prevState,
         postImageURL: result.info.secure_url,
       }));
-      setUploadedImageURL(result.info.secure_url); 
+      const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+      setUploadedImageURL(convertedUrl); 
       setImageUploaded(true); // 
     }
   };
 
-  const { postTitle, postContent, postImageURL } = postFormState;
+  const { postTitle, postContent } = postFormState;
 
   return (
     <div className="form-post-container">
