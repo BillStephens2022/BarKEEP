@@ -1,5 +1,6 @@
-import React from "react";
-import moment from 'moment-timezone';
+import React, { useState } from "react";
+import moment from "moment-timezone";
+import UploadWidget from "./UploadWidget";
 import "../styles/PostForm.css";
 
 const initialState = {
@@ -10,55 +11,62 @@ const initialState = {
 
 const PostForm = ({
   addPost,
-  postFormState,
-  setPostFormState,
   setShowPostForm,
   currentUser,
 }) => {
+  const [postFormState, setPostFormState] = useState(initialState);
+  const [uploadedImageURL, setUploadedImageURL] = useState("");
+  const [imageUploaded, setImageUploaded] = useState(false);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { postTitle, postContent, postImageURL } = postFormState;
+    const { postTitle, postContent } = postFormState;
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const postDate = moment().tz(userTimeZone).toDate();
- 
-    // console.log for debugging purposes
-    console.log("Mutation Variables:", {
-      postTitle,
-      postContent,
-      postImageURL,
-      currentUser
-    });
+
     // Check if any required fields are empty
-    if (!postTitle || !postContent) {
+    if (!postTitle || !postContent || !imageUploaded ) {
       console.log("Please fill in all required fields");
       return;
     }
 
     // Send form data to the server
     try {
-      console.log(currentUser);
-      console.log(postTitle, postContent, postImageURL, currentUser);
       const formData = await addPost({
         variables: {
           postTitle,
           postContent,
-          postImageURL,
+          postImageURL: uploadedImageURL,
           postDate,
           author: currentUser,
         },
       });
       console.log("form data", formData);
-      
+
       // Reset form fields
       setPostFormState(initialState);
+      setUploadedImageURL("");
       setShowPostForm(false);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const { postTitle, postContent, postImageURL } =
-    postFormState;
+  const handleUploadSuccess = (result) => {
+    if (result && result.event === "success") {
+      console.log("Done! Here is the image info: ", result.info);
+      console.log("secure_url: ", result.info.secure_url);
+      setPostFormState((prevState) => ({
+        ...prevState,
+        postImageURL: result.info.secure_url,
+      }));
+      const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+      setImageUploaded(true);
+      setUploadedImageURL(convertedUrl); 
+    }
+  };
+
+  const { postTitle, postContent } = postFormState;
 
   return (
     <div className="form-post-container">
@@ -91,21 +99,14 @@ const PostForm = ({
           }
         />
 
-        <label htmlFor="input-imageURL">Image URL:</label>
-        <input
-          type="text"
-          className="form-post-input"
-          id="input-imageURL"
-          value={postImageURL}
-          onChange={(e) =>
-            setPostFormState((prevState) => ({
-              ...prevState,
-              postImageURL: e.target.value,
-            }))
-          }
-        />
+        <UploadWidget onSuccess={handleUploadSuccess} />
 
-        <button type="post-submit" className="post-submit-button">Submit Post</button>
+        <button
+          type="post-submit"
+          className="post-submit-button"
+        >
+          Submit Post
+        </button>
       </form>
     </div>
   );
