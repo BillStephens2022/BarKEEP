@@ -1,15 +1,12 @@
 import React from "react";
-import UploadWidget from "./UploadWidget";
 import moment from "moment-timezone";
-// import axios from "axios";
-// import { useMutation } from "@apollo/client";
-// import { UPLOAD_POST_IMAGE } from "../utils/mutations";
+import UploadWidget from "./UploadWidget";
 import "../styles/PostForm.css";
 
 const initialState = {
   postTitle: "",
   postContent: "",
-  postImageURL: null,
+  postImageURL: "",
 };
 
 const PostForm = ({
@@ -52,7 +49,7 @@ const PostForm = ({
     }
   };
 
-  const { postTitle, postContent } = postFormState;
+  const { postTitle, postContent, postImageURL } = postFormState;
 
   return (
     <div className="form-post-container">
@@ -102,7 +99,6 @@ const PostForm = ({
         <button
           type="post-submit"
           className="post-submit-button"
-          onClick={handleSubmit}
         >
           Submit Post
         </button>
