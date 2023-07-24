@@ -33,9 +33,9 @@ const resolvers = {
   },
   Mutation: {
     // addUser
-    addUser: async (parent, { username, email, password }) => {
-      console.log("back end response: ", username, email, password);
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, { username, email, password, profilePhoto }) => {
+      console.log("back end response: ", username, email, password, profilePhoto);
+      const user = await User.create({ username, email, password, profilePhoto });
       const token = signToken(user);
       return { token, user };
     },

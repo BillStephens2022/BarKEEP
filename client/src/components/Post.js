@@ -34,7 +34,7 @@ const Post = ({
               <div className="post-author">
                 <img
                   className="post-author-image"
-                  src="https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+                  src={post.author.profilePhoto ? post.author.profilePhoto : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"}
                   alt="user avatar"
                 ></img>
                 <span className="post-author-name">{post.author.username}</span>

@@ -31,12 +31,14 @@ const RegisterForm = () => {
 
   // Function to handle photo upload success
   const handleUploadSuccess = (result) => {
-    const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
-    setUserFormData({
-      ...userFormData,
-      profilePhoto: convertedUrl, // Save the uploaded photo URL
-    });
-    setIsUploading(false); // Set the uploading state to false after successful upload
+    if (result && result.event === "success") {
+      const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+      setUserFormData({
+        ...userFormData,
+        profilePhoto: convertedUrl, // Save the uploaded photo URL
+      });
+      setIsUploading(false); // Set the uploading state to false after successful upload
+    }
   };
 
   const handleInputChange = (event) => {
