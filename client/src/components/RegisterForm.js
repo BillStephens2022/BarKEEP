@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
-import "../styles/Home.css";
+import UploadWidget from "./UploadWidget";
 import { Auth } from "../utils/auth";
+import "../styles/Login.css";
+
+const defaultProfilePhoto =
+  "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg";
 
 const RegisterForm = () => {
   // sets initial form state
@@ -11,6 +15,7 @@ const RegisterForm = () => {
     username: "",
     email: "",
     password: "",
+    profilePhoto: defaultProfilePhoto, // Default photo URL
   });
 
   // set state for form validation
@@ -20,6 +25,14 @@ const RegisterForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const [addUser] = useMutation(ADD_USER);
+
+  // Function to handle photo upload success
+  const handleUploadSuccess = (result) => {
+    setUserFormData({
+      ...userFormData,
+      profilePhoto: result.info.secure_url, // Save the uploaded photo URL
+    });
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -55,6 +68,7 @@ const RegisterForm = () => {
       username: "",
       email: "",
       password: "",
+      profilePhoto: defaultProfilePhoto, //reset profile photo to the default
     });
   };
 
@@ -79,7 +93,7 @@ const RegisterForm = () => {
 
         <Form.Group>
           <Form.Label htmlFor="username" className="login-label">
-            Username
+            Username <span className="required">*</span>
           </Form.Label>
           <Form.Control
             type="text"
@@ -97,7 +111,7 @@ const RegisterForm = () => {
 
         <Form.Group>
           <Form.Label htmlFor="email" className="login-label">
-            Email
+            Email <span className="required">*</span>
           </Form.Label>
           <Form.Control
             type="email"
@@ -115,7 +129,7 @@ const RegisterForm = () => {
 
         <Form.Group>
           <Form.Label htmlFor="password" className="login-label">
-            Password
+            Password <span className="required">*</span>
           </Form.Label>
           <Form.Control
             type="password"
@@ -130,6 +144,13 @@ const RegisterForm = () => {
             Password is required!
           </Form.Control.Feedback>
         </Form.Group>
+        <Form.Group className="form-group-upload">
+          <Form.Label className="login-label">Profile Photo</Form.Label>
+          <UploadWidget onSuccess={handleUploadSuccess} />
+        </Form.Group>
+        <p className="required-legend">
+          <span className="required">*</span> Indicates required field
+        </p>
         <Button
           disabled={
             !(
