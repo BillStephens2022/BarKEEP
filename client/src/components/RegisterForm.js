@@ -19,7 +19,10 @@ const RegisterForm = () => {
   });
 
   // set state for form validation
-  const [validated] = useState(false);
+  const [validated, setValidated] = useState(false);
+
+  // set loading state for profile photo upload
+  const [isUploading, setIsUploading] = useState(false); 
 
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
@@ -28,10 +31,12 @@ const RegisterForm = () => {
 
   // Function to handle photo upload success
   const handleUploadSuccess = (result) => {
+    const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
     setUserFormData({
       ...userFormData,
-      profilePhoto: result.info.secure_url, // Save the uploaded photo URL
+      profilePhoto: convertedUrl, // Save the uploaded photo URL
     });
+    setIsUploading(false); // Set the uploading state to false after successful upload
   };
 
   const handleInputChange = (event) => {
@@ -48,6 +53,17 @@ const RegisterForm = () => {
       event.stopPropagation();
     }
     console.log(userFormData);
+
+    if (userFormData.username && userFormData.email && userFormData.password) {
+      setIsUploading(true); // Start the upload process if necessary fields are filled
+    }
+
+    setValidated(true);
+
+    if (isUploading) {
+      // Wait for the upload to complete before submitting the form
+      return;
+    }
 
     try {
       const { data } = await addUser({
@@ -156,7 +172,8 @@ const RegisterForm = () => {
             !(
               userFormData.username &&
               userFormData.email &&
-              userFormData.password
+              userFormData.password &&
+              !isUploading // Disable the button while uploading profile photo
             )
           }
           type="submit"
