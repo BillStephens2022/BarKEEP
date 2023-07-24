@@ -112,13 +112,13 @@
 }
 
 .post-author-image {
-  width: 7%;
+  width: 15%;
   border-radius: 50%;
   margin-left: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-right: 0.5rem;
-  border: solid 3px var(--white);
+  border: solid 1px var(--white);
 }
 
 .post-author-date {

@@ -28,6 +28,8 @@ const Post = ({
     <>
       {posts.map((post) => {
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
+        console.log(post);
+        console.log("profilePhoto URL: ", post.author.profilePhoto);
         return (
           <div className="post-card" key={post._id}>
             <div className="post-header">

@@ -27,6 +27,7 @@ query Me {
       author {
         _id
         username
+        profilePhoto
       }
     }
   }
@@ -61,6 +62,7 @@ query Posts {
     author {
       _id
       username
+      profilePhoto
     }
   }
 }

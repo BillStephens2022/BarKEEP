@@ -28,7 +28,11 @@ const resolvers = {
       return await Cocktail.find({}).sort({ name: "asc" });
     },
     posts: async (parent, args) => {
-      return await Post.find({}).populate("author");
+      return await Post.find({}).populate({
+        path: "author",
+        model: "User",
+        select: "username profilePhoto"
+      });
     },
   },
   Mutation: {
