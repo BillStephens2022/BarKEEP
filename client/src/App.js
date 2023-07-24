@@ -9,7 +9,6 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-// import RandomCocktail from "./components/RandomCocktail";
 import Feed from "./pages/Feed";
 import Favorites from "./pages/Favorites";
 import SearchCocktails from "./pages/SearchCocktails";
@@ -58,7 +57,7 @@ const client = new ApolloClient({
 function App() {
   const [cocktails, setCocktails] = useState([]);
   const [posts, setPosts] = useState([]);
-  
+  console.log("from App.js: ", process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
   return (
     <ApolloProvider client={client}>
       <Router basename={process.env.PUBLIC_URL}>

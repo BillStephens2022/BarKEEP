@@ -17,7 +17,7 @@ const PostForm = ({
   const [postFormState, setPostFormState] = useState(initialState);
   const [uploadedImageURL, setUploadedImageURL] = useState("");
   const [imageUploaded, setImageUploaded] = useState(false);
-  
+  console.log("from PostForm.js: ", process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { postTitle, postContent } = postFormState;
