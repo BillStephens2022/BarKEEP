@@ -2,6 +2,7 @@ import React from "react";
 import { GoTrash } from "react-icons/go";
 import { Auth } from "../utils/auth";
 import { formatElapsedTime } from "../utils/formatting";
+import ProfilePhoto from "../components/ProfilePhoto";
 import "../styles/Feed.css";
 
 const Post = ({
@@ -28,17 +29,18 @@ const Post = ({
     <>
       {posts.map((post) => {
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
-        console.log(post);
-        console.log("profilePhoto URL: ", post.author.profilePhoto);
+
         return (
           <div className="post-card" key={post._id}>
             <div className="post-header">
               <div className="post-author">
-                <img
-                  className="post-author-image"
-                  src={post.author.profilePhoto ? post.author.profilePhoto : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"}
-                  alt="user avatar"
-                ></img>
+                <ProfilePhoto
+                  imageUrl={
+                    post.author.profilePhoto
+                      ? post.author.profilePhoto
+                      : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+                  }
+                />
                 <span className="post-author-name">{post.author.username}</span>
               </div>
               <div className="post-author-date">
