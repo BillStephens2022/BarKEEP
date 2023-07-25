@@ -94,4 +94,15 @@ export const DELETE_POST = gql`
   }
 `;
 
+export const EDIT_PROFILE_PHOTO = gql`
+  mutation EditProfilePhoto($profilePhoto: String!) {
+    editProfilePhoto(profilePhoto: $profilePhoto) {
+      _id
+      username
+      email
+      profilePhoto
+    }
+  }
+`;
+
 

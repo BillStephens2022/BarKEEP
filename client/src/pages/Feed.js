@@ -160,21 +160,21 @@ const Feed = ({ posts, setPosts }) => {
   }
 
   const currentUser = userData?.me?._id;
-  console.log("*************me: ", me);
+  
   return (
     <div className="feed">
       <div className="feed-headings">
         <div className="user-heading">
-        <div className="user-profile">
-          <ProfilePhoto
-            imageUrl={
-              me.profilePhoto
-                ? me.profilePhoto
-                : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"   
-            }
-            size={64}
-          />
-          <GoPencil className="edit-photo-icon" />
+          <div className="user-profile">
+            <ProfilePhoto
+              imageUrl={
+                me.profilePhoto
+                  ? me.profilePhoto
+                  : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+              }
+              size={64}
+            />
+            <GoPencil className="edit-photo-icon" />
           </div>
           <h3 className="username">{me.username}</h3>
         </div>

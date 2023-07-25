@@ -72,6 +72,7 @@ const typeDefs = gql`
       author: ID!
     ) : Post
     deletePost(postId: ID!): Post
+    editProfilePhoto(profilePhoto: String!): User
   }
 `;
 

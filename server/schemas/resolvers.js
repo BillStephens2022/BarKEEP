@@ -193,6 +193,25 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    editProfilePhoto: async (parent, { profilePhoto }, context) => {
+      try {
+        if (context.user) {
+          // Update the profile photo for the logged-in user
+          const user = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { profilePhoto },
+            { new: true }
+          );
+
+          return user;
+        } else {
+          throw new AuthenticationError('You need to be logged in!');
+        }
+      } catch (err) {
+        console.error(err);
+        throw new ApolloError('Failed to edit profile photo.');
+      }
+    },
   },
 };
 
