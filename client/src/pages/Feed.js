@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
+import { GoPencil } from "react-icons/go";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
 import { ADD_POST, DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
@@ -164,6 +165,7 @@ const Feed = ({ posts, setPosts }) => {
     <div className="feed">
       <div className="feed-headings">
         <div className="user-heading">
+        <div className="user-profile">
           <ProfilePhoto
             imageUrl={
               me.profilePhoto
@@ -172,6 +174,8 @@ const Feed = ({ posts, setPosts }) => {
             }
             size={64}
           />
+          <GoPencil className="edit-photo-icon" />
+          </div>
           <h3 className="username">{me.username}</h3>
         </div>
         <h1 className="feed-title">BarKEEP</h1>
