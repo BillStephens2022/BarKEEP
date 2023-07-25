@@ -1,3 +1,5 @@
+/* Favorites Page */
+
 .favorites-headings {
   padding: 1rem;
   background-color: var(--darkgray);
@@ -36,7 +38,14 @@
   margin-top: auto;
 }
 
+.size-64 {
+  margin-left: 0;
+}
+
 @media (max-width: 900px) {
+  .user-heading {
+    margin-top: 1rem;
+  }
   .favorites-headings {
     padding-top: 0;
   }
@@ -82,7 +91,7 @@
   background-color: var(--yellow);
 }
 
-/* Favorites Page */
+
 
 .cocktails-main {
   flex: 1;
