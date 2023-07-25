@@ -268,14 +268,22 @@
     width: 75%;
   }
   .post-author {
-    font-size: 1.25rem;
+    width: 65%;
   }
-  .size-large {
-    width: 4rem;
-    height: 4rem;
+  .post-author-name {
+    font-size: 1.5rem;
   }
   .post-author-date {
-    font-size: 0.9rem;
+    width: 35%;
+    font-size: 1.25rem;
+  }
+  .size-48 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  .size-64 {
+    width: 4rem;
+    height: 4rem;
   }
   .post-image img {
     max-height: 40vh;
@@ -294,15 +302,22 @@
     padding-top: 0;
   }
   .post-author {
-    font-size: 1rem;
+    width: 65%;
+  }
+  .post-author-name {
+    font-size: 1.15rem;
+  }
+  .post-author-date {
+    width: 35%;
+    font-size: 0.9rem;
   }
   .size-64 {
     width: 3rem;
     height: 3rem;
   }
   .size-48 {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
   }
   .post-image img {
     max-height: 33.33vh;
