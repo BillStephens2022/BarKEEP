@@ -18,6 +18,7 @@ query Me {
     }
     email
     username
+    profilePhoto
     posts {
       _id
       postContent
@@ -27,6 +28,7 @@ query Me {
       author {
         _id
         username
+        profilePhoto
       }
     }
   }
@@ -61,6 +63,7 @@ query Posts {
     author {
       _id
       username
+      profilePhoto
     }
   }
 }

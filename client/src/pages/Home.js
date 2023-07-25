@@ -11,9 +11,8 @@ const Home = () => {
   // Get the user's profile information
   const userProfile = Auth.loggedIn() ? Auth.getProfile() : null;
   // Extract the username from the profile if it exists
-  console.log("user profile:", userProfile);
   const username = userProfile?.data.username;
-  console.log("username", username);
+
 
   return (
     <div className="main">
@@ -21,7 +20,7 @@ const Home = () => {
         <h1 className="title">BarKEEP</h1>
         <h2 className="subtitle">For Cocktail Enthusiasts</h2>
         {Auth.loggedIn() ? (
-          <p className="welcome-message">Welcome, <span className="welcome-username">{username}</span>!</p>
+          <p className="welcome-message">Welcome, <span className="welcome-username">{username}</span><span></span>!</p>
         ) : (
           <Link className="btn btn-get-started" to="/login">
             Get Started

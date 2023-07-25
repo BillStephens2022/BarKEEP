@@ -1,13 +1,14 @@
 import { gql } from "@apollo/client";
 
 export const ADD_USER = gql`
-  mutation addUser($username: String, $email: String, $password: String) {
-    addUser(username: $username, email: $email, password: $password) {
+  mutation addUser($username: String, $email: String, $password: String, $profilePhoto: String) {
+    addUser(username: $username, email: $email, password: $password, profilePhoto: $profilePhoto) {
       token
       user {
         _id
         email
         username
+        profilePhoto
       }
     }
   }
@@ -89,6 +90,17 @@ export const DELETE_POST = gql`
   mutation DeletePost($postId: ID!) {
     deletePost(postId: $postId) {
       _id
+    }
+  }
+`;
+
+export const EDIT_PROFILE_PHOTO = gql`
+  mutation EditProfilePhoto($profilePhoto: String!) {
+    editProfilePhoto(profilePhoto: $profilePhoto) {
+      _id
+      username
+      email
+      profilePhoto
     }
   }
 `;

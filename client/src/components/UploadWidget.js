@@ -4,8 +4,8 @@ const cloudinaryCloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
 
 class UploadWidget extends Component {
   componentDidMount() {
-    const cloudName = cloudinaryCloudName; // replace with your own cloud name
-    const uploadPreset = "barkeep"; // replace with your own upload preset
+    const cloudName = cloudinaryCloudName;
+    const uploadPreset = "barkeep"; 
     
     
     // the full list of possible parameters that you

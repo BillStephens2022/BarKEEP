@@ -5,11 +5,15 @@ import {
   ADD_COCKTAIL,
   DELETE_COCKTAIL,
   EDIT_COCKTAIL,
+  EDIT_PROFILE_PHOTO,
 } from "../utils/mutations";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
+import { GoPencil } from "react-icons/go";
+import UploadWidget from "../components/UploadWidget";
 import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
+import ProfilePhoto from "../components/ProfilePhoto";
 import "../styles/Favorites.css";
 
 const Favorites = ({ cocktails, setCocktails }) => {
@@ -29,8 +33,12 @@ const Favorites = ({ cocktails, setCocktails }) => {
     tags: [],
   });
   const [formType, setFormType] = useState("add");
+  // State to manage profile photo editing
+  const [editingProfilePhoto, setEditingProfilePhoto] = useState(false);
+  const [uploadedProfilePhotoUrl, setUploadedProfilePhotoUrl] = useState(null);
 
   const { data, loading, refetch } = useQuery(QUERY_ME);
+  const { me } = data || {};
 
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     update(cache, { data: { addCocktail } }) {
@@ -168,11 +176,55 @@ const Favorites = ({ cocktails, setCocktails }) => {
     refetchQueries: [{ query: QUERY_COCKTAILS }],
   });
 
+  const [editProfilePhoto] = useMutation(EDIT_PROFILE_PHOTO, {
+    onCompleted(data) {
+      console.log("Profile photo updated:", data);
+    },
+    onError(error) {
+      console.error("Profile photo update failed:", error);
+    },
+  });
+
   const handleEditCocktail = (cocktail) => {
     setSelectedCocktail(cocktail);
     setShowCocktailForm(true);
     setFormType("edit");
     console.log("editing cocktail: ", cocktail);
+  };
+
+    // Function to toggle the editing state
+    const toggleEditingProfilePhoto = () => {
+      setEditingProfilePhoto((prevState) => !prevState);
+    };
+  
+    const handleSuccessfulUpload = (result) => {
+      // When the upload is successful, Cloudinary returns the secure_url in the result
+      if (result && result.info.secure_url) {
+        const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+        console.log("converted URL: ", convertedUrl);
+        setUploadedProfilePhotoUrl(convertedUrl);
+        handleProfilePhotoUpdate();
+      }
+    };
+
+  // Function to handle the profile photo update
+  const handleProfilePhotoUpdate = async () => {
+    // Call the mutation to update the profile photo with the new secure_url
+    if (uploadedProfilePhotoUrl) {
+      try {
+        editProfilePhoto({
+          variables: {
+            profilePhoto: uploadedProfilePhotoUrl,
+          },
+        });
+
+        // Reset the uploadedProfilePhotoUrl and toggle editing state
+        setUploadedProfilePhotoUrl(null);
+        toggleEditingProfilePhoto();
+      } catch (error) {
+        console.error("Profile photo update failed:", error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -188,15 +240,40 @@ const Favorites = ({ cocktails, setCocktails }) => {
   }
 
   if (!cocktails.length) {
-    console.log("no cocktail length!");
     return <h3 className="cocktail_card_error">No cocktails to display yet</h3>;
   }
 
   return (
     <div className="favorites">
       <div className="favorites-headings">
-        <h1 className="title">BarKEEP</h1>
-        <h2 className="subtitle">My Cocktail Recipes</h2>
+        <div className="user-heading">
+          <div className="user-profile">
+            <ProfilePhoto
+              imageUrl={
+                me.profilePhoto
+                  ? me.profilePhoto
+                  : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+              }
+              size={64}
+            />
+            {editingProfilePhoto ? (
+              <div className="upload-widget-edit-profile-photo">
+                {/* Conditionally render the UploadWidget when editingProfilePhoto is true */}
+                <UploadWidget onSuccess={handleSuccessfulUpload} />
+              
+              </div>
+            ) : (
+              // Show the GoPencil icon to enable editing
+              <GoPencil
+                className="edit-photo-icon"
+                onClick={toggleEditingProfilePhoto}
+              />
+            )}
+          </div>
+          <h3 className="username">{me.username}</h3>
+        </div>
+        <h1 className="favorites-title">BarKEEP</h1>
+        <h2 className="favorites-subtitle">My Cocktail Recipes</h2>
         <div className="favorites-buttons-div">
           <button
             className="btn add-cocktail-button"

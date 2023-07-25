@@ -28,14 +28,18 @@ const resolvers = {
       return await Cocktail.find({}).sort({ name: "asc" });
     },
     posts: async (parent, args) => {
-      return await Post.find({}).populate("author");
+      return await Post.find({}).populate({
+        path: "author",
+        model: "User",
+        select: "username profilePhoto"
+      });
     },
   },
   Mutation: {
     // addUser
-    addUser: async (parent, { username, email, password }) => {
-      console.log("back end response: ", username, email, password);
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, { username, email, password, profilePhoto }) => {
+      console.log("back end response: ", username, email, password, profilePhoto);
+      const user = await User.create({ username, email, password, profilePhoto });
       const token = signToken(user);
       return { token, user };
     },
@@ -188,6 +192,25 @@ const resolvers = {
         return null;
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+    editProfilePhoto: async (parent, { profilePhoto }, context) => {
+      try {
+        if (context.user) {
+          // Update the profile photo for the logged-in user
+          const user = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { profilePhoto },
+            { new: true }
+          );
+
+          return user;
+        } else {
+          throw new AuthenticationError('You need to be logged in!');
+        }
+      } catch (err) {
+        console.error(err);
+        throw new ApolloError('Failed to edit profile photo.');
+      }
     },
   },
 };

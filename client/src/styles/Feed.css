@@ -19,23 +19,54 @@
   background-color: var(--darkgray);
 }
 
-.title {
+.user-heading {
+  display: inline-flex;
+  align-items: center;
+}
+
+.user-profile {
+  position: relative;
+}
+
+.username {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.edit-photo-icon {
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  bottom: 0;
+  right: 3px;
+  color: white; /* Optional: Set the icon color */
+  background-color: var(--blue); /* Optional: Set the background color for the icon */
+  padding: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.edit-photo-icon:hover {
+  transform: scale(1.1);
+}
+
+.feed-title {
   font-size: 6rem;
   font-weight: 900;
   letter-spacing: 1rem;
-  margin-top: 3rem;
   margin-bottom: 2rem;
   color: var(--blue);
   text-align: center;
-  text-shadow: 3px 3px 8px var(--darkgray);
 }
 
-.title:hover {
+.feed-title:hover {
   transform: skewX(-15deg);
   transition: 0.2s;
 }
 
-.subtitle {
+.feed-subtitle {
   font-size: 2rem;
   letter-spacing: 0.4rem;
   margin-bottom: 2rem;
@@ -91,7 +122,7 @@
 }
 
 .post-card:hover {
-  transform: scale(1.01) translateY(-1px);
+  transform: scale(1.02) translateY(-1px);
   box-shadow: 2px 2px 5px var(--white);
 }
 
@@ -99,6 +130,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 0.5rem 0;
 }
 
 .post-author {
@@ -111,14 +143,21 @@
   width: 50%;
 }
 
-.post-author-image {
-  width: 7%;
+.profile-photo {
   border-radius: 50%;
   margin-left: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
   margin-right: 0.5rem;
-  border: solid 3px var(--white);
+  border: solid 1px var(--white);
+}
+
+.size-48 {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.size-64 {
+  width: 4rem;
+  height: 4rem;
 }
 
 .post-author-date {
@@ -149,7 +188,8 @@
 }
 
 .post-image img {
-  width: 35%;
+  max-height: 40vh;
+  max-width: 100%;
   border-radius: 2%;
 }
 
@@ -214,13 +254,15 @@
   .feed-headings {
     padding-top: 1.5rem;
   }
-  .title {
+  .feed-title {
     font-size: 3.5rem;
     font-weight: 700;
+    margin-bottom: 1rem;
   }
-  .subtitle {
+  .feed-subtitle {
     font-size: 1.5rem;
     letter-spacing: 0.15rem;
+    margin-bottom: 1.25rem;
   }
   .post-card {
     width: 75%;
@@ -228,26 +270,43 @@
   .post-author {
     font-size: 1.25rem;
   }
-  .post-author-image {
-    width: 15%;
+  .size-large {
+    width: 4rem;
+    height: 4rem;
   }
   .post-author-date {
     font-size: 0.9rem;
   }
   .post-image img {
-    width: 40%;
+    max-height: 40vh;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 500px) {
+  .user-heading {
+    margin-top: 1rem;
+  }
   .post-card {
     width: 95%;
+  }
+  .feed-headings {
+    padding-top: 0;
   }
   .post-author {
     font-size: 1rem;
   }
+  .size-64 {
+    width: 3rem;
+    height: 3rem;
+  }
+  .size-48 {
+    width: 2rem;
+    height: 2rem;
+  }
   .post-image img {
-    width: 60%;
+    max-height: 33.33vh;
+    max-width: 100%;
   }
   .btn-post-delete {
     font-size: 1rem;

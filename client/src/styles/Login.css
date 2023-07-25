@@ -84,6 +84,7 @@
   font-weight: 900;
   letter-spacing: 0.5rem;
   text-transform: uppercase;
+  margin-right:  0.5rem;
 }
 
 .login-input,
@@ -92,6 +93,30 @@
   height: 3rem;
 }
 
+.form-group-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group-upload label {
+  margin-bottom: 0.5rem; /* Add some space between the label and the widget */
+}
+
+.cloudinary-button {
+  margin: 0 auto; /* Center the widget within its container */
+}
+
+.required-legend {
+  margin-top: 1rem;
+}
+
+.required {
+  color: var(--maroon);
+}
+
+
+
 @media (max-width: 1023px) {
   .form-login, .form-register {
     width: 40vw;
@@ -99,7 +124,7 @@
 }
 
 @media (max-width: 767px) {
-  .title {
+  .title-login {
     margin-top: 4rem;
   }
   .form-container-login {

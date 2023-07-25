@@ -2,6 +2,8 @@ import React from "react";
 import { GoTrash } from "react-icons/go";
 import { Auth } from "../utils/auth";
 import { formatElapsedTime } from "../utils/formatting";
+import ProfilePhoto from "./ProfilePhoto";
+import PostPhoto from "./PostPhoto";
 import "../styles/Feed.css";
 
 const Post = ({
@@ -28,15 +30,19 @@ const Post = ({
     <>
       {posts.map((post) => {
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
+
         return (
           <div className="post-card" key={post._id}>
             <div className="post-header">
               <div className="post-author">
-                <img
-                  className="post-author-image"
-                  src="https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
-                  alt="user avatar"
-                ></img>
+                <ProfilePhoto
+                  imageUrl={
+                    post.author.profilePhoto
+                      ? post.author.profilePhoto
+                      : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+                  }
+                  size={48}
+                />
                 <span className="post-author-name">{post.author.username}</span>
               </div>
               <div className="post-author-date">
@@ -45,7 +51,7 @@ const Post = ({
             </div>
             <div className="post-main-container">
               <div className="post-image">
-                <img src={post.postImageURL} alt="Post" />
+                <PostPhoto imageUrl={post.postImageURL}/>
               </div>
               <div className="post-title-and-content">
                 <h3 className="post-title">{post.postTitle}</h3>
