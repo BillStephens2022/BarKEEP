@@ -14,6 +14,11 @@
   color: var(--blue);
 }
 
+.upload-widget-edit-profile-photo {
+  padding-top: 0.5rem;
+  margin-left: -0.5rem;
+}
+
 .favorites-title {
   font-size: 6rem;
   font-weight: 900;

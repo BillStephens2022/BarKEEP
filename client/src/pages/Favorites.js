@@ -200,7 +200,10 @@ const Favorites = ({ cocktails, setCocktails }) => {
     const handleSuccessfulUpload = (result) => {
       // When the upload is successful, Cloudinary returns the secure_url in the result
       if (result && result.info.secure_url) {
-        setUploadedProfilePhotoUrl(result.info.secure_url);
+        const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+        console.log("converted URL: ", convertedUrl);
+        setUploadedProfilePhotoUrl(convertedUrl);
+        handleProfilePhotoUpdate();
       }
     };
 
@@ -237,7 +240,6 @@ const Favorites = ({ cocktails, setCocktails }) => {
   }
 
   if (!cocktails.length) {
-    console.log("no cocktail length!");
     return <h3 className="cocktail_card_error">No cocktails to display yet</h3>;
   }
 
@@ -255,13 +257,10 @@ const Favorites = ({ cocktails, setCocktails }) => {
               size={64}
             />
             {editingProfilePhoto ? (
-              <div>
+              <div className="upload-widget-edit-profile-photo">
                 {/* Conditionally render the UploadWidget when editingProfilePhoto is true */}
                 <UploadWidget onSuccess={handleSuccessfulUpload} />
-                {/* Show the "Update Profile Photo" button */}
-                <button onClick={handleProfilePhotoUpdate}>
-                  Update Profile Photo
-                </button>
+              
               </div>
             ) : (
               // Show the GoPencil icon to enable editing
