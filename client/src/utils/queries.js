@@ -18,6 +18,7 @@ query Me {
     }
     email
     username
+    profilePhoto
     posts {
       _id
       postContent

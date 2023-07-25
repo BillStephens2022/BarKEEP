@@ -124,7 +124,7 @@
 }
 
 @media (max-width: 767px) {
-  .title {
+  .title-login {
     margin-top: 4rem;
   }
   .form-container-login {

@@ -6,6 +6,7 @@ import { ADD_POST, DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
+import ProfilePhoto from "../components/ProfilePhoto";
 import "../styles/Feed.css";
 import "../styles/CocktailForm.css";
 
@@ -19,12 +20,12 @@ const Feed = ({ posts, setPosts }) => {
     postContent: "",
     postImageURL: "",
   });
-  
+
   // sets state for which view is selected ('All Posts' or 'My Posts')
   const [isAllPosts, setIsAllPosts] = useState(true);
   const [isMyPosts, setIsMyPosts] = useState(false);
 
-  // state to control how many posts are visible at a time, 
+  // state to control how many posts are visible at a time,
   // user will be able to 'see more'
   const [visiblePosts, setVisiblePosts] = useState(10);
 
@@ -109,7 +110,9 @@ const Feed = ({ posts, setPosts }) => {
       await deletePost({
         variables: { postId },
         update(cache) {
-          cache.evict({ id: cache.identify({ __typename: 'Post', _id: postId }) });
+          cache.evict({
+            id: cache.identify({ __typename: "Post", _id: postId }),
+          });
           cache.gc();
           setFilteredPosts((prevPosts) =>
             prevPosts.filter((post) => post._id !== postId)
@@ -120,7 +123,7 @@ const Feed = ({ posts, setPosts }) => {
       console.error(err);
     }
   };
-  
+
   // ensures posts get re-sorted after there is a new post
   useEffect(() => {
     if (postsData?.posts) {
@@ -154,14 +157,24 @@ const Feed = ({ posts, setPosts }) => {
   if (userLoading || postsLoading) {
     return <div>Loading...</div>;
   }
-  
-  const currentUser = userData?.me?._id;
 
+  const currentUser = userData?.me?._id;
+  console.log("*************me: ", me);
   return (
     <div className="feed">
       <div className="feed-headings">
-        <h1 className="title">BarKEEP</h1>
-        <h2 className="subtitle">Cocktail Posts</h2>
+        <div className="user-heading">
+          <ProfilePhoto
+            imageUrl={
+              me.profilePhoto
+                ? me.profilePhoto
+                : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+            }
+          />
+          <h3 className="username">{me.username}</h3>
+        </div>
+        <h1 className="feed-title">BarKEEP</h1>
+        <h2 className="feed-subtitle">Cocktail Posts</h2>
         <div className="view-buttons">
           <button
             className={`btn btn-view ${isAllPosts ? "active" : ""}`}
@@ -185,7 +198,7 @@ const Feed = ({ posts, setPosts }) => {
           Create a New Post
         </button>
       </div>
-        <div className="posts-container">
+      <div className="posts-container">
         {filteredPosts.length > 0 ? (
           <Post
             data={postsData}
@@ -201,33 +214,33 @@ const Feed = ({ posts, setPosts }) => {
         ) : (
           <h3 className="posts-error">No posts to display yet</h3>
         )}
-        </div>
-        {showPostForm && (
-          <div className="modal-background">
-            <div className="modal">
-              <Modal show={true} onHide={() => setShowPostForm(false)}>
-                <Modal.Header className="modal-title">
-                  <Modal.Title>Create Post</Modal.Title>
-                  <button
-                    className="modal-close-button"
-                    onClick={() => setShowPostForm(false)}
-                  >
-                    &times;
-                  </button>
-                </Modal.Header>
-                <Modal.Body className="modal-body">
-                  <PostForm
-                    setShowPostForm={setShowPostForm}
-                    addPost={addPost}
-                    postFormState={postFormState}
-                    setPostFormState={setPostFormState}
-                    currentUser={currentUser}
-                  />
-                </Modal.Body>
-              </Modal>
-            </div>
+      </div>
+      {showPostForm && (
+        <div className="modal-background">
+          <div className="modal">
+            <Modal show={true} onHide={() => setShowPostForm(false)}>
+              <Modal.Header className="modal-title">
+                <Modal.Title>Create Post</Modal.Title>
+                <button
+                  className="modal-close-button"
+                  onClick={() => setShowPostForm(false)}
+                >
+                  &times;
+                </button>
+              </Modal.Header>
+              <Modal.Body className="modal-body">
+                <PostForm
+                  setShowPostForm={setShowPostForm}
+                  addPost={addPost}
+                  postFormState={postFormState}
+                  setPostFormState={setPostFormState}
+                  currentUser={currentUser}
+                />
+              </Modal.Body>
+            </Modal>
           </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };

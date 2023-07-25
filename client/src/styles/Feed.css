@@ -19,23 +19,33 @@
   background-color: var(--darkgray);
 }
 
-.title {
+.user-heading {
+  display: inline-flex;
+  align-items: center;
+}
+
+.username {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.feed-title {
   font-size: 6rem;
   font-weight: 900;
   letter-spacing: 1rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
   color: var(--blue);
   text-align: center;
   text-shadow: 3px 3px 8px var(--darkgray);
 }
 
-.title:hover {
+.feed-title:hover {
   transform: skewX(-15deg);
   transition: 0.2s;
 }
 
-.subtitle {
+.feed-subtitle {
   font-size: 2rem;
   letter-spacing: 0.4rem;
   margin-bottom: 2rem;
@@ -215,11 +225,11 @@
   .feed-headings {
     padding-top: 1.5rem;
   }
-  .title {
+  .feed-title {
     font-size: 3.5rem;
     font-weight: 700;
   }
-  .subtitle {
+  .feed-subtitle {
     font-size: 1.5rem;
     letter-spacing: 0.15rem;
   }
