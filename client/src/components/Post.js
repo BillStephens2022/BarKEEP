@@ -2,7 +2,8 @@ import React from "react";
 import { GoTrash } from "react-icons/go";
 import { Auth } from "../utils/auth";
 import { formatElapsedTime } from "../utils/formatting";
-import ProfilePhoto from "../components/ProfilePhoto";
+import ProfilePhoto from "./ProfilePhoto";
+import PostPhoto from "./PostPhoto";
 import "../styles/Feed.css";
 
 const Post = ({
@@ -50,7 +51,7 @@ const Post = ({
             </div>
             <div className="post-main-container">
               <div className="post-image">
-                <img src={post.postImageURL} alt="Post" />
+                <PostPhoto imageUrl={post.postImageURL}/>
               </div>
               <div className="post-title-and-content">
                 <h3 className="post-title">{post.postTitle}</h3>
