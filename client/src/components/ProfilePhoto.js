@@ -3,16 +3,16 @@ import cloudinary from "cloudinary-core";
 
 const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME });
 
-const ProfilePhoto = ({ imageUrl }) => {
+const ProfilePhoto = ({ imageUrl, size }) => {
     const transformedImageUrl = cloudinaryCore.url(imageUrl, {
-      width: 200,
-      height: 200,
+      width: size,
+      height: size,
       crop: "fill",
       radius: "max",
     });
   
     return (
-      <img className="post-author-image" src={transformedImageUrl} alt="Profile" />
+      <img className={`profile-photo post-author-image size-${size}`} src={transformedImageUrl} alt="Profile" />
     );
   };
 

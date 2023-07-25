@@ -40,6 +40,7 @@ const Post = ({
                       ? post.author.profilePhoto
                       : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
                   }
+                  size={48}
                 />
                 <span className="post-author-name">{post.author.username}</span>
               </div>

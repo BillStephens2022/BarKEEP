@@ -26,18 +26,16 @@
 
 .username {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.25rem;
 }
 
 .feed-title {
   font-size: 6rem;
   font-weight: 900;
   letter-spacing: 1rem;
-  margin-top: 1rem;
   margin-bottom: 2rem;
   color: var(--blue);
   text-align: center;
-  text-shadow: 3px 3px 8px var(--darkgray);
 }
 
 .feed-title:hover {
@@ -121,15 +119,23 @@
   width: 50%;
 }
 
-.post-author-image {
-  width: 2.5rem;
-  height: 2.5rem;
+.profile-photo {
   border-radius: 50%;
   margin-left: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-right: 0.5rem;
   border: solid 1px var(--white);
+}
+
+.size-48 {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.size-64 {
+  width: 4rem;
+  height: 4rem;
 }
 
 .post-author-date {
@@ -228,10 +234,12 @@
   .feed-title {
     font-size: 3.5rem;
     font-weight: 700;
+    margin-bottom: 1rem;
   }
   .feed-subtitle {
     font-size: 1.5rem;
     letter-spacing: 0.15rem;
+    margin-bottom: 1.25rem;
   }
   .post-card {
     width: 75%;
@@ -239,9 +247,9 @@
   .post-author {
     font-size: 1.25rem;
   }
-  .post-author-image {
-    width: 2.5rem;
-    height: 2.5rem;
+  .size-large {
+    width: 4rem;
+    height: 4rem;
   }
   .post-author-date {
     font-size: 0.9rem;
@@ -255,12 +263,19 @@
   .post-card {
     width: 95%;
   }
+  .feed-headings {
+    padding-top: 0;
+  }
   .post-author {
     font-size: 1rem;
   }
-  .post-author-image {
-    width: 2.25rem;
-    height: 2.25rem;
+  .size-64 {
+    width: 3rem;
+    height: 3rem;
+  }
+  .size-48 {
+    width: 2rem;
+    height: 2rem;
   }
   .post-image img {
     width: 60%;

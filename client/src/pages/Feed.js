@@ -168,8 +168,9 @@ const Feed = ({ posts, setPosts }) => {
             imageUrl={
               me.profilePhoto
                 ? me.profilePhoto
-                : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+                : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"   
             }
+            size={64}
           />
           <h3 className="username">{me.username}</h3>
         </div>

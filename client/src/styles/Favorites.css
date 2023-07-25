@@ -6,9 +6,59 @@
   justify-content: space-between;
 }
 
+.username {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--blue);
+}
+
+.favorites-title {
+  font-size: 6rem;
+  font-weight: 900;
+  letter-spacing: 1rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: var(--blue);
+  text-align: center;
+}
+
+.favorites-title:hover {
+  transform: skewX(-15deg);
+  transition: 0.2s;
+}
+
+.favorites-subtitle {
+  font-size: 2rem;
+  letter-spacing: 0.4rem;
+  margin-bottom: 2rem;
+  color: var(--white);
+  text-align: center;
+  margin-top: auto;
+}
+
+@media (max-width: 900px) {
+  .favorites-headings {
+    padding-top: 0;
+  }
+  .favorites-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+  }
+}
+
 @media (max-width: 767px) {
-  .feed-headings {
-    padding-top: 1.5rem;
+  .favorites-headings {
+    padding-top: 0;
+  }
+  .favorites-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .favorites-subtitle {
+    font-size: 1.5rem;
+    letter-spacing: 0.15rem;
+    margin-bottom: 1.25rem;
   }
 }
 

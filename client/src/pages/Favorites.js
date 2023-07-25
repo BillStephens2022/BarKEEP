@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
+import ProfilePhoto from "../components/ProfilePhoto";
 import "../styles/Favorites.css";
 
 const Favorites = ({ cocktails, setCocktails }) => {
@@ -31,6 +32,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
   const [formType, setFormType] = useState("add");
 
   const { data, loading, refetch } = useQuery(QUERY_ME);
+  const { me } = data || {};
 
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     update(cache, { data: { addCocktail } }) {
@@ -195,8 +197,19 @@ const Favorites = ({ cocktails, setCocktails }) => {
   return (
     <div className="favorites">
       <div className="favorites-headings">
-        <h1 className="title">BarKEEP</h1>
-        <h2 className="subtitle">My Cocktail Recipes</h2>
+        <div className="user-heading">
+          <ProfilePhoto
+            imageUrl={
+              me.profilePhoto
+                ? me.profilePhoto
+                : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+            }
+            size={64}
+          />
+          <h3 className="username">{me.username}</h3>
+        </div>
+        <h1 className="favorites-title">BarKEEP</h1>
+        <h2 className="favorites-subtitle">My Cocktail Recipes</h2>
         <div className="favorites-buttons-div">
           <button
             className="btn add-cocktail-button"
