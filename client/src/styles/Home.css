@@ -54,9 +54,9 @@
   letter-spacing: 1rem;
   margin-top: 3rem;
   margin-bottom: 2rem;
-  color: var(--white);
+  color: var(--blue);
   text-align: center;
-  text-shadow: 3px 3px 8px var(--blue);
+  text-shadow: 3px 3px 8px var(--darkgray);
 }
 
 .title:hover {

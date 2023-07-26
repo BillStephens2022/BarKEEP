@@ -10,6 +10,8 @@ import {
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { GoPencil } from "react-icons/go";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import UploadWidget from "../components/UploadWidget";
 import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
@@ -192,20 +194,20 @@ const Favorites = ({ cocktails, setCocktails }) => {
     console.log("editing cocktail: ", cocktail);
   };
 
-    // Function to toggle the editing state
-    const toggleEditingProfilePhoto = () => {
-      setEditingProfilePhoto((prevState) => !prevState);
-    };
-  
-    const handleSuccessfulUpload = (result) => {
-      // When the upload is successful, Cloudinary returns the secure_url in the result
-      if (result && result.info.secure_url) {
-        const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
-        console.log("converted URL: ", convertedUrl);
-        setUploadedProfilePhotoUrl(convertedUrl);
-        handleProfilePhotoUpdate();
-      }
-    };
+  // Function to toggle the editing state
+  const toggleEditingProfilePhoto = () => {
+    setEditingProfilePhoto((prevState) => !prevState);
+  };
+
+  const handleSuccessfulUpload = (result) => {
+    // When the upload is successful, Cloudinary returns the secure_url in the result
+    if (result && result.info.secure_url) {
+      const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+      console.log("converted URL: ", convertedUrl);
+      setUploadedProfilePhotoUrl(convertedUrl);
+      handleProfilePhotoUpdate();
+    }
+  };
 
   // Function to handle the profile photo update
   const handleProfilePhotoUpdate = async () => {
@@ -260,17 +262,23 @@ const Favorites = ({ cocktails, setCocktails }) => {
               <div className="upload-widget-edit-profile-photo">
                 {/* Conditionally render the UploadWidget when editingProfilePhoto is true */}
                 <UploadWidget onSuccess={handleSuccessfulUpload} />
-              
               </div>
             ) : (
-              // Show the GoPencil icon to enable editing
-              <GoPencil
-                className="edit-photo-icon"
-                onClick={toggleEditingProfilePhoto}
-              />
+              <OverlayTrigger
+                placement="right"
+                overlay={<Tooltip>Edit Profile Photo</Tooltip>}
+              >
+              <i className="edit-photo-icon">
+                
+                <GoPencil
+                  className="edit-photo-icon-pencil"
+                  onClick={toggleEditingProfilePhoto}
+                />
+                </i>
+              </OverlayTrigger>
             )}
           </div>
-          <h3 className="username">{me.username}</h3>
+          <h3 className="favorites-username">{me.username}</h3>
         </div>
         <h1 className="favorites-title">BarKEEP</h1>
         <h2 className="favorites-subtitle">My Cocktail Recipes</h2>

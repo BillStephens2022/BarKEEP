@@ -35,17 +35,25 @@
 
 .edit-photo-icon {
   position: absolute;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.35rem;
+  height: 1.35rem;
   bottom: 0;
   right: 3px;
   color: white; /* Optional: Set the icon color */
   background-color: var(--blue); /* Optional: Set the background color for the icon */
-  padding: 4px;
+  padding: 0.6rem;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+}
+
+.edit-photo-icon-pencil {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 1rem;
+  height: 1rem;
 }
 
 .edit-photo-icon:hover {
@@ -59,6 +67,7 @@
   margin-bottom: 2rem;
   color: var(--blue);
   text-align: center;
+  text-shadow: 2px 2px var(--lightgray);
 }
 
 .feed-title:hover {
@@ -293,7 +302,7 @@
 
 @media (max-width: 500px) {
   .user-heading {
-    margin-top: 1rem;
+    margin: 1rem 0;
   }
   .post-card {
     width: 95%;
@@ -303,6 +312,7 @@
   }
   .post-author {
     width: 65%;
+    padding: 0.35rem;
   }
   .post-author-name {
     font-size: 1.15rem;
@@ -312,12 +322,12 @@
     font-size: 0.9rem;
   }
   .size-64 {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
   .size-48 {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
   .post-image img {
     max-height: 33.33vh;

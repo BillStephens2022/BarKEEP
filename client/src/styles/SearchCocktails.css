@@ -6,6 +6,30 @@
   justify-content: space-between;
 }
 
+.search-title {
+  font-size: 6rem;
+  font-weight: 900;
+  letter-spacing: 1rem;
+  margin-bottom: 2rem;
+  color: var(--blue);
+  text-align: center;
+  text-shadow: 2px 2px var(--lightgray);
+}
+
+.search-title:hover {
+  transform: skewX(-15deg);
+  transition: 0.2s;
+}
+
+@media (max-width: 900px) {
+  .search-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
 @media (max-width: 767px) {
   .search-headings {
     padding-top: 1.5rem;

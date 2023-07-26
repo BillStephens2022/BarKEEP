@@ -102,7 +102,7 @@ const SearchCocktails = () => {
   return (
     <div className="search-cocktails">
     <div className="search-headings">
-      <h1 className="title">BarKEEP</h1>
+      <h1 className="search-title">BarKEEP</h1>
       <h2 className="search-header-1">Search <a id="link-opencocktaildb" href="https://www.TheCocktailDB.com">'TheCocktailDB'</a> API</h2>
       <h3 className="search-header-2">
         Search by:{" "}

@@ -27,6 +27,7 @@
   margin-bottom: 2rem;
   color: var(--blue);
   text-align: center;
+  text-shadow: 2px 2px var(--lightgray);
 }
 
 .favorites-title:hover {
@@ -51,6 +52,10 @@
   .user-heading {
     margin-top: 1rem;
   }
+  .username {
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
+  }
   .favorites-headings {
     padding-top: 0;
   }
@@ -61,6 +66,11 @@
 }
 
 @media (max-width: 767px) {
+  .favorites-username {
+    font-size: 1.25rem;
+    padding-left: 0.5rem;
+    color: var(--blue);
+  }
   .favorites-headings {
     padding-top: 0;
   }
@@ -74,6 +84,11 @@
     letter-spacing: 0.15rem;
     margin-bottom: 1.25rem;
   }
+  .size-64 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
 }
 
 @media (max-width: 380px) {
