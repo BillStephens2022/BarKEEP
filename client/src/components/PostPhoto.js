@@ -29,13 +29,14 @@ const PostPhoto = ({ imageUrl }) => {
         onClick={handleToggleModal}
       />
 
-      <Modal show={isModalOpen} onHide={handleToggleModal} centered>
+      <Modal
+        show={isModalOpen}
+        onHide={handleToggleModal}
+        centered
+        animation={true}
+      >
         <Modal.Body>
-          <img
-            className="modal-photo"
-            src={transformedImageUrl}
-            alt="post"
-          />
+          <img className="modal-photo" src={transformedImageUrl} alt="post" />
         </Modal.Body>
       </Modal>
     </>
