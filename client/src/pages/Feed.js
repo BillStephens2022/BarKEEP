@@ -174,7 +174,7 @@ const Feed = ({ posts, setPosts }) => {
               size={64}
             />
           </div>
-          <h3 className="username">{me.username}</h3>
+          <h3 className="feed-username">{me.username}</h3>
         </div>
         <h1 className="feed-title">BarKEEP</h1>
         <h2 className="feed-subtitle">Cocktail Posts</h2>

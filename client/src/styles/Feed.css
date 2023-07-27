@@ -28,7 +28,7 @@
   position: relative;
 }
 
-.username {
+.feed-username {
   margin: 0;
   font-size: 1.25rem;
 }
@@ -260,6 +260,9 @@
   .feed {
     margin: 0;
   }
+  .feed-username {
+    font-size: 1.35rem;
+  }
   .feed-headings {
     padding-top: 1.5rem;
   }
@@ -291,8 +294,8 @@
     height: 3.5rem;
   }
   .size-64 {
-    width: 4rem;
-    height: 4rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
   .post-image img {
     max-height: 40vh;
@@ -306,6 +309,9 @@
   }
   .post-card {
     width: 95%;
+  }
+  .feed-username {
+    font-size: 1rem;
   }
   .feed-headings {
     padding-top: 0;
@@ -322,8 +328,8 @@
     font-size: 0.9rem;
   }
   .size-64 {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
   }
   .size-48 {
     width: 2.5rem;

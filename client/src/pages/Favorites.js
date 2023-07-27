@@ -205,12 +205,13 @@ const Favorites = ({ cocktails, setCocktails }) => {
       const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
       console.log("converted URL: ", convertedUrl);
       setUploadedProfilePhotoUrl(convertedUrl);
-      handleProfilePhotoUpdate();
+      console.log("uploaded profile photo url: ", uploadedProfilePhotoUrl);
+      handleProfilePhotoUpdate(uploadedProfilePhotoUrl);
     }
   };
 
   // Function to handle the profile photo update
-  const handleProfilePhotoUpdate = async () => {
+  const handleProfilePhotoUpdate = async (uploadedProfilePhotoUrl) => {
     // Call the mutation to update the profile photo with the new secure_url
     if (uploadedProfilePhotoUrl) {
       try {
@@ -236,6 +237,12 @@ const Favorites = ({ cocktails, setCocktails }) => {
       console.log(cocktails[0]);
     }
   }, [data, refetch, cocktails, setCocktails]);
+
+  useEffect(() => {
+    console.log("uploaded profile photo url: ", uploadedProfilePhotoUrl);
+    handleProfilePhotoUpdate(uploadedProfilePhotoUrl);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uploadedProfilePhotoUrl]);
 
   if (loading) {
     return <div>Loading...</div>;
