@@ -31,6 +31,7 @@ const CocktailForm = ({
   const [tagInput, setTagInput] = useState("");
   const [uploadedImageURL, setUploadedImageURL] = useState("");
   const [imageUploaded, setImageUploaded] = useState(false);
+  
 
   const handleIngredientAdd = () => {
     if (ingredientName && ingredientQuantity) {
@@ -61,17 +62,8 @@ const CocktailForm = ({
     e.preventDefault();
     const { name, ingredients, glassware, instructions, tags } =
       cocktailFormState;
-    // console.log for debugging purposes
-    console.log("Mutation Variables:", {
-      name,
-      ingredients,
-      imageURL,
-      glassware,
-      instructions,
-      tags,
-    });
     // Check if any required fields are empty
-    if (!name || ingredients.length === 0 || tags.length === 0) {
+    if (!name || ingredients.length === 0 || tags.length === 0 || !imageUploaded) {
       console.log("Please fill in all required fields");
       return;
     }
@@ -91,11 +83,12 @@ const CocktailForm = ({
       console.log("Please add at least one tag");
       return;
     }
+
     // Send form data to the server
     try {
       // If an image has been uploaded, use its secure_url in the form submission
       let imageURL = cocktailFormState.imageURL; // Default to the URL input value
-      
+
       if (formType === "add") {
         const formData = await addCocktail({
           variables: {
@@ -124,7 +117,7 @@ const CocktailForm = ({
       }
 
       // Reset form fields
-      // setImageUploaded(null);
+      setImageUploaded(null);
       setCocktailFormState(initialState);
       setIngredientName("");
       setIngredientQuantity("");
@@ -166,7 +159,7 @@ const CocktailForm = ({
     };
   }, [selectedCocktail, setCocktailFormState]);
 
-  const { name, ingredients, imageURL, glassware, instructions, tags } =
+  const { name, ingredients, glassware, instructions, tags } =
     cocktailFormState;
 
   const handleIngredientChange = (index, field, value) => {
@@ -184,21 +177,25 @@ const CocktailForm = ({
     });
   };
 
-    // Handler for successful image upload from UploadWidget
-    const handleUploadSuccess = (result) => {
-      if (result && result.event === "success") {
-        console.log("Done! Here is the image info: ", result.info);
-        console.log("secure_url: ", result.info.secure_url);
-        setCocktailFormState((prevState) => ({
-          ...prevState,
-          imageURL: result.info.secure_url,
-        }));
-        const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+  // Handler for successful image upload from UploadWidget
+  const handleUploadSuccess = (result) => {
+    if (result && result.event === "success") {
+      console.log("Done! Here is the image info: ", result.info);
+      console.log("secure_url: ", result.info.secure_url);
+      setCocktailFormState((prevState) => ({
+        ...prevState,
+        imageURL: result.info.secure_url,
+      }));
+      const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+      if (convertedUrl.length > 0) {
         setImageUploaded(true);
-        setUploadedImageURL(convertedUrl); 
-      }
-    };
-  
+      };
+      setUploadedImageURL(convertedUrl);
+    } else {
+      setImageUploaded(false);
+      setUploadedImageURL("");
+    }
+  };
 
   return (
     <div className="form-container">
@@ -256,7 +253,11 @@ const CocktailForm = ({
           />
         </div>
 
-        <button type="button" onClick={handleIngredientAdd} className="add-ingredient-button">
+        <button
+          type="button"
+          onClick={handleIngredientAdd}
+          className="add-ingredient-button"
+        >
           Add Ingredient
         </button>
 
@@ -300,11 +301,15 @@ const CocktailForm = ({
           value={tagInput}
           onChange={(e) => setTagInput(e.target.value)}
         />
-        <button type="button" onClick={handleTagAdd} className="add-tag-button" >
+        <button type="button" onClick={handleTagAdd} className="add-tag-button">
           Add Tag
         </button>
 
-        <button type="submit" className="btn cocktail-form-button" disabled={!imageUploaded}>
+        <button
+          type="submit"
+          className="btn cocktail-form-button"
+          disabled={!imageUploaded}
+        >
           {formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail
         </button>
       </form>
