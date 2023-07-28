@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { GoPencil, GoTrash, GoPlus } from "react-icons/go";
-import { QUERY_ME } from "../utils/queries";
 import { searchCocktails } from "../utils/API";
-import { Auth } from "../utils/auth";
 import "../styles/CocktailCard.css";
 
 const CocktailCard = ({
   loading,
   cocktails,
-  setCocktails,
   page,
   handleAddCocktail,
-  deleteCocktail,
+  handleDeleteCocktail,
   handleEditCocktail,
 }) => {
   const [expandedCocktail, setExpandedCocktail] = useState(null);
@@ -58,27 +55,6 @@ const CocktailCard = ({
         setExpandedCocktail(cocktail);
       }
     }
-  };
-
-  const handleDeleteCocktail = async (e) => {
-    e.preventDefault();
-    const cocktailId = e.currentTarget.id;
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) return false;
-    console.log("deleting cocktail!");
-    try {
-      const { data } = await deleteCocktail({
-        variables: { cocktailId },
-        refetchQueries: [{ query: QUERY_ME }],
-      });
-      if (!data) {
-        throw new Error("something went wrong!");
-      }
-      console.log("done!");
-    } catch (err) {
-      console.error(err);
-    }
-    setCocktails(cocktails.filter((cocktails) => cocktails._id !== cocktailId));
   };
 
   return (
@@ -133,7 +109,7 @@ const CocktailCard = ({
                     <button
                       className="btn cocktail_card_btn"
                       id={cocktail._id}
-                      onClick={handleDeleteCocktail}
+                      onClick={() => handleDeleteCocktail(cocktail._id)}
                     >
                       <GoTrash />
                     </button>
