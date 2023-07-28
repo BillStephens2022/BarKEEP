@@ -1,0 +1,130 @@
+.gallery {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--white);
+  color: var(--blue);
+  text-align: center;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.gallery-headings {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--darkgray);
+}
+
+.gallery-heading {
+  display: inline-flex;
+  align-items: center;
+}
+
+.gallery-user-profile {
+  position: relative;
+}
+
+.gallery-username {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.gallery-title {
+  font-size: 6rem;
+  font-weight: 900;
+  letter-spacing: 1rem;
+  margin-bottom: 2rem;
+  color: var(--blue);
+  text-align: center;
+  text-shadow: 2px 2px var(--lightgray);
+}
+
+.gallery-title:hover {
+  transform: skewX(-15deg);
+  transition: 0.2s;
+}
+
+.gallery-subtitle {
+  font-size: 2rem;
+  letter-spacing: 0.4rem;
+  margin-bottom: 2rem;
+  color: var(--white);
+  text-align: center;
+  margin-top: auto;
+}
+
+@media (max-width: 900px) {
+  .gallery {
+    margin: 0;
+  }
+  .gallery-username {
+    font-size: 1.35rem;
+  }
+  .gallery-headings {
+    padding-top: 1.5rem;
+  }
+  .gallery-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .gallery-subtitle {
+    font-size: 1.5rem;
+    letter-spacing: 0.15rem;
+    margin-bottom: 1.25rem;
+  }
+  .size-64 {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Flex grid styles */
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--lightgray);
+  min-height: 40vh;
+}
+
+.gallery-item {
+  flex: 1 0 200px; 
+  min-width: 150px; 
+  max-width: 250px; 
+  margin: 0.25rem; 
+}
+
+.gallery-item-author {
+  position: relative;
+  color: var(--white);
+  text-shadow: 2px 2px 2px var(--darkgray);
+  z-index: 2;
+  font-size: 0.9rem;
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  margin-top: -1.75rem;
+  z-index: 1;
+}
+
+@media (max-width: 500px) {
+  .gallery-username {
+    font-size: 1rem;
+  }
+  .gallery-user-profile {
+    padding-top: 0;
+  }
+  .size-64 {
+    width: 2rem;
+    height: 2rem;
+  }
+}

@@ -78,6 +78,16 @@ const Navbar = () => {
                   Search
                 </Link>
               </li>
+              <li
+                className={`navigation_item ${
+                  activeNavItem === "gallery" ? "navigation_item--active" : ""
+                }`}
+                onClick={() => handleNavItemClick("gallery")}
+              >
+                <Link to="/gallery" className="navigation_link">
+                  Gallery
+                </Link>
+              </li>
 
               <li className="navigation_item">
                 <Link

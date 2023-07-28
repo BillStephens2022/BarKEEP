@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Feed from "./pages/Feed";
 import Favorites from "./pages/Favorites";
 import SearchCocktails from "./pages/SearchCocktails";
+import Gallery from "./pages/Gallery";
 import Login from "./pages/Login";
 import Footer from "./components/Footer";
 
@@ -78,6 +79,7 @@ function App() {
               }
             />
             <Route path="/searchCocktails" element={<SearchCocktails />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/login" element={<Login />} />
             <Route
               path="*"
