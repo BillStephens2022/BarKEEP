@@ -92,6 +92,7 @@
   padding: 1rem;
   background-color: var(--lightgray);
   min-height: 40vh;
+  
 }
 
 .gallery-item {
@@ -107,12 +108,12 @@
   text-shadow: 2px 2px 2px var(--darkgray);
   z-index: 2;
   font-size: 0.9rem;
+  margin-top: -1.25rem;
 }
 
 .gallery-image {
   width: 100%;
   height: auto;
-  margin-top: -1.75rem;
   z-index: 1;
 }
 
