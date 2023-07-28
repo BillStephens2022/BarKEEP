@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
 import "../styles/Gallery.css";
 import ProfilePhoto from "../components/ProfilePhoto";
+import PostPhoto from "../components/PostPhoto";
 
 const Gallery = () => {
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
@@ -40,12 +41,8 @@ const Gallery = () => {
 
         {allPosts.map((post) => (
           <div className="gallery-item" key={post._id}>
+            <PostPhoto imageUrl={post.postImageURL} />
             <h5 className="gallery-item-author">Posted by: {post.author.username}</h5>
-            <img
-              src={post.postImageURL}
-              alt={`Post by ${me.username}`}
-              className="gallery-image"
-            />
           </div>
         ))}
       </div>
