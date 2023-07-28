@@ -29,8 +29,8 @@ const CocktailForm = ({
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
   const [tagInput, setTagInput] = useState("");
-  const [uploadedImage, setUploadedImage] = useState(null);
-  const isSubmitDisabled = !uploadedImage || !uploadedImage.secure_url;
+  const [uploadedImageURL, setUploadedImageURL] = useState("");
+  const [imageUploaded, setImageUploaded] = useState(false);
 
   const handleIngredientAdd = () => {
     if (ingredientName && ingredientQuantity) {
@@ -95,9 +95,7 @@ const CocktailForm = ({
     try {
       // If an image has been uploaded, use its secure_url in the form submission
       let imageURL = cocktailFormState.imageURL; // Default to the URL input value
-      if (uploadedImage && uploadedImage.secure_url) {
-        imageURL = uploadedImage.secure_url.replace(/\.heic$/, ".jpg");
-      }
+      
       if (formType === "add") {
         const formData = await addCocktail({
           variables: {
@@ -126,7 +124,7 @@ const CocktailForm = ({
       }
 
       // Reset form fields
-      setUploadedImage(null);
+      // setImageUploaded(null);
       setCocktailFormState(initialState);
       setIngredientName("");
       setIngredientQuantity("");
@@ -160,7 +158,7 @@ const CocktailForm = ({
     }
     // Clean up the form state when the component is unmounted or when selectedCocktail changes
     return () => {
-      setUploadedImage(null);
+      // setImageUploaded(null);
       setCocktailFormState(initialState);
       setIngredientName("");
       setIngredientQuantity("");
@@ -187,8 +185,18 @@ const CocktailForm = ({
   };
 
     // Handler for successful image upload from UploadWidget
-    const handleImageUploadSuccess = (result) => {
-      setUploadedImage(result.info);
+    const handleUploadSuccess = (result) => {
+      if (result && result.event === "success") {
+        console.log("Done! Here is the image info: ", result.info);
+        console.log("secure_url: ", result.info.secure_url);
+        setCocktailFormState((prevState) => ({
+          ...prevState,
+          imageURL: result.info.secure_url,
+        }));
+        const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+        setImageUploaded(true);
+        setUploadedImageURL(convertedUrl); 
+      }
     };
   
 
@@ -253,10 +261,7 @@ const CocktailForm = ({
         </button>
 
         <label htmlFor="imageURL">Image:</label>
-        <UploadWidget onSuccess={handleImageUploadSuccess} />
-        {uploadedImage && uploadedImage.secure_url && (
-          <img src={uploadedImage.secure_url} alt="Cocktail" />
-        )}
+        <UploadWidget onSuccess={handleUploadSuccess} />
 
         <label htmlFor="glassware">Glassware:</label>
         <input
@@ -299,7 +304,7 @@ const CocktailForm = ({
           Add Tag
         </button>
 
-        <button type="submit" className="btn cocktail-form-button" disabled={isSubmitDisabled}>
+        <button type="submit" className="btn cocktail-form-button" disabled={!imageUploaded}>
           {formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail
         </button>
       </form>
