@@ -92,6 +92,7 @@
   padding: 1rem;
   background-color: var(--lightgray);
   min-height: 40vh;
+  min-width: 100%;
   
 }
 
@@ -118,6 +119,11 @@
 }
 
 @media (max-width: 500px) {
+
+  .gallery-item {
+    min-width: 60vw;
+    margin-bottom: 1rem;
+  }
   .gallery-username {
     font-size: 1rem;
   }

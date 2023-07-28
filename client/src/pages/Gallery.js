@@ -1,4 +1,5 @@
 import React from "react";
+import Masonry from "react-masonry-css";
 import { useQuery } from "@apollo/client";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
 import "../styles/Gallery.css";
@@ -16,6 +17,14 @@ const Gallery = () => {
   if (userLoading || postsLoading) {
     return <div>Loading...</div>;
   }
+
+  const breakpointColumnsObj = {
+    default: 7, // Number of columns by default
+    1100: 4,
+    900: 3,    // Number of columns for viewport width 1100px and above
+    700: 2,
+    500: 1     // Number of columns for viewport width 700px and above
+  };
 
   return (
     <div className="gallery">
@@ -38,13 +47,18 @@ const Gallery = () => {
         <h2 className="gallery-subtitle-2">User Photos</h2>
       </div>
       <div className="gallery-grid">
-
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="gallery-grid"
+        columnClassName="gallery-item"
+      >
         {allPosts.map((post) => (
           <div className="gallery-item" key={post._id}>
             <PostPhoto imageUrl={post.postImageURL} />
             <h5 className="gallery-item-author">Posted by: {post.author.username}</h5>
           </div>
         ))}
+        </Masonry>
       </div>
     </div>
   );
