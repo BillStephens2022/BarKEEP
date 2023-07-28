@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import UploadWidget from "./UploadWidget";
 import "../styles/CocktailForm.css";
 
 const initialState = {
@@ -28,6 +29,9 @@ const CocktailForm = ({
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
   const [tagInput, setTagInput] = useState("");
+  const [uploadedImageURL, setUploadedImageURL] = useState("");
+  const [imageUploaded, setImageUploaded] = useState(false);
+  
 
   const handleIngredientAdd = () => {
     if (ingredientName && ingredientQuantity) {
@@ -56,19 +60,10 @@ const CocktailForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, ingredients, imageURL, glassware, instructions, tags } =
+    const { name, ingredients, glassware, instructions, tags } =
       cocktailFormState;
-    // console.log for debugging purposes
-    console.log("Mutation Variables:", {
-      name,
-      ingredients,
-      imageURL,
-      glassware,
-      instructions,
-      tags,
-    });
     // Check if any required fields are empty
-    if (!name || ingredients.length === 0 || tags.length === 0) {
+    if (!name || ingredients.length === 0 || tags.length === 0 || !imageUploaded) {
       console.log("Please fill in all required fields");
       return;
     }
@@ -88,8 +83,12 @@ const CocktailForm = ({
       console.log("Please add at least one tag");
       return;
     }
+
     // Send form data to the server
     try {
+      // If an image has been uploaded, use its secure_url in the form submission
+      let imageURL = cocktailFormState.imageURL; // Default to the URL input value
+
       if (formType === "add") {
         const formData = await addCocktail({
           variables: {
@@ -118,6 +117,7 @@ const CocktailForm = ({
       }
 
       // Reset form fields
+      setImageUploaded(null);
       setCocktailFormState(initialState);
       setIngredientName("");
       setIngredientQuantity("");
@@ -151,6 +151,7 @@ const CocktailForm = ({
     }
     // Clean up the form state when the component is unmounted or when selectedCocktail changes
     return () => {
+      // setImageUploaded(null);
       setCocktailFormState(initialState);
       setIngredientName("");
       setIngredientQuantity("");
@@ -158,7 +159,7 @@ const CocktailForm = ({
     };
   }, [selectedCocktail, setCocktailFormState]);
 
-  const { name, ingredients, imageURL, glassware, instructions, tags } =
+  const { name, ingredients, glassware, instructions, tags } =
     cocktailFormState;
 
   const handleIngredientChange = (index, field, value) => {
@@ -174,6 +175,26 @@ const CocktailForm = ({
         ingredients: updatedIngredients,
       };
     });
+  };
+
+  // Handler for successful image upload from UploadWidget
+  const handleUploadSuccess = (result) => {
+    if (result && result.event === "success") {
+      console.log("Done! Here is the image info: ", result.info);
+      console.log("secure_url: ", result.info.secure_url);
+      setCocktailFormState((prevState) => ({
+        ...prevState,
+        imageURL: result.info.secure_url,
+      }));
+      const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+      if (convertedUrl.length > 0) {
+        setImageUploaded(true);
+      };
+      setUploadedImageURL(convertedUrl);
+    } else {
+      setImageUploaded(false);
+      setUploadedImageURL("");
+    }
   };
 
   return (
@@ -232,22 +253,16 @@ const CocktailForm = ({
           />
         </div>
 
-        <button type="button" onClick={handleIngredientAdd} className="add-ingredient-button">
+        <button
+          type="button"
+          onClick={handleIngredientAdd}
+          className="add-ingredient-button"
+        >
           Add Ingredient
         </button>
 
-        <label htmlFor="imageURL">Image URL:</label>
-        <input
-          type="text"
-          id="imageURL"
-          value={imageURL}
-          onChange={(e) =>
-            setCocktailFormState((prevState) => ({
-              ...prevState,
-              imageURL: e.target.value,
-            }))
-          }
-        />
+        <label htmlFor="imageURL">Image:</label>
+        <UploadWidget onSuccess={handleUploadSuccess} />
 
         <label htmlFor="glassware">Glassware:</label>
         <input
@@ -290,7 +305,11 @@ const CocktailForm = ({
           Add Tag
         </button>
 
-        <button type="submit" className="btn cocktail-form-button">
+        <button
+          type="submit"
+          className="btn cocktail-form-button"
+          disabled={!imageUploaded}
+        >
           {formType.charAt(0).toUpperCase() + formType.slice(1)} Cocktail
         </button>
       </form>

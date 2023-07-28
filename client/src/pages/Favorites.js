@@ -12,6 +12,7 @@ import { Modal } from "react-bootstrap";
 import { GoPencil } from "react-icons/go";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { Auth } from "../utils/auth";
 import UploadWidget from "../components/UploadWidget";
 import CocktailCard from "../components/CocktailCard";
 import CocktailForm from "../components/CocktailForm";
@@ -118,7 +119,6 @@ const Favorites = ({ cocktails, setCocktails }) => {
       }
 
       console.log("updated cache:", cache.data.data);
-      refetch();
     },
   });
 
@@ -227,6 +227,28 @@ const Favorites = ({ cocktails, setCocktails }) => {
       } catch (error) {
         console.error("Profile photo update failed:", error);
       }
+    }
+  };
+
+  const handleDeleteCocktail = async (cocktailId) => {
+  
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) return false;
+    console.log("deleting cocktail!");
+    try {
+      const { data } = await deleteCocktail({
+        variables: { cocktailId },
+      });
+      if (!data) {
+        throw new Error("something went wrong!");
+      }
+      console.log("done!");
+      setCocktails((prevCocktails) =>
+        prevCocktails.filter((cocktail) => cocktail._id !== cocktailId)
+      );
+      refetch();
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -341,13 +363,11 @@ const Favorites = ({ cocktails, setCocktails }) => {
       </div>
       <div className="card-container">
         <CocktailCard
-          data={data}
           loading={loading}
           cocktails={cocktails}
           setCocktails={setCocktails}
-          deleteCocktail={deleteCocktail}
           handleEditCocktail={handleEditCocktail}
-          selectedCocktail={selectedCocktail}
+          handleDeleteCocktail={handleDeleteCocktail}
           page="Favorites"
         />
       </div>
