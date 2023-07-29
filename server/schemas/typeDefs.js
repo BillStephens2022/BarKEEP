@@ -96,6 +96,8 @@ const typeDefs = gql`
     ): Post
     deletePost(postId: ID!): Post
     editProfilePhoto(profilePhoto: String!): User
+    addLike(postId: ID!): Int
+    addComment(postId: ID!, text: String!): Comment
   }
 `;
 

@@ -212,6 +212,70 @@ const resolvers = {
         throw new ApolloError('Failed to edit profile photo.');
       }
     },
+
+    // Add a comment to a post
+    addComment: async (parent, { postId, text }, context) => {
+      try {
+        if (context.user) {
+          // Find the post by ID
+          const post = await Post.findById(postId);
+
+          if (!post) {
+            throw new ApolloError("Post not found");
+          }
+
+          // Create a new comment
+          const comment = {
+            text,
+            author: context.user._id,
+            post: post._id,
+          };
+
+          // Add the comment to the post's comments array
+          post.comments.push(comment);
+          await post.save();
+
+          // Return the populated comment
+          return comment;
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.error(err);
+        throw new ApolloError("Failed to add a comment.");
+      }
+    },
+
+    // Add a like to a post
+    addLike: async (parent, { postId }, context) => {
+      try {
+        if (context.user) {
+          // Find the post by ID
+          const post = await Post.findById(postId);
+
+          if (!post) {
+            throw new ApolloError("Post not found");
+          }
+
+          // Check if the user has already liked the post
+          if (post.likes.includes(context.user._id)) {
+            throw new ApolloError("You have already liked this post");
+          }
+
+          // Add the user's ID to the post's likes array
+          post.likes.push(context.user._id);
+          await post.save();
+
+          // Return the updated like count
+          return post.likes.length;
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.error(err);
+        throw new ApolloError("Failed to add a like.");
+      }
+    },
   },
 };
 
