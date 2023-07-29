@@ -232,6 +232,16 @@
   justify-content: flex-end;
 }
 
+.btn-post-comment {
+  background-color: transparent;
+  font-size: 1.5rem;
+}
+
+.btn-post-like {
+  background-color: transparent;
+  font-size: 1.5rem;
+}
+
 .btn-post-delete {
   background-color: transparent;
   font-size: 1.5rem;

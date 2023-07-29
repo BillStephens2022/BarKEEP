@@ -1,5 +1,6 @@
 import React from "react";
 import { GoTrash } from "react-icons/go";
+import { BiLike, BiComment } from "react-icons/bi";
 import { Auth } from "../utils/auth";
 import { formatElapsedTime } from "../utils/formatting";
 import ProfilePhoto from "./ProfilePhoto";
@@ -51,7 +52,7 @@ const Post = ({
             </div>
             <div className="post-main-container">
               <div className="post-image">
-                <PostPhoto imageUrl={post.postImageURL}/>
+                <PostPhoto imageUrl={post.postImageURL} />
               </div>
               <div className="post-title-and-content">
                 <h3 className="post-title">{post.postTitle}</h3>
@@ -60,6 +61,23 @@ const Post = ({
             </div>
 
             <div className="post-footer">
+              {!isMyPosts && (
+                <div>
+                  <button
+                    className="btn btn-post-comment"
+                    id={`post-comment-${post._id}`}
+                  >
+                    <BiComment />
+                  </button>
+                  <button
+                    className="btn btn-post-like"
+                    id={`post-like-${post._id}`}
+                  >
+                    <BiLike />
+                  </button>
+                </div>
+              )}
+
               {isMyPosts && isMyPost && (
                 <button
                   className="btn btn-post-delete"
