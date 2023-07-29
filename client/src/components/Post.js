@@ -62,19 +62,21 @@ const Post = ({
 
             <div className="post-footer">
               {!isMyPosts && (
-                <div>
+                <div className="post-comment-like">
                   <button
                     className="btn btn-post-comment"
                     id={`post-comment-${post._id}`}
                   >
                     <BiComment />
                   </button>
+                  <h6 id="post-comment-count">12</h6>
                   <button
                     className="btn btn-post-like"
                     id={`post-like-${post._id}`}
                   >
                     <BiLike />
                   </button>
+                  <h6 id="post-like-count">33</h6>
                 </div>
               )}
 
