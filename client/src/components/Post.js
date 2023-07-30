@@ -38,7 +38,7 @@ const Post = ({
               <div className="post-author">
                 <ProfilePhoto
                   imageUrl={
-                    post.author.profilePhoto
+                    post.author && post.author.profilePhoto
                       ? post.author.profilePhoto
                       : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
                   }

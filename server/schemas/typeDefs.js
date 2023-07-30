@@ -46,7 +46,7 @@ const typeDefs = gql`
     postImageURL: String
     postDate: String
     author: User
-    likes: Int!
+    likes: [User]
     comments: [Comment]
   }
 

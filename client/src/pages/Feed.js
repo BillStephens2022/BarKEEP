@@ -34,7 +34,7 @@ const Feed = ({ posts, setPosts }) => {
 
   const { me } = userData || {};
   const { posts: userPosts = [] } = me || {};
-
+  
   const [filteredPosts, setFilteredPosts] = useState(postsData?.posts || []);
 
   const [addPost] = useMutation(ADD_POST, {
@@ -80,6 +80,7 @@ const Feed = ({ posts, setPosts }) => {
       postTitle: postFormState.postTitle || undefined,
       postContent: postFormState.postContent || undefined,
       postImageURL: postFormState.postImageURL || undefined,
+      likes: [],
     },
   });
 
@@ -159,7 +160,7 @@ const Feed = ({ posts, setPosts }) => {
   }
 
   const currentUser = userData?.me?._id;
-  
+  console.log(currentUser);
   return (
     <div className="feed">
       <div className="feed-headings">
@@ -167,14 +168,14 @@ const Feed = ({ posts, setPosts }) => {
           <div className="user-profile">
             <ProfilePhoto
               imageUrl={
-                me.profilePhoto
+                me && me.profilePhoto
                   ? me.profilePhoto
                   : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
               }
               size={64}
             />
           </div>
-          <h3 className="feed-username">{me.username}</h3>
+          <h3 className="feed-username">{me && me.username}</h3>
         </div>
         <h1 className="feed-title">BarKEEP</h1>
         <h2 className="feed-subtitle">Cocktail Posts</h2>

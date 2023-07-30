@@ -30,6 +30,44 @@ query Me {
         username
         profilePhoto
       }
+      likes {
+        _id
+        username
+        profilePhoto
+      }
+      comments {
+        _id
+        text
+        author {
+          _id
+          username
+        }
+      }
+    }
+    likedPosts {
+      _id
+      postTitle
+      postContent
+      postImageURL
+      postDate
+      author {
+        _id
+        username
+        profilePhoto
+      }
+      likes {
+        _id
+        username
+        profilePhoto
+      }
+      comments {
+        _id
+        text
+        author {
+          _id
+          username
+        }
+      }
     }
   }
 }
@@ -60,6 +98,20 @@ query Posts {
     postContent
     postImageURL
     postDate
+    likes {
+      _id
+      username
+      profilePhoto
+    }
+    comments {
+      _id
+      text
+      author {
+        _id
+        username
+        profilePhoto
+      }
+    }
     author {
       _id
       username

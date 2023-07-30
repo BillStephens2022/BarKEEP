@@ -8,7 +8,7 @@ const resolvers = {
     // me: User
     me: async (parent, args, context) => {
       if (context.user) {
-        return await User.findOne({ _id: context.user._id })
+        const user = await User.findOne({ _id: context.user._id })
           .populate({
             path: "cocktails",
             model: "Cocktail",
@@ -20,7 +20,33 @@ const resolvers = {
               path: "author",
               model: "User",
             },
+          })
+          .populate({
+            path: "likedPosts",
+            model: "Post",
+            populate: {
+              path: "author",
+              model: "User",
+            },
           });
+        // Get the likedPost IDs for the user
+        const likedPostIds = user.likedPosts.map((post) => post._id);
+        // Loop through the posts and add likes and comments count
+        user.posts.forEach((post) => {
+          // Calculate the number of likes for each post
+          post.likes = post.likes.length;
+
+          // Calculate the number of comments for each post
+          post.comments = post.comments.length;
+
+          // Check if the current post is liked by the user
+          if (likedPostIds.includes(post._id)) {
+            post.likedByUser = true;
+          } else {
+            post.likedByUser = false;
+          }
+        });
+        return user;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -31,15 +57,26 @@ const resolvers = {
       return await Post.find({}).populate({
         path: "author",
         model: "User",
-        select: "username profilePhoto"
+        select: "username profilePhoto",
       });
     },
   },
   Mutation: {
     // addUser
     addUser: async (parent, { username, email, password, profilePhoto }) => {
-      console.log("back end response: ", username, email, password, profilePhoto);
-      const user = await User.create({ username, email, password, profilePhoto });
+      console.log(
+        "back end response: ",
+        username,
+        email,
+        password,
+        profilePhoto
+      );
+      const user = await User.create({
+        username,
+        email,
+        password,
+        profilePhoto,
+      });
       const token = signToken(user);
       return { token, user };
     },
@@ -205,11 +242,11 @@ const resolvers = {
 
           return user;
         } else {
-          throw new AuthenticationError('You need to be logged in!');
+          throw new AuthenticationError("You need to be logged in!");
         }
       } catch (err) {
         console.error(err);
-        throw new ApolloError('Failed to edit profile photo.');
+        throw new ApolloError("Failed to edit profile photo.");
       }
     },
 
