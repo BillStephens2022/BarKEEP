@@ -46,6 +46,8 @@ const resolvers = {
             post.likedByUser = false;
           }
         });
+         // Update the count of liked posts for the user
+         user.likedPostsCount = likedPostIds.length;
         return user;
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -271,7 +273,8 @@ const resolvers = {
           // Add the comment to the post's comments array
           post.comments.push(comment);
           await post.save();
-
+           // Populate the comment's author field
+          await comment.populate("author").execPopulate()
           // Return the populated comment
           return comment;
         } else {
@@ -301,7 +304,7 @@ const resolvers = {
 
           // Add the user's ID to the post's likes array
           post.likes.push(context.user._id);
-          await post.save();
+          await post.save();    
 
           // Return the updated like count
           return post.likes.length;

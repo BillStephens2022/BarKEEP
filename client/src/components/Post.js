@@ -1,6 +1,9 @@
 import React from "react";
 import { GoTrash } from "react-icons/go";
-import { BiLike, BiComment } from "react-icons/bi";
+import { BiLike, BiComment, BiSolidLike } from "react-icons/bi";
+import { useMutation, useQuery } from "@apollo/client";
+import { QUERY_ME, QUERY_POSTS } from "../utils/queries";
+import { ADD_LIKE } from "../utils/mutations";
 import { Auth } from "../utils/auth";
 import { formatElapsedTime } from "../utils/formatting";
 import ProfilePhoto from "./ProfilePhoto";
@@ -15,7 +18,43 @@ const Post = ({
   visiblePosts,
   setVisiblePosts,
 }) => {
-  if (loading) {
+  const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
+
+  const [addLike] = useMutation(ADD_LIKE, {
+    update(cache, { data: { addLike } }) {
+      // Update the cache to include the new like in the relevant post
+      const { posts } = cache.readQuery({
+        query: QUERY_POSTS,
+      });
+
+      const updatedPosts = posts.map((post) => {
+        if (post._id === addLike.post._id) {
+          return { ...post, likes: [...post.likes, addLike] };
+        }
+        return post;
+      });
+
+      cache.writeQuery({
+        query: QUERY_POSTS,
+        data: { posts: updatedPosts },
+      });
+
+      // Update the likedPosts field in the User document
+      const { me } = cache.readQuery({ query: QUERY_ME });
+
+      cache.writeQuery({
+        query: QUERY_ME,
+        data: {
+          me: {
+            ...me,
+            likedPosts: [...me.likedPosts, addLike.post._id],
+          },
+        },
+      });
+    },
+  });
+
+  if (loading || meLoading) {
     return <div>Loading...</div>;
   }
 
@@ -31,6 +70,9 @@ const Post = ({
     <>
       {posts.map((post) => {
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
+
+        // Check if the current post is liked by the user
+        const isPostLikedByUser = meData?.me?.likedPosts?.includes(post._id) || false;
 
         return (
           <div className="post-card" key={post._id}>
@@ -73,10 +115,15 @@ const Post = ({
                   <button
                     className="btn btn-post-like"
                     id={`post-like-${post._id}`}
+                    onClick={() => {
+                      addLike({
+                        variables: { postId: post._id },
+                      });
+                    }}
                   >
-                    <BiLike />
+                    {isPostLikedByUser ? <BiSolidLike /> : <BiLike />}
                   </button>
-                  <h6 id="post-like-count">33</h6>
+                  <h6 id="post-like-count">{post.likes.length}</h6>
                 </div>
               )}
 
