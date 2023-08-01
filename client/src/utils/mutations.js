@@ -106,7 +106,14 @@ export const EDIT_PROFILE_PHOTO = gql`
 
 export const ADD_LIKE = gql`
   mutation AddLike($postId: ID!) {
-    addLike(postId: $postId)
+    addLike(postId: $postId) {
+      _id
+      postTitle
+      author {
+        _id
+        username
+      }
+    }
   }
 `;
 

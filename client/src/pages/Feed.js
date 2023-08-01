@@ -13,7 +13,7 @@ import "../styles/CocktailForm.css";
 // 'Feed' page shows all users' posts by default.  User can click on 'My Posts' to only
 // show the current logged in user's posts.  Clicking on 'Create a New Post' will bring
 // up a modal for the PostForm which will allow a user to create a post.
-const Feed = ({ posts, setPosts }) => {
+const Feed = () => {
   const [showPostForm, setShowPostForm] = useState(false);
   const [postFormState, setPostFormState] = useState({
     postTitle: "",

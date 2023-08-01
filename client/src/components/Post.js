@@ -58,6 +58,7 @@ const Post = ({
             },
           },
         });
+        
         const updatedPostIndex = updatedPosts.findIndex(
           (post) => post._id === addLike.post._id
         );
@@ -72,6 +73,7 @@ const Post = ({
         console.error("Error updating cache:", error);
       }
     },
+    refetchQueries: [{ query: QUERY_POSTS }, { query: QUERY_ME }],
   });
 
   useEffect(() => {

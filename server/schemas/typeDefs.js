@@ -90,7 +90,7 @@ const typeDefs = gql`
     ): Post
     deletePost(postId: ID!): Post
     editProfilePhoto(profilePhoto: String!): User
-    addLike(postId: ID!): Int
+    addLike(postId: ID!): Post
     
   }
 `;

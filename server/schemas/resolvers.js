@@ -311,9 +311,12 @@ const resolvers = {
             { _id: context.user._id },
             { $addToSet: { likedPosts: post._id } }
           );
-         
-          // Return the updated like count
-          return post.likes.length;
+
+          // Populate the author field of the post before returning it
+          const populatedPost = await post.populate("author").execPopulate();
+
+          // Return the updated post with the new like count
+          return populatedPost;
         } else {
           throw new AuthenticationError("You need to be logged in!");
         }
