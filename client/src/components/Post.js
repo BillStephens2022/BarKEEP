@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { GoTrash } from "react-icons/go";
 import { BiLike, BiComment, BiSolidLike } from "react-icons/bi";
 import { useMutation, useQuery } from "@apollo/client";
@@ -20,39 +20,66 @@ const Post = ({
 }) => {
   const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
 
+  const [updatedPosts, setUpdatedPosts] = useState(posts);
+
   const [addLike] = useMutation(ADD_LIKE, {
     update(cache, { data: { addLike } }) {
-      // Update the cache to include the new like in the relevant post
-      const { posts } = cache.readQuery({
-        query: QUERY_POSTS,
-      });
-
-      const updatedPosts = posts.map((post) => {
-        if (post._id === addLike.post._id) {
-          return { ...post, likes: [...post.likes, addLike] };
+      try {
+        if (!addLike || !addLike.post) {
+          console.error("Error: 'addLike' or 'addLike.post' is undefined.");
+          return;
         }
-        return post;
-      });
+        // Update the cache to include the new like in the relevant post
+        const { posts } = cache.readQuery({
+          query: QUERY_POSTS,
+        });
 
-      cache.writeQuery({
-        query: QUERY_POSTS,
-        data: { posts: updatedPosts },
-      });
+        const updatedPosts = posts.map((post) => {
+          if (post._id === addLike.post._id) {
+            return { ...post, likes: [...post.likes, addLike] };
+          }
+          return post;
+        });
 
-      // Update the likedPosts field in the User document
-      const { me } = cache.readQuery({ query: QUERY_ME });
+        cache.writeQuery({
+          query: QUERY_POSTS,
+          data: { posts: updatedPosts },
+        });
 
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: {
-          me: {
-            ...me,
-            likedPosts: [...me.likedPosts, addLike.post._id],
+        // Update the likedPosts field in the User document
+        const { me } = cache.readQuery({ query: QUERY_ME });
+
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: {
+            me: {
+              ...me,
+              likedPosts: [...me.likedPosts, addLike.post._id],
+            },
           },
-        },
-      });
+        });
+        const updatedPostIndex = updatedPosts.findIndex(
+          (post) => post._id === addLike.post._id
+        );
+        if (updatedPostIndex !== -1) {
+          updatedPosts[updatedPostIndex] = {
+            ...updatedPosts[updatedPostIndex],
+            likes: [...updatedPosts[updatedPostIndex].likes, addLike],
+          };
+        }
+        setUpdatedPosts([...updatedPosts]);
+      } catch (error) {
+        console.error("Error updating cache:", error);
+      }
     },
   });
+
+  useEffect(() => {
+    setUpdatedPosts(posts);
+  }, [posts]);
+
+  console.log("meData:", meData);
+  console.log("likedPosts:", meData?.me?.likedPosts);
 
   if (loading || meLoading) {
     return <div>Loading...</div>;
@@ -68,12 +95,15 @@ const Post = ({
 
   return (
     <>
-      {posts.map((post) => {
+      {updatedPosts.map((post) => {
         const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
 
         // Check if the current post is liked by the user
-        const isPostLikedByUser = meData?.me?.likedPosts?.includes(post._id) || false;
-
+        const isPostLikedByUser =
+          meData?.me?.likedPosts?.some(
+            (likedPost) => likedPost._id === post._id
+          ) || false;
+        console.log("isPostLikedByUser:", isPostLikedByUser);
         return (
           <div className="post-card" key={post._id}>
             <div className="post-header">

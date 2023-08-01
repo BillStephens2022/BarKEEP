@@ -100,8 +100,6 @@ const Feed = ({ posts, setPosts }) => {
     },
   });
 
-  console.log("userData: ", userData);
-
   // Event handler for clicking on the delete button (i.e. the 'trash can' icon) on the post
   const handleDeletePost = async (postId) => {
     // Check if user is logged in
@@ -143,11 +141,25 @@ const Feed = ({ posts, setPosts }) => {
     }
   }, [postsData, isMyPosts, userPosts]);
 
+  useEffect(() => {
+    if (filteredPosts.length > 0) {
+      // Sort the filteredPosts array directly based on the postDate
+      filteredPosts.sort((a, b) => {
+        const dateA = parseInt(a.postDate);
+        const dateB = parseInt(b.postDate);
+        return dateB - dateA;
+      });
+      setFilteredPosts([...filteredPosts]);
+    }
+  }, [isMyPosts]);
+
   // Function to handle the "All Posts" button click
   const handleAllPostsClick = () => {
     setIsAllPosts(true);
     setIsMyPosts(false);
-    setFilteredPosts(postsData?.posts ? [...postsData.posts] : []);
+    if (postsData?.posts) {
+      setFilteredPosts([...postsData.posts]);
+    }
   };
 
   // Function to handle the "My Posts" button click
@@ -170,14 +182,14 @@ const Feed = ({ posts, setPosts }) => {
           <div className="user-profile">
             <ProfilePhoto
               imageUrl={
-                me && me.profilePhoto
+                me.profilePhoto
                   ? me.profilePhoto
                   : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
               }
               size={64}
             />
           </div>
-          <h3 className="feed-username">{me?.username || "Guest"}</h3>
+          <h3 className="feed-username">{me.username}</h3>
         </div>
         <h1 className="feed-title">BarKEEP</h1>
         <h2 className="feed-subtitle">Cocktail Posts</h2>
