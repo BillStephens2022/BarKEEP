@@ -35,14 +35,6 @@ query Me {
         username
         profilePhoto
       }
-      comments {
-        _id
-        text
-        author {
-          _id
-          username
-        }
-      }
     }
     likedPosts {
       _id
@@ -59,14 +51,6 @@ query Me {
         _id
         username
         profilePhoto
-      }
-      comments {
-        _id
-        text
-        author {
-          _id
-          username
-        }
       }
     }
   }
@@ -102,15 +86,6 @@ query Posts {
       _id
       username
       profilePhoto
-    }
-    comments {
-      _id
-      text
-      author {
-        _id
-        username
-        profilePhoto
-      }
     }
     author {
       _id

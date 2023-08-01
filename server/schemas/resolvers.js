@@ -37,7 +37,7 @@ const resolvers = {
           post.likes = post.likes.length;
 
           // Calculate the number of comments for each post
-          post.comments = post.comments.length;
+          // post.comments = post.comments.length;
 
           // Check if the current post is liked by the user
           if (likedPostIds.includes(post._id)) {
@@ -253,38 +253,38 @@ const resolvers = {
     },
 
     // Add a comment to a post
-    addComment: async (parent, { postId, text }, context) => {
-      try {
-        if (context.user) {
-          // Find the post by ID
-          const post = await Post.findById(postId);
+    // addComment: async (parent, { postId, text }, context) => {
+    //   try {
+    //     if (context.user) {
+    //       // Find the post by ID
+    //       const post = await Post.findById(postId);
 
-          if (!post) {
-            throw new ApolloError("Post not found");
-          }
+    //       if (!post) {
+    //         throw new ApolloError("Post not found");
+    //       }
 
-          // Create a new comment
-          const comment = {
-            text,
-            author: context.user._id,
-            post: post._id,
-          };
+    //       // Create a new comment
+    //       const comment = {
+    //         text,
+    //         author: context.user._id,
+    //         post: post._id,
+    //       };
 
-          // Add the comment to the post's comments array
-          post.comments.push(comment);
-          await post.save();
-           // Populate the comment's author field
-          await comment.populate("author").execPopulate()
-          // Return the populated comment
-          return comment;
-        } else {
-          throw new AuthenticationError("You need to be logged in!");
-        }
-      } catch (err) {
-        console.error(err);
-        throw new ApolloError("Failed to add a comment.");
-      }
-    },
+    //       // Add the comment to the post's comments array
+    //       post.comments.push(comment);
+    //       await post.save();
+    //        // Populate the comment's author field
+    //       await comment.populate("author").execPopulate()
+    //       // Return the populated comment
+    //       return comment;
+    //     } else {
+    //       throw new AuthenticationError("You need to be logged in!");
+    //     }
+    //   } catch (err) {
+    //     console.error(err);
+    //     throw new ApolloError("Failed to add a comment.");
+    //   }
+    // },
 
     // Add a like to a post
     addLike: async (parent, { postId }, context) => {

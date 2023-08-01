@@ -110,16 +110,16 @@ export const ADD_LIKE = gql`
   }
 `;
 
-export const ADD_COMMENT = gql`
-  mutation AddComment($postId: ID!, $text: String!) {
-    addComment(postId: $postId, text: $text) {
-      _id
-      text
-      author {
-        _id
-        username
-      }
-    }
-  }
-`;
+// export const ADD_COMMENT = gql`
+//   mutation AddComment($postId: ID!, $text: String!) {
+//     addComment(postId: $postId, text: $text) {
+//       _id
+//       text
+//       author {
+//         _id
+//         username
+//       }
+//     }
+//   }
+// `;
 

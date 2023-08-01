@@ -100,6 +100,8 @@ const Feed = ({ posts, setPosts }) => {
     },
   });
 
+  console.log("userData: ", userData);
+
   // Event handler for clicking on the delete button (i.e. the 'trash can' icon) on the post
   const handleDeletePost = async (postId) => {
     // Check if user is logged in
@@ -160,7 +162,7 @@ const Feed = ({ posts, setPosts }) => {
   }
 
   const currentUser = userData?.me?._id;
-  console.log(currentUser);
+
   return (
     <div className="feed">
       <div className="feed-headings">
@@ -175,7 +177,7 @@ const Feed = ({ posts, setPosts }) => {
               size={64}
             />
           </div>
-          <h3 className="feed-username">{me && me.username}</h3>
+          <h3 className="feed-username">{me?.username || "Guest"}</h3>
         </div>
         <h1 className="feed-title">BarKEEP</h1>
         <h2 className="feed-subtitle">Cocktail Posts</h2>

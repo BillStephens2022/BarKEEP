@@ -9,7 +9,7 @@ const typeDefs = gql`
     cocktails: [Cocktail]
     posts: [Post]
     likedPosts: [Post]
-    comments: [Comment]
+    
   }
 
   type Ingredient {
@@ -32,12 +32,6 @@ const typeDefs = gql`
     tags: [String!]!
   }
 
-  type Comment {
-    _id: ID!
-    text: String!
-    author: User!
-    post: Post!
-  }
 
   type Post {
     _id: ID!
@@ -47,7 +41,7 @@ const typeDefs = gql`
     postDate: String
     author: User
     likes: [User]
-    comments: [Comment]
+    
   }
 
   type Auth {
@@ -97,7 +91,7 @@ const typeDefs = gql`
     deletePost(postId: ID!): Post
     editProfilePhoto(profilePhoto: String!): User
     addLike(postId: ID!): Int
-    addComment(postId: ID!, text: String!): Comment
+    
   }
 `;
 

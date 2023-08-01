@@ -1,20 +1,20 @@
 const { Schema, model } = require("mongoose");
 
-const commentSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    auto: true,
-  },
-  text: {
-    type: String,
-    required: true,
-  },
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-});
+// const commentSchema = new Schema({
+//   _id: {
+//     type: Schema.Types.ObjectId,
+//     required: true,
+//     auto: true,
+//   },
+//   text: {
+//     type: String,
+//     required: true,
+//   },
+//   author: {
+//     type: Schema.Types.ObjectId,
+//     ref: "User",
+//   },
+// });
 
 const postSchema = new Schema({
   postTitle: {
@@ -42,7 +42,7 @@ const postSchema = new Schema({
       ref: "User",
     }
   ],
-  comments: [commentSchema],
+  // comments: [commentSchema],
 });
 
 const Post = model("Post", postSchema);
