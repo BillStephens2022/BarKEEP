@@ -251,6 +251,10 @@
   color: var(--white);
 }
 
+.like-icon-solid {
+  color: var(--blue);
+}
+
 #post-like-count {
   margin-right: 0.5rem;
 }

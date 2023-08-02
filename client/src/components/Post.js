@@ -153,7 +153,7 @@ const Post = ({
                       });
                     }}
                   >
-                    {isPostLikedByUser ? <BiSolidLike /> : <BiLike />}
+                    {isPostLikedByUser ? <BiSolidLike className="like-icon-solid"/> : <BiLike />}
                   </button>
                   <h6 id="post-like-count">{post.likes.length}</h6>
                 </div>
