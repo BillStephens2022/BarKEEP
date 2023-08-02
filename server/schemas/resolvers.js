@@ -8,7 +8,7 @@ const resolvers = {
     // me: User
     me: async (parent, args, context) => {
       if (context.user) {
-        return await User.findOne({ _id: context.user._id })
+        const user = await User.findOne({ _id: context.user._id })
           .populate({
             path: "cocktails",
             model: "Cocktail",
@@ -20,7 +20,35 @@ const resolvers = {
               path: "author",
               model: "User",
             },
+          })
+          .populate({
+            path: "likedPosts",
+            model: "Post",
+            populate: {
+              path: "author",
+              model: "User",
+            },
           });
+        // Get the likedPost IDs for the user
+        const likedPostIds = user.likedPosts.map((post) => post._id);
+        // Loop through the posts and add likes and comments count
+        user.posts.forEach((post) => {
+          // Calculate the number of likes for each post
+          post.likes = post.likes.length;
+
+          // Calculate the number of comments for each post
+          // post.comments = post.comments.length;
+
+          // Check if the current post is liked by the user
+          if (likedPostIds.includes(post._id)) {
+            post.likedByUser = true;
+          } else {
+            post.likedByUser = false;
+          }
+        });
+        // Update the count of liked posts for the user
+        user.likedPostsCount = likedPostIds.length;
+        return user;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -31,15 +59,26 @@ const resolvers = {
       return await Post.find({}).populate({
         path: "author",
         model: "User",
-        select: "username profilePhoto"
+        select: "username profilePhoto",
       });
     },
   },
   Mutation: {
     // addUser
     addUser: async (parent, { username, email, password, profilePhoto }) => {
-      console.log("back end response: ", username, email, password, profilePhoto);
-      const user = await User.create({ username, email, password, profilePhoto });
+      console.log(
+        "back end response: ",
+        username,
+        email,
+        password,
+        profilePhoto
+      );
+      const user = await User.create({
+        username,
+        email,
+        password,
+        profilePhoto,
+      });
       const token = signToken(user);
       return { token, user };
     },
@@ -205,11 +244,85 @@ const resolvers = {
 
           return user;
         } else {
-          throw new AuthenticationError('You need to be logged in!');
+          throw new AuthenticationError("You need to be logged in!");
         }
       } catch (err) {
         console.error(err);
-        throw new ApolloError('Failed to edit profile photo.');
+        throw new ApolloError("Failed to edit profile photo.");
+      }
+    },
+
+    // Add a comment to a post
+    // addComment: async (parent, { postId, text }, context) => {
+    //   try {
+    //     if (context.user) {
+    //       // Find the post by ID
+    //       const post = await Post.findById(postId);
+
+    //       if (!post) {
+    //         throw new ApolloError("Post not found");
+    //       }
+
+    //       // Create a new comment
+    //       const comment = {
+    //         text,
+    //         author: context.user._id,
+    //         post: post._id,
+    //       };
+
+    //       // Add the comment to the post's comments array
+    //       post.comments.push(comment);
+    //       await post.save();
+    //        // Populate the comment's author field
+    //       await comment.populate("author").execPopulate()
+    //       // Return the populated comment
+    //       return comment;
+    //     } else {
+    //       throw new AuthenticationError("You need to be logged in!");
+    //     }
+    //   } catch (err) {
+    //     console.error(err);
+    //     throw new ApolloError("Failed to add a comment.");
+    //   }
+    // },
+
+    // Add a like to a post
+    addLike: async (parent, { postId }, context) => {
+      try {
+        if (context.user) {
+          // Find the post by ID
+          const post = await Post.findById(postId);
+
+          if (!post) {
+            throw new ApolloError("Post not found");
+          }
+
+          // Check if the user has already liked the post
+          if (post.likes.includes(context.user._id)) {
+            throw new ApolloError("You have already liked this post");
+          }
+
+          // Add the user's ID to the post's likes array
+          post.likes.push(context.user._id);
+          await post.save();
+
+          // Update the likedPosts array for the user
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $addToSet: { likedPosts: post._id } }
+          );
+
+          // Populate the author field of the post before returning it
+          const populatedPost = await post.populate("author").execPopulate();
+
+          // Return the updated post with the new like count
+          return populatedPost;
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.error(err);
+        throw new ApolloError("Failed to add a like.");
       }
     },
   },

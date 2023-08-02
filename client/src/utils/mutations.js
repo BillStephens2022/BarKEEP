@@ -104,4 +104,29 @@ export const EDIT_PROFILE_PHOTO = gql`
   }
 `;
 
+export const ADD_LIKE = gql`
+  mutation AddLike($postId: ID!) {
+    addLike(postId: $postId) {
+      _id
+      postTitle
+      author {
+        _id
+        username
+      }
+    }
+  }
+`;
+
+// export const ADD_COMMENT = gql`
+//   mutation AddComment($postId: ID!, $text: String!) {
+//     addComment(postId: $postId, text: $text) {
+//       _id
+//       text
+//       author {
+//         _id
+//         username
+//       }
+//     }
+//   }
+// `;
 

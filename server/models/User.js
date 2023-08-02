@@ -32,7 +32,25 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'Post'
       }
-    ]
+    ],
+    likedPosts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+      },
+    ],
+    // comments: [
+    //   {
+    //     text: {
+    //       type: String,
+    //       required: true,
+    //     },
+    //     post: {
+    //       type: Schema.Types.ObjectId,
+    //       ref: 'Post',
+    //     },
+    //   },
+    // ],
   },
   // set this to use virtual below
   {

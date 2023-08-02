@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
@@ -8,15 +8,20 @@ const typeDefs = gql`
     profilePhoto: String
     cocktails: [Cocktail]
     posts: [Post]
+    likedPosts: [Post]
+    
   }
+
   type Ingredient {
     name: String!
     quantity: String!
   }
+
   input IngredientInput {
     name: String!
     quantity: String!
   }
+
   type Cocktail {
     _id: ID!
     name: String!
@@ -26,6 +31,8 @@ const typeDefs = gql`
     instructions: String!
     tags: [String!]!
   }
+
+
   type Post {
     _id: ID!
     postTitle: String!
@@ -33,27 +40,37 @@ const typeDefs = gql`
     postImageURL: String
     postDate: String
     author: User
+    likes: [User]
+    
   }
+
   type Auth {
     token: ID
     user: User
   }
+
   type Query {
     me: User
     cocktails: [Cocktail]
     posts: [Post]
   }
+
   type Mutation {
-    addUser(username: String, email: String, password: String, profilePhoto: String): Auth
+    addUser(
+      username: String
+      email: String
+      password: String
+      profilePhoto: String
+    ): Auth
     login(email: String, password: String): Auth
     addCocktail(
-      name: String!, 
-      ingredients: [IngredientInput!]!,
+      name: String!
+      ingredients: [IngredientInput!]!
       imageURL: String!
       glassware: String!
       instructions: String!
       tags: [String!]!
-    ) : Cocktail
+    ): Cocktail
     deleteCocktail(cocktailId: ID!): Cocktail
     editCocktail(
       cocktailId: ID!
@@ -65,14 +82,16 @@ const typeDefs = gql`
       tags: [String!]
     ): Cocktail
     addPost(
-      postTitle: String!, 
-      postContent: String!,
-      postImageURL: String,
-      postDate: String,
+      postTitle: String!
+      postContent: String!
+      postImageURL: String
+      postDate: String
       author: ID!
-    ) : Post
+    ): Post
     deletePost(postId: ID!): Post
     editProfilePhoto(profilePhoto: String!): User
+    addLike(postId: ID!): Post
+    
   }
 `;
 

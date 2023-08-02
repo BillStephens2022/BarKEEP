@@ -13,7 +13,7 @@ import "../styles/CocktailForm.css";
 // 'Feed' page shows all users' posts by default.  User can click on 'My Posts' to only
 // show the current logged in user's posts.  Clicking on 'Create a New Post' will bring
 // up a modal for the PostForm which will allow a user to create a post.
-const Feed = ({ posts, setPosts }) => {
+const Feed = () => {
   const [showPostForm, setShowPostForm] = useState(false);
   const [postFormState, setPostFormState] = useState({
     postTitle: "",
@@ -34,7 +34,7 @@ const Feed = ({ posts, setPosts }) => {
 
   const { me } = userData || {};
   const { posts: userPosts = [] } = me || {};
-
+  
   const [filteredPosts, setFilteredPosts] = useState(postsData?.posts || []);
 
   const [addPost] = useMutation(ADD_POST, {
@@ -80,6 +80,7 @@ const Feed = ({ posts, setPosts }) => {
       postTitle: postFormState.postTitle || undefined,
       postContent: postFormState.postContent || undefined,
       postImageURL: postFormState.postImageURL || undefined,
+      likes: [],
     },
   });
 
@@ -139,12 +140,28 @@ const Feed = ({ posts, setPosts }) => {
       setFilteredPosts(sortedPosts);
     }
   }, [postsData, isMyPosts, userPosts]);
+  
+  useEffect(() => {
+    if (filteredPosts.length > 0) {
+      // Create a new array to hold the sorted posts
+      const sortedPostsArray = [...filteredPosts];
+      sortedPostsArray.sort((a, b) => {
+        const dateA = parseInt(a.postDate);
+        const dateB = parseInt(b.postDate);
+        return dateB - dateA;
+      });
+      setFilteredPosts(sortedPostsArray);
+    }
+  }, [isMyPosts]);
+  
 
   // Function to handle the "All Posts" button click
   const handleAllPostsClick = () => {
     setIsAllPosts(true);
     setIsMyPosts(false);
-    setFilteredPosts(postsData?.posts ? [...postsData.posts] : []);
+    if (postsData?.posts) {
+      setFilteredPosts([...postsData.posts]);
+    }
   };
 
   // Function to handle the "My Posts" button click
@@ -159,7 +176,7 @@ const Feed = ({ posts, setPosts }) => {
   }
 
   const currentUser = userData?.me?._id;
-  
+
   return (
     <div className="feed">
       <div className="feed-headings">

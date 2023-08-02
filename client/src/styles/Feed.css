@@ -229,13 +229,46 @@
 
 .post-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+
+}
+.div-delete-button {
+  display: flex;
 }
 
 .btn-post-delete {
   background-color: transparent;
   font-size: 1.5rem;
 }
+
+.post-comment-like {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+}
+
+.btn-post-comment, .btn-post-like {
+  background-color: transparent;
+  font-size: 1.5rem;
+  margin-right: 0;
+  padding-right: 0.25rem;
+}
+
+#post-comment-count, #post-like-count {
+  align-self: center;
+  margin-bottom: 0;
+  color: var(--white);
+}
+
+.like-icon-solid {
+  color: var(--blue);
+}
+
+#post-like-count {
+  margin-right: 0.5rem;
+}
+
+
 
 .see-more-container {
   display: flex;
