@@ -140,18 +140,20 @@ const Feed = () => {
       setFilteredPosts(sortedPosts);
     }
   }, [postsData, isMyPosts, userPosts]);
-
+  
   useEffect(() => {
     if (filteredPosts.length > 0) {
-      // Sort the filteredPosts array directly based on the postDate
-      filteredPosts.sort((a, b) => {
+      // Create a new array to hold the sorted posts
+      const sortedPostsArray = [...filteredPosts];
+      sortedPostsArray.sort((a, b) => {
         const dateA = parseInt(a.postDate);
         const dateB = parseInt(b.postDate);
         return dateB - dateA;
       });
-      setFilteredPosts([...filteredPosts]);
+      setFilteredPosts(sortedPostsArray);
     }
   }, [isMyPosts]);
+  
 
   // Function to handle the "All Posts" button click
   const handleAllPostsClick = () => {

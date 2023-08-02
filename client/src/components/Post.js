@@ -135,7 +135,18 @@ const Post = ({
             </div>
 
             <div className="post-footer">
-              {!isMyPosts && (
+            {isMyPosts && isMyPost && (
+              <div className="div-delete-button">
+                <button
+                  className="btn btn-post-delete"
+                  id={post._id}
+                  onClick={() => handleDeletePost(post._id)}
+                >
+                  <GoTrash />
+                </button>
+                </div>
+              )}
+              
                 <div className="post-comment-like">
                   <button
                     className="btn btn-post-comment"
@@ -155,19 +166,11 @@ const Post = ({
                   >
                     {isPostLikedByUser ? <BiSolidLike className="like-icon-solid"/> : <BiLike />}
                   </button>
-                  <h6 id="post-like-count">{post.likes.length}</h6>
+                  <h6 id="post-like-count">{post.likes?.length}</h6>
                 </div>
-              )}
+              
 
-              {isMyPosts && isMyPost && (
-                <button
-                  className="btn btn-post-delete"
-                  id={post._id}
-                  onClick={() => handleDeletePost(post._id)}
-                >
-                  <GoTrash />
-                </button>
-              )}
+             
             </div>
           </div>
         );
