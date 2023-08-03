@@ -58,7 +58,7 @@ const Post = ({
             },
           },
         });
-        
+
         const updatedPostIndex = updatedPosts.findIndex(
           (post) => post._id === addLike.post._id
         );
@@ -135,42 +135,51 @@ const Post = ({
             </div>
 
             <div className="post-footer">
-            {isMyPosts && isMyPost && (
-              <div className="div-delete-button">
-                <button
-                  className="btn btn-post-delete"
-                  id={post._id}
-                  onClick={() => handleDeletePost(post._id)}
-                >
-                  <GoTrash />
-                </button>
+              {isMyPosts && isMyPost && (
+                <div className="div-delete-button">
+                  <button
+                    className="btn btn-post-delete"
+                    id={post._id}
+                    onClick={() => handleDeletePost(post._id)}
+                  >
+                    <GoTrash />
+                  </button>
                 </div>
               )}
-              
-                <div className="post-comment-like">
-                  <button
-                    className="btn btn-post-comment"
-                    id={`post-comment-${post._id}`}
-                  >
-                    <BiComment />
-                  </button>
-                  <h6 id="post-comment-count">12</h6>
-                  <button
-                    className="btn btn-post-like"
-                    id={`post-like-${post._id}`}
-                    onClick={() => {
-                      addLike({
-                        variables: { postId: post._id },
-                      });
-                    }}
-                  >
-                    {isPostLikedByUser ? <BiSolidLike className="like-icon-solid"/> : <BiLike />}
-                  </button>
-                  <h6 id="post-like-count">{post.likes?.length}</h6>
-                </div>
-              
 
-             
+              <div className="post-comment-like">
+                <button
+                  className="btn btn-post-comment"
+                  id={`post-comment-${post._id}`}
+                >
+                  <BiComment />
+                </button>
+                <h6 id="post-comment-count">12</h6>
+                <button
+                  className="btn btn-post-like"
+                  id={`post-like-${post._id}`}
+                  onClick={() => {
+                    addLike({
+                      variables: { postId: post._id },
+                    });
+                  }}
+                >
+                  {isPostLikedByUser ? (
+                    <BiSolidLike className="like-icon-solid" />
+                  ) : (
+                    <BiLike />
+                  )}
+                </button>
+                <h6 id="post-like-count">
+                  {isPostLikedByUser
+                    ? post.likes.length === 2
+                      ? `You and 1 other liked this post`
+                      : `You and ${
+                          post.likes.length - 1
+                        } others liked this post`
+                    : post.likes?.length }                
+                </h6>
+              </div>
             </div>
           </div>
         );
