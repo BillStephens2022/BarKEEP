@@ -94,3 +94,20 @@ export const GET_POST_LIKES_USERS = gql`
     }
   }
 `;
+
+export const GET_SINGLE_POST = gql`
+  query GetSinglePost($postId: ID!) {
+    getSinglePost(postId: $postId) {
+      postTitle
+      postContent
+      postImageURL
+      postDate
+      _id
+      author {
+        _id
+        username
+        profilePhoto
+      }
+    }
+  }
+`;

@@ -57,7 +57,6 @@ const client = new ApolloClient({
 
 function App() {
   const [cocktails, setCocktails] = useState([]);
-  const [posts, setPosts] = useState([]);
   
   return (
     <ApolloProvider client={client}>
@@ -69,7 +68,7 @@ function App() {
             <Route
               path="/Feed"
               element={
-                <Feed posts={posts} setPosts={setPosts} />
+                <Feed client={client}/>
               }
             />
             <Route

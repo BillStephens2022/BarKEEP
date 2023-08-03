@@ -54,6 +54,7 @@ const typeDefs = gql`
     cocktails: [Cocktail]
     posts: [Post]
     postLikesUsers(postId: ID!): [User]
+    getSinglePost(postId: ID!): Post
   }
 
   type Mutation {
