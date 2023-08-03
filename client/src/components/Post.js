@@ -25,9 +25,9 @@ const Post = ({
   const [updatedPosts, setUpdatedPosts] = useState(posts);
   const [showLikesModal, setShowLikesModal] = useState(false); // State to manage modal visibility
   const [selectedPostId, setSelectedPostId] = useState(null); // State to store selected post id for the modal
-  console.log("SELECTED POST ID: ", selectedPostId);
+  
   // Separate loading state for liked users query
-  const [likedUsersLoading, setLikedUsersLoading] = useState(false);
+  // const [likedUsersLoading, setLikedUsersLoading] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
 
   const [addLike] = useMutation(ADD_LIKE, {
