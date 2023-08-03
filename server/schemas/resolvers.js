@@ -296,21 +296,28 @@ const resolvers = {
           if (!post) {
             throw new ApolloError("Post not found");
           }
-
           // Check if the user has already liked the post
-          if (post.likes.includes(context.user._id)) {
-            throw new ApolloError("You have already liked this post");
+          const userHasLiked = post.likes.includes(context.user._id);
+          if (userHasLiked) {
+            // If the user has already liked the post, remove their like
+            post.likes.pull(context.user._id);
+            // Remove the post from the user's likedPosts array
+            await User.findOneAndUpdate(
+              { _id: context.user._id },
+              { $pull: { likedPosts: post._id } }
+            );
+          } else {
+            // If the user has not liked the post, add their like
+            post.likes.push(context.user._id);
+
+            // Update the likedPosts array for the user
+            await User.findOneAndUpdate(
+              { _id: context.user._id },
+              { $addToSet: { likedPosts: post._id } }
+            );
           }
 
-          // Add the user's ID to the post's likes array
-          post.likes.push(context.user._id);
           await post.save();
-
-          // Update the likedPosts array for the user
-          await User.findOneAndUpdate(
-            { _id: context.user._id },
-            { $addToSet: { likedPosts: post._id } }
-          );
 
           // Populate the author field of the post before returning it
           const populatedPost = await post.populate("author").execPopulate();
