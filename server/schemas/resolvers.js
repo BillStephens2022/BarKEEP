@@ -62,7 +62,56 @@ const resolvers = {
         select: "username profilePhoto",
       });
     },
+    postLikesUsers: async (parent, { postId }, context) => {
+      try {
+        if (context.user) {
+          // Find the post by ID and populate the likes field
+          const post = await Post.findById(postId).populate("likes");
+
+          if (!post) {
+            throw new ApolloError("Post not found");
+          }
+
+          console.log("*****Post************: ", post);
+
+          // Extract and return the users who liked the post
+          const likedUsers = post.likes;
+          console.log("likedUsers",likedUsers);
+          return likedUsers;
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.error(err);
+        throw new ApolloError("Failed to fetch liked users.");
+      }
+    },
+    getSinglePost: async (parent, { postId }, context) => {
+      try {
+        if (context.user) {
+          // Find the post by ID and populate the likes field
+          console.log("postId passed to resolver: ", postId)
+          const post = await Post.findById(postId).populate("author");
+
+          if (!post) {
+            throw new ApolloError("Post not found");
+          }
+
+          console.log("*****Post************: ", post);
+
+          // Extract and return the users who liked the post
+          
+          return post;
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.error(err);
+        throw new ApolloError("Failed to fetch post.");
+      }
+    },
   },
+
   Mutation: {
     // addUser
     addUser: async (parent, { username, email, password, profilePhoto }) => {

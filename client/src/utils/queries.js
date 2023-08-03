@@ -84,3 +84,30 @@ export const QUERY_POSTS = gql`
     }
   }
 `;
+
+export const GET_POST_LIKES_USERS = gql`
+  query PostLikesUsers($postId: ID!) {
+    postLikesUsers(postId: $postId) {
+      _id
+      username
+      profilePhoto
+    }
+  }
+`;
+
+export const GET_SINGLE_POST = gql`
+  query GetSinglePost($postId: ID!) {
+    getSinglePost(postId: $postId) {
+      postTitle
+      postContent
+      postImageURL
+      postDate
+      _id
+      author {
+        _id
+        username
+        profilePhoto
+      }
+    }
+  }
+`;

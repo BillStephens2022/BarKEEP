@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { GoTrash } from "react-icons/go";
 import { BiLike, BiComment, BiSolidLike } from "react-icons/bi";
 import { useMutation, useQuery } from "@apollo/client";
-import { QUERY_ME, QUERY_POSTS } from "../utils/queries";
+import { QUERY_ME, QUERY_POSTS, GET_POST_LIKES_USERS } from "../utils/queries";
 import { ADD_LIKE } from "../utils/mutations";
 import { Auth } from "../utils/auth";
 import { formatElapsedTime } from "../utils/formatting";
 import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
+import PostLikesModal from "./PostLikesModal";
 import "../styles/Feed.css";
 
 const Post = ({
@@ -17,10 +18,17 @@ const Post = ({
   isMyPosts,
   visiblePosts,
   setVisiblePosts,
+  client
 }) => {
   const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
 
   const [updatedPosts, setUpdatedPosts] = useState(posts);
+  const [showLikesModal, setShowLikesModal] = useState(false); // State to manage modal visibility
+  const [selectedPostId, setSelectedPostId] = useState(null); // State to store selected post id for the modal
+  
+  // Separate loading state for liked users query
+  // const [likedUsersLoading, setLikedUsersLoading] = useState(false);
+  const [likedUsers, setLikedUsers] = useState([]);
 
   const [addLike] = useMutation(ADD_LIKE, {
     update(cache, { data: { addLike } }) {
@@ -77,11 +85,27 @@ const Post = ({
   });
 
   useEffect(() => {
+    if (selectedPostId) {
+      // Fetch liked users data when selectedPostId changes
+      fetchLikedUsersData(selectedPostId);
+    }
+  }, [selectedPostId]);
+
+  const fetchLikedUsersData = async (postId) => {
+    try {
+      const { data } = await client.query({
+        query: GET_POST_LIKES_USERS,
+        variables: { postId },
+      });
+      setLikedUsers(data.postLikesUsers);
+    } catch (error) {
+      console.error("Error fetching liked users data:", error);
+    }
+  };
+
+  useEffect(() => {
     setUpdatedPosts(posts);
   }, [posts]);
-
-  console.log("meData:", meData);
-  console.log("likedPosts:", meData?.me?.likedPosts);
 
   if (loading || meLoading) {
     return <div>Loading...</div>;
@@ -95,6 +119,11 @@ const Post = ({
     setVisiblePosts((prevValue) => prevValue + 10);
   };
 
+  const handlePostLikeCountClick = (postId) => {
+    setSelectedPostId(postId);
+    setShowLikesModal(true);
+  };
+
   return (
     <>
       {updatedPosts.map((post) => {
@@ -105,7 +134,6 @@ const Post = ({
           meData?.me?.likedPosts?.some(
             (likedPost) => likedPost._id === post._id
           ) || false;
-        console.log("isPostLikedByUser:", isPostLikedByUser);
         return (
           <div className="post-card" key={post._id}>
             <div className="post-header">
@@ -170,20 +198,30 @@ const Post = ({
                     <BiLike />
                   )}
                 </button>
-                <h6 id="post-like-count">
+                <h6
+                  id="post-like-count"
+                  onClick={() => handlePostLikeCountClick(post._id)}
+                >
                   {isPostLikedByUser
                     ? post.likes.length === 2
                       ? `You and 1 other liked this post`
                       : `You and ${
                           post.likes.length - 1
                         } others liked this post`
-                    : post.likes?.length }                
+                    : post.likes?.length}
                 </h6>
               </div>
             </div>
           </div>
         );
       })}
+
+      {showLikesModal && selectedPostId && (
+        <PostLikesModal
+          postId={selectedPostId}
+          onClose={() => setShowLikesModal(false)} // Close the modal
+        />
+      )}
 
       {visiblePosts <= posts.length && (
         <div className="see-more-container">

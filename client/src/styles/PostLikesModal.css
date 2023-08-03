@@ -1,0 +1,43 @@
+.post-likes-modal {
+    padding: 0.75rem;
+    background-color: var(--darkgray);
+  }
+
+.post-likes-modal-header {
+  background-color: var(--blue);
+}
+
+.post-likes-modal-title {
+  background-color: var(--blue);
+}
+
+.post-likes-modal-btn-close {
+  height: auto;
+  font-size: 0.9rem;
+  background-color: var(--white);
+  color: var(--blue);
+  border: none;
+  box-shadow: 1px 1px 2px var(--darkgray);
+
+}
+
+.post-likes-modal-subtitle {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 1rem;
+}
+
+.post-likes-modal-ul {
+  list-style: none;
+  padding: 1rem;
+}
+
+.post-likes-modal-li {
+  list-style: none;
+  margin: 0.5rem;
+}
+
+.post-likes-modal-footer {
+  background-color: var(--darkgray);
+  color: var(--white);
+}
