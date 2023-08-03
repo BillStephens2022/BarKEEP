@@ -8,6 +8,7 @@ import { Auth } from "../utils/auth";
 import { formatElapsedTime } from "../utils/formatting";
 import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
+import PostLikesModal from "./PostLikesModal";
 import "../styles/Feed.css";
 
 const Post = ({
@@ -21,6 +22,8 @@ const Post = ({
   const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
 
   const [updatedPosts, setUpdatedPosts] = useState(posts);
+  const [showLikesModal, setShowLikesModal] = useState(false); // State to manage modal visibility
+  const [selectedPostId, setSelectedPostId] = useState(null); // State to store selected post id for the modal
 
   const [addLike] = useMutation(ADD_LIKE, {
     update(cache, { data: { addLike } }) {
@@ -170,20 +173,33 @@ const Post = ({
                     <BiLike />
                   )}
                 </button>
-                <h6 id="post-like-count">
+                <h6
+                  id="post-like-count"
+                  onClick={() => {
+                    setSelectedPostId(post._id); // Set the selected post id
+                    setShowLikesModal(true); // Open the modal
+                  }}
+                >
                   {isPostLikedByUser
                     ? post.likes.length === 2
                       ? `You and 1 other liked this post`
                       : `You and ${
                           post.likes.length - 1
                         } others liked this post`
-                    : post.likes?.length }                
+                    : post.likes?.length}
                 </h6>
               </div>
             </div>
           </div>
         );
       })}
+
+      {showLikesModal && selectedPostId && (
+      <PostLikesModal
+        postId={selectedPostId}
+        onClose={() => setShowLikesModal(false)} // Close the modal
+      />
+    )}
 
       {visiblePosts <= posts.length && (
         <div className="see-more-container">

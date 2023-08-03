@@ -62,6 +62,28 @@ const resolvers = {
         select: "username profilePhoto",
       });
     },
+    postLikesUsers: async (parent, { postId }, context) => {
+      try {
+        if (context.user) {
+          // Find the post by ID and populate the likes field
+          const post = await Post.findById(postId).populate("likes");
+
+          if (!post) {
+            throw new ApolloError("Post not found");
+          }
+
+          // Extract and return the users who liked the post
+          const likedUsers = post.likes.map((like) => like.author);
+
+          return likedUsers;
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.error(err);
+        throw new ApolloError("Failed to fetch liked users.");
+      }
+    },
   },
   Mutation: {
     // addUser
