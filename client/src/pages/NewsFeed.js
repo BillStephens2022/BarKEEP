@@ -18,10 +18,6 @@ const NewsFeed = ({ client }) => {
     postImageURL: "",
   });
 
-  // sets state for which view is selected ('All Posts' or 'My Posts')
-  const [isAllPosts, setIsAllPosts] = useState(true);
-  const [isMyPosts, setIsMyPosts] = useState(false);
-
   // state to control how many posts are visible at a time,
   // user will be able to 'see more'
   const [visiblePosts, setVisiblePosts] = useState(10);
@@ -31,7 +27,7 @@ const NewsFeed = ({ client }) => {
 
   const { me } = userData || {};
   const { posts: userPosts = [] } = me || {};
-  
+
   const [filteredPosts, setFilteredPosts] = useState(postsData?.posts || []);
 
   const [addPost] = useMutation(ADD_POST, {
@@ -63,11 +59,7 @@ const NewsFeed = ({ client }) => {
           },
         });
 
-        if (isMyPosts) {
-          setFilteredPosts(updatedUserPosts);
-        } else {
-          setFilteredPosts(updatedPosts);
-        }
+        setFilteredPosts(updatedPosts);
       } catch (e) {
         console.log("error with mutation!");
         console.error(e);
@@ -126,9 +118,7 @@ const NewsFeed = ({ client }) => {
   useEffect(() => {
     if (postsData?.posts) {
       let sortedPosts = [...postsData.posts];
-      if (isMyPosts) {
-        sortedPosts = [...userPosts];
-      }
+
       sortedPosts.sort((a, b) => {
         const dateA = parseInt(a.postDate);
         const dateB = parseInt(b.postDate);
@@ -136,43 +126,18 @@ const NewsFeed = ({ client }) => {
       });
       setFilteredPosts(sortedPosts);
     }
-  }, [postsData, isMyPosts, userPosts]);
-  
-  useEffect(() => {
-    if (filteredPosts.length > 0) {
-      // Create a new array to hold the sorted posts
-      const sortedPostsArray = [...filteredPosts];
-      sortedPostsArray.sort((a, b) => {
-        const dateA = parseInt(a.postDate);
-        const dateB = parseInt(b.postDate);
-        return dateB - dateA;
-      });
-      setFilteredPosts(sortedPostsArray);
-    }
-  }, [isMyPosts]);
-  
-
-  // Function to handle the "All Posts" button click
-  const handleAllPostsClick = () => {
-    setIsAllPosts(true);
-    setIsMyPosts(false);
-    if (postsData?.posts) {
-      setFilteredPosts([...postsData.posts]);
-    }
-  };
-
-  // Function to handle the "My Posts" button click
-  const handleMyPostsClick = () => {
-    setIsAllPosts(false);
-    setIsMyPosts(true);
-    setFilteredPosts(userPosts);
-  };
+  }, [postsData, userPosts]);
 
   if (userLoading || postsLoading) {
     return <div>Loading...</div>;
   }
 
   const currentUser = userData?.me?._id;
+  
+  // isMyPosts is passed as a prop in the 'Post' component. 
+  // isMyPosts=true is used in the "Profile" page where user only sees 
+  // their own posts with delete button. Used for conditional rendering.
+  const isMyPosts = false;  
 
   return (
     <div className="feed">
@@ -192,20 +157,7 @@ const NewsFeed = ({ client }) => {
         </div>
         <h1 className="feed-title">BarKEEP</h1>
         <h2 className="feed-subtitle">Cocktail Posts</h2>
-        <div className="view-buttons">
-          <button
-            className={`btn btn-view ${isAllPosts ? "active" : ""}`}
-            onClick={handleAllPostsClick}
-          >
-            All Posts
-          </button>
-          <button
-            className={`btn btn-view ${isMyPosts ? "active" : ""}`}
-            onClick={handleMyPostsClick}
-          >
-            My Posts
-          </button>
-        </div>
+
         <button
           className="btn btn-add-post"
           onClick={() => {
