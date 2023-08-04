@@ -131,6 +131,14 @@ export const GET_SINGLE_POST = gql`
         username
         profilePhoto
       }
+      comments {
+        author {
+          _id
+          username
+          profilePhoto
+        }
+        text
+      }
     }
   }
 `;

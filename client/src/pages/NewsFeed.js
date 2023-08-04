@@ -138,7 +138,7 @@ const NewsFeed = ({ client }) => {
   // isMyPosts=true is used in the "Profile" page where user only sees 
   // their own posts with delete button. Used for conditional rendering.
   const isMyPosts = false;  
-  
+ 
   return (
     <div className="feed">
       <div className="feed-headings">
@@ -146,14 +146,14 @@ const NewsFeed = ({ client }) => {
           <div className="user-profile">
             <ProfilePhoto
               imageUrl={
-                me.profilePhoto
-                  ? me.profilePhoto
+                me?.profilePhoto
+                  ? me?.profilePhoto
                   : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
               }
               size={64}
             />
           </div>
-          <h3 className="feed-username">{me.username}</h3>
+          <h3 className="feed-username">{me?.username}</h3>
         </div>
         <h1 className="feed-title">BarKEEP</h1>
         <h2 className="feed-subtitle">Cocktail Posts</h2>
