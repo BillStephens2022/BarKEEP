@@ -257,7 +257,6 @@ const MyFavorites = () => {
   }, [data, refetch, cocktails, setCocktails]);
 
   useEffect(() => {
-    console.log("uploaded profile photo url: ", uploadedProfilePhotoUrl);
     handleProfilePhotoUpdate(uploadedProfilePhotoUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedProfilePhotoUrl]);
