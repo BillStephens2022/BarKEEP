@@ -9,6 +9,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 import Feed from "./pages/Feed";
 import Favorites from "./pages/Favorites";
 import SearchCocktails from "./pages/SearchCocktails";
@@ -56,8 +57,6 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const [cocktails, setCocktails] = useState([]);
-  
   return (
     <ApolloProvider client={client}>
       <Router basename={process.env.PUBLIC_URL}>
@@ -65,18 +64,9 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/Feed"
-              element={
-                <Feed client={client}/>
-              }
-            />
-            <Route
-              path="/Favorites"
-              element={
-                <Favorites cocktails={cocktails} setCocktails={setCocktails} />
-              }
-            />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/feed" element={<Feed client={client} />} />
+            <Route path="/favorites" element={<Favorites />} />
             <Route path="/searchCocktails" element={<SearchCocktails />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/login" element={<Login />} />

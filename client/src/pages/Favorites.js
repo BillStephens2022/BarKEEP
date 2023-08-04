@@ -19,7 +19,8 @@ import CocktailForm from "../components/CocktailForm";
 import ProfilePhoto from "../components/ProfilePhoto";
 import "../styles/Favorites.css";
 
-const Favorites = ({ cocktails, setCocktails }) => {
+const Favorites = () => {
+  const [cocktails, setCocktails] = useState([]);
   const [showCocktailForm, setShowCocktailForm] = useState(false);
   const [selectedCocktail, setSelectedCocktail] = useState(null);
   const [cocktailFormState, setCocktailFormState] = useState({

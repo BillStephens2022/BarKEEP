@@ -48,6 +48,16 @@ const Navbar = () => {
           </li>
           {Auth.loggedIn() ? (
             <>
+            <li
+                className={`navigation_item ${
+                  activeNavItem === "profile" ? "navigation_item--active" : ""
+                }`}
+                onClick={() => handleNavItemClick("profile")}
+              >
+                <Link to="/profile" className="navigation_link">
+                  Profile
+                </Link>
+              </li>
               <li
                 className={`navigation_item ${
                   activeNavItem === "feed" ? "navigation_item--active" : ""
