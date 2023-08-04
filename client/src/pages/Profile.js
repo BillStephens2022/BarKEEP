@@ -6,10 +6,9 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { QUERY_ME } from "../utils/queries";
 import { EDIT_PROFILE_PHOTO, DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
-import Post from "../components/Post";
 import ProfilePhoto from "../components/ProfilePhoto";
-import MyPosts from "./MyPosts";
-import Favorites from "./Favorites";
+import MyPosts from "../components/MyPosts";
+import MyFavorites from "../components/MyFavorites";
 import UploadWidget from "../components/UploadWidget";
 import "../styles/Profile.css";
 
@@ -113,7 +112,7 @@ const Profile = () => {
           <button className="btn btn-favorites" onClick={() => setView("favorites")}>Favorite Recipes</button>
         </div>
       </div>
-      {view === "myPosts" ? <MyPosts /> : <Favorites />}
+      {view === "myPosts" ? <MyPosts /> : <MyFavorites />}
      
     </div>
   );

@@ -4,8 +4,8 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 import { DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
-import Post from "../components/Post";
-import ProfilePhoto from "../components/ProfilePhoto";
+import Post from "./Post";
+import ProfilePhoto from "./ProfilePhoto";
 import "../styles/Profile.css";
 
 
