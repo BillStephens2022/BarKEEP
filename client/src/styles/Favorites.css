@@ -1,4 +1,8 @@
 /* Favorites Page */
+.favorites {
+  padding-top: 1.5rem;
+  background-color: var(--lightgray);
+}
 
 .favorites-headings {
   padding: 1rem;
@@ -47,6 +51,7 @@
 .size-64 {
   margin-left: 0;
 }
+
 
 @media (max-width: 900px) {
   .user-heading {
@@ -108,7 +113,8 @@
 
 .add-cocktail-button:hover,
 .search-cocktail-button:hover {
-  background-color: var(--yellow);
+  background-color: var(--darkgray);
+  color: var(--white);
 }
 
 
@@ -123,6 +129,6 @@
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   justify-content: center;
 }

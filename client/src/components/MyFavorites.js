@@ -9,14 +9,9 @@ import {
 } from "../utils/mutations";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
-import { GoPencil } from "react-icons/go";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
 import { Auth } from "../utils/auth";
-import UploadWidget from "./UploadWidget";
 import CocktailCard from "./CocktailCard";
 import CocktailForm from "./CocktailForm";
-import ProfilePhoto from "./ProfilePhoto";
 import "../styles/Favorites.css";
 
 const MyFavorites = () => {
@@ -277,7 +272,7 @@ const MyFavorites = () => {
 
   return (
     <div className="favorites">
-      <div className="favorites-headings">
+      
         
         
         <div className="favorites-buttons-div">
@@ -329,7 +324,7 @@ const MyFavorites = () => {
             </div>
           </div>
         )}
-      </div>
+      
       <div className="card-container">
         <CocktailCard
           loading={loading}

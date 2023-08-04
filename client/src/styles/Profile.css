@@ -101,6 +101,11 @@
     background-color: var(--maroon);
     color: var(--white);
   }
+
+  .profile-button-div h3 {
+    color: white;
+    font-size: 1.25rem;
+  }
   
   .btn-add-post {
     width: 15rem;

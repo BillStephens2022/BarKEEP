@@ -8,22 +8,17 @@ import Post from "./Post";
 import ProfilePhoto from "./ProfilePhoto";
 import "../styles/Profile.css";
 
-
 const MyPosts = ({ client }) => {
-
   // state to control how many posts are visible at a time,
   // user will be able to 'see more'
   const [visiblePosts, setVisiblePosts] = useState(10);
 
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
-  
 
   const { me } = userData || {};
   console.log(me);
   const { posts } = me || {};
- 
-  
-  
+
   const [filteredPosts, setFilteredPosts] = useState(posts || []);
 
   // useMutation hook to delete a post
@@ -71,7 +66,7 @@ const MyPosts = ({ client }) => {
   useEffect(() => {
     if (posts) {
       let sortedPosts = [...posts];
- 
+
       sortedPosts.sort((a, b) => {
         const dateA = parseInt(a.postDate);
         const dateB = parseInt(b.postDate);
@@ -80,7 +75,6 @@ const MyPosts = ({ client }) => {
       setFilteredPosts(sortedPosts);
     }
   }, [posts]);
-  
 
   if (userLoading) {
     return <div>Loading...</div>;
@@ -90,25 +84,22 @@ const MyPosts = ({ client }) => {
   console.log(posts);
 
   return (
-    <div className="profile">
-      
-      <div className="posts-container">
-        {filteredPosts.length > 0 ? (
-          <Post
-            data={userData}
-            loading={userLoading}
-            posts={filteredPosts.slice(0, visiblePosts)}
-            handleDeletePost={handleDeletePost}
-            page="Profile"
-            visiblePosts={visiblePosts}
-            setVisiblePosts={setVisiblePosts}
-            client={client}
-            isMyPosts={isMyPosts}
-          />
-        ) : (
-          <h3 className="posts-error">No posts to display yet</h3>
-        )}
-      </div>
+    <div className="posts-container">
+      {filteredPosts.length > 0 ? (
+        <Post
+          data={userData}
+          loading={userLoading}
+          posts={filteredPosts.slice(0, visiblePosts)}
+          handleDeletePost={handleDeletePost}
+          page="Profile"
+          visiblePosts={visiblePosts}
+          setVisiblePosts={setVisiblePosts}
+          client={client}
+          isMyPosts={isMyPosts}
+        />
+      ) : (
+        <h3 className="posts-error">No posts to display yet</h3>
+      )}
     </div>
   );
 };

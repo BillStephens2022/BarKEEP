@@ -14,7 +14,7 @@ import "../styles/Profile.css";
 
 const Profile = () => {
   // State to manage view - see My Posts or My Favorite Recipes
-  const [view, setView] = useState("myPosts");
+  const [view, setView] = useState("myFavorites");
 
   // State to manage profile photo editing
   const [editingProfilePhoto, setEditingProfilePhoto] = useState(false);
@@ -108,8 +108,9 @@ const Profile = () => {
         </div>
         <h1 className="favorites-title">BarKEEP</h1>
         <div className="profile-button-div">
-          <button className="btn btn-my-posts" onClick={() => setView("myPosts")}>My Posts</button>
-          <button className="btn btn-favorites" onClick={() => setView("favorites")}>Favorite Recipes</button>
+          <h3>View:</h3>
+          <button className={`btn btn-view btn-my-favorites ${view === "myFavorites" ? "active" : ""}`} onClick={() => setView("myFavorites")}>Favorite Recipes</button>
+          <button className={`btn btn-view btn-my-posts ${view === "myPosts" ? "active" : ""}`} onClick={() => setView("myPosts")}>My Posts</button>
         </div>
       </div>
       {view === "myPosts" ? <MyPosts /> : <MyFavorites />}

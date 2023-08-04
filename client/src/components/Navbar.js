@@ -60,6 +60,16 @@ const Navbar = () => {
               </li>
               <li
                 className={`navigation_item ${
+                  activeNavItem === "newsfeed" ? "navigation_item--active" : ""
+                }`}
+                onClick={() => handleNavItemClick("newsfeed")}
+              >
+                <Link to="/newsfeed" className="navigation_link">
+                  Newsfeed
+                </Link>
+              </li>
+              {/* <li
+                className={`navigation_item ${
                   activeNavItem === "feed" ? "navigation_item--active" : ""
                 }`}
                 onClick={() => handleNavItemClick("feed")}
@@ -67,8 +77,8 @@ const Navbar = () => {
                 <Link to="/feed" className="navigation_link">
                   Feed
                 </Link>
-              </li>
-              <li
+              </li> */}
+              {/* <li
                 className={`navigation_item ${
                   activeNavItem === "favorites" ? "navigation_item--active" : ""
                 }`}
@@ -77,7 +87,7 @@ const Navbar = () => {
                 <Link to="/favorites" className="navigation_link">
                   Favorites
                 </Link>
-              </li>
+              </li> */}
               <li
                 className={`navigation_item ${
                   activeNavItem === "search" ? "navigation_item--active" : ""
