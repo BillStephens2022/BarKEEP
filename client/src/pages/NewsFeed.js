@@ -133,12 +133,12 @@ const NewsFeed = ({ client }) => {
   }
 
   const currentUser = userData?.me?._id;
-  
+
   // isMyPosts is passed as a prop in the 'Post' component. 
   // isMyPosts=true is used in the "Profile" page where user only sees 
   // their own posts with delete button. Used for conditional rendering.
   const isMyPosts = false;  
-
+  
   return (
     <div className="feed">
       <div className="feed-headings">

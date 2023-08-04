@@ -33,6 +33,15 @@ export const QUERY_ME = gql`
           username
           profilePhoto
         }
+        comments {
+          _id
+          text
+          author {
+            _id
+            username
+            profilePhoto
+          }
+        }
       }
       likedPosts {
         _id
@@ -85,6 +94,15 @@ export const QUERY_POSTS = gql`
       postDate
       likes {
         _id
+      }
+      comments {
+        _id
+        text
+        author {
+          _id
+          username
+          profilePhoto
+        }
       }
     }
   }
