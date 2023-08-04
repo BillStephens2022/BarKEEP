@@ -17,7 +17,7 @@ const resolvers = {
             path: "posts",
             model: "Post",
             populate: {
-              path: "author",
+              path: "author likes",
               model: "User",
             },
           })

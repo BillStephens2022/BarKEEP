@@ -1,185 +1,81 @@
 import React, { useState, useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
-import { ADD_POST, DELETE_POST } from "../utils/mutations";
+import { GoPencil } from "react-icons/go";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { QUERY_ME } from "../utils/queries";
+import { EDIT_PROFILE_PHOTO, DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
-import PostForm from "../components/PostForm";
 import Post from "../components/Post";
 import ProfilePhoto from "../components/ProfilePhoto";
-import "../styles/Feed.css";
-import "../styles/CocktailForm.css";
+import MyPosts from "./MyPosts";
+import Favorites from "./Favorites";
+import UploadWidget from "../components/UploadWidget";
+import "../styles/Profile.css";
 
-// 'Feed' page shows all users' posts by default.  User can click on 'My Posts' to only
-// show the current logged in user's posts.  Clicking on 'Create a New Post' will bring
-// up a modal for the PostForm which will allow a user to create a post.
-const Profile = ({ client }) => {
-  const [showPostForm, setShowPostForm] = useState(false);
-  const [postFormState, setPostFormState] = useState({
-    postTitle: "",
-    postContent: "",
-    postImageURL: "",
-  });
+const Profile = () => {
+  // State to manage view - see My Posts or My Favorite Recipes
+  const [view, setView] = useState("myPosts");
 
-  // sets state for which view is selected ('All Posts' or 'My Posts')
-  const [isAllPosts, setIsAllPosts] = useState(true);
-  const [isMyPosts, setIsMyPosts] = useState(false);
-
-  // state to control how many posts are visible at a time,
-  // user will be able to 'see more'
-  const [visiblePosts, setVisiblePosts] = useState(10);
+  // State to manage profile photo editing
+  const [editingProfilePhoto, setEditingProfilePhoto] = useState(false);
+  const [uploadedProfilePhotoUrl, setUploadedProfilePhotoUrl] = useState(null);
 
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
-  const { loading: postsLoading, data: postsData } = useQuery(QUERY_POSTS);
-
   const { me } = userData || {};
-  const { posts: userPosts = [] } = me || {};
-  
-  const [filteredPosts, setFilteredPosts] = useState(postsData?.posts || []);
 
-  const [addPost] = useMutation(ADD_POST, {
-    update(cache, { data: { addPost } }) {
+  const [editProfilePhoto] = useMutation(EDIT_PROFILE_PHOTO, {
+    onCompleted(data) {
+      console.log("Profile photo updated:", data);
+    },
+    onError(error) {
+      console.error("Profile photo update failed:", error);
+    },
+  });
+
+  const handleSuccessfulUpload = (result) => {
+    // When the upload is successful, Cloudinary returns the secure_url in the result
+    if (result && result.info.secure_url) {
+      const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
+      console.log("converted URL: ", convertedUrl);
+      setUploadedProfilePhotoUrl(convertedUrl);
+      console.log("uploaded profile photo url: ", uploadedProfilePhotoUrl);
+      handleProfilePhotoUpdate(uploadedProfilePhotoUrl);
+    }
+  };
+
+  // Function to handle the profile photo update
+  const handleProfilePhotoUpdate = async (uploadedProfilePhotoUrl) => {
+    // Call the mutation to update the profile photo with the new secure_url
+    if (uploadedProfilePhotoUrl) {
       try {
-        const { posts } = cache.readQuery({
-          query: QUERY_POSTS,
-        }) ?? { posts: [] };
-
-        const updatedPosts = [addPost, ...posts];
-
-        cache.writeQuery({
-          query: QUERY_POSTS,
-          data: { posts: updatedPosts },
-        });
-
-        const { me } = cache.readQuery({ query: QUERY_ME });
-
-        // Update the user's posts array with the new post
-        const updatedUserPosts = [addPost, ...me.posts];
-
-        cache.writeQuery({
-          query: QUERY_ME,
-          data: {
-            me: {
-              ...me,
-              posts: updatedUserPosts,
-            },
+        editProfilePhoto({
+          variables: {
+            profilePhoto: uploadedProfilePhotoUrl,
           },
         });
 
-        if (isMyPosts) {
-          setFilteredPosts(updatedUserPosts);
-        } else {
-          setFilteredPosts(updatedPosts);
-        }
-      } catch (e) {
-        console.log("error with mutation!");
-        console.error(e);
+        // Reset the uploadedProfilePhotoUrl and toggle editing state
+        setUploadedProfilePhotoUrl(null);
+        toggleEditingProfilePhoto();
+      } catch (error) {
+        console.error("Profile photo update failed:", error);
       }
-    },
-    variables: {
-      postTitle: postFormState.postTitle || undefined,
-      postContent: postFormState.postContent || undefined,
-      postImageURL: postFormState.postImageURL || undefined,
-      likes: [],
-    },
-  });
-
-  // useMutation hook to delete a post
-  const [deletePost] = useMutation(DELETE_POST, {
-    update(cache, { data: { deletePost } }) {
-      // Update the cache by removing the deleted post
-      cache.modify({
-        fields: {
-          posts(existingPosts = [], { readField }) {
-            return existingPosts.filter(
-              (postRef) => deletePost?._id !== readField("_id", postRef)
-            );
-          },
-        },
-      });
-    },
-  });
-
-  // Event handler for clicking on the delete button (i.e. the 'trash can' icon) on the post
-  const handleDeletePost = async (postId) => {
-    // Check if user is logged in
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) return false;
-    // If user is logged in execute the deletePost mutation (which uses useMutation hook
-    // defined in function above)
-    try {
-      await deletePost({
-        variables: { postId },
-        update(cache) {
-          cache.evict({
-            id: cache.identify({ __typename: "Post", _id: postId }),
-          });
-          cache.gc();
-          setFilteredPosts((prevPosts) =>
-            prevPosts.filter((post) => post._id !== postId)
-          );
-        },
-      });
-    } catch (err) {
-      console.error(err);
     }
   };
 
-  // ensures posts get re-sorted after there is a new post
-  useEffect(() => {
-    if (postsData?.posts) {
-      let sortedPosts = [...postsData.posts];
-      if (isMyPosts) {
-        sortedPosts = [...userPosts];
-      }
-      sortedPosts.sort((a, b) => {
-        const dateA = parseInt(a.postDate);
-        const dateB = parseInt(b.postDate);
-        return dateB - dateA;
-      });
-      setFilteredPosts(sortedPosts);
-    }
-  }, [postsData, isMyPosts, userPosts]);
-  
-  useEffect(() => {
-    if (filteredPosts.length > 0) {
-      // Create a new array to hold the sorted posts
-      const sortedPostsArray = [...filteredPosts];
-      sortedPostsArray.sort((a, b) => {
-        const dateA = parseInt(a.postDate);
-        const dateB = parseInt(b.postDate);
-        return dateB - dateA;
-      });
-      setFilteredPosts(sortedPostsArray);
-    }
-  }, [isMyPosts]);
-  
-
-  // Function to handle the "All Posts" button click
-  const handleAllPostsClick = () => {
-    setIsAllPosts(true);
-    setIsMyPosts(false);
-    if (postsData?.posts) {
-      setFilteredPosts([...postsData.posts]);
-    }
+  // Function to toggle the editing state
+  const toggleEditingProfilePhoto = () => {
+    setEditingProfilePhoto((prevState) => !prevState);
   };
 
-  // Function to handle the "My Posts" button click
-  const handleMyPostsClick = () => {
-    setIsAllPosts(false);
-    setIsMyPosts(true);
-    setFilteredPosts(userPosts);
-  };
-
-  if (userLoading || postsLoading) {
+  if (userLoading) {
     return <div>Loading...</div>;
   }
 
-  const currentUser = userData?.me?._id;
-
   return (
-    <div className="feed">
-      <div className="feed-headings">
+    <div className="profile">
+      <div className="profile-headings">
         <div className="user-heading">
           <div className="user-profile">
             <ProfilePhoto
@@ -190,78 +86,35 @@ const Profile = ({ client }) => {
               }
               size={64}
             />
+            {editingProfilePhoto ? (
+              <div className="upload-widget-edit-profile-photo">
+                {/* Conditionally render the UploadWidget when editingProfilePhoto is true */}
+                <UploadWidget onSuccess={handleSuccessfulUpload} />
+              </div>
+            ) : (
+              <OverlayTrigger
+                placement="right"
+                overlay={<Tooltip>Edit Profile Photo</Tooltip>}
+              >
+                <i className="edit-photo-icon">
+                  <GoPencil
+                    className="edit-photo-icon-pencil"
+                    onClick={toggleEditingProfilePhoto}
+                  />
+                </i>
+              </OverlayTrigger>
+            )}
           </div>
-          <h3 className="feed-username">{me.username}</h3>
+          <h3 className="favorites-username">{me.username}</h3>
         </div>
-        <h1 className="feed-title">BarKEEP</h1>
-        <h2 className="feed-subtitle">Cocktail Posts</h2>
-        <div className="view-buttons">
-          <button
-            className={`btn btn-view ${isAllPosts ? "active" : ""}`}
-            onClick={handleAllPostsClick}
-          >
-            All Posts
-          </button>
-          <button
-            className={`btn btn-view ${isMyPosts ? "active" : ""}`}
-            onClick={handleMyPostsClick}
-          >
-            My Posts
-          </button>
+        <h1 className="favorites-title">BarKEEP</h1>
+        <div className="profile-button-div">
+          <button className="btn btn-my-posts" onClick={() => setView("myPosts")}>My Posts</button>
+          <button className="btn btn-favorites" onClick={() => setView("favorites")}>Favorite Recipes</button>
         </div>
-        <button
-          className="btn btn-add-post"
-          onClick={() => {
-            setShowPostForm(!showPostForm);
-          }}
-        >
-          Create a New Post
-        </button>
       </div>
-      <div className="posts-container">
-        {filteredPosts.length > 0 ? (
-          <Post
-            data={postsData}
-            loading={postsLoading}
-            posts={filteredPosts.slice(0, visiblePosts)}
-            addPost={addPost}
-            handleDeletePost={handleDeletePost}
-            isMyPosts={isMyPosts}
-            page="Feed"
-            visiblePosts={visiblePosts}
-            setVisiblePosts={setVisiblePosts}
-            client={client}
-          />
-        ) : (
-          <h3 className="posts-error">No posts to display yet</h3>
-        )}
-      </div>
-      {showPostForm && (
-        <div className="modal-background">
-          <div className="modal">
-            <Modal show={true} onHide={() => setShowPostForm(false)}>
-              <Modal.Header className="modal-title">
-                <Modal.Title>Create Post</Modal.Title>
-                <button
-                  className="modal-close-button"
-                  onClick={() => setShowPostForm(false)}
-                >
-                  &times;
-                </button>
-              </Modal.Header>
-              <Modal.Body className="modal-body">
-                <PostForm
-                  setShowPostForm={setShowPostForm}
-                  addPost={addPost}
-                  postFormState={postFormState}
-                  setPostFormState={setPostFormState}
-                  currentUser={currentUser}
-                />
-              </Modal.Body>
-            </Modal>
-          </div>
-        </div>
-      )}
+      {view === "myPosts" ? <MyPosts /> : <Favorites />}
+     
     </div>
   );
 };

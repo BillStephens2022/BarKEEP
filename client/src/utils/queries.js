@@ -28,6 +28,11 @@ export const QUERY_ME = gql`
           _id
           username
         }
+        likes {
+          _id
+          username
+          profilePhoto
+        }
       }
       likedPosts {
         _id
