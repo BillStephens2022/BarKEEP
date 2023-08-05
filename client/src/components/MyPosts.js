@@ -16,7 +16,7 @@ const MyPosts = ({ client }) => {
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
 
   const { me } = userData || {};
-  console.log(me);
+
   const { posts } = me || {};
 
   const [filteredPosts, setFilteredPosts] = useState(posts || []);

@@ -79,7 +79,7 @@ const Profile = () => {
           <div className="user-profile">
             <ProfilePhoto
               imageUrl={
-                me.profilePhoto
+                me?.profilePhoto
                   ? me.profilePhoto
                   : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
               }
@@ -104,7 +104,7 @@ const Profile = () => {
               </OverlayTrigger>
             )}
           </div>
-          <h3 className="favorites-username">{me.username}</h3>
+          <h3 className="favorites-username">{me?.username}</h3>
         </div>
         <h1 className="favorites-title">BarKEEP</h1>
         <div className="profile-button-div">

@@ -86,6 +86,11 @@
   margin-left: 1.5rem;
   padding: 0.4rem;
   height: 2.4rem;
+  border: 1px solid var(--lightgray);
+  min-width: 14rem;
+  border-radius: 15px;
+  margin: auto;
+  align-self: center;
 }
 
 .ingredient-dropdown {
@@ -121,13 +126,22 @@
 }
 
 .button-search-cocktails {
-  height: 2.38rem;
+  height: 2rem;
   width: 3rem;
-  margin: 0;
-  margin-top: -3px;
-  margin-left: -2px;
+  margin: auto;
+  margin-top: -5px;
+  margin-left: 5px;
+  box-shadow: 2px 2px 3px var(--darkgray);
   padding: 0;
-  border-radius: 0;
+  border-radius: 5px;
   letter-spacing: 0.1rem;
   font-weight: 700;
+}
+
+.button-search-cocktails:hover {
+  background-color: var(--maroon);
+  box-shadow: 2px 2px 3px var(--darkgray);
+  color: var(--white);
+  transform: translateY(-1px) scale(1.05);
+  transition: 0.3s ease;
 }

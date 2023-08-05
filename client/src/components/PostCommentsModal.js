@@ -17,7 +17,7 @@ const PostCommentsModal = ({ postId, onClose }) => {
   });
 
   const post = postData?.getSinglePost;
-  console.log("postData in modal: ", post);
+  
   return (
     <Modal className="post-comments-modal" show={true} onHide={onClose}>
       <Modal.Header className="post-comments-modal-header">
