@@ -264,6 +264,7 @@ const Post = ({
       {showCommentsModal && selectedPostId && (
         <PostCommentsModal
           postId={selectedPostId}
+          addComment={addComment}
           onClose={() => setShowCommentsModal(false)} // Close the modal
         />
       )}
