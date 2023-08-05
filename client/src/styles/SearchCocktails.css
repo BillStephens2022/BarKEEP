@@ -71,6 +71,7 @@
 .div-search-component {
   text-align: center;
   margin: 1.5rem 0;
+  min-height: 70vh;
 }
 
 .div-search-btn {
@@ -84,7 +85,7 @@
 
 .input-search-cocktails {
   margin-left: 1.5rem;
-  padding: 0.4rem;
+  padding: 0.5rem 1rem;
   height: 2.4rem;
   border: 1px solid var(--lightgray);
   min-width: 14rem;
@@ -99,6 +100,12 @@
   height: 2.4rem;
   width: 11.5rem;
   padding: 0.4rem;
+  border-radius: 1rem;
+  border: 1px solid var(--darkgray);
+}
+
+.ingredient-dropdown:focus {
+  border: var(--blue) solid 1px;
 }
 
 .btn-search {

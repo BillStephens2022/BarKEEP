@@ -6,7 +6,6 @@
     background-color: var(--white);
     color: var(--blue);
     text-align: center;
-    min-height: 100vh;
     align-items: center;
   }
   
@@ -124,6 +123,7 @@
     width: 100%;
     background-color: var(--blue);
     text-align: center;
+    min-height: 72vh;
   }
   
   .post-card {

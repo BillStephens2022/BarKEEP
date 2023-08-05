@@ -20,7 +20,7 @@ const Profile = () => {
   const [editingProfilePhoto, setEditingProfilePhoto] = useState(false);
   const [uploadedProfilePhotoUrl, setUploadedProfilePhotoUrl] = useState(null);
 
-  const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
+  const { loading: userLoading, data: userData, error: userError } = useQuery(QUERY_ME);
   const { me } = userData || {};
 
   const [editProfilePhoto] = useMutation(EDIT_PROFILE_PHOTO, {
@@ -72,6 +72,11 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
+  if (userError) {
+    return <div>Error loading user data.</div>;
+  }
+  
+  console.log(me);
   return (
     <div className="profile">
       <div className="profile-headings">
@@ -80,7 +85,7 @@ const Profile = () => {
             <ProfilePhoto
               imageUrl={
                 me?.profilePhoto
-                  ? me.profilePhoto
+                  ? me?.profilePhoto
                   : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
               }
               size={64}

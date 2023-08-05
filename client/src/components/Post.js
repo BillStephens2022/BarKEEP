@@ -220,7 +220,7 @@ const Post = ({
                 >
                   <BiComment />
                 </button>
-                <h6 id="post-comment-count">{post.comments.length}</h6>
+                <h6 id="post-comment-count">{post.comments?.length}</h6>
                 <button
                   className="btn btn-post-like"
                   id={`post-like-${post._id}`}
