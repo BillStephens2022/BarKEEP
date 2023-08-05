@@ -16,9 +16,9 @@ const Home = () => {
 
   return (
     <div className="main">
-      <div className="headings">
-        <h1 className="title"><span className="slide-in-left">Bar</span><span className="slide-in-right">KEEP</span></h1>
-        <h2 className="subtitle">For Cocktail Enthusiasts</h2>
+      <div className="home-headings">
+        <h1 className="home-title"><span className="slide-in-left">Bar</span><span className="slide-in-right">KEEP</span></h1>
+        <h2 className="home-subtitle">For Cocktail Enthusiasts</h2>
         {Auth.loggedIn() ? (
           <p className="welcome-message">Welcome, <span className="welcome-username">{username}</span><span></span>!</p>
         ) : (

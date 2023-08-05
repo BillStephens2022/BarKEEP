@@ -5,7 +5,6 @@ import { QUERY_ME } from "../utils/queries";
 import { DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
 import Post from "./Post";
-import ProfilePhoto from "./ProfilePhoto";
 import "../styles/Profile.css";
 
 const MyPosts = ({ client }) => {
@@ -81,7 +80,6 @@ const MyPosts = ({ client }) => {
   }
 
   const isMyPosts = true;
-  console.log(posts);
 
   return (
     <div className="posts-container">

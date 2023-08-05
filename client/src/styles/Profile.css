@@ -380,4 +380,50 @@
     .btn-post-delete {
       font-size: 1rem;
     }
+    #post-like-count {
+      font-size: 0.9rem;
+    }
+    .btn-post-comment, .btn-post-like {
+      font-size: 0.9rem;
+    }
+    #post-comment-count {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 300px) {
+    .feed-title, .profile-title {
+      font-size: 2.75rem;
+      letter-spacing: 0.7rem;
+    }
+    .btn-view {
+      width: 80%;
+    }
+    .feed-subtitle {
+      font-size: 2rem;
+    }
+    .post-author {
+      padding: 0;
+      width: 60%;
+    }
+    .size-48 {
+      width: 2rem;
+      height: 2rem;
+    }
+    .post-author-name {
+      font-size: 0.7rem;
+    }
+    .post-author-date {
+      font-size: 0.75rem;
+      width: 40%;
+    }
+    #post-like-count {
+      font-size: 0.7rem;
+    }
+    .btn-post-comment, .btn-post-like {
+      font-size: 0.9rem;
+    }
+    #post-comment-count {
+      font-size: 0.7rem;
+    }
   }

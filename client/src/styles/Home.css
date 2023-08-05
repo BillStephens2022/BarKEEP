@@ -11,7 +11,6 @@
   --champagne: #f7e7ce;
 }
 
-
 #root {
   display: flex;
   flex-direction: column;
@@ -35,7 +34,7 @@
   align-items: center;
 }
 
-.headings {
+.home-headings {
   position: absolute;
   top: 0;
   display: flex;
@@ -43,13 +42,7 @@
   justify-content: space-between;
 }
 
-@media (max-width: 767px) {
-  .headings {
-    padding-top: 1.5rem;
-  }
-}
-
-.title {
+.home-title {
   font-size: 6rem;
   letter-spacing: 1rem;
   margin-top: 3rem;
@@ -59,7 +52,7 @@
   text-shadow: 3px 3px 8px var(--darkgray);
 }
 
-.title:hover {
+.home-title:hover {
   transform: skewX(-15deg);
   transition: 0.2s;
 }
@@ -122,16 +115,6 @@
   }
 }
 
-/* keyframe for bounce effect */
-/* @keyframes bounce {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-10px);
-  }
-} */
-
 .slide-in-left {
   display: inline-block;
   animation: slide-in-left 1s ease forwards;
@@ -148,21 +131,11 @@
   animation-delay: 1s; 
 } */
 
-.subtitle {
+.home-subtitle {
   font-size: 2rem;
   letter-spacing: 0.4rem;
   color: var(--white);
   text-align: center;
-}
-
-@media (max-width: 767px) {
-  .title {
-    font-size: 3.5rem;
-  }
-  .subtitle {
-    font-size: 1.5rem;
-    letter-spacing: 0.15rem;
-  }
 }
 
 .btn-get-started {
@@ -181,15 +154,16 @@
 }
 
 .welcome-message {
-  font-size: 1.25rem;
-  letter-spacing: .15rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.15rem;
+  margin-top: 1rem;
 }
 
 .welcome-username {
   color: chartreuse;
   font-weight: 900;
   text-shadow: 3px 3px 8px var(--darkgray);
-  letter-spacing: .25rem;
+  letter-spacing: 0.25rem;
 }
 
 .home_photo {
@@ -204,7 +178,7 @@
   border-radius: 1%;
 }
 
- .bubbles-container {
+.bubbles-container {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -238,8 +212,6 @@
   z-index: 5;
 }
 
-
-
 /* Button component */
 .btn {
   background-color: var(--blue);
@@ -249,8 +221,6 @@
   letter-spacing: 0.1rem;
   text-shadow: #000 2px 2px 4px;
 }
-
-
 
 .modal-body {
   background-color: var(--white);
@@ -277,4 +247,43 @@
 
 .modal-close-button:hover {
   color: var(--darkgray);
+}
+
+@media (max-width: 767px) {
+  .home-headings {
+    padding-top: 1.5rem;
+  }
+  .home-title {
+    font-size: 3.5rem;
+  }
+  .home-subtitle {
+    font-size: 1.5rem;
+    letter-spacing: 0.15rem;
+  }
+  .welcome-message {
+    font-size: 1.25rem;
+    padding: 0 3rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .home-title {
+    font-size: 3rem;
+    letter-spacing: 0.7rem;
+  }
+  .home-subtitle {
+    font-size: 1.15rem;
+    letter-spacing: 0.12rem;
+  }
+  .welcome-message {
+    font-size: 0.9rem;
+  }
+  .welcome-username {
+    font-size: 0.9rem;
+  }
 }

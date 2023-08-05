@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Modal, Button } from "react-bootstrap";
-import { BiSend, BiSolidSend } from "react-icons/bi";
+import { BiSolidSend } from "react-icons/bi";
 import { GET_SINGLE_POST } from "../utils/queries";
 import ProfilePhoto from "./ProfilePhoto";
 import SinglePost from "./SinglePost";

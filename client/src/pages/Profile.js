@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GoPencil } from "react-icons/go";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { QUERY_ME } from "../utils/queries";
-import { EDIT_PROFILE_PHOTO, DELETE_POST } from "../utils/mutations";
-import { Auth } from "../utils/auth";
+import { EDIT_PROFILE_PHOTO } from "../utils/mutations";
 import ProfilePhoto from "../components/ProfilePhoto";
 import MyPosts from "../components/MyPosts";
 import MyFavorites from "../components/MyFavorites";
@@ -75,8 +74,7 @@ const Profile = () => {
   if (userError) {
     return <div>Error loading user data.</div>;
   }
-  
-  console.log(me);
+
   return (
     <div className="profile">
       <div className="profile-headings">
@@ -109,9 +107,9 @@ const Profile = () => {
               </OverlayTrigger>
             )}
           </div>
-          <h3 className="favorites-username">{me?.username}</h3>
+          <h3 className="profile-username">{me?.username}</h3>
         </div>
-        <h1 className="favorites-title">BarKEEP</h1>
+        <h1 className="profile-title">BarKEEP</h1>
         <div className="profile-button-div">
           <h3>View:</h3>
           <button className={`btn btn-view btn-my-favorites ${view === "myFavorites" ? "active" : ""}`} onClick={() => setView("myFavorites")}>Favorite Recipes</button>

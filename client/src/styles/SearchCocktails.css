@@ -152,3 +152,47 @@
   transform: translateY(-1px) scale(1.05);
   transition: 0.3s ease;
 }
+
+@media (max-width: 900px) {
+  .search-header-1 {
+    font-size: 1.75rem;
+  }
+  .search-header-2 {
+    font-size: 1.5rem;
+  }
+  .btn-search {
+    margin: 0.75rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .search-title {
+    font-size: 3.5rem;
+    letter-spacing: 0.9rem;
+  }
+  .search-header-1 {
+    font-size: 1.5rem;
+  }
+  .search-header-2 {
+    font-size: 1.25rem;
+  }
+  .btn-search {
+    margin: 0.35rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .search-title {
+    font-size: 2.75rem;
+    letter-spacing: 0.7rem;
+  }
+  .search-header-1 {
+    font-size: 1.25rem;
+  }
+  .search-header-2 {
+    font-size: 1.25rem;
+  }
+  .btn-search {
+    margin: 0.5rem;
+  }
+}
