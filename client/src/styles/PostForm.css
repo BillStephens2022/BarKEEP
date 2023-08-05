@@ -27,6 +27,7 @@
 
   #input-content {
     height: 10rem;
+    margin-bottom: 1rem;
   }
 
   #input-imageURL {
@@ -35,17 +36,37 @@
   
   .post-submit-button {
     padding: .6rem 1.2rem;
-    margin-top: .6rem;
+    margin: auto;
+    margin-top: 1rem;
     background-color: var(--blue);
     color: #fff;
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
+    box-shadow: 2px 2px 2px var(--darkgray);
     transition: transform 0.3s ease;
+    width: 50vw;
   }
   
   .post-submit-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-3px) scale(1.01);
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  @media (max-width: 900px) {
+    .post-submit-button {
+      width: 35vw;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .post-submit-button {
+      width: 45vw;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .post-submit-button {
+      width: 70vw;
+    }
   }
   

@@ -3,12 +3,13 @@ import { GoTrash } from "react-icons/go";
 import { BiLike, BiComment, BiSolidLike } from "react-icons/bi";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_POSTS, GET_POST_LIKES_USERS } from "../utils/queries";
-import { ADD_LIKE } from "../utils/mutations";
+import { ADD_LIKE, ADD_COMMENT } from "../utils/mutations";
 import { Auth } from "../utils/auth";
 import { formatElapsedTime } from "../utils/formatting";
 import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
 import PostLikesModal from "./PostLikesModal";
+import PostCommentsModal from "./PostCommentsModal";
 import "../styles/Feed.css";
 
 const Post = ({
@@ -24,11 +25,42 @@ const Post = ({
 
   const [updatedPosts, setUpdatedPosts] = useState(posts);
   const [showLikesModal, setShowLikesModal] = useState(false); // State to manage modal visibility
+  const [showCommentsModal, setShowCommentsModal] = useState(false); // State to manage modal visibility
   const [selectedPostId, setSelectedPostId] = useState(null); // State to store selected post id for the modal
   
   // Separate loading state for liked users query
   // const [likedUsersLoading, setLikedUsersLoading] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
+
+  const [addComment] = useMutation(ADD_COMMENT, {
+    // The update function to update the cache after adding a comment
+    update(cache, { data: { addComment } }) {
+      try {
+        // Read the current cached posts
+        const { posts } = cache.readQuery({
+          query: QUERY_POSTS,
+        });
+
+        // Find the post to which the comment was added and update its comments
+        const updatedPosts = posts.map((post) => {
+          if (post._id === addComment._id) {
+            return { ...post, comments: [...post.comments, addComment] };
+          }
+          return post;
+        });
+
+        // Write the updated posts back to the cache
+        cache.writeQuery({
+          query: QUERY_POSTS,
+          data: { posts: updatedPosts },
+        });
+      } catch (error) {
+        console.error("Error updating cache:", error);
+      }
+    },
+    refetchQueries: [{ query: QUERY_POSTS }], // Refetch the posts to update the UI
+  });
+
 
   const [addLike] = useMutation(ADD_LIKE, {
     update(cache, { data: { addLike } }) {
@@ -119,6 +151,11 @@ const Post = ({
     setVisiblePosts((prevValue) => prevValue + 10);
   };
 
+  const handlePostCommentsClick = (postId) => {
+    setSelectedPostId(postId);
+    setShowCommentsModal(true);
+  };
+
   const handlePostLikeCountClick = (postId) => {
     setSelectedPostId(postId);
     setShowLikesModal(true);
@@ -179,10 +216,11 @@ const Post = ({
                 <button
                   className="btn btn-post-comment"
                   id={`post-comment-${post._id}`}
+                  onClick={() => handlePostCommentsClick(post._id)}
                 >
                   <BiComment />
                 </button>
-                <h6 id="post-comment-count">12</h6>
+                <h6 id="post-comment-count">{post.comments?.length}</h6>
                 <button
                   className="btn btn-post-like"
                   id={`post-like-${post._id}`}
@@ -220,6 +258,14 @@ const Post = ({
         <PostLikesModal
           postId={selectedPostId}
           onClose={() => setShowLikesModal(false)} // Close the modal
+        />
+      )}
+
+      {showCommentsModal && selectedPostId && (
+        <PostCommentsModal
+          postId={selectedPostId}
+          addComment={addComment}
+          onClose={() => setShowCommentsModal(false)} // Close the modal
         />
       )}
 

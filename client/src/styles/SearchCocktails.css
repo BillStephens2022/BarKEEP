@@ -71,6 +71,7 @@
 .div-search-component {
   text-align: center;
   margin: 1.5rem 0;
+  min-height: 70vh;
 }
 
 .div-search-btn {
@@ -84,8 +85,13 @@
 
 .input-search-cocktails {
   margin-left: 1.5rem;
-  padding: 0.4rem;
+  padding: 0.5rem 1rem;
   height: 2.4rem;
+  border: 1px solid var(--lightgray);
+  min-width: 14rem;
+  border-radius: 15px;
+  margin: auto;
+  align-self: center;
 }
 
 .ingredient-dropdown {
@@ -94,6 +100,12 @@
   height: 2.4rem;
   width: 11.5rem;
   padding: 0.4rem;
+  border-radius: 1rem;
+  border: 1px solid var(--darkgray);
+}
+
+.ingredient-dropdown:focus {
+  border: var(--blue) solid 1px;
 }
 
 .btn-search {
@@ -121,13 +133,66 @@
 }
 
 .button-search-cocktails {
-  height: 2.38rem;
+  height: 2rem;
   width: 3rem;
-  margin: 0;
-  margin-top: -3px;
-  margin-left: -2px;
+  margin: auto;
+  margin-top: -5px;
+  margin-left: 5px;
+  box-shadow: 2px 2px 3px var(--darkgray);
   padding: 0;
-  border-radius: 0;
+  border-radius: 5px;
   letter-spacing: 0.1rem;
   font-weight: 700;
+}
+
+.button-search-cocktails:hover {
+  background-color: var(--maroon);
+  box-shadow: 2px 2px 3px var(--darkgray);
+  color: var(--white);
+  transform: translateY(-1px) scale(1.05);
+  transition: 0.3s ease;
+}
+
+@media (max-width: 900px) {
+  .search-header-1 {
+    font-size: 1.75rem;
+  }
+  .search-header-2 {
+    font-size: 1.5rem;
+  }
+  .btn-search {
+    margin: 0.75rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .search-title {
+    font-size: 3.5rem;
+    letter-spacing: 0.9rem;
+  }
+  .search-header-1 {
+    font-size: 1.5rem;
+  }
+  .search-header-2 {
+    font-size: 1.25rem;
+  }
+  .btn-search {
+    margin: 0.35rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .search-title {
+    font-size: 2.75rem;
+    letter-spacing: 0.7rem;
+  }
+  .search-header-1 {
+    font-size: 1.25rem;
+  }
+  .search-header-2 {
+    font-size: 1.25rem;
+  }
+  .btn-search {
+    margin: 0.5rem;
+  }
 }

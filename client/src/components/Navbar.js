@@ -48,24 +48,24 @@ const Navbar = () => {
           </li>
           {Auth.loggedIn() ? (
             <>
-              <li
+            <li
                 className={`navigation_item ${
-                  activeNavItem === "feed" ? "navigation_item--active" : ""
+                  activeNavItem === "profile" ? "navigation_item--active" : ""
                 }`}
-                onClick={() => handleNavItemClick("feed")}
+                onClick={() => handleNavItemClick("profile")}
               >
-                <Link to="/feed" className="navigation_link">
-                  Feed
+                <Link to="/profile" className="navigation_link">
+                  Profile
                 </Link>
               </li>
               <li
                 className={`navigation_item ${
-                  activeNavItem === "favorites" ? "navigation_item--active" : ""
+                  activeNavItem === "newsfeed" ? "navigation_item--active" : ""
                 }`}
-                onClick={() => handleNavItemClick("favorites")}
+                onClick={() => handleNavItemClick("newsfeed")}
               >
-                <Link to="/favorites" className="navigation_link">
-                  Favorites
+                <Link to="/newsfeed" className="navigation_link">
+                  Newsfeed
                 </Link>
               </li>
               <li

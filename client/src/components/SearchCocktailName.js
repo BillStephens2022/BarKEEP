@@ -42,7 +42,7 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId}) => {
           name="searchInput"
           onChange={(e) => setSearchInput(e.target.value)}
         ></input>
-        <button className="btn button_search_cocktails" type="submit">
+        <button className="btn button-search-cocktails" type="submit">
           Go!
         </button>
       </form>

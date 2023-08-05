@@ -28,6 +28,20 @@ export const QUERY_ME = gql`
           _id
           username
         }
+        likes {
+          _id
+          username
+          profilePhoto
+        }
+        comments {
+          _id
+          text
+          author {
+            _id
+            username
+            profilePhoto
+          }
+        }
       }
       likedPosts {
         _id
@@ -81,6 +95,15 @@ export const QUERY_POSTS = gql`
       likes {
         _id
       }
+      comments {
+        _id
+        text
+        author {
+          _id
+          username
+          profilePhoto
+        }
+      }
     }
   }
 `;
@@ -107,6 +130,14 @@ export const GET_SINGLE_POST = gql`
         _id
         username
         profilePhoto
+      }
+      comments {
+        author {
+          _id
+          username
+          profilePhoto
+        }
+        text
       }
     }
   }

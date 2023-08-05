@@ -9,17 +9,13 @@ import {
 } from "../utils/mutations";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
-import { GoPencil } from "react-icons/go";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
 import { Auth } from "../utils/auth";
-import UploadWidget from "../components/UploadWidget";
-import CocktailCard from "../components/CocktailCard";
-import CocktailForm from "../components/CocktailForm";
-import ProfilePhoto from "../components/ProfilePhoto";
+import CocktailCard from "./CocktailCard";
+import CocktailForm from "./CocktailForm";
 import "../styles/Favorites.css";
 
-const Favorites = ({ cocktails, setCocktails }) => {
+const MyFavorites = () => {
+  const [cocktails, setCocktails] = useState([]);
   const [showCocktailForm, setShowCocktailForm] = useState(false);
   const [selectedCocktail, setSelectedCocktail] = useState(null);
   const [cocktailFormState, setCocktailFormState] = useState({
@@ -261,7 +257,6 @@ const Favorites = ({ cocktails, setCocktails }) => {
   }, [data, refetch, cocktails, setCocktails]);
 
   useEffect(() => {
-    console.log("uploaded profile photo url: ", uploadedProfilePhotoUrl);
     handleProfilePhotoUpdate(uploadedProfilePhotoUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedProfilePhotoUrl]);
@@ -276,41 +271,9 @@ const Favorites = ({ cocktails, setCocktails }) => {
 
   return (
     <div className="favorites">
-      <div className="favorites-headings">
-        <div className="user-heading">
-          <div className="user-profile">
-            <ProfilePhoto
-              imageUrl={
-                me.profilePhoto
-                  ? me.profilePhoto
-                  : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
-              }
-              size={64}
-            />
-            {editingProfilePhoto ? (
-              <div className="upload-widget-edit-profile-photo">
-                {/* Conditionally render the UploadWidget when editingProfilePhoto is true */}
-                <UploadWidget onSuccess={handleSuccessfulUpload} />
-              </div>
-            ) : (
-              <OverlayTrigger
-                placement="right"
-                overlay={<Tooltip>Edit Profile Photo</Tooltip>}
-              >
-              <i className="edit-photo-icon">
-                
-                <GoPencil
-                  className="edit-photo-icon-pencil"
-                  onClick={toggleEditingProfilePhoto}
-                />
-                </i>
-              </OverlayTrigger>
-            )}
-          </div>
-          <h3 className="favorites-username">{me.username}</h3>
-        </div>
-        <h1 className="favorites-title">BarKEEP</h1>
-        <h2 className="favorites-subtitle">My Cocktail Recipes</h2>
+      
+        
+        
         <div className="favorites-buttons-div">
           <button
             className="btn add-cocktail-button"
@@ -360,7 +323,7 @@ const Favorites = ({ cocktails, setCocktails }) => {
             </div>
           </div>
         )}
-      </div>
+      
       <div className="card-container">
         <CocktailCard
           loading={loading}
@@ -375,4 +338,4 @@ const Favorites = ({ cocktails, setCocktails }) => {
   );
 };
 
-export default Favorites;
+export default MyFavorites;

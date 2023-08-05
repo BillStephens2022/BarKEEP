@@ -17,7 +17,7 @@ const resolvers = {
             path: "posts",
             model: "Post",
             populate: {
-              path: "author",
+              path: "author likes comments.author",
               model: "User",
             },
           })
@@ -56,11 +56,21 @@ const resolvers = {
       return await Cocktail.find({}).sort({ name: "asc" });
     },
     posts: async (parent, args) => {
-      return await Post.find({}).populate({
-        path: "author",
-        model: "User",
-        select: "username profilePhoto",
-      });
+      return await Post.find({})
+        .populate({
+          path: "author",
+          model: "User",
+          select: "username profilePhoto",
+        })
+        .populate({
+          path: "comments",
+          model: "Comment",
+          populate: {
+            path: "author",
+            model: "User",
+            select: "username profilePhoto",
+          },
+        });
     },
     postLikesUsers: async (parent, { postId }, context) => {
       try {
@@ -76,7 +86,7 @@ const resolvers = {
 
           // Extract and return the users who liked the post
           const likedUsers = post.likes;
-          console.log("likedUsers",likedUsers);
+          console.log("likedUsers", likedUsers);
           return likedUsers;
         } else {
           throw new AuthenticationError("You need to be logged in!");
@@ -89,18 +99,26 @@ const resolvers = {
     getSinglePost: async (parent, { postId }, context) => {
       try {
         if (context.user) {
-          // Find the post by ID and populate the likes field
-          console.log("postId passed to resolver: ", postId)
-          const post = await Post.findById(postId).populate("author");
+          console.log("kicked off resolver");
+          const post = await Post.findById(postId)
+            .populate({
+              path: "author",
+              model: "User",
+              select: "username profilePhoto",
+            })
+            .populate({
+              path: "comments",
+              model: "Comment",
+              populate: {
+                path: "author",
+                model: "User",
+                select: "username profilePhoto",
+              },
+            });
 
           if (!post) {
             throw new ApolloError("Post not found");
           }
-
-          console.log("*****Post************: ", post);
-
-          // Extract and return the users who liked the post
-          
           return post;
         } else {
           throw new AuthenticationError("You need to be logged in!");
@@ -302,38 +320,45 @@ const resolvers = {
     },
 
     // Add a comment to a post
-    // addComment: async (parent, { postId, text }, context) => {
-    //   try {
-    //     if (context.user) {
-    //       // Find the post by ID
-    //       const post = await Post.findById(postId);
+    addComment: async (parent, { postId, text }, context) => {
+      try {
+        if (context.user) {
+          // Find the post by ID
+          const post = await Post.findById(postId);
 
-    //       if (!post) {
-    //         throw new ApolloError("Post not found");
-    //       }
+          if (!post) {
+            throw new ApolloError("Post not found");
+          }
 
-    //       // Create a new comment
-    //       const comment = {
-    //         text,
-    //         author: context.user._id,
-    //         post: post._id,
-    //       };
+          // Create a new comment instance
+          const comment = {
+            text,
+            author: context.user._id,
+          };
 
-    //       // Add the comment to the post's comments array
-    //       post.comments.push(comment);
-    //       await post.save();
-    //        // Populate the comment's author field
-    //       await comment.populate("author").execPopulate()
-    //       // Return the populated comment
-    //       return comment;
-    //     } else {
-    //       throw new AuthenticationError("You need to be logged in!");
-    //     }
-    //   } catch (err) {
-    //     console.error(err);
-    //     throw new ApolloError("Failed to add a comment.");
-    //   }
-    // },
+          // Add the comment to the post's comments array
+          post.comments.push(comment);
+          await post.save();
+
+          // Populate the User's username and profilePhoto
+          await post
+            .populate({
+              path: "comments.author",
+              model: "User",
+              select: "username profilePhoto",
+            })
+            .execPopulate();
+
+          // Return the comment
+          return post.comments[post.comments.length - 1];
+        } else {
+          throw new AuthenticationError("You need to be logged in!");
+        }
+      } catch (err) {
+        console.error(err);
+        throw new ApolloError("Failed to add a comment.");
+      }
+    },
 
     // Add a like to a post
     addLike: async (parent, { postId }, context) => {
