@@ -46,6 +46,16 @@ const Navbar = () => {
               Home
             </Link>
           </li>
+          <li
+            className={`navigation_item ${
+              activeNavItem === "about" ? "navigation_item--active" : ""
+            }`}
+            onClick={() => handleNavItemClick("about")}
+          >
+            <Link to="/about" className="navigation_link">
+              About
+            </Link>
+          </li>
           {Auth.loggedIn() ? (
             <>
             <li
