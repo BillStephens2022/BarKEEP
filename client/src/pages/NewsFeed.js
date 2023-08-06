@@ -7,8 +7,8 @@ import { Auth } from "../utils/auth";
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
 import ProfilePhoto from "../components/ProfilePhoto";
-import "../styles/Feed.css";
-import "../styles/CocktailForm.css";
+import "../styles/pages/Feed.css";
+import "../styles/components/CocktailForm.css";
 
 const NewsFeed = ({ client }) => {
   const [showPostForm, setShowPostForm] = useState(false);

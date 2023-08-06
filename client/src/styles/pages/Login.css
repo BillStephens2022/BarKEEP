@@ -4,8 +4,13 @@
   flex: 1;
   color: var(--blue);
   text-align: center;
-  background-color: var(--darkgray);
-  padding: 1rem;
+  background-color: var(--white);
+ 
+}
+
+.login-main {
+  background-color: var(--white);
+  padding: 2% 0;
 }
 
 .subtitle-login {
@@ -40,7 +45,7 @@
 
 .how-to-list {
   color: var(--blue);
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   list-style: disc;
   line-height: 2;
   margin: auto;
@@ -124,9 +129,14 @@
 }
 
 @media (max-width: 767px) {
-  .title-login {
-    margin-top: 4rem;
+  .subtitle-login-2 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
   }
+  .subtitle-2-span {
+    font-size: 1.25rem;
+  }
+  
   .form-container-login {
     width: 90vw;
   }
@@ -141,27 +151,18 @@
   }
 }
 
-@media (max-width: 350px) {
-  .title {
-    font-size: 3rem;
-  }
-  .subtitle-2-span {
-    font-size: 1rem;
-  }
-}
-
 @media (max-width: 300px) {
-  .title {
-    font-size: 2rem;
-  }
-  .subtitle {
-    font-size: 1.6rem;
-    letter-spacing: 0;
-  }
-  .subtitle-2 {
-    font-size: 1.25rem;
+  
+  .subtitle-login-2 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
   }
   .subtitle-2-span {
     font-size: 1.25rem;
+  }
+  .how-to-list {
+    font-size: 0.9rem;
+    max-width: 100%;
+    padding: 5%;
   }
 }

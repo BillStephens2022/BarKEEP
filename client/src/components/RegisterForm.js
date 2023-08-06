@@ -4,7 +4,7 @@ import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import UploadWidget from "./UploadWidget";
 import { Auth } from "../utils/auth";
-import "../styles/Login.css";
+import "../styles/pages/Login.css";
 
 const defaultProfilePhoto =
   "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg";

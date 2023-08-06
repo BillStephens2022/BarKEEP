@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Auth } from "../utils/auth";
-import "../styles/Navbar.css";
+import "../styles/components/Navbar.css";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false); // State to track whether Navbar is expanded or not

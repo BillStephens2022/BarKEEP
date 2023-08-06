@@ -6,7 +6,7 @@ import { searchCocktails } from "../utils/API"
 import SearchCocktailName from "../components/SearchCocktailName";
 import SearchCocktailIngredient from "../components/SearchCocktailIngredient";
 import RandomCocktail from "../components/RandomCocktail";
-import "../styles/SearchCocktails.css";
+import "../styles/pages/SearchCocktails.css";
 
 const SearchCocktails = () => {
   // state variable will drive which component is shown on the screen depending on whether user chooses

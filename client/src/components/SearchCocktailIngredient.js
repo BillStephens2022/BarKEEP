@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCocktailsbyIngredient } from "../utils/API";
 import CocktailCard from "./CocktailCard";
-import "../styles/Home.css";
+import "../styles/pages/Home.css";
 
 // component for when user chooses to search cocktails by ingredient
 

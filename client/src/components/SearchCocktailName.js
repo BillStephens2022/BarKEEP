@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { searchCocktails } from "../utils/API";
 import CocktailCard from "./CocktailCard";
-import "../styles/SearchCocktails.css";
+import "../styles/pages/SearchCocktails.css";
 
 const SearchCocktailName = ({handleAddCocktail, addedCocktailId}) => {
   // create state for holding returned google api data

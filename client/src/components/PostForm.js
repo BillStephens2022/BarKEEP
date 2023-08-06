@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import moment from "moment-timezone";
 import UploadWidget from "./UploadWidget";
-import "../styles/PostForm.css";
+import "../styles/components/PostForm.css";
 
 const initialState = {
   postTitle: "",

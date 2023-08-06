@@ -12,7 +12,7 @@ import { Modal } from "react-bootstrap";
 import { Auth } from "../utils/auth";
 import CocktailCard from "./CocktailCard";
 import CocktailForm from "./CocktailForm";
-import "../styles/Favorites.css";
+import "../styles/pages/Favorites.css";
 
 const MyFavorites = () => {
   const [cocktails, setCocktails] = useState([]);

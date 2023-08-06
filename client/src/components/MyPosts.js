@@ -5,7 +5,7 @@ import { QUERY_ME } from "../utils/queries";
 import { DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
 import Post from "./Post";
-import "../styles/Profile.css";
+import "../styles/pages/Profile.css";
 
 const MyPosts = ({ client }) => {
   // state to control how many posts are visible at a time,

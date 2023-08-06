@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
-import "../styles/Home.css";
+import "../styles/pages/Home.css";
 import { Auth } from "../utils/auth";
 
 const LoginForm = () => {

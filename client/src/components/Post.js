@@ -10,7 +10,7 @@ import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
 import PostLikesModal from "./PostLikesModal";
 import PostCommentsModal from "./PostCommentsModal";
-import "../styles/Feed.css";
+import "../styles/pages/Feed.css";
 
 const Post = ({
   loading,
@@ -19,7 +19,7 @@ const Post = ({
   isMyPosts,
   visiblePosts,
   setVisiblePosts,
-  client
+  client,
 }) => {
   const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
 
@@ -27,7 +27,7 @@ const Post = ({
   const [showLikesModal, setShowLikesModal] = useState(false); // State to manage modal visibility
   const [showCommentsModal, setShowCommentsModal] = useState(false); // State to manage modal visibility
   const [selectedPostId, setSelectedPostId] = useState(null); // State to store selected post id for the modal
-  
+
   // Separate loading state for liked users query
   // const [likedUsersLoading, setLikedUsersLoading] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
@@ -60,7 +60,6 @@ const Post = ({
     },
     refetchQueries: [{ query: QUERY_POSTS }], // Refetch the posts to update the UI
   });
-
 
   const [addLike] = useMutation(ADD_LIKE, {
     update(cache, { data: { addLike } }) {
@@ -241,7 +240,9 @@ const Post = ({
                   onClick={() => handlePostLikeCountClick(post._id)}
                 >
                   {isPostLikedByUser
-                    ? post.likes.length === 2
+                    ? post.likes.length === 1
+                      ? "You liked this post"
+                      : post.likes.length === 2
                       ? `You and 1 other liked this post`
                       : `You and ${
                           post.likes.length - 1

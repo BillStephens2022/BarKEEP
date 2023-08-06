@@ -3,10 +3,7 @@
   text-align: center;
   background-color: var(--lightgray);
   max-width: 100vw;
-} 
-
-
-
+}
 
 .about-h2 {
   color: var(--blue);
@@ -28,8 +25,6 @@
   margin: 2% 7% 2%;
   background-color: var(--white);
 }
-
-
 
 .about-summary-p {
   margin-top: 2rem;
@@ -75,7 +70,6 @@
 
 #about-sample-post-img {
   width: 70%;
-  
 }
 
 @media (max-width: 767px) {
@@ -97,10 +91,8 @@
   }
   #about-sample-post-img {
     width: 99%;
-    
   }
 }
-
 
 @media (max-width: 300px) {
   .about-summary-container {

@@ -5,7 +5,7 @@ import CocktailCard from "../components/CocktailCard";
 import cocktailData from "../data/cocktaildata";
 import { Link } from "react-router-dom";
 import { Auth } from "../utils/auth";
-import "../styles/About.css";
+import "../styles/pages/About.css";
 
 const About = () => {
   const { cocktails } = cocktailData.data;
@@ -14,7 +14,7 @@ const About = () => {
 
   return (
     <div className="about">
-      <Header />
+      <Header subtitle={"About Us"} />
         <div className="about-summary-container">
           <p className="about-summary-p">
             Welcome to <span id="about-span">BarKEEP</span>, the destination for
