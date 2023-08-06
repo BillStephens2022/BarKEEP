@@ -5,7 +5,7 @@ import { Auth } from "../utils/auth";
 import { formatElapsedTime } from "../utils/formatting";
 import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
-import "../styles/Feed.css";
+import "../styles/pages/Feed.css";
 
 const SinglePost = ({
   loading,

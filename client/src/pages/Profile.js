@@ -9,7 +9,7 @@ import ProfilePhoto from "../components/ProfilePhoto";
 import MyPosts from "../components/MyPosts";
 import MyFavorites from "../components/MyFavorites";
 import UploadWidget from "../components/UploadWidget";
-import "../styles/Profile.css";
+import "../styles/pages/Profile.css";
 
 const Profile = () => {
   // State to manage view - see My Posts or My Favorite Recipes

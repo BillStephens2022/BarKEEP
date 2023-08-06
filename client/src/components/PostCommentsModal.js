@@ -5,7 +5,7 @@ import { BiSolidSend } from "react-icons/bi";
 import { GET_SINGLE_POST } from "../utils/queries";
 import ProfilePhoto from "./ProfilePhoto";
 import SinglePost from "./SinglePost";
-import "../styles/PostCommentsModal.css";
+import "../styles/components/PostCommentsModal.css";
 
 const PostCommentsModal = ({ postId, onClose, addComment }) => {
   // State to hold the comment input

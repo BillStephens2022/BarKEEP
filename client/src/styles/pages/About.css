@@ -1,0 +1,118 @@
+.about {
+  margin: 0 auto;
+  text-align: center;
+  background-color: var(--lightgray);
+  max-width: 100vw;
+}
+
+.about-h2 {
+  color: var(--blue);
+  letter-spacing: 0.5rem;
+  font-weight: 900;
+  text-shadow: 1px 1px var(--darkgray);
+}
+
+#about-cheers-icon {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--maroon);
+  margin-left: 1rem;
+}
+
+.about-summary-container {
+  border: 3px solid var(--blue);
+  border-radius: 1rem;
+  margin: 2% 7% 2%;
+  background-color: var(--white);
+}
+
+.about-summary-p {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-shadow: 1px 1px var(--lightgray);
+  margin-top: 1.8rem;
+  color: var(--blue);
+  line-height: 1.4;
+  letter-spacing: 0.15rem;
+  padding: 0 1rem;
+}
+
+.about-list {
+  width: 70%;
+  margin: auto;
+  margin-bottom: 1rem;
+  background-color: var(--blue);
+  padding: 2rem;
+  text-align: left;
+  border-radius: 1rem;
+}
+
+.about-list-item {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  line-height: 1.4;
+  color: var(--white);
+  margin-top: 1rem;
+}
+
+.about-cocktail-recipe {
+  display: flex;
+  justify-content: center;
+}
+
+.about-sample-post {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+#about-sample-post-img {
+  width: 70%;
+}
+
+@media (max-width: 767px) {
+  .about-summary-container {
+    margin: 5%;
+  }
+  .about-summary-p {
+    font-size: 1rem;
+  }
+  .about-list {
+    width: 95%;
+  }
+  .about-list-item {
+    font-size: 1rem;
+  }
+  .about-cocktail-recipe .card-cocktail {
+    margin: 0;
+    margin-top: 1rem;
+  }
+  #about-sample-post-img {
+    width: 99%;
+  }
+}
+
+@media (max-width: 300px) {
+  .about-summary-container {
+    margin: 2%;
+  }
+  .about-summary-p {
+    font-size: 0.8rem;
+  }
+  .about-list {
+    width: 98%;
+    padding: 3% 8%;
+  }
+  .about-list-item {
+    font-size: 0.8rem;
+  }
+  .about-cocktail-recipe .card-cocktail {
+    margin: 0;
+    margin-top: 1rem;
+  }
+  #about-sample-post-img {
+    width: 99%;
+  }
+}

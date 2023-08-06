@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoPencil, GoTrash, GoPlus } from "react-icons/go";
 import { searchCocktails } from "../utils/API";
-import "../styles/CocktailCard.css";
+import "../styles/components/CocktailCard.css";
 
 const CocktailCard = ({
   loading,

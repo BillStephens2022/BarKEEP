@@ -1,0 +1,54 @@
+.header {
+  background-color: var(--darkgray);
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.header-title {
+    font-size: 6rem;
+    font-weight: 900;
+    letter-spacing: 1rem;
+    color: var(--blue);
+    text-align: center;
+    text-shadow: 2px 2px var(--lightgray);
+  }
+  
+  .header-title:hover {
+    transform: skewX(-15deg);
+    transition: 0.2s;
+  }
+  
+  .header-subtitle {
+    font-size: 2rem;
+    letter-spacing: 0.4rem;
+    color: var(--white);
+    text-align: center;
+    margin-top: auto;
+  }
+
+
+@media (max-width: 600px) {
+  .header-title {
+    margin-top: 2rem;
+    font-size: 5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .header-title {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .header-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .header-title {
+    font-size: 2.2rem;
+  }
+}

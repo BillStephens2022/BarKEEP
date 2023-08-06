@@ -378,16 +378,16 @@
       max-width: 100%;
     }
     .btn-post-delete {
-      font-size: 1rem;
+      font-size: 1.25rem;
     }
     #post-like-count {
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
     .btn-post-comment, .btn-post-like {
-      font-size: 0.9rem;
+      font-size: 1.25rem;
     }
     #post-comment-count {
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
   }
 

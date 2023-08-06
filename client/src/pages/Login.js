@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "../styles/Home.css";
+import Header from "../components/Header";
 import Button from "../components/Button";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import { Auth } from "../utils/auth";
-import "../styles/Login.css";
+import "../styles/pages/Login.css";
 
 const Login = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
@@ -43,8 +43,8 @@ const Login = () => {
 
   return (
     <div className="login_page">
-      <h1 className="title">BarKEEP</h1>
-      <h2 className="subtitle-login">Log In / Register</h2>
+      <Header subtitle={"Login / Register"} />
+     <div className="login-main">
       <h5 className="subtitle-login-2">
         Try our{" "}
         <span className="subtitle-2-span" onClick={handleGuestClick}>
@@ -85,6 +85,7 @@ const Login = () => {
           <li>Add your own favorite cocktail recipe.</li>
           <li>Save your favorite cocktails to your Favorites page.</li>
         </ul>
+      </div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import cloudinary from "cloudinary-core";
 import { Modal } from "react-bootstrap";
-import "../styles/PostPhoto.css";
+import "../styles/components/PostPhoto.css";
 
 const cloudinaryCore = new cloudinary.Cloudinary({
   cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,

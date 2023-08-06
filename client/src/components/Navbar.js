@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Auth } from "../utils/auth";
-import "../styles/Navbar.css";
+import "../styles/components/Navbar.css";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false); // State to track whether Navbar is expanded or not
@@ -44,6 +44,16 @@ const Navbar = () => {
           >
             <Link to="/" className="navigation_link">
               Home
+            </Link>
+          </li>
+          <li
+            className={`navigation_item ${
+              activeNavItem === "about" ? "navigation_item--active" : ""
+            }`}
+            onClick={() => handleNavItemClick("about")}
+          >
+            <Link to="/about" className="navigation_link">
+              About
             </Link>
           </li>
           {Auth.loggedIn() ? (

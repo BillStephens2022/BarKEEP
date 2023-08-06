@@ -4,7 +4,7 @@ import { Modal, Button } from "react-bootstrap";
 import { GET_POST_LIKES_USERS, GET_SINGLE_POST } from "../utils/queries";
 import ProfilePhoto from "./ProfilePhoto";
 import SinglePost from "./SinglePost";
-import "../styles/PostLikesModal.css";
+import "../styles/components/PostLikesModal.css";
 
 const PostLikesModal = ({ postId, onClose }) => {
   const { loading, data } = useQuery(GET_POST_LIKES_USERS, {

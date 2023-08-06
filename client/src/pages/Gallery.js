@@ -2,9 +2,9 @@ import React from "react";
 import Masonry from "react-masonry-css";
 import { useQuery } from "@apollo/client";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
-import "../styles/Gallery.css";
 import ProfilePhoto from "../components/ProfilePhoto";
 import PostPhoto from "../components/PostPhoto";
+import "../styles/pages/Gallery.css";
 
 const Gallery = () => {
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);

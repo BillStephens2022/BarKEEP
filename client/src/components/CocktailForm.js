@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import UploadWidget from "./UploadWidget";
-import "../styles/CocktailForm.css";
+import "../styles/components/CocktailForm.css";
 
 const initialState = {
   name: "",
