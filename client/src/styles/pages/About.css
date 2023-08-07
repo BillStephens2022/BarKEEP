@@ -87,7 +87,7 @@
   z-index: 5;
   border-radius: 1rem;
   margin: 2% 7% 2%;
-  background-color: transparent;
+  background-color: rgb(255, 255, 255, 0.3);
 }
 
 .about-summary-p {
@@ -109,7 +109,7 @@
   letter-spacing: 0.5rem;
   font-weight: 900;
   text-shadow: 0.5px 0.5px var(--lightgray);
-  background-color:  rgb(186, 38, 93, 0.15);
+  background-color: rgb(186, 38, 93, 0.15);
   margin: 0 25%;
   padding: 0.25rem 0;
   border-radius: 1rem;
@@ -129,7 +129,7 @@
   max-width: 30rem;
   padding: 1rem;
   margin: 1rem;
-  border: 1px solid rgb(186, 38, 93, 0.4);;
+  border: 1px solid rgb(186, 38, 93, 0.4);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -240,6 +240,12 @@
 @media (max-width: 767px) {
   .about-summary-container {
     margin: 5%;
+  }
+  .about-features-card {
+    margin: 0.5rem;
+  }
+  .about-cocktail-card {
+    margin: 1rem auto;
   }
   .about-summary-p {
     font-size: 1rem;
