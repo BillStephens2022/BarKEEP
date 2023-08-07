@@ -17,6 +17,28 @@
   flex-direction: column;
 }
 
+#about-span-barkeep-1 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.5rem;
+  color: var(--white);
+  text-shadow: 1px 1px var(--darkgray);
+}
+
+#about-span-barkeep-2 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.5rem;
+  color: var(--blue);
+  text-shadow: 1px 1px var(--darkgray);
+}
+
+#about-span-barkeep-3 {
+  letter-spacing: 0.35rem;
+  color: var(--blue);
+  text-shadow: 1px 1px var(--darkgray);
+}
+
 .about-video {
   position: fixed;
   top: 0;
@@ -87,6 +109,10 @@
   letter-spacing: 0.5rem;
   font-weight: 900;
   text-shadow: 0.5px 0.5px var(--lightgray);
+  background-color: rgba(70, 130, 180, 0.15);
+  margin: 0 25%;
+  padding: 0.25rem 0;
+  border-radius: 1rem;
 }
 
 .about-features-container {
@@ -103,9 +129,41 @@
   max-width: 30rem;
   padding: 1rem;
   margin: 1rem;
-  border: 5px white double;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   z-index: 5;
+  background-color: rgb(255, 255, 255, 0.3);
+  border-radius: 1rem;
+  transition: 0.5s ease;
+}
+
+#about-guest {
+  color: var(--maroon);
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#about-span-cocktail-recipes {
+  color: var(--maroon);
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#about-span-post {
+  color: var(--blue);
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.about-features-card:hover {
+  box-shadow: 5px 5px 15px var(--maroon);
+  transform: scale(1.02);
 }
 
 .about-features {
@@ -125,7 +183,7 @@
   font-weight: 700;
   letter-spacing: 0.1rem;
   line-height: 2;
-  color: var(--black);
+  color: var(--darkgray);
   margin-top: 1rem;
 }
 
@@ -140,7 +198,6 @@
 
 .about-cocktail-card-content {
   order: 2; /* Move the image and title below the expanded section on smaller screens */
-  
 }
 
 .about-cocktail-card-expanded-content {
@@ -163,7 +220,6 @@
   height: 20rem; /* Set the height to 20rem to reveal the expanded content */
   opacity: 1; /* Make the expanded content visible */
   padding-top: 1rem;
-
 }
 
 .about-cocktail-card.expanded.expanded-mobile

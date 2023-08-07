@@ -38,12 +38,12 @@ const About = () => {
       </div>
       <div className="about-summary-container">
         <p className="about-summary-p">
-          Welcome to <span id="about-span">BarKEEP</span>, the destination for
+          Welcome to <span id="about-span-barkeep-1">Bar</span><span id="about-span-barkeep-2">KEEP</span>, the destination for
           cocktail enthusiasts!
         </p>
         <p className="about-summary-p">
           Whether you're a professional bartender, a home mixologist, or simply
-          someone who appreciates a well crafted cocktail, BarKEEP is for you!
+          someone who appreciates a well crafted cocktail, <span id="about-span-barkeep-3">BarKEEP</span> is for you!
         </p>
         <p className="about-summary-p">
           Cheers!
@@ -57,14 +57,14 @@ const About = () => {
         {!Auth.loggedIn() ? (
           <div className="about-features-card">
             <p className="about-features-text">
-              Login as a guest if you'd like to test drive the app before
+              <Link to="/login">Login</Link> as a <span id="about-guest">guest</span> if you'd like to test drive the app before
               registering.
             </p>
             <p className="about-features-text">
               -- OR --
             </p>
             <p className="about-features-text">
-              Register / Sign up to save your favorite recipes to your profile
+            <Link to="/login">Sign up</Link> to save your favorite recipes to your profile
               for quick access.
             </p>
             <Link className="btn btn-get-started" to="/login">
@@ -74,7 +74,7 @@ const About = () => {
         ) : null}
         <div className="about-features-card" id="about-features-card-recipe">
           <p className="about-features-text">
-            Discover an extensive collection of cocktail recipes from classic to
+            Discover an extensive collection of <span id="about-span-cocktail-recipes">cocktail recipes</span> from classic to
             contemporary. In example below, click "See Recipe".
             <div className="about-cocktail-recipe">
               <CocktailCard cocktails={[randomCocktail]} page="about" customClass="about-cocktail-card"/>
@@ -83,7 +83,7 @@ const About = () => {
         </div>
         <div className="about-features-card">
           <p className="about-features-text">
-            Share your favorite cocktail pics and your own unique creations with
+            <span id="about-span-post">Post</span> your favorite cocktail pics and share your own unique creations with
             the community.
             <div className="about-sample-post">
               <img
