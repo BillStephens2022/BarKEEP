@@ -57,15 +57,18 @@ const Login = () => {
         onClick={handleLoginClick}
         activeButton={activeButton}
         text="Log In"
+        customClass="login-buttons"
       />
       <Button
         onClick={handleGuestClick}
         text="Guest Login"
+        customClass="login-buttons"
       />
       <Button
         onClick={handleRegisterClick}
         activeButton={activeButton}
         text="Register"
+        customClass="login-buttons"
       />
 
       {/* Conditionally render the form-container */}

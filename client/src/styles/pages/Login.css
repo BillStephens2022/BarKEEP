@@ -4,12 +4,12 @@
   flex: 1;
   color: var(--blue);
   text-align: center;
-  background-color: var(--white);
+  background-color: var(--lightgray);
  
 }
 
 .login-main {
-  background-color: var(--white);
+  background-color: var(--lightgray);
   padding: 2% 0;
 }
 
@@ -33,6 +33,13 @@
 .subtitle-2-span:hover {
   text-transform: lowercase;
   color: var(--blue);
+}
+
+.btn-login-buttons:hover {
+  background-color: var(--maroon);
+  color: var(--white);
+  transform: scale(1.1);
+  transition: 0.3s ease;
 }
 
 .how-to {

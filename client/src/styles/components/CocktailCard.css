@@ -58,8 +58,26 @@
 }
 
 .btn-seeRecipe:hover {
+  background-color: transparent;
   color: chartreuse;
   transform: scale(1.1);
+}
+
+.cocktail-card-btn {
+  background-color: transparent;
+}
+
+.cocktail-card-btn:hover {
+  transform: scale(1.5);
+}
+
+.cocktail-card-add-btn {
+  background-color: var(--blue);
+}
+
+.cocktail-card-add-btn:hover {
+  transform: scale(1.1);
+  background-color: var(--maroon);
 }
 
 .card-cocktail.expanded {
@@ -91,6 +109,10 @@
   font-size: 1rem;
   margin-bottom: 1rem;
   font-weight: 700;
+}
+
+#card-h3-instructions {
+  margin-top: 1rem;
 }
 
 .card-list,

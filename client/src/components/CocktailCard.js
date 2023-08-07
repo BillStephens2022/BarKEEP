@@ -10,6 +10,7 @@ const CocktailCard = ({
   handleAddCocktail,
   handleDeleteCocktail,
   handleEditCocktail,
+  customClass
 }) => {
   const [expandedCocktail, setExpandedCocktail] = useState(null);
   //
@@ -65,7 +66,7 @@ const CocktailCard = ({
             expandedCocktail && expandedCocktail._id === cocktail._id
               ? "expanded"
               : ""
-          }`}
+          } ${customClass}`}
           key={cocktail._id}
         >
           <div
@@ -99,7 +100,7 @@ const CocktailCard = ({
                   </li>
                 ))}
               </ul>
-              <h3 className="card-h3">Instructions:</h3>
+              <h3 className="card-h3" id="card-h3-instructions">Instructions:</h3>
               <p className="card-instructions">
                 {expandedCocktail.instructions}
               </p>
@@ -107,14 +108,14 @@ const CocktailCard = ({
                 {page === "Favorites" && (
                   <>
                     <button
-                      className="btn cocktail_card_btn"
+                      className="btn cocktail-card-btn"
                       id={cocktail._id}
                       onClick={() => handleDeleteCocktail(cocktail._id)}
                     >
                       <GoTrash />
                     </button>
                     <button
-                      className="btn cocktail_card_btn"
+                      className="btn cocktail-card-btn"
                       id={cocktail._id}
                       onClick={() => handleEditCocktail(cocktail)}
                     >
@@ -124,7 +125,7 @@ const CocktailCard = ({
                 )}
                 {page === "SearchCocktails" && (
                   <button
-                    className="btn btn-add"
+                    className="btn cocktail-card-add-btn"
                     id={cocktail._id}
                     onClick={() => handleAddCocktail(cocktail)}
                   >
