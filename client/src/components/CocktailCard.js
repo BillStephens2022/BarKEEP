@@ -18,7 +18,7 @@ const CocktailCard = ({
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768); // 'isMobile' is true with viewport with width < 768px
+      setIsMobile(window.innerWidth < 768 || customClass==="about-cocktail-card"); // 'isMobile' is true with viewport with width < 768px
     };
 
     // Add event listener to handle resizing
@@ -64,13 +64,13 @@ const CocktailCard = ({
         <div
           className={`card card-cocktail ${
             expandedCocktail && expandedCocktail._id === cocktail._id
-              ? "expanded"
+              ? `expanded ${customClass}-expanded`
               : ""
           } ${customClass}`}
           key={cocktail._id}
         >
           <div
-            className="card-content"
+            className={`card-content ${customClass}-content`}
             style={{ backgroundImage: `url(${cocktail.imageURL})` }}
           >
             <div className="card-title">{cocktail.name}</div>
@@ -88,7 +88,7 @@ const CocktailCard = ({
           </div>
           {expandedCocktail && expandedCocktail._id === cocktail._id && (
             <div
-              className={`expanded-content ${
+              className={`expanded-content ${customClass}-expanded-content ${
                 isMobile ? "expanded-mobile" : "expanded-desktop"
               }`}
             >

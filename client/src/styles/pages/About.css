@@ -5,7 +5,8 @@
   max-width: 100vw;
 }
 
-.header, .footer {
+.header,
+.footer {
   position: relative;
   z-index: 5;
 }
@@ -39,17 +40,16 @@
     position: fixed;
     top: 0;
     left: 0;
-    
+
     max-width: 100vw;
     min-height: 300vh;
   }
-  
+
   .about-video-content {
     max-width: 100vw;
     min-height: 100vh;
     height: auto;
     object-fit: fill;
-    
   }
 }
 
@@ -68,7 +68,6 @@
   background-color: transparent;
 }
 
-
 .about-summary-p {
   font-size: 1.35rem;
   font-weight: 700;
@@ -79,7 +78,6 @@
   letter-spacing: 0.25rem;
   padding: 0 1rem;
   z-index: 2;
-  
 }
 
 .about-h2 {
@@ -97,11 +95,10 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 2rem;
 }
 
 .about-features-card {
-  display: flex;
-  flex-direction: column;
   min-width: 15rem;
   max-width: 30rem;
   padding: 1rem;
@@ -137,12 +134,41 @@
   justify-content: center;
 }
 
-.about-cocktail-card.expanded {
-  height: auto; /* Allow the card to expand vertically */
+.about-cocktail-card {
+  flex-direction: column; /* Stack the cards vertically on smaller screens */
 }
 
-.about-cocktail-card.expanded .expanded-content {
-  height: auto; /* Allow the expanded content to expand vertically */
+.about-cocktail-card-content {
+  order: 2; /* Move the image and title below the expanded section on smaller screens */
+  
+}
+
+.about-cocktail-card-expanded-content {
+  order: 2; /* Move the expanded section above the image and title on smaller screens */
+  position: relative; /* Change from absolute to relative positioning */
+  width: 100%; /* Set the width to 100% to expand under the card */
+  height: 0; /* Set the initial height to 0 */
+  opacity: 0; /* Hide the expanded content initially */
+  overflow: hidden; /* Hide any content that overflows */
+  padding: 0 1rem; /* Add padding to separate the expanded content from the original content */
+  transition: height 0.3s, opacity 0.3s; /* Add transitions for smooth expansion */
+}
+
+.about-cocktail-card-expanded {
+  height: 40rem;
+  width: 20rem !important;
+}
+
+.about-cocktail-card-expanded .about-cocktail-card-expanded-content {
+  height: 20rem; /* Set the height to 20rem to reveal the expanded content */
+  opacity: 1; /* Make the expanded content visible */
+  padding-top: 1rem;
+
+}
+
+.about-cocktail-card.expanded.expanded-mobile
+  .about-cocktail-card-expanded-content {
+  margin-top: 1rem; /* Add a margin between the original card and the expanded content */
 }
 
 .about-sample-post {
@@ -168,7 +194,7 @@
   .about-list-item {
     font-size: 1rem;
   }
-  .about-cocktail-recipe .card-cocktail {
+  .about-cocktail-recipe {
     margin: 0;
     margin-top: 1rem;
   }

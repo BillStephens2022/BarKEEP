@@ -72,12 +72,12 @@ const About = () => {
             </Link>
           </div>
         ) : null}
-        <div className="about-features-card">
+        <div className="about-features-card" id="about-features-card-recipe">
           <p className="about-features-text">
             Discover an extensive collection of cocktail recipes from classic to
             contemporary. In example below, click "See Recipe".
             <div className="about-cocktail-recipe">
-              <CocktailCard cocktails={[randomCocktail]} customClass="about-cocktail-card"/>
+              <CocktailCard cocktails={[randomCocktail]} page="about" customClass="about-cocktail-card"/>
             </div>
           </p>
         </div>
