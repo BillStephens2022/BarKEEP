@@ -2,7 +2,7 @@ import React from "react";
 import { LiaGlassCheersSolid } from "react-icons/lia";
 import Header from "../components/Header";
 import CocktailCard from "../components/CocktailCard";
-import cocktailData from "../data/cocktaildata";
+import { cocktailData } from "../data/cocktaildata";
 import { Link } from "react-router-dom";
 import { Auth } from "../utils/auth";
 import "../styles/pages/About.css";

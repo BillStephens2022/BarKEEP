@@ -180,6 +180,23 @@
   border-radius: 1%;
 }
 
+#home-quote-div {
+  margin-top: 2rem;
+}
+
+#home-quote-h3 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.25rem;
+}
+
+#home-random-quote {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: 0.15rem;
+}
+
 .bubbles-container {
   position: absolute;
   width: 100%;
@@ -251,6 +268,20 @@
   color: var(--darkgray);
 }
 
+@media (max-width: 900px) {
+  #home-quote-h3 {
+    font-size: 1.4rem;
+    letter-spacing: 0.2rem;
+    font-weight: 700;
+  }
+  #home-random-quote {
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    font-weight: 300;
+    margin: auto 1rem;
+  }
+}
+
 @media (max-width: 767px) {
   .home-headings {
     padding-top: 1.5rem;
@@ -265,6 +296,14 @@
   .welcome-message {
     font-size: 1.25rem;
     padding: 0 3rem;
+  }
+  #home-quote-h3 {
+    font-size: 1rem;
+    letter-spacing: 0.15rem;
+  }
+
+  #home-random-quote {
+    font-size: 0.9rem;
   }
 }
 

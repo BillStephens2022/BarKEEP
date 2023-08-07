@@ -1,4 +1,4 @@
-const cocktailData = {
+export const cocktailData = {
   data: {
     cocktails: [
       {
@@ -551,4 +551,119 @@ const cocktailData = {
   },
 };
 
-export default cocktailData;
+export const drinkingQuotes = [
+  {
+    quote:
+      "Here's to alcohol, the cause of – and solution to – all life's problems.",
+    author: "Homer Simpson",
+  },
+  {
+    quote: "Reality is an illusion that occurs due to the lack of alcohol.",
+    author: "Anonymous",
+  },
+  {
+    quote: "I would exercise, but it makes me spill my wine.",
+    author: "Anonymous",
+  },
+  {
+    quote:
+      "Alcohol may be man's worst enemy, but the Bible says love your enemy.",
+    author: "Frank Sinatra",
+  },
+  {
+    quote: "I have a mixed drink about feelings.",
+    author: "Anonymous",
+  },
+  {
+    quote:
+      "Wine is constant proof that God loves us and loves to see us happy.",
+    author: "Benjamin Franklin",
+  },
+  {
+    quote: "I'd rather have a bottle in front of me than a frontal lobotomy.",
+    author: "Tom Waits",
+  },
+  {
+    quote: "Beer is living proof that God loves us and wants us to be happy.",
+    author: "Benjamin Franklin",
+  },
+  {
+    quote: "I'm on a whiskey diet. I've lost three days already.",
+    author: "Tommy Cooper",
+  },
+  {
+    quote: "If life gives you lemons, add vodka and have a party!",
+    author: "Anonymous",
+  },
+  {
+    quote: "I work until beer o'clock.",
+    author: "Stephen King",
+  },
+  {
+    quote: "I drink to make other people more interesting.",
+    author: "Ernest Hemingway",
+  },
+  {
+    quote: "I like my whiskey old and my women young.",
+    author: "Errol Flynn",
+  },
+  {
+    quote: "I’m not drunk, I’m just intoxicated by you.",
+    author: "Anonymous",
+  },
+  {
+    quote:
+      "Beer: because no good story ever started with someone eating a salad.",
+    author: "Anonymous",
+  },
+  {
+    quote: "My body is not a temple; it's a distillery with legs.",
+    author: "Dave Barry",
+  },
+  {
+    quote: "I have a drinking problem – two hands and only one mouth.",
+    author: "Anonymous",
+  },
+  {
+    quote:
+      "I don’t have a drinking problem. I drink, I get drunk, I fall down. No problem.",
+    author: "Anonymous",
+  },
+  {
+    quote: "I'm not an alcoholic, I'm a cheersaholic!",
+    author: "Anonymous",
+  },
+  {
+    quote: "Drink triple, see double, act single.",
+    author: "Anonymous",
+  },
+  {
+    quote:
+      "I feel bad for people who don't drink. When they wake up in the morning, that's as good as they're going to feel all day.",
+    author: "Frank Sinatra",
+  },
+  {
+    quote:
+      "I only drink Champagne on two occasions, when I am in love and when I am not.",
+    author: "Coco Chanel",
+  },
+  {
+    quote:
+      "I like to have a martini, two at the very most. After three I'm under the table, after four I'm under my host.",
+    author: "Dorothy Parker",
+  },
+  {
+    quote: "24 hours in a day, 24 beers in a case. Coincidence? I think not.",
+    author: "Stephen Wright",
+  },
+  {
+    quote:
+      "In wine there is wisdom, in beer there is Freedom, in water there is bacteria.",
+    author: "Benjamin Franklin",
+  },
+  {
+    quote:
+      "Always do sober what you said you'd do drunk. That will teach you to keep your mouth shut.",
+    author: "Ernest Hemingway",
+  },
+];
