@@ -331,6 +331,7 @@ const MyFavorites = () => {
           setCocktails={setCocktails}
           handleEditCocktail={handleEditCocktail}
           handleDeleteCocktail={handleDeleteCocktail}
+          cocktailAdded={{}}
           page="Favorites"
         />
       </div>

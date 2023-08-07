@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getRandomCocktail } from "../utils/API";
 import CocktailCard from "./CocktailCard";
 
-const RandomCocktail = ({ handleAddCocktail, addedCocktailId }) => {
+const RandomCocktail = ({ handleAddCocktail, addedCocktailId, cocktailAdded }) => {
   const [randomCocktail, setRandomCocktails] = useState([]);
 
   useEffect(() => {
@@ -20,6 +20,7 @@ const RandomCocktail = ({ handleAddCocktail, addedCocktailId }) => {
         page="SearchCocktails"
         handleAddCocktail={handleAddCocktail}
         addedCocktailId={addedCocktailId}
+        cocktailAdded={cocktailAdded}
       />
     </div>
   );

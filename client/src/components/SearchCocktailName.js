@@ -3,7 +3,7 @@ import { searchCocktails } from "../utils/API";
 import CocktailCard from "./CocktailCard";
 import "../styles/pages/SearchCocktails.css";
 
-const SearchCocktailName = ({handleAddCocktail, addedCocktailId}) => {
+const SearchCocktailName = ({handleAddCocktail, addedCocktailId, cocktailAdded}) => {
   // create state for holding returned google api data
   const [searchedCocktails, setSearchedCocktails] = useState([]);
   // create state for holding our search field data
@@ -52,6 +52,7 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId}) => {
           page="SearchCocktails"
           handleAddCocktail={handleAddCocktail}
           addedCocktailId={addedCocktailId}
+          cocktailAdded={cocktailAdded}
         />
       </div>
     </div>

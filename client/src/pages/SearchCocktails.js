@@ -13,6 +13,7 @@ const SearchCocktails = () => {
   // to search by cocktail name or ingredient
   const [searchBy, setSearchBy] = useState("");
   const [addedCocktailId, setAddedCocktailId] = useState(null);
+  const [cocktailAdded, setCocktailAdded] = useState({});
 
   const client = useApolloClient();
 
@@ -50,6 +51,10 @@ const SearchCocktails = () => {
         query: QUERY_COCKTAILS,
         data: { cocktails: [data.addCocktail, ...cocktails] },
       });
+      setCocktailAdded((prev) => ({
+        ...prev,
+        [cocktailData._id]: true
+      }));
     } catch (error) {
       console.error("Error adding cocktail:", error);
     }
@@ -62,6 +67,7 @@ const SearchCocktails = () => {
           <SearchCocktailName
             handleAddCocktail={handleAddCocktail}
             addedCocktailId={addedCocktailId}
+            cocktailAdded = {cocktailAdded}
           />
         );
       case "ingredient":
@@ -69,6 +75,7 @@ const SearchCocktails = () => {
           <SearchCocktailIngredient
             handleAddCocktail={handleAddCocktail}
             addedCocktailId={addedCocktailId}
+            cocktailAdded = {cocktailAdded}
           />
         );
       case "random":
@@ -76,6 +83,7 @@ const SearchCocktails = () => {
           <RandomCocktail
             handleAddCocktail={handleAddCocktail}
             addedCocktailId={addedCocktailId}
+            cocktailAdded = {cocktailAdded}
           />
         );
       default:

@@ -125,6 +125,11 @@
   justify-content: space-around;
 }
 
+#cocktail-card-added-message {
+  color: chartreuse;
+  font-size: 0.9rem;
+}
+
 
 @media (max-width: 767px) {
   .card-cocktail {

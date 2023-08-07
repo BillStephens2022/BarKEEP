@@ -5,7 +5,7 @@ import "../styles/pages/Home.css";
 
 // component for when user chooses to search cocktails by ingredient
 
-const SearchCocktailIngredient = ({ handleAddCocktail, addedCocktailId }) => {
+const SearchCocktailIngredient = ({ handleAddCocktail, addedCocktailId, cocktailAdded }) => {
   const [selectedIngredient, setSelectedIngredient] = useState("");
   const [searchedCocktails, setSearchedCocktails] = useState([]);
 
@@ -69,6 +69,7 @@ const SearchCocktailIngredient = ({ handleAddCocktail, addedCocktailId }) => {
           page="SearchCocktails"
           handleAddCocktail={handleAddCocktail}
           addedCocktailId={addedCocktailId}
+          cocktailAdded={cocktailAdded}
         />
       </div>
     </div>

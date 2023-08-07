@@ -10,15 +10,17 @@ const CocktailCard = ({
   handleAddCocktail,
   handleDeleteCocktail,
   handleEditCocktail,
-  customClass
+  customClass,
+  cocktailAdded,
 }) => {
   const [expandedCocktail, setExpandedCocktail] = useState(null);
-  //
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768 || customClass==="about-cocktail-card"); // 'isMobile' is true with viewport with width < 768px
+      setIsMobile(
+        window.innerWidth < 768 || customClass === "about-cocktail-card"
+      ); // 'isMobile' is true with viewport with width < 768px
     };
 
     // Add event listener to handle resizing
@@ -100,7 +102,9 @@ const CocktailCard = ({
                   </li>
                 ))}
               </ul>
-              <h3 className="card-h3" id="card-h3-instructions">Instructions:</h3>
+              <h3 className="card-h3" id="card-h3-instructions">
+                Instructions:
+              </h3>
               <p className="card-instructions">
                 {expandedCocktail.instructions}
               </p>
@@ -123,14 +127,18 @@ const CocktailCard = ({
                     </button>
                   </>
                 )}
-                {page === "SearchCocktails" && (
-                  <button
-                    className="btn cocktail-card-add-btn"
-                    id={cocktail._id}
-                    onClick={() => handleAddCocktail(cocktail)}
-                  >
-                    <GoPlus /> Add to Favorites
-                  </button>
+                {cocktailAdded[cocktail._id] ? (
+                  <p id="cocktail-card-added-message">Cocktail Added to Favorites!</p>
+                ) : (
+                  page === "SearchCocktails" && (
+                    <button
+                      className="btn cocktail-card-add-btn"
+                      id={cocktail._id}
+                      onClick={() => handleAddCocktail(cocktail)}
+                    >
+                      <GoPlus /> Add to Favorites
+                    </button>
+                  )
                 )}
               </div>
             </div>
