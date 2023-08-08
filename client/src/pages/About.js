@@ -14,7 +14,7 @@ const About = () => {
 
   return (
     <div className="about">
-      <Header subtitle={"About Us"} />
+      <Header subtitle={"About"} />
       <div className="about-main">
         <div className="about-video">
           <video

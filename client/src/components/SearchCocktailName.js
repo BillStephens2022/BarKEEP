@@ -16,7 +16,6 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId, cocktailAdded})
 
   const handleSearchSubmit = async (event) => {
     // add asynchronous function to handle cocktail searches from the API
-    console.log(event);
     if (event) {
       event.preventDefault();
     }

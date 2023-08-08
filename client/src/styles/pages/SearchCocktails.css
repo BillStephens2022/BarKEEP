@@ -85,6 +85,7 @@
 
 .div-search-btn {
   margin: 0;
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
@@ -161,6 +162,10 @@
   transition: 0.3s ease;
 }
 
+.card-container {
+  margin-top: 0.75rem;
+}
+
 @media (max-width: 900px) {
   .search-header-1 {
     font-size: 1.75rem;
@@ -183,6 +188,9 @@
   }
   .search-header-2 {
     font-size: 1.25rem;
+  }
+  .div-search-btn {
+    margin-bottom: 0.75rem;
   }
   .btn-search {
     margin: 0.35rem;
