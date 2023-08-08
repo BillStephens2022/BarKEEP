@@ -5,7 +5,6 @@ import { drinkingQuotes } from "../data/cocktaildata";
 import "../styles/pages/Home.css";
 
 const Home = () => {
-  console.log(drinkingQuotes);
   const [randomQuote, setRandomQuote] = useState(null);
 
   const getRandomQuote = () => {

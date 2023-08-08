@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useMutation, useApolloClient } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
 import { ADD_COCKTAIL } from "../utils/mutations";
-import { searchCocktails } from "../utils/API"
+import { searchCocktails } from "../utils/API";
 import SearchCocktailName from "../components/SearchCocktailName";
 import SearchCocktailIngredient from "../components/SearchCocktailIngredient";
 import RandomCocktail from "../components/RandomCocktail";
@@ -11,7 +11,7 @@ import "../styles/pages/SearchCocktails.css";
 const SearchCocktails = () => {
   // state variable will drive which component is shown on the screen depending on whether user chooses
   // to search by cocktail name or ingredient
-  const [searchBy, setSearchBy] = useState("");
+  const [searchBy, setSearchBy] = useState("name");
   const [addedCocktailId, setAddedCocktailId] = useState(null);
   const [cocktailAdded, setCocktailAdded] = useState({});
 
@@ -26,9 +26,8 @@ const SearchCocktails = () => {
   }, [addedCocktailId]);
 
   const handleAddCocktail = async (cocktailData) => {
-    
     console.log(cocktailData._id);
-    
+
     if (!cocktailData.ingredients.length) {
       const searchData = await searchCocktails(cocktailData.name);
       cocktailData = searchData[0];
@@ -53,7 +52,7 @@ const SearchCocktails = () => {
       });
       setCocktailAdded((prev) => ({
         ...prev,
-        [cocktailData._id]: true
+        [cocktailData._id]: true,
       }));
     } catch (error) {
       console.error("Error adding cocktail:", error);
@@ -67,7 +66,7 @@ const SearchCocktails = () => {
           <SearchCocktailName
             handleAddCocktail={handleAddCocktail}
             addedCocktailId={addedCocktailId}
-            cocktailAdded = {cocktailAdded}
+            cocktailAdded={cocktailAdded}
           />
         );
       case "ingredient":
@@ -75,7 +74,7 @@ const SearchCocktails = () => {
           <SearchCocktailIngredient
             handleAddCocktail={handleAddCocktail}
             addedCocktailId={addedCocktailId}
-            cocktailAdded = {cocktailAdded}
+            cocktailAdded={cocktailAdded}
           />
         );
       case "random":
@@ -83,7 +82,7 @@ const SearchCocktails = () => {
           <RandomCocktail
             handleAddCocktail={handleAddCocktail}
             addedCocktailId={addedCocktailId}
-            cocktailAdded = {cocktailAdded}
+            cocktailAdded={cocktailAdded}
           />
         );
       default:
@@ -109,35 +108,43 @@ const SearchCocktails = () => {
 
   return (
     <div className="search-cocktails">
-    <div className="search-headings">
-      <h1 className="search-title">BarKEEP</h1>
-      <h2 className="search-header-1">Search <a id="link-opencocktaildb" href="https://www.TheCocktailDB.com">'TheCocktailDB'</a> API</h2>
-      <h3 className="search-header-2">
-        Search by:{" "}
-        <span className="searchBy-text">
-          {searchBy.charAt(0).toUpperCase() + searchBy.slice(1)}
-        </span>
-      </h3>
-      <div className="div-search-btn">
-        <button
-          className="btn btn-search btn-searchByName"
-          onClick={() => setSearchBy("name")}
-        >
-          Name
-        </button>
-        <button
-          className="btn btn-search btn-searchByIngredient"
-          onClick={() => setSearchBy("ingredient")}
-        >
-          Ingredient
-        </button>
-        <button
-          className="btn btn-search btn-searchByRandom"
-          onClick={() => setSearchBy("random")}
-        >
-          Random
-        </button>
+      <div className="search-headings">
+        <h1 className="search-title">BarKEEP</h1>
+        <h2 className="search-header-1">
+          Search{" "}
+          <a id="link-opencocktaildb" href="https://www.TheCocktailDB.com">
+            'TheCocktailDB'
+          </a>{" "}
+          API
+        </h2>
       </div>
+      <div className="search-subheadings">
+        <h3 className="search-header-2">
+          Search by:{" "}
+          <span className="searchBy-text">
+            {searchBy.charAt(0).toUpperCase() + searchBy.slice(1)}
+          </span>
+        </h3>
+        <div className="div-search-btn">
+          <button
+            className="btn btn-search btn-searchByName"
+            onClick={() => setSearchBy("name")}
+          >
+            Name
+          </button>
+          <button
+            className="btn btn-search btn-searchByIngredient"
+            onClick={() => setSearchBy("ingredient")}
+          >
+            Ingredient
+          </button>
+          <button
+            className="btn btn-search btn-searchByRandom"
+            onClick={() => setSearchBy("random")}
+          >
+            Random
+          </button>
+        </div>
       </div>
       <div className="div-search-component">{renderSearchComponent()}</div>
     </div>

@@ -125,11 +125,28 @@
   justify-content: space-around;
 }
 
+.cocktail-card-default-message {
+  color: var(--white);
+  letter-spacing: 0.25rem;
+  margin: 1.5rem 25%;
+  border: 3px var(--white) solid;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background-color: var(--blue);
+  font-size: 1.5rem;
+}
+
 #cocktail-card-added-message {
   color: chartreuse;
   font-size: 0.9rem;
 }
 
+@media (max-width: 900px) {
+  .cocktail-card-default-message {
+    margin: 2rem 15%;
+    font-size: 1.35rem;
+  }
+}
 
 @media (max-width: 767px) {
   .card-cocktail {
@@ -165,18 +182,24 @@
   .card-cocktail.expanded.expanded-mobile .expanded-content {
     margin-top: 1rem; /* Add a margin between the original card and the expanded content */
   }
+
+  .cocktail-card-default-message {
+    margin: 1rem 10%;
+    font-size: 1.15rem;
+  }
 }
 
 @media (max-width: 380px) {
-
   .card-content {
     max-width: 100%;
     max-height: 100%;
   }
-
   .expanded-content {
     max-width: 100%;
     max-height: 100%;
   }
-  
+  .cocktail-card-default-message {
+    margin: 1rem 5%;
+    font-size: 1rem;
+  }
 }

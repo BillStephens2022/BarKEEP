@@ -1,5 +1,13 @@
 .search-headings {
   padding: 1rem;
+  padding-bottom: 0.5rem;
+  background-color: var(--darkgray);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.search-subheadings {
   background-color: var(--darkgray);
   display: flex;
   flex-direction: column;
@@ -10,7 +18,7 @@
   font-size: 6rem;
   font-weight: 900;
   letter-spacing: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: var(--blue);
   text-align: center;
   text-shadow: 2px 2px var(--lightgray);
@@ -43,6 +51,7 @@
 
 .search-header-1 {
   font-size: 2rem;
+  margin-bottom: 0;
   letter-spacing: 0.4rem;
   color: var(--white);
   text-align: center;
@@ -95,10 +104,9 @@
 }
 
 .ingredient-dropdown {
-  margin-left: 1.5rem;
   margin-top: 0.5rem;
   height: 2.4rem;
-  width: 11.5rem;
+  width: 15rem;
   padding: 0.4rem;
   border-radius: 1rem;
   border: 1px solid var(--darkgray);
@@ -194,5 +202,15 @@
   }
   .btn-search {
     margin: 0.5rem;
+  }
+  .searchNameForm {
+    margin: 0 1%;
+  }
+  .input-search-cocktails {
+    width: 90vw;
+    margin-bottom: 0.75rem;
+  }
+  .ingredient-dropdown {
+    width: 12rem;
   }
 }

@@ -40,7 +40,7 @@ const CocktailCard = ({
   }
 
   if (!cocktails.length) {
-    return <h3 className="cocktail_card_error">No cocktails to display yet</h3>;
+    return <h3 className="cocktail-card-default-message">Search by "Name", "Ingredient", or get a "Random" cocktail recipe using buttons above</h3>;
   }
 
   const handleSeeRecipe = async (cocktail) => {

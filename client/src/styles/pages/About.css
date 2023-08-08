@@ -110,7 +110,7 @@
   font-weight: 900;
   text-shadow: 0.5px 0.5px var(--lightgray);
   background-color: rgb(186, 38, 93, 0.15);
-  margin: 0 25%;
+  margin: 1.5rem 25%;
   padding: 0.25rem 0;
   border-radius: 1rem;
 }
@@ -251,7 +251,7 @@
     font-size: 1rem;
   }
   .about-h2 {
-    margin: 0 10%;
+    margin: 1.5rem 10%;
   }
   .about-list {
     width: 95%;
