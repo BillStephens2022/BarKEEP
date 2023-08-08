@@ -181,7 +181,9 @@
 }
 
 #home-quote-div {
+  margin: auto;
   margin-top: 2rem;
+  width: 80%;
 }
 
 #home-quote-h3 {
@@ -296,6 +298,12 @@
   .welcome-message {
     font-size: 1.25rem;
     padding: 0 3rem;
+  }
+  .home_photo {
+    margin-top: 0.5rem;
+  }
+  #home-quote-div {
+    width: 90%;
   }
   #home-quote-h3 {
     font-size: 1rem;

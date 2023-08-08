@@ -244,7 +244,8 @@
 
 .post-comment-like {
   display: flex;
-  justify-content: flex-end;
+  width: 100%;
+  justify-content: space-between;
   align-content: center;
 }
 
@@ -432,8 +433,11 @@
     font-size: 0.7rem;
   }
   .btn-post-comment,
-  .btn-post-like {
-    font-size: 0.9rem;
+  .btn-post-like, .btn-post-delete {
+    font-size: 1.25rem;
+  }
+  .btn-post-delete {
+    margin-top: 12px;
   }
   #post-comment-count {
     font-size: 0.7rem;

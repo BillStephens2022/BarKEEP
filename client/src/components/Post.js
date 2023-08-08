@@ -197,9 +197,68 @@ const Post = ({
                 <div className="post-content">{post.postContent}</div>
               </div>
             </div>
-
+            <div className="post-like-comment-counts">
+              <div
+                className="post-counts"
+                onClick={() => handlePostLikeCountClick(post._id)}
+              >
+                <BiLike />
+                <h6 id="post-counts-likes">
+                  {isPostLikedByUser
+                    ? post.likes.length === 1
+                      ? "You liked this"
+                      : post.likes.length === 2
+                      ? `You and 1 other liked this`
+                      : `You and ${
+                          post.likes.length - 1
+                        } others liked this`
+                    : post.likes?.length}
+                </h6>
+              </div>
+              <div
+                className="post-counts"
+                onClick={() => handlePostCommentsClick(post._id)}
+              >
+                <h6 id="post-counts-comments">
+                  {post.comments?.length} comments
+                </h6>
+              </div>
+            </div>
             <div className="post-footer">
-              {isMyPosts && isMyPost && (
+              
+
+              <div className="post-comment-like">
+              
+                <div className="post-like-button">
+                  <button
+                    className="btn btn-post-like"
+                    id={`post-like-${post._id}`}
+                    onClick={() => {
+                      addLike({
+                        variables: { postId: post._id },
+                      });
+                    }}
+                  >
+                    {isPostLikedByUser ? (
+                      <BiSolidLike className="like-icon-solid" />
+                    ) : (
+                      <BiLike />
+                    )}
+                  </button>
+                  <h6 className={`post-like-label ${!isPostLikedByUser ? null : "liked"}`} id="post-like-label">{isPostLikedByUser ? "Liked" : "Like"}</h6>
+                </div>
+                <div className="post-comment-button">
+                  <button
+                    className="btn btn-post-comment"
+                    id={`post-comment-${post._id}`}
+                    onClick={() => handlePostCommentsClick(post._id)}
+                  >
+                    <BiComment />
+                  </button>
+
+                  <h6 id="post-comment-label">Comment</h6>
+                </div>
+                {isMyPosts && isMyPost && (
                 <div className="div-delete-button">
                   <button
                     className="btn btn-post-delete"
@@ -208,47 +267,9 @@ const Post = ({
                   >
                     <GoTrash />
                   </button>
+                  <h6 id="post-delete-label">Delete</h6>
                 </div>
               )}
-
-              <div className="post-comment-like">
-                <button
-                  className="btn btn-post-comment"
-                  id={`post-comment-${post._id}`}
-                  onClick={() => handlePostCommentsClick(post._id)}
-                >
-                  <BiComment />
-                </button>
-                <h6 id="post-comment-count">{post.comments?.length}</h6>
-                <button
-                  className="btn btn-post-like"
-                  id={`post-like-${post._id}`}
-                  onClick={() => {
-                    addLike({
-                      variables: { postId: post._id },
-                    });
-                  }}
-                >
-                  {isPostLikedByUser ? (
-                    <BiSolidLike className="like-icon-solid" />
-                  ) : (
-                    <BiLike />
-                  )}
-                </button>
-                <h6
-                  id="post-like-count"
-                  onClick={() => handlePostLikeCountClick(post._id)}
-                >
-                  {isPostLikedByUser
-                    ? post.likes.length === 1
-                      ? "You liked this post"
-                      : post.likes.length === 2
-                      ? `You and 1 other liked this post`
-                      : `You and ${
-                          post.likes.length - 1
-                        } others liked this post`
-                    : post.likes?.length}
-                </h6>
               </div>
             </div>
           </div>
