@@ -2,6 +2,7 @@ import React from "react";
 import { LiaGlassCheersSolid } from "react-icons/lia";
 import Header from "../components/Header";
 import CocktailCard from "../components/CocktailCard";
+import PostPhoto from "../components/PostPhoto";
 import { cocktailData } from "../data/cocktaildata";
 import { Link } from "react-router-dom";
 import { Auth } from "../utils/auth";
@@ -94,11 +95,11 @@ const About = () => {
               <span id="about-span-post">Post</span> your favorite cocktail pics
               and share your own unique creations with the community.
               <div className="about-sample-post">
-                <img
-                  id="about-sample-post-img"
-                  src={process.env.PUBLIC_URL + "images/samplePost.png"}
-                  alt="sample post"
-                ></img>
+                <PostPhoto
+                  imageUrl={process.env.PUBLIC_URL + "images/samplePost.png"}
+                  page="about"
+                  />
+                
               </div>
             </p>
           </div>

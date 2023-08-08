@@ -7,12 +7,16 @@ const cloudinaryCore = new cloudinary.Cloudinary({
   cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
 });
 
-const PostPhoto = ({ imageUrl }) => {
-  const transformedImageUrl = cloudinaryCore.url(imageUrl, {
+const PostPhoto = ({ imageUrl, page }) => {
+  let transformedImageUrl = imageUrl;
+
+  if (page !== "about") {
+   transformedImageUrl = cloudinaryCore.url(imageUrl, {
     width: 500,
     height: 500,
     crop: "fill_pad",
   });
+}
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
