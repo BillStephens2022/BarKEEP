@@ -7,10 +7,11 @@
 }
 
 /* Modal styles */
+
 .modal-dialog {
   max-width: 90%;
   max-height: 90%;
-  margin: auto;
+  margin: auto !important;
 }
 
 .modal-photo {
@@ -38,12 +39,13 @@
 
 /* Fade-in transition effect */
 .modal.fade .modal-dialog {
-  transform: scale(0.8); /* Optional: You can add scale effect */
+  transform: scale(0.8); 
   opacity: 0;
-  transition: opacity 0.7s, transform 0.7s; /* Adjust the duration as needed */
+  transition: opacity 0.7s, transform 0.7s; 
 }
 
 .modal.fade.show .modal-dialog {
   transform: scale(1);
   opacity: 1;
 }
+
