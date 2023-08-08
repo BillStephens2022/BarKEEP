@@ -1,7 +1,7 @@
 /* CocktailForm */
 
 .form-container {
-  min-width: 50vw;
+  
   margin: 0 auto;
   padding: 1.2rem;
   min-height: 80vh;
@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   max-width: 31.25rem;
+  margin: auto;
 }
 
 .form-container label {
@@ -39,6 +40,13 @@
 
 .cocktail-form-button:hover {
   background-color: #0056b3;
+}
+
+.cocktail-form-button:disabled {
+  background-color: var(--lightgray);
+  color: var(--blue);
+  text-shadow: none;
+  opacity: 0.5;
 }
 
 .form-container .ingredient-inputs {

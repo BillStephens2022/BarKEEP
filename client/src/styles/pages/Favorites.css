@@ -54,6 +54,14 @@
   margin-left: 0;
 }
 
+.modal-content {
+  width: 50vw;
+  margin: auto;
+  margin-top: 3rem;
+}
+
+
+
 @media (max-width: 900px) {
   .user-heading {
     margin-top: 1rem;
@@ -68,6 +76,9 @@
   .favorites-title {
     font-size: 3.5rem;
     font-weight: 700;
+  }
+  .modal-content {
+    width: 75vw;
   }
 }
 
@@ -93,6 +104,15 @@
   .size-64 {
     width: 2.5rem;
     height: 2.5rem;
+  }
+  .modal-dialog {
+    width: 100vw;
+    margin: auto 0.25rem;
+    justify-content: center;
+  }
+  .modal-content {
+    margin: 1rem 0.25rem;
+    width: 95vw;
   }
 }
 
