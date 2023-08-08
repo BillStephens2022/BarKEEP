@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GoPencil, GoTrash, GoPlus } from "react-icons/go";
+import { MdIosShare } from "react-icons/md";
 import { searchCocktails } from "../utils/API";
 import "../styles/components/CocktailCard.css";
 
@@ -59,6 +60,11 @@ const CocktailCard = ({
       }
     }
   };
+
+  const handleShareRecipe = (cocktail) => {
+    console.log("sharing recipe:", cocktail);
+    return;
+  }
 
   return (
     <>
@@ -124,6 +130,13 @@ const CocktailCard = ({
                       onClick={() => handleEditCocktail(cocktail)}
                     >
                       <GoPencil />
+                    </button>
+                    <button
+                      className="btn cocktail-card-btn"
+                      id={cocktail._id}
+                      onClick={() => handleShareRecipe(cocktail)}
+                    >
+                      <MdIosShare />
                     </button>
                   </>
                 )}
