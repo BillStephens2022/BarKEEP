@@ -11,6 +11,7 @@ const CocktailCard = ({
   handleAddCocktail,
   handleDeleteCocktail,
   handleEditCocktail,
+  handleShareRecipe,
   customClass,
   cocktailAdded,
 }) => {
@@ -41,7 +42,12 @@ const CocktailCard = ({
   }
 
   if (!cocktails.length) {
-    return <h3 className="cocktail-card-default-message">Search by "Name", "Ingredient", or get a "Random" cocktail recipe using buttons above</h3>;
+    return (
+      <h3 className="cocktail-card-default-message">
+        Search by "Name", "Ingredient", or get a "Random" cocktail recipe using
+        buttons above
+      </h3>
+    );
   }
 
   const handleSeeRecipe = async (cocktail) => {
@@ -60,11 +66,6 @@ const CocktailCard = ({
       }
     }
   };
-
-  const handleShareRecipe = (cocktail) => {
-    console.log("sharing recipe:", cocktail);
-    return;
-  }
 
   return (
     <>
@@ -141,7 +142,9 @@ const CocktailCard = ({
                   </>
                 )}
                 {cocktailAdded[cocktail._id] ? (
-                  <p id="cocktail-card-added-message">Cocktail Added to Favorites!</p>
+                  <p id="cocktail-card-added-message">
+                    Cocktail Added to Favorites!
+                  </p>
                 ) : (
                   page === "SearchCocktails" && (
                     <button

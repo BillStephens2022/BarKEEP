@@ -42,6 +42,17 @@ export const QUERY_ME = gql`
             profilePhoto
           }
         }
+        recipe {
+          glassware
+          imageURL
+          ingredients {
+            name
+            quantity
+          }
+          instructions
+          name
+          tags
+        }
       }
       likedPosts {
         _id
@@ -103,6 +114,17 @@ export const QUERY_POSTS = gql`
           username
           profilePhoto
         }
+      }
+      recipe {
+        glassware
+        imageURL
+        ingredients {
+          name
+          quantity
+        }
+        instructions
+        name
+        tags
       }
     }
   }

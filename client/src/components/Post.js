@@ -195,6 +195,11 @@ const Post = ({
               <div className="post-title-and-content">
                 <h3 className="post-title">{post.postTitle}</h3>
                 <div className="post-content">{post.postContent}</div>
+                {post.recipe && (
+                  <div className="post-recipe">
+                    See Recipe for: {post.recipe.name}
+                  </div>
+                )}
               </div>
             </div>
             <div className="post-like-comment-counts">
@@ -209,9 +214,7 @@ const Post = ({
                       ? "You liked this"
                       : post.likes.length === 2
                       ? `You and 1 other liked this`
-                      : `You and ${
-                          post.likes.length - 1
-                        } others liked this`
+                      : `You and ${post.likes.length - 1} others liked this`
                     : post.likes?.length}
                 </h6>
               </div>
@@ -225,10 +228,7 @@ const Post = ({
               </div>
             </div>
             <div className="post-footer">
-              
-
               <div className="post-comment-like">
-              
                 <div className="post-like-button">
                   <button
                     className="btn btn-post-like"
@@ -245,7 +245,14 @@ const Post = ({
                       <BiLike />
                     )}
                   </button>
-                  <h6 className={`post-like-label ${!isPostLikedByUser ? null : "liked"}`} id="post-like-label">{isPostLikedByUser ? "Liked" : "Like"}</h6>
+                  <h6
+                    className={`post-like-label ${
+                      !isPostLikedByUser ? null : "liked"
+                    }`}
+                    id="post-like-label"
+                  >
+                    {isPostLikedByUser ? "Liked" : "Like"}
+                  </h6>
                 </div>
                 <div className="post-comment-button">
                   <button
@@ -259,17 +266,17 @@ const Post = ({
                   <h6 id="post-comment-label">Comment</h6>
                 </div>
                 {isMyPosts && isMyPost && (
-                <div className="div-delete-button">
-                  <button
-                    className="btn btn-post-delete"
-                    id={post._id}
-                    onClick={() => handleDeletePost(post._id)}
-                  >
-                    <GoTrash />
-                  </button>
-                  <h6 id="post-delete-label">Delete</h6>
-                </div>
-              )}
+                  <div className="div-delete-button">
+                    <button
+                      className="btn btn-post-delete"
+                      id={post._id}
+                      onClick={() => handleDeletePost(post._id)}
+                    >
+                      <GoTrash />
+                    </button>
+                    <h6 id="post-delete-label">Delete</h6>
+                  </div>
+                )}
               </div>
             </div>
           </div>

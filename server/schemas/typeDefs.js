@@ -47,12 +47,22 @@ const typeDefs = gql`
     author: User
     likes: [User]
     comments: [Comment]
+    recipe: Cocktail
   }
 
   type Auth {
     token: ID
     user: User
   }
+
+  input CocktailInput {
+    name: String!
+    ingredients: [IngredientInput!]!
+    imageURL: String!
+    glassware: String!
+    instructions: String!
+    tags: [String!]!
+  }  
 
   type Query {
     me: User
@@ -94,6 +104,7 @@ const typeDefs = gql`
       postImageURL: String
       postDate: String
       author: ID!
+      recipe: CocktailInput
     ): Post
     deletePost(postId: ID!): Post
     editProfilePhoto(profilePhoto: String!): User

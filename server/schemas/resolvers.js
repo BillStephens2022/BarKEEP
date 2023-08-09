@@ -258,7 +258,7 @@ const resolvers = {
     },
     // add a new post
     addPost: async (parent, args, context) => {
-      const { postTitle, postContent, postImageURL, postDate } = args;
+      const { postTitle, postContent, postImageURL, postDate, recipe } = args;
       try {
         if (context.user) {
           const post = await Post.create({
@@ -267,6 +267,7 @@ const resolvers = {
             postImageURL,
             postDate,
             author: context.user._id,
+            recipe,
           });
 
           await User.findByIdAndUpdate(context.user._id, {
