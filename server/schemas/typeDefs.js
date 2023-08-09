@@ -55,15 +55,6 @@ const typeDefs = gql`
     user: User
   }
 
-  input CocktailInput {
-    name: String!
-    ingredients: [IngredientInput!]!
-    imageURL: String!
-    glassware: String!
-    instructions: String!
-    tags: [String!]!
-  }  
-
   type Query {
     me: User
     cocktails: [Cocktail]
@@ -104,7 +95,7 @@ const typeDefs = gql`
       postImageURL: String
       postDate: String
       author: ID!
-      recipe: CocktailInput
+      recipe: Cocktail
     ): Post
     deletePost(postId: ID!): Post
     editProfilePhoto(profilePhoto: String!): User

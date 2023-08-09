@@ -16,10 +16,16 @@ const resolvers = {
           .populate({
             path: "posts",
             model: "Post",
-            populate: {
-              path: "author likes comments.author",
-              model: "User",
-            },
+            populate: [
+              {
+                path: "author likes comments.author",
+                model: "User",
+              },
+              {
+                path: "recipe",
+                model: "Cocktail",
+              },
+            ]
           })
           .populate({
             path: "likedPosts",
@@ -70,7 +76,8 @@ const resolvers = {
             model: "User",
             select: "username profilePhoto",
           },
-        });
+        })
+        .populate("recipe");
     },
     postLikesUsers: async (parent, { postId }, context) => {
       try {
@@ -114,7 +121,8 @@ const resolvers = {
                 model: "User",
                 select: "username profilePhoto",
               },
-            });
+            })
+            .populate("recipe");
 
           if (!post) {
             throw new ApolloError("Post not found");
@@ -274,7 +282,10 @@ const resolvers = {
             $addToSet: { posts: post._id },
           });
 
-          const populatedPost = await post.populate("author").execPopulate();
+          const populatedPost = await post
+            .populate("author")
+            .populate("recipe")
+            .execPopulate();
 
           return populatedPost;
         } else {

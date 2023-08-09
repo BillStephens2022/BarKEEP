@@ -131,6 +131,7 @@ export const ADD_POST = gql`
       postImageURL
       postDate
       recipe {
+        _id
         glassware
         imageURL
         ingredients {

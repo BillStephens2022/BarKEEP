@@ -29,7 +29,7 @@ const postSchema = new Schema({
     type: String,
   },
   recipe: {
-    type: Schema.Types.Mixed,
+    type: Schema.Types.ObjectId,
     ref: "Cocktail",
   },
   postDate: {

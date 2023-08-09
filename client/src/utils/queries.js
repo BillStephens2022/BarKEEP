@@ -43,6 +43,7 @@ export const QUERY_ME = gql`
           }
         }
         recipe {
+          _id
           glassware
           imageURL
           ingredients {
@@ -116,6 +117,7 @@ export const QUERY_POSTS = gql`
         }
       }
       recipe {
+        _id
         glassware
         imageURL
         ingredients {
@@ -160,6 +162,18 @@ export const GET_SINGLE_POST = gql`
           profilePhoto
         }
         text
+      }
+      recipe {
+        _id
+        glassware
+        imageURL
+        ingredients {
+          name
+          quantity
+        }
+        instructions
+        name
+        tags
       }
     }
   }

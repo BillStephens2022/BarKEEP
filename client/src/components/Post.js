@@ -10,6 +10,7 @@ import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
 import PostLikesModal from "./PostLikesModal";
 import PostCommentsModal from "./PostCommentsModal";
+import RecipeModal from "./RecipeModal";
 import "../styles/pages/Feed.css";
 
 const Post = ({
@@ -27,6 +28,8 @@ const Post = ({
   const [showLikesModal, setShowLikesModal] = useState(false); // State to manage modal visibility
   const [showCommentsModal, setShowCommentsModal] = useState(false); // State to manage modal visibility
   const [selectedPostId, setSelectedPostId] = useState(null); // State to store selected post id for the modal
+  const [showRecipeModal, setShowRecipeModal] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   // Separate loading state for liked users query
   // const [likedUsersLoading, setLikedUsersLoading] = useState(false);
@@ -196,7 +199,13 @@ const Post = ({
                 <h3 className="post-title">{post.postTitle}</h3>
                 <div className="post-content">{post.postContent}</div>
                 {post.recipe && (
-                  <div className="post-recipe">
+                  <div
+                    className="post-recipe"
+                    onClick={() => {
+                      setSelectedRecipe(post.recipe);
+                      setShowRecipeModal(true);
+                    }}
+                  >
                     See Recipe for: {post.recipe.name}
                   </div>
                 )}
@@ -295,6 +304,16 @@ const Post = ({
           postId={selectedPostId}
           addComment={addComment}
           onClose={() => setShowCommentsModal(false)} // Close the modal
+        />
+      )}
+
+      {showRecipeModal && selectedRecipe && (
+        <RecipeModal
+          recipe={selectedRecipe}
+          onClose={() => {
+            setSelectedRecipe(null);
+            setShowRecipeModal(false);
+          }}
         />
       )}
 
