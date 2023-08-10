@@ -58,7 +58,7 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId, cocktailAdded})
       )}
        {/* Conditional rendering for message when no cocktails are found */}
        {searchExecuted && searchedCocktails.length === 0 && (
-          <p>No cocktails found. Try a different search.</p>
+          <p id="search-no-results-message">No cocktails found. Try a different search.</p>
         )}
         {searchedCocktails.length > 0 && (
           <CocktailCard

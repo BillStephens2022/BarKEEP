@@ -166,6 +166,27 @@
   margin-top: 0.75rem;
 }
 
+#search-no-results-message {
+  font-size: 1rem;
+  background-color: red;
+  color: var(--white);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    color: var(--white);
+  }
+  50% {
+    color: var(--white);
+    font-weight: 300;
+  }
+}
+
 @media (max-width: 900px) {
   .search-header-1 {
     font-size: 1.75rem;
