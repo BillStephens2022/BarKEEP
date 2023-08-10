@@ -223,6 +223,15 @@
   letter-spacing: 3px;
 }
 
+.post-recipe {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  text-decoration: underline;
+  color: rgb(254, 148, 233);
+  cursor: pointer;
+  
+}
+
 .posts_error {
   margin-top: 20px;
   font-size: 18px;
@@ -246,7 +255,6 @@
 .post-like-comment-counts {
   background-color: whitesmoke;
   color: var(--darkgray);
-  
   padding-left: 0.75rem;
   padding-top: 0.5rem;
 }

@@ -61,7 +61,8 @@ const RecipeModal = ({ recipe, onClose }) => {
           page="RecipeModal"
           addCocktail
           handleAddCocktail={handleAddCocktail}
-          cocktailAdded
+          addedCocktailId={addedCocktailId}
+          cocktailAdded={cocktailAdded}
           defaultExpanded={true}
           customClass="custom-modal-card"
         />

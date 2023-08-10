@@ -152,7 +152,7 @@ const CocktailCard = ({
                           Cocktail Added to Favorites!
                         </p>
                       ) : (
-                        page === "SearchCocktails" && (
+                        (page === "SearchCocktails" || page === "RecipeModal") && (
                           <button
                             className="btn cocktail-card-add-btn"
                             id={cocktail._id}

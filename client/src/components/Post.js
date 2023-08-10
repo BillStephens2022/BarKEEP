@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoTrash } from "react-icons/go";
 import { BiLike, BiComment, BiSolidLike } from "react-icons/bi";
+import { TiArrowForward } from "react-icons/ti";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_POSTS, GET_POST_LIKES_USERS } from "../utils/queries";
 import { ADD_LIKE, ADD_COMMENT } from "../utils/mutations";
@@ -206,7 +207,8 @@ const Post = ({
                       setShowRecipeModal(true);
                     }}
                   >
-                    See Recipe for: {post.recipe.name}
+                    See {post.recipe.name} Recipe:
+                    <TiArrowForward />
                   </div>
                 )}
               </div>
