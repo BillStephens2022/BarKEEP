@@ -234,7 +234,9 @@ const Post = ({
                 onClick={() => handlePostCommentsClick(post._id)}
               >
                 <h6 id="post-counts-comments">
-                  {post.comments?.length} comments
+                  {post.comments?.length === 1 
+                    ? `${post.comments?.length} comment`
+                    : `${post.comments?.length} comments`}
                 </h6>
               </div>
             </div>
