@@ -146,7 +146,7 @@ const SearchCocktails = () => {
           </button>
         </div>
       </div>
-      <div className="div-search-component">{renderSearchComponent()}</div>
+      <div className="div-search-component gradient-background">{renderSearchComponent()}</div>
     </div>
   );
 };

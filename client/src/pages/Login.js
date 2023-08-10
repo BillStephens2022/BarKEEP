@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <div className="login_page">
       <Header subtitle={"Login / Register"} />
-     <div className="login-main">
+     <div className="login-main gradient-background">
       <h5 className="subtitle-login-2">
         Try our{" "}
         <span className="subtitle-2-span" onClick={handleGuestClick}>

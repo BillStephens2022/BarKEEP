@@ -167,7 +167,7 @@ const CommunityPosts = ({ client }) => {
           Create a New Post
         </button>
       </div>
-      <div className="posts-container">
+      <div className="posts-container gradient-background">
         {filteredPosts.length > 0 ? (
           <Post
             data={postsData}

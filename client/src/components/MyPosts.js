@@ -82,7 +82,7 @@ const MyPosts = ({ client }) => {
   const isMyPosts = true;
 
   return (
-    <div className="posts-container">
+    <div className="posts-container gradient-background">
       {filteredPosts.length > 0 ? (
         <Post
           data={userData}

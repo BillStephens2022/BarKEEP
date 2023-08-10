@@ -346,6 +346,25 @@
   color: var(--blue) !important;
 }
 
+.gradient-background {
+  animation: gradientAnimation 20s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0%, 100% {
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #FF6B6B);
+  }
+  25% {
+    background: linear-gradient(45deg, #4ECDC4, #FF6B6B, #4ECDC4);
+  }
+  50% {
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #FF6B6B);
+  }
+  75% {
+    background: linear-gradient(45deg, #4ECDC4, #FF6B6B, #4ECDC4);
+  }
+}
+
 @media (max-width: 900px) {
   .feed {
     margin: 0;

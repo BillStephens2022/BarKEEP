@@ -285,6 +285,7 @@ const MyFavorites = () => {
 
   return (
     <div className="favorites">
+    <div className="gradient-background">
       <div className="favorites-buttons-div">
         <button
           className="btn add-cocktail-button"
@@ -372,6 +373,7 @@ const MyFavorites = () => {
           cocktailAdded={{}}
           page="Favorites"
         />
+      </div>
       </div>
     </div>
   );
