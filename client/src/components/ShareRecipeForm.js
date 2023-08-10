@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import moment from "moment-timezone";
 import { useQuery, useMutation } from "@apollo/client";
@@ -13,7 +14,7 @@ const initialState = {
   recipe: "",
 };
 
-const ShareRecipeForm = ({ setShowPostForm, selectedCocktail }) => {
+const ShareRecipeForm = ({ setShowShareRecipeForm, setShareRecipeFormState, selectedCocktail }) => {
   const [postFormState, setPostFormState] = useState({
     ...initialState,
     postTitle: selectedCocktail.name + " Recipe",
@@ -66,6 +67,8 @@ const ShareRecipeForm = ({ setShowPostForm, selectedCocktail }) => {
       likes: [],
     },
   });
+  let navigate = useNavigate();
+
   const currentUser = userData?.me?._id;
 
   const handleSubmit = async (e) => {
@@ -121,8 +124,9 @@ const ShareRecipeForm = ({ setShowPostForm, selectedCocktail }) => {
       console.log("form data", formData);
 
       // Reset form fields
-      setPostFormState(initialState);
-      setShowPostForm(false);
+      setShareRecipeFormState(initialState);
+      setShowShareRecipeForm(false);
+      navigate('/newsfeed');
     } catch (err) {
       console.error(err);
     }

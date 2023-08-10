@@ -349,6 +349,7 @@ const MyFavorites = () => {
               </Modal.Header>
               <Modal.Body className="modal-body">
                 <ShareRecipeForm
+                  showShareRecipeForm={showShareRecipeForm}
                   setShowShareRecipeForm={setShowShareRecipeForm}
                   shareRecipeFormState={shareRecipeFormState}
                   setShareRecipeFormState={setShareRecipeFormState}
