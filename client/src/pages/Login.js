@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
+import { Auth } from "../utils/auth";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
-import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../utils/mutations";
-import { Auth } from "../utils/auth";
 import "../styles/pages/Login.css";
 
 const Login = () => {
@@ -14,6 +15,8 @@ const Login = () => {
   const [activeButton, setActiveButton] = useState('');
 
   const [login] = useMutation(LOGIN_USER);
+
+  let navigate = useNavigate();
 
   const handleRegisterClick = () => {
     setShowRegisterForm(true);
@@ -36,6 +39,7 @@ const Login = () => {
     try {
       const { data } = await login({ variables: { ...guestLoginData } });
       Auth.login(data.login.token);
+      navigate("/profile");
     } catch (err) {
       console.error(err);
     }
