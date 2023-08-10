@@ -1,0 +1,24 @@
+.modal-dialog {
+    max-width: 60%;
+    max-height: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+.modal-header {
+    background-color: var(--darkgray);
+}
+
+.modal-title {
+    background-color: transparent;
+}
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+}
+
+.custom-modal-card {
+    margin: 1.5rem;
+}
+

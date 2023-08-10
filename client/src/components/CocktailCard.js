@@ -14,8 +14,11 @@ const CocktailCard = ({
   handleShareRecipe,
   customClass,
   cocktailAdded,
+  defaultExpanded,
 }) => {
-  const [expandedCocktail, setExpandedCocktail] = useState(null);
+  const [expandedCocktail, setExpandedCocktail] = useState(
+    defaultExpanded ? (cocktails.length > 0 ? cocktails[0] : null) : null
+  );
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -49,18 +52,7 @@ const CocktailCard = ({
       </h3>
     );
   }
-  console.log(cocktails);
-  console.log('props:', {
-    loading,
-    cocktails,
-    page,
-    handleAddCocktail,
-    handleDeleteCocktail,
-    handleEditCocktail,
-    handleShareRecipe,
-    customClass,
-    cocktailAdded,
-  });
+
   const handleSeeRecipe = async (cocktail) => {
     if (!cocktail.ingredients.length) {
       const cocktailRecipe = await searchCocktails(cocktail.name);
@@ -71,7 +63,6 @@ const CocktailCard = ({
       }
     } else {
       if (expandedCocktail && expandedCocktail._id === cocktail._id) {
-        
         setExpandedCocktail(null); // If already expanded, hide the recipe
       } else {
         setExpandedCocktail(cocktail);
@@ -82,12 +73,6 @@ const CocktailCard = ({
   return (
     <>
       {cocktails.map((cocktail) => {
-        if (expandedCocktail) {
-          console.log("expandedCocktail: ", expandedCocktail);
-          console.log("expandedCocktail._id: ", expandedCocktail._id || null);
-          console.log("cocktail._id: ", cocktail._id);
-        }
-
         return (
           <div
             className={`card card-cocktail ${
