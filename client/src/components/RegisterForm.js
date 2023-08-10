@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Form, Button, Alert } from "react-bootstrap";
 import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
@@ -8,6 +9,8 @@ import "../styles/pages/Login.css";
 
 const defaultProfilePhoto =
   "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg";
+
+
 
 const RegisterForm = () => {
   // sets initial form state
@@ -28,6 +31,8 @@ const RegisterForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const [addUser] = useMutation(ADD_USER);
+
+  let navigate = useNavigate();
 
   // Function to handle photo upload success
   const handleUploadSuccess = (result) => {
@@ -77,6 +82,7 @@ const RegisterForm = () => {
       }
 
       Auth.login(data.addUser.token);
+      navigate("/profile");
     } catch (err) {
       console.error(err);
       setShowAlert(true);

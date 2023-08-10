@@ -1,7 +1,7 @@
 /* Login Page */
 
 .login_page {
-  flex: 1;
+ 
   color: var(--blue);
   text-align: center;
   background-color: var(--lightgray);
@@ -10,6 +10,7 @@
 
 .login-main {
   background-color: var(--lightgray);
+  min-height: 80vh;
   padding: 2% 0;
 }
 
@@ -58,6 +59,10 @@
   margin: auto;
   width: 20rem;
   text-align: left;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
 }
 
 .btn-login.active,

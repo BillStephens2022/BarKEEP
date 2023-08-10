@@ -12,11 +12,13 @@ import { Modal } from "react-bootstrap";
 import { Auth } from "../utils/auth";
 import CocktailCard from "./CocktailCard";
 import CocktailForm from "./CocktailForm";
+import ShareRecipeForm from "./ShareRecipeForm";
 import "../styles/pages/Favorites.css";
 
 const MyFavorites = () => {
   const [cocktails, setCocktails] = useState([]);
   const [showCocktailForm, setShowCocktailForm] = useState(false);
+  const [showShareRecipeForm, setShowShareRecipeForm] = useState(false);
   const [selectedCocktail, setSelectedCocktail] = useState(null);
   const [cocktailFormState, setCocktailFormState] = useState({
     name: "",
@@ -30,6 +32,12 @@ const MyFavorites = () => {
     glassware: "",
     instructions: "",
     tags: [],
+  });
+  const [shareRecipeFormState, setShareRecipeFormState] = useState({
+    postTitle: "",
+    postContent: "",
+    postImageURL: "",
+    recipe: "",
   });
   const [formType, setFormType] = useState("add");
   // State to manage profile photo editing
@@ -227,7 +235,6 @@ const MyFavorites = () => {
   };
 
   const handleDeleteCocktail = async (cocktailId) => {
-  
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) return false;
     console.log("deleting cocktail!");
@@ -247,6 +254,13 @@ const MyFavorites = () => {
       console.error(err);
     }
   };
+
+  const handleShareRecipe = (selectedCocktail) => {
+    setSelectedCocktail(selectedCocktail);
+    console.log("selected cocktail: ", selectedCocktail);
+    setShowShareRecipeForm(true);
+    return;
+  }
 
   useEffect(() => {
     if (data?.me?.cocktails) {
@@ -271,59 +285,83 @@ const MyFavorites = () => {
 
   return (
     <div className="favorites">
-      
-        
-        
-        <div className="favorites-buttons-div">
-          <button
-            className="btn add-cocktail-button"
-            onClick={() => {
-              setSelectedCocktail(null);
-              setShowCocktailForm(!showCocktailForm);
-              setFormType("add");
-            }}
-          >
-            Add Your Own Cocktail
-          </button>
+    <div className="gradient-background">
+      <div className="favorites-buttons-div">
+        <button
+          className="btn add-cocktail-button"
+          onClick={() => {
+            setSelectedCocktail(null);
+            setShowCocktailForm(!showCocktailForm);
+            setFormType("add");
+          }}
+        >
+          Add Your Own Cocktail
+        </button>
 
-          <Link to="/searchCocktails" className="btn search-cocktail-button">
-            Search for a new Cocktail
-          </Link>
-        </div>
-        {showCocktailForm && (
-          <div className="modal-background">
-            <div className="modal">
-              <Modal show={true} onHide={() => setShowCocktailForm(false)}>
-                <Modal.Header className="modal-title">
-                  <Modal.Title>
-                    {formType.charAt(0).toUpperCase() + formType.slice(1)}{" "}
-                    Cocktail
-                  </Modal.Title>
-                  <button
-                    className="modal-close-button"
-                    onClick={() => setShowCocktailForm(false)}
-                  >
-                    &times;
-                  </button>
-                </Modal.Header>
-                <Modal.Body className="modal-body">
-                  <CocktailForm
-                    setShowCocktailForm={setShowCocktailForm}
-                    addCocktail={addCocktail}
-                    editCocktail={editCocktail}
-                    cocktails={cocktails}
-                    setCocktails={setCocktails}
-                    cocktailFormState={cocktailFormState}
-                    setCocktailFormState={setCocktailFormState}
-                    selectedCocktail={selectedCocktail}
-                    formType={formType}
-                  />
-                </Modal.Body>
-              </Modal>
-            </div>
+        <Link to="/searchCocktails" className="btn search-cocktail-button">
+          Search for a new Cocktail
+        </Link>
+      </div>
+      {showCocktailForm && (
+        <div className="modal-background">
+          <div className="modal">
+            <Modal show={true} onHide={() => setShowCocktailForm(false)}>
+              <Modal.Header className="modal-title">
+                <Modal.Title>
+                  {formType.charAt(0).toUpperCase() + formType.slice(1)}{" "}
+                  Cocktail
+                </Modal.Title>
+                <button
+                  className="modal-close-button"
+                  onClick={() => setShowCocktailForm(false)}
+                >
+                  &times;
+                </button>
+              </Modal.Header>
+              <Modal.Body className="modal-body">
+                <CocktailForm
+                  setShowCocktailForm={setShowCocktailForm}
+                  addCocktail={addCocktail}
+                  editCocktail={editCocktail}
+                  cocktails={cocktails}
+                  setCocktails={setCocktails}
+                  cocktailFormState={cocktailFormState}
+                  setCocktailFormState={setCocktailFormState}
+                  selectedCocktail={selectedCocktail}
+                  formType={formType}
+                />
+              </Modal.Body>
+            </Modal>
           </div>
-        )}
-      
+        </div>
+      )}
+      {showShareRecipeForm && (
+        <div className="modal-background">
+          <div className="modal">
+            <Modal show={true} onHide={() => setShowShareRecipeForm(false)}>
+              <Modal.Header className="modal-title">
+                <Modal.Title>Share Cocktail</Modal.Title>
+                <button
+                  className="modal-close-button"
+                  onClick={() => setShowShareRecipeForm(false)}
+                >
+                  &times;
+                </button>
+              </Modal.Header>
+              <Modal.Body className="modal-body">
+                <ShareRecipeForm
+                  showShareRecipeForm={showShareRecipeForm}
+                  setShowShareRecipeForm={setShowShareRecipeForm}
+                  shareRecipeFormState={shareRecipeFormState}
+                  setShareRecipeFormState={setShareRecipeFormState}
+                  selectedCocktail={selectedCocktail}
+                />
+              </Modal.Body>
+            </Modal>
+          </div>
+        </div>
+      )}
+
       <div className="card-container">
         <CocktailCard
           loading={loading}
@@ -331,9 +369,11 @@ const MyFavorites = () => {
           setCocktails={setCocktails}
           handleEditCocktail={handleEditCocktail}
           handleDeleteCocktail={handleDeleteCocktail}
+          handleShareRecipe={handleShareRecipe}
           cocktailAdded={{}}
           page="Favorites"
         />
+      </div>
       </div>
     </div>
   );

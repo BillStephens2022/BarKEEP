@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoTrash } from "react-icons/go";
 import { BiLike, BiComment, BiSolidLike } from "react-icons/bi";
+import { TiArrowForward } from "react-icons/ti";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_ME, QUERY_POSTS, GET_POST_LIKES_USERS } from "../utils/queries";
 import { ADD_LIKE, ADD_COMMENT } from "../utils/mutations";
@@ -10,6 +11,7 @@ import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
 import PostLikesModal from "./PostLikesModal";
 import PostCommentsModal from "./PostCommentsModal";
+import RecipeModal from "./RecipeModal";
 import "../styles/pages/Feed.css";
 
 const Post = ({
@@ -27,6 +29,8 @@ const Post = ({
   const [showLikesModal, setShowLikesModal] = useState(false); // State to manage modal visibility
   const [showCommentsModal, setShowCommentsModal] = useState(false); // State to manage modal visibility
   const [selectedPostId, setSelectedPostId] = useState(null); // State to store selected post id for the modal
+  const [showRecipeModal, setShowRecipeModal] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   // Separate loading state for liked users query
   // const [likedUsersLoading, setLikedUsersLoading] = useState(false);
@@ -195,6 +199,18 @@ const Post = ({
               <div className="post-title-and-content">
                 <h3 className="post-title">{post.postTitle}</h3>
                 <div className="post-content">{post.postContent}</div>
+                {post.recipe && (
+                  <div
+                    className="post-recipe"
+                    onClick={() => {
+                      setSelectedRecipe(post.recipe);
+                      setShowRecipeModal(true);
+                    }}
+                  >
+                    See {post.recipe.name} Recipe:
+                    <TiArrowForward />
+                  </div>
+                )}
               </div>
             </div>
             <div className="post-like-comment-counts">
@@ -209,9 +225,7 @@ const Post = ({
                       ? "You liked this"
                       : post.likes.length === 2
                       ? `You and 1 other liked this`
-                      : `You and ${
-                          post.likes.length - 1
-                        } others liked this`
+                      : `You and ${post.likes.length - 1} others liked this`
                     : post.likes?.length}
                 </h6>
               </div>
@@ -220,15 +234,14 @@ const Post = ({
                 onClick={() => handlePostCommentsClick(post._id)}
               >
                 <h6 id="post-counts-comments">
-                  {post.comments?.length} comments
+                  {post.comments?.length === 1 
+                    ? `${post.comments?.length} comment`
+                    : `${post.comments?.length} comments`}
                 </h6>
               </div>
             </div>
             <div className="post-footer">
-              
-
               <div className="post-comment-like">
-              
                 <div className="post-like-button">
                   <button
                     className="btn btn-post-like"
@@ -245,7 +258,14 @@ const Post = ({
                       <BiLike />
                     )}
                   </button>
-                  <h6 className={`post-like-label ${!isPostLikedByUser ? null : "liked"}`} id="post-like-label">{isPostLikedByUser ? "Liked" : "Like"}</h6>
+                  <h6
+                    className={`post-like-label ${
+                      !isPostLikedByUser ? null : "liked"
+                    }`}
+                    id="post-like-label"
+                  >
+                    {isPostLikedByUser ? "Liked" : "Like"}
+                  </h6>
                 </div>
                 <div className="post-comment-button">
                   <button
@@ -259,17 +279,17 @@ const Post = ({
                   <h6 id="post-comment-label">Comment</h6>
                 </div>
                 {isMyPosts && isMyPost && (
-                <div className="div-delete-button">
-                  <button
-                    className="btn btn-post-delete"
-                    id={post._id}
-                    onClick={() => handleDeletePost(post._id)}
-                  >
-                    <GoTrash />
-                  </button>
-                  <h6 id="post-delete-label">Delete</h6>
-                </div>
-              )}
+                  <div className="div-delete-button">
+                    <button
+                      className="btn btn-post-delete"
+                      id={post._id}
+                      onClick={() => handleDeletePost(post._id)}
+                    >
+                      <GoTrash />
+                    </button>
+                    <h6 id="post-delete-label">Delete</h6>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -288,6 +308,17 @@ const Post = ({
           postId={selectedPostId}
           addComment={addComment}
           onClose={() => setShowCommentsModal(false)} // Close the modal
+        />
+      )}
+
+      {showRecipeModal && selectedRecipe && (
+        <RecipeModal
+          recipe={selectedRecipe}
+          
+          onClose={() => {
+            setSelectedRecipe(null);
+            setShowRecipeModal(false);
+          }}
         />
       )}
 

@@ -120,6 +120,10 @@
   color: var(--white);
 }
 
+.favorites-buttons-div {
+  padding-top: 1.5rem;
+}
+
 .posts-container {
   display: block;
   width: 100%;

@@ -16,10 +16,16 @@ const resolvers = {
           .populate({
             path: "posts",
             model: "Post",
-            populate: {
-              path: "author likes comments.author",
-              model: "User",
-            },
+            populate: [
+              {
+                path: "author likes comments.author",
+                model: "User",
+              },
+              {
+                path: "recipe",
+                model: "Cocktail",
+              },
+            ]
           })
           .populate({
             path: "likedPosts",
@@ -70,7 +76,8 @@ const resolvers = {
             model: "User",
             select: "username profilePhoto",
           },
-        });
+        })
+        .populate("recipe");
     },
     postLikesUsers: async (parent, { postId }, context) => {
       try {
@@ -114,7 +121,8 @@ const resolvers = {
                 model: "User",
                 select: "username profilePhoto",
               },
-            });
+            })
+            .populate("recipe");
 
           if (!post) {
             throw new ApolloError("Post not found");
@@ -258,7 +266,7 @@ const resolvers = {
     },
     // add a new post
     addPost: async (parent, args, context) => {
-      const { postTitle, postContent, postImageURL, postDate } = args;
+      const { postTitle, postContent, postImageURL, postDate, recipe } = args;
       try {
         if (context.user) {
           const post = await Post.create({
@@ -267,13 +275,17 @@ const resolvers = {
             postImageURL,
             postDate,
             author: context.user._id,
+            recipe,
           });
 
           await User.findByIdAndUpdate(context.user._id, {
             $addToSet: { posts: post._id },
           });
 
-          const populatedPost = await post.populate("author").execPopulate();
+          const populatedPost = await post
+            .populate("author")
+            .populate("recipe")
+            .execPopulate();
 
           return populatedPost;
         } else {

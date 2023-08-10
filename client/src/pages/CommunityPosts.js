@@ -10,7 +10,7 @@ import ProfilePhoto from "../components/ProfilePhoto";
 import "../styles/pages/Feed.css";
 import "../styles/components/CocktailForm.css";
 
-const NewsFeed = ({ client }) => {
+const CommunityPosts = ({ client }) => {
   const [showPostForm, setShowPostForm] = useState(false);
   const [postFormState, setPostFormState] = useState({
     postTitle: "",
@@ -167,7 +167,7 @@ const NewsFeed = ({ client }) => {
           Create a New Post
         </button>
       </div>
-      <div className="posts-container">
+      <div className="posts-container gradient-background">
         {filteredPosts.length > 0 ? (
           <Post
             data={postsData}
@@ -215,4 +215,4 @@ const NewsFeed = ({ client }) => {
   );
 };
 
-export default NewsFeed;
+export default CommunityPosts;

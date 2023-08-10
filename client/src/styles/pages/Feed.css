@@ -223,6 +223,15 @@
   letter-spacing: 3px;
 }
 
+.post-recipe {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  text-decoration: underline;
+  color: rgb(254, 148, 233);
+  cursor: pointer;
+  
+}
+
 .posts_error {
   margin-top: 20px;
   font-size: 18px;
@@ -246,7 +255,6 @@
 .post-like-comment-counts {
   background-color: whitesmoke;
   color: var(--darkgray);
-  
   padding-left: 0.75rem;
   padding-top: 0.5rem;
 }
@@ -336,6 +344,25 @@
 
 .liked {
   color: var(--blue) !important;
+}
+
+.gradient-background {
+  animation: gradientAnimation 20s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0%, 100% {
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #FF6B6B);
+  }
+  25% {
+    background: linear-gradient(45deg, #4ECDC4, #FF6B6B, #4ECDC4);
+  }
+  50% {
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #FF6B6B);
+  }
+  75% {
+    background: linear-gradient(45deg, #4ECDC4, #FF6B6B, #4ECDC4);
+  }
 }
 
 @media (max-width: 900px) {

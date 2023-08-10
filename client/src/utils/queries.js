@@ -42,6 +42,18 @@ export const QUERY_ME = gql`
             profilePhoto
           }
         }
+        recipe {
+          _id
+          glassware
+          imageURL
+          ingredients {
+            name
+            quantity
+          }
+          instructions
+          name
+          tags
+        }
       }
       likedPosts {
         _id
@@ -104,6 +116,18 @@ export const QUERY_POSTS = gql`
           profilePhoto
         }
       }
+      recipe {
+        _id
+        glassware
+        imageURL
+        ingredients {
+          name
+          quantity
+        }
+        instructions
+        name
+        tags
+      }
     }
   }
 `;
@@ -138,6 +162,18 @@ export const GET_SINGLE_POST = gql`
           profilePhoto
         }
         text
+      }
+      recipe {
+        _id
+        glassware
+        imageURL
+        ingredients {
+          name
+          quantity
+        }
+        instructions
+        name
+        tags
       }
     }
   }

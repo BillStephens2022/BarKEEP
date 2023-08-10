@@ -28,6 +28,10 @@ const postSchema = new Schema({
   postImageURL: {
     type: String,
   },
+  recipe: {
+    type: Schema.Types.ObjectId,
+    ref: "Cocktail",
+  },
   postDate: {
     type: Date,
   },
@@ -43,6 +47,7 @@ const postSchema = new Schema({
     }
   ],
   comments: [commentSchema],
+  
 });
 
 const Post = model("Post", postSchema);

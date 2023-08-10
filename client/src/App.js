@@ -11,7 +11,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
-import NewsFeed from "./pages/NewsFeed";
+import CommunityPosts from "./pages/CommunityPosts";
 import SearchCocktails from "./pages/SearchCocktails";
 import Gallery from "./pages/Gallery";
 import Login from "./pages/Login";
@@ -66,7 +66,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/newsfeed" element={<NewsFeed client={client} />} />           
+            <Route path="/community" element={<CommunityPosts client={client} />} />           
             <Route path="/searchCocktails" element={<SearchCocktails />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/login" element={<Login />} />

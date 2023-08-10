@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
+import { Auth } from "../utils/auth";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
-import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../utils/mutations";
-import { Auth } from "../utils/auth";
 import "../styles/pages/Login.css";
 
 const Login = () => {
@@ -14,6 +15,8 @@ const Login = () => {
   const [activeButton, setActiveButton] = useState('');
 
   const [login] = useMutation(LOGIN_USER);
+
+  let navigate = useNavigate();
 
   const handleRegisterClick = () => {
     setShowRegisterForm(true);
@@ -36,6 +39,7 @@ const Login = () => {
     try {
       const { data } = await login({ variables: { ...guestLoginData } });
       Auth.login(data.login.token);
+      navigate("/profile");
     } catch (err) {
       console.error(err);
     }
@@ -44,7 +48,7 @@ const Login = () => {
   return (
     <div className="login_page">
       <Header subtitle={"Login / Register"} />
-     <div className="login-main">
+     <div className="login-main gradient-background">
       <h5 className="subtitle-login-2">
         Try our{" "}
         <span className="subtitle-2-span" onClick={handleGuestClick}>
@@ -84,9 +88,10 @@ const Login = () => {
           <li>"Login as Guest" for a test drive</li>
           <li>Create an account or sign in if you already have one.</li>
           <li>Search TheCocktailDB API for recipes </li>
-          <li>Explore cocktails posted by other enthusiasts.</li>
+          <li>Explore cocktail photos & recipes posted by other enthusiasts.</li>
           <li>Add your own favorite cocktail recipe.</li>
-          <li>Save your favorite cocktails to your Favorites page.</li>
+          <li>Save your favorite cocktail recipes to your Profile.</li>
+          <li>Share recipes with the community.</li>
         </ul>
       </div>
       </div>

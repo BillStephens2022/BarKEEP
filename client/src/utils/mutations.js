@@ -1,8 +1,18 @@
 import { gql } from "@apollo/client";
 
 export const ADD_USER = gql`
-  mutation addUser($username: String, $email: String, $password: String, $profilePhoto: String) {
-    addUser(username: $username, email: $email, password: $password, profilePhoto: $profilePhoto) {
+  mutation addUser(
+    $username: String
+    $email: String
+    $password: String
+    $profilePhoto: String
+  ) {
+    addUser(
+      username: $username
+      email: $email
+      password: $password
+      profilePhoto: $profilePhoto
+    ) {
       token
       user {
         _id
@@ -27,8 +37,22 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_COCKTAIL = gql`
-  mutation AddCocktail($name: String!, $ingredients: [IngredientInput!]!, $imageURL: String!, $glassware: String!, $instructions: String!, $tags: [String!]!) {
-    addCocktail(name: $name, ingredients: $ingredients, imageURL: $imageURL, glassware: $glassware, instructions: $instructions, tags: $tags) {
+  mutation AddCocktail(
+    $name: String!
+    $ingredients: [IngredientInput!]!
+    $imageURL: String!
+    $glassware: String!
+    $instructions: String!
+    $tags: [String!]!
+  ) {
+    addCocktail(
+      name: $name
+      ingredients: $ingredients
+      imageURL: $imageURL
+      glassware: $glassware
+      instructions: $instructions
+      tags: $tags
+    ) {
       _id
       glassware
       imageURL
@@ -52,30 +76,72 @@ export const DELETE_COCKTAIL = gql`
 `;
 
 export const EDIT_COCKTAIL = gql`
-mutation EditCocktail($cocktailId: ID!, $name: String, $ingredients: [IngredientInput!], $imageURL: String, $glassware: String, $instructions: String, $tags: [String!]) {
-  editCocktail(cocktailId: $cocktailId, name: $name, ingredients: $ingredients, imageURL: $imageURL, glassware: $glassware, instructions: $instructions, tags: $tags) {
-    _id
-    glassware
-    imageURL
-    ingredients {
+  mutation EditCocktail(
+    $cocktailId: ID!
+    $name: String
+    $ingredients: [IngredientInput!]
+    $imageURL: String
+    $glassware: String
+    $instructions: String
+    $tags: [String!]
+  ) {
+    editCocktail(
+      cocktailId: $cocktailId
+      name: $name
+      ingredients: $ingredients
+      imageURL: $imageURL
+      glassware: $glassware
+      instructions: $instructions
+      tags: $tags
+    ) {
+      _id
+      glassware
+      imageURL
+      ingredients {
+        name
+        quantity
+      }
+      instructions
       name
-      quantity
+      tags
     }
-    instructions
-    name
-    tags
   }
-}
 `;
 
 export const ADD_POST = gql`
-  mutation AddPost($postTitle: String!, $postContent: String!, $postImageURL: String!, $postDate: String!, $author: ID!) {
-    addPost(postTitle: $postTitle, postContent: $postContent, postImageURL: $postImageURL, postDate: $postDate, author: $author) {
+  mutation AddPost(
+    $postTitle: String!
+    $postContent: String!
+    $postImageURL: String!
+    $postDate: String!
+    $author: ID!
+    $recipe: CocktailInput
+  ) {
+    addPost(
+      postTitle: $postTitle
+      postContent: $postContent
+      postImageURL: $postImageURL
+      postDate: $postDate
+      author: $author
+      recipe: $recipe
+    ) {
       _id
       postTitle
       postContent
       postImageURL
       postDate
+      recipe {
+        _id
+        glassware
+        imageURL
+        ingredients {
+          name
+          quantity
+        }
+        instructions
+        name
+        tags
+      }
       author {
         _id
         username
@@ -129,4 +195,3 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
-

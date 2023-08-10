@@ -41,6 +41,13 @@ export const searchCocktails = async (query) => {
     }
 
     const searchResults = await response.json();
+    const drinks = searchResults.drinks;
+    
+    // Handling case where 'drinks' is null or undefined
+    if (!drinks) {
+      return [];
+    }
+
     const cocktailData = searchResults.drinks.map(formatCocktailData);
     return cocktailData;
   } catch (err) {

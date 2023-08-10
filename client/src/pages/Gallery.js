@@ -46,7 +46,7 @@ const Gallery = () => {
         <h2 className="gallery-subtitle">Photo Gallery</h2>
         <h2 className="gallery-subtitle-2">User Photos</h2>
       </div>
-      <div className="gallery-grid">
+      <div className="gallery-grid gradient-background">
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="gallery-grid"

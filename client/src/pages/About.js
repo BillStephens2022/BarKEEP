@@ -66,8 +66,8 @@ const About = () => {
               </p>
               <p className="about-features-text">-- OR --</p>
               <p className="about-features-text">
-                <Link to="/login">Sign up</Link> to save your favorite recipes
-                to your profile for quick access.
+                <Link to="/login">Sign up</Link> to add your own creations, save your favorite recipes, post
+                your favorite photos & recipes with the fellow enthusiasts.
               </p>
               <Link className="btn btn-get-started" to="/login">
                 Get Started
@@ -78,7 +78,8 @@ const About = () => {
             <p className="about-features-text">
               Discover an extensive collection of{" "}
               <span id="about-span-cocktail-recipes">cocktail recipes</span>{" "}
-              from classic to contemporary. In example below, click "See
+              from classic to contemporary. Save your favorite recipes to your profile for easy access. 
+              In example below, click "See
               Recipe".
               <div className="about-cocktail-recipe">
                 <CocktailCard
