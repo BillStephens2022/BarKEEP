@@ -8,6 +8,8 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId, cocktailAdded})
   const [searchedCocktails, setSearchedCocktails] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
+  // Track if a search has been executed
+  const [searchExecuted, setSearchExecuted] = useState(false); 
 
  
 
@@ -28,6 +30,7 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId, cocktailAdded})
 
    
     setSearchedCocktails(cocktailData);
+    setSearchExecuted(true);
   };
 
   return (
@@ -46,13 +49,26 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId, cocktailAdded})
         </button>
       </form>
       <div className="card-container">
-        <CocktailCard
-          cocktails={searchedCocktails}
-          page="SearchCocktails"
-          handleAddCocktail={handleAddCocktail}
-          addedCocktailId={addedCocktailId}
-          cocktailAdded={cocktailAdded}
-        />
+      {/* Conditional rendering for default message */}
+      {!searchExecuted && (
+        <h3 className="cocktail-card-default-message">
+          Search by "Name", "Ingredient", or get a "Random" cocktail recipe using
+          buttons above
+        </h3>
+      )}
+       {/* Conditional rendering for message when no cocktails are found */}
+       {searchExecuted && searchedCocktails.length === 0 && (
+          <p>No cocktails found. Try a different search.</p>
+        )}
+        {searchedCocktails.length > 0 && (
+          <CocktailCard
+            cocktails={searchedCocktails}
+            page="SearchCocktails"
+            handleAddCocktail={handleAddCocktail}
+            addedCocktailId={addedCocktailId}
+            cocktailAdded={cocktailAdded}
+          />
+        )}
       </div>
     </div>
   );
