@@ -310,6 +310,7 @@ const Post = ({
       {showRecipeModal && selectedRecipe && (
         <RecipeModal
           recipe={selectedRecipe}
+          
           onClose={() => {
             setSelectedRecipe(null);
             setShowRecipeModal(false);

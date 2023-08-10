@@ -49,7 +49,18 @@ const CocktailCard = ({
       </h3>
     );
   }
-
+  console.log(cocktails);
+  console.log('props:', {
+    loading,
+    cocktails,
+    page,
+    handleAddCocktail,
+    handleDeleteCocktail,
+    handleEditCocktail,
+    handleShareRecipe,
+    customClass,
+    cocktailAdded,
+  });
   const handleSeeRecipe = async (cocktail) => {
     if (!cocktail.ingredients.length) {
       const cocktailRecipe = await searchCocktails(cocktail.name);
@@ -60,6 +71,7 @@ const CocktailCard = ({
       }
     } else {
       if (expandedCocktail && expandedCocktail._id === cocktail._id) {
+        
         setExpandedCocktail(null); // If already expanded, hide the recipe
       } else {
         setExpandedCocktail(cocktail);
@@ -69,98 +81,112 @@ const CocktailCard = ({
 
   return (
     <>
-      {cocktails.map((cocktail) => (
-        <div
-          className={`card card-cocktail ${
-            expandedCocktail && expandedCocktail._id === cocktail._id
-              ? `expanded ${customClass}-expanded`
-              : ""
-          } ${customClass}`}
-          key={cocktail._id}
-        >
+      {cocktails.map((cocktail) => {
+        if (expandedCocktail) {
+          console.log("expandedCocktail: ", expandedCocktail);
+          console.log("expandedCocktail._id: ", expandedCocktail._id || null);
+          console.log("cocktail._id: ", cocktail._id);
+        }
+
+        return (
           <div
-            className={`card-content ${customClass}-content`}
-            style={{ backgroundImage: `url(${cocktail.imageURL})` }}
+            className={`card card-cocktail ${
+              expandedCocktail && expandedCocktail._id === cocktail._id
+                ? `expanded ${customClass}-expanded`
+                : ""
+            } ${customClass}`}
+            key={cocktail._id}
           >
-            <div className="card-title">{cocktail.name}</div>
-            <div className="card-cocktail-footer">
-              <button
-                className="btn btn-seeRecipe"
-                id={cocktail._id}
-                onClick={() => handleSeeRecipe(cocktail)}
-              >
-                {expandedCocktail && expandedCocktail._id === cocktail._id
-                  ? "Hide Recipe"
-                  : "See Recipe"}
-              </button>
-            </div>
-          </div>
-          {expandedCocktail && expandedCocktail._id === cocktail._id && (
             <div
-              className={`expanded-content ${customClass}-expanded-content ${
-                isMobile ? "expanded-mobile" : "expanded-desktop"
-              }`}
+              className={`card-content ${customClass}-content`}
+              style={{ backgroundImage: `url(${cocktail.imageURL})` }}
             >
-              <h3 className="card-h3">Ingredients:</h3>
-              <ul className="card-list">
-                {expandedCocktail.ingredients.map((ingredient, index) => (
-                  <li key={index}>
-                    {ingredient.quantity} {ingredient.name}
-                  </li>
-                ))}
-              </ul>
-              <h3 className="card-h3" id="card-h3-instructions">
-                Instructions:
-              </h3>
-              <p className="card-instructions">
-                {expandedCocktail.instructions}
-              </p>
-              <div className="card-expanded-footer">
-                {page === "Favorites" && (
-                  <>
-                    <button
-                      className="btn cocktail-card-btn"
-                      id={cocktail._id}
-                      onClick={() => handleDeleteCocktail(cocktail._id)}
-                    >
-                      <GoTrash />
-                    </button>
-                    <button
-                      className="btn cocktail-card-btn"
-                      id={cocktail._id}
-                      onClick={() => handleEditCocktail(cocktail)}
-                    >
-                      <GoPencil />
-                    </button>
-                    <button
-                      className="btn cocktail-card-btn"
-                      id={cocktail._id}
-                      onClick={() => handleShareRecipe(cocktail)}
-                    >
-                      <MdIosShare />
-                    </button>
-                  </>
-                )}
-                {cocktailAdded[cocktail._id] ? (
-                  <p id="cocktail-card-added-message">
-                    Cocktail Added to Favorites!
-                  </p>
-                ) : (
-                  page === "SearchCocktails" && (
-                    <button
-                      className="btn cocktail-card-add-btn"
-                      id={cocktail._id}
-                      onClick={() => handleAddCocktail(cocktail)}
-                    >
-                      <GoPlus /> Add to Favorites
-                    </button>
-                  )
-                )}
+              <div className="card-title">{cocktail.name}</div>
+              <div className="card-cocktail-footer">
+                <button
+                  className="btn btn-seeRecipe"
+                  id={cocktail._id}
+                  onClick={() => handleSeeRecipe(cocktail)}
+                >
+                  {expandedCocktail && expandedCocktail._id === cocktail._id
+                    ? "Hide Recipe"
+                    : "See Recipe"}
+                </button>
               </div>
             </div>
-          )}
-        </div>
-      ))}
+            {expandedCocktail && expandedCocktail._id === cocktail._id && (
+              <div
+                className={`expanded-content ${customClass}-expanded-content ${
+                  isMobile ? "expanded-mobile" : "expanded-desktop"
+                }`}
+              >
+                {expandedCocktail ? (
+                  <>
+                    <h3 className="card-h3">Ingredients:</h3>
+                    <ul className="card-list">
+                      {expandedCocktail.ingredients.map((ingredient, index) => (
+                        <li key={index}>
+                          {ingredient.quantity} {ingredient.name}
+                        </li>
+                      ))}
+                    </ul>
+                    <h3 className="card-h3" id="card-h3-instructions">
+                      Instructions:
+                    </h3>
+                    <p className="card-instructions">
+                      {expandedCocktail.instructions}
+                    </p>
+                    <div className="card-expanded-footer">
+                      {page === "Favorites" && (
+                        <>
+                          <button
+                            className="btn cocktail-card-btn"
+                            id={cocktail._id}
+                            onClick={() => handleDeleteCocktail(cocktail._id)}
+                          >
+                            <GoTrash />
+                          </button>
+                          <button
+                            className="btn cocktail-card-btn"
+                            id={cocktail._id}
+                            onClick={() => handleEditCocktail(cocktail)}
+                          >
+                            <GoPencil />
+                          </button>
+                          <button
+                            className="btn cocktail-card-btn"
+                            id={cocktail._id}
+                            onClick={() => handleShareRecipe(cocktail)}
+                          >
+                            <MdIosShare />
+                          </button>
+                        </>
+                      )}
+                      {cocktailAdded[cocktail._id] ? (
+                        <p id="cocktail-card-added-message">
+                          Cocktail Added to Favorites!
+                        </p>
+                      ) : (
+                        page === "SearchCocktails" && (
+                          <button
+                            className="btn cocktail-card-add-btn"
+                            id={cocktail._id}
+                            onClick={() => handleAddCocktail(cocktail)}
+                          >
+                            <GoPlus /> Add to Favorites
+                          </button>
+                        )
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <p>Loading Recipe...</p>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </>
   );
 };
