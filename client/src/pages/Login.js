@@ -88,9 +88,10 @@ const Login = () => {
           <li>"Login as Guest" for a test drive</li>
           <li>Create an account or sign in if you already have one.</li>
           <li>Search TheCocktailDB API for recipes </li>
-          <li>Explore cocktails posted by other enthusiasts.</li>
+          <li>Explore cocktail photos & recipes posted by other enthusiasts.</li>
           <li>Add your own favorite cocktail recipe.</li>
-          <li>Save your favorite cocktails to your Favorites page.</li>
+          <li>Save your favorite cocktail recipes to your Profile.</li>
+          <li>Share recipes with the community.</li>
         </ul>
       </div>
       </div>

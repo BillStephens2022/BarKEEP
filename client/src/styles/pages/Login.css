@@ -58,6 +58,10 @@
   margin: auto;
   width: 20rem;
   text-align: left;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
 }
 
 .btn-login.active,

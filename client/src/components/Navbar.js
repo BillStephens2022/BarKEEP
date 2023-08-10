@@ -70,12 +70,12 @@ const Navbar = () => {
               </li>
               <li
                 className={`navigation_item ${
-                  activeNavItem === "newsfeed" ? "navigation_item--active" : ""
+                  activeNavItem === "community" ? "navigation_item--active" : ""
                 }`}
-                onClick={() => handleNavItemClick("newsfeed")}
+                onClick={() => handleNavItemClick("community")}
               >
-                <Link to="/newsfeed" className="navigation_link">
-                  Newsfeed
+                <Link to="/community" className="navigation_link">
+                  Community Posts
                 </Link>
               </li>
               <li

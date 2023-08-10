@@ -10,7 +10,7 @@ import ProfilePhoto from "../components/ProfilePhoto";
 import "../styles/pages/Feed.css";
 import "../styles/components/CocktailForm.css";
 
-const NewsFeed = ({ client }) => {
+const CommunityPosts = ({ client }) => {
   const [showPostForm, setShowPostForm] = useState(false);
   const [postFormState, setPostFormState] = useState({
     postTitle: "",
@@ -215,4 +215,4 @@ const NewsFeed = ({ client }) => {
   );
 };
 
-export default NewsFeed;
+export default CommunityPosts;

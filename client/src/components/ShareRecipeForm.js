@@ -126,7 +126,7 @@ const ShareRecipeForm = ({ setShowShareRecipeForm, setShareRecipeFormState, sele
       // Reset form fields
       setShareRecipeFormState(initialState);
       setShowShareRecipeForm(false);
-      navigate('/newsfeed');
+      navigate('/community');
     } catch (err) {
       console.error(err);
     }
