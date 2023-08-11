@@ -103,6 +103,7 @@
   right: 0; /* Move the expanded section into view */
   width: 20rem; /*  width of the expanded section */
   overflow: auto;
+  /* border-right: 0 solid var(--lightgray); */
 }
 
 .card-h3 {
