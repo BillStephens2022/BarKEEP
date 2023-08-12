@@ -6,11 +6,11 @@
 }
 
 .modal-header {
-  background-color: var(--darkgray);
+  background-color: var(--blue);
 }
 
 .modal-title {
-  background-color: transparent;
+  background-color: var(--blue);
 }
 
 .modal-body {
