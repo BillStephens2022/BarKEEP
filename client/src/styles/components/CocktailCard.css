@@ -142,6 +142,23 @@
   font-size: 0.9rem;
 }
 
+/* For Webkit-based browsers to make scrollbar more obvious to user */
+::-webkit-scrollbar {
+  width: 0.333rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--lightgray);
+  border-radius: .5rem;
+  border: 1px solid var(--white);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--white);
+}
+
+
+
 @media (max-width: 900px) {
   .cocktail-card-default-message {
     margin: 2rem 15%;
