@@ -1,37 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
-import { QUERY_ME, GET_SINGLE_POST } from "../utils/queries";
-import { Auth } from "../utils/auth";
+import { GET_SINGLE_POST } from "../utils/queries";
 import { formatElapsedTime } from "../utils/formatting";
 import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
 import "../styles/pages/Feed.css";
 
 const SinglePost = ({
-  loading,
-  posts,
-  handleDeletePost,
-  isMyPosts,
-  visiblePosts,
-  setVisiblePosts,
-  client,
   postId
 }) => {
-  const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
+  
   const { loading: postLoading, data: postData } = useQuery(GET_SINGLE_POST, {
     variables: { postId },
   });
 
   const post = postData?.getSinglePost;
 
-  if (meLoading || postLoading) {
+  if (postLoading) {
     return <div>Loading...</div>;
   }
-
-  const isMyPost = post.author._id === Auth.getProfile()?.data?._id;
-  const isPostLikedByUser =
-    meData?.me?.likedPosts?.some((likedPost) => likedPost._id === post._id) ||
-    false;
 
   return (
     <>

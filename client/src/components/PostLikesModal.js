@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { GET_POST_LIKES_USERS, GET_SINGLE_POST } from "../utils/queries";
 import ProfilePhoto from "./ProfilePhoto";
 import SinglePost from "./SinglePost";
@@ -53,9 +53,6 @@ const PostLikesModal = ({ postId, onClose }) => {
           </div>
         )}
       </Modal.Body>
-      <Modal.Footer className="post-likes-modal-footer">
-        <Button onClick={onClose}>Close</Button>
-      </Modal.Footer>
     </Modal>
   );
 };

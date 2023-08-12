@@ -157,8 +157,6 @@
   background-color: var(--white);
 }
 
-
-
 @media (max-width: 900px) {
   .cocktail-card-default-message {
     margin: 2rem 15%;

@@ -27,9 +27,6 @@ const RegisterForm = () => {
   // set state for form validation
   const [validated, setValidated] = useState(false);
 
-  // set loading state for profile photo upload
-  const [isUploading, setIsUploading] = useState(false);
-
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
