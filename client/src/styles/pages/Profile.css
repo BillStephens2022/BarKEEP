@@ -23,9 +23,7 @@
   align-items: center;
 }
 
-.user-profile {
-  position: relative;
-}
+
 
 .profile-username {
   margin: 0;
@@ -321,11 +319,7 @@
     letter-spacing: 0.15rem;
     margin-bottom: 1.25rem;
   }
-  .user-profile .size-64 {
-    width: 3rem;
-    height: 3rem;
-    margin-right: 0.75rem;
-  }
+ 
   .post-card {
     width: 75%;
   }
@@ -383,11 +377,6 @@
   .post-author-date {
     width: 35%;
     font-size: 0.9rem;
-  }
-  .user-profile .size-64 {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-right: 0.75rem;
   }
   .profile-username {
     font-size: 1.1rem;
