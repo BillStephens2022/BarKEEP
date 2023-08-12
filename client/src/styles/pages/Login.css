@@ -20,7 +20,6 @@
   font-size: 1.5rem;
   text-transform: uppercase;
   color: var(--yellow);
-  letter-spacing: 0.15rem;
   font-weight: 500;
   cursor: pointer;
 }
@@ -100,7 +99,7 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 900;
-  letter-spacing: 0.5rem;
+  letter-spacing: 0.15rem;
   text-transform: uppercase;
   margin-right:  0.5rem;
   color: var(--white);
@@ -130,8 +129,26 @@
   margin-top: 1rem;
 }
 
+.passwords-match-message {
+  color: chartreuse;
+  font-weight: 700;
+  text-shadow: 1px 1px var(--darkgray);
+}
+
+.passwords-dontmatch-message {
+  color: red;
+  font-weight: 700;
+  text-shadow: 1px 1px var(--darkgray);
+}
+
+.required-legend {
+  color: var(--white);
+  font-weight: 500;
+  text-shadow: 1px 1px var(--darkgray);
+}
+
 .required {
-  color: var(--maroon);
+  color: red;
 }
 
 
@@ -158,10 +175,17 @@
   .form-register {
     width: 80vw;
   }
+  .login-label { 
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
   .login-signup-button {
     width: 40vw;
     margin: auto;
     margin-top: 2rem;
+  }
+  .how-to-list {
+    font-size: 0.9rem;
   }
 }
 
@@ -174,9 +198,25 @@
   .subtitle-2-span {
     font-size: 1.25rem;
   }
-  .how-to-list {
-    font-size: 0.9rem;
-    max-width: 100%;
-    padding: 5%;
+  .login-label { 
+    font-size: 0.7rem;
+    font-weight: 700;
   }
+  .how-to-heading {
+    font-size: 1rem;
+  }
+  .how-to-list {
+    font-size: 0.7rem;
+    max-width: 100%;
+  }
+  .btn-login-buttons {
+    width: 5rem;
+    font-size: 0.7rem;
+    height: 3rem;
+  }
+  .login-input,
+.register-input {
+  margin: 0.5rem auto;
+  height: 2rem;
+}
 }
