@@ -4,10 +4,10 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
 import { ADD_POST, DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
+import Header from "../components/Header";
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
-import ProfilePhoto from "../components/ProfilePhoto";
-import "../styles/pages/Feed.css";
+import "../styles/pages/CommunityPosts.css";
 import "../styles/components/CocktailForm.css";
 
 const CommunityPosts = ({ client }) => {
@@ -140,23 +140,9 @@ const CommunityPosts = ({ client }) => {
   const isMyPosts = false;  
  
   return (
-    <div className="feed">
-      <div className="feed-headings">
-        <div className="user-heading">
-          <div className="user-profile">
-            <ProfilePhoto
-              imageUrl={
-                me?.profilePhoto
-                  ? me?.profilePhoto
-                  : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
-              }
-              size={64}
-            />
-          </div>
-          <h3 className="feed-username">{me?.username}</h3>
-        </div>
-        <h1 className="feed-title">BarKEEP</h1>
-        <h2 className="feed-subtitle">Cocktail Posts</h2>
+    <div className="community-posts">
+      <div className="community-posts-headings">
+        <Header subtitle="Community Posts" page="community posts"/>
 
         <button
           className="btn btn-add-post"

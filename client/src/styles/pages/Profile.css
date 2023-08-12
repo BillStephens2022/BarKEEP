@@ -18,10 +18,7 @@
   background-color: var(--darkgray);
 }
 
-.user-heading {
-  display: inline-flex;
-  align-items: center;
-}
+
 
 
 
@@ -351,9 +348,6 @@
 }
 
 @media (max-width: 500px) {
-  .user-heading {
-    margin: 1rem 0;
-  }
   .post-card {
     width: 95%;
   }

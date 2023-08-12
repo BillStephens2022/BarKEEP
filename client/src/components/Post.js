@@ -12,7 +12,7 @@ import PostPhoto from "./PostPhoto";
 import PostLikesModal from "./PostLikesModal";
 import PostCommentsModal from "./PostCommentsModal";
 import RecipeModal from "./RecipeModal";
-import "../styles/pages/Feed.css";
+import "../styles/pages/CommunityPosts.css";
 
 const Post = ({
   loading,

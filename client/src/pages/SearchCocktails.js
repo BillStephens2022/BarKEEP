@@ -3,6 +3,7 @@ import { useMutation, useApolloClient } from "@apollo/client";
 import { QUERY_ME, QUERY_COCKTAILS } from "../utils/queries";
 import { ADD_COCKTAIL } from "../utils/mutations";
 import { searchCocktails } from "../utils/API";
+import Header from "../components/Header";
 import SearchCocktailName from "../components/SearchCocktailName";
 import SearchCocktailIngredient from "../components/SearchCocktailIngredient";
 import RandomCocktail from "../components/RandomCocktail";
@@ -109,7 +110,9 @@ const SearchCocktails = () => {
   return (
     <div className="search-cocktails">
       <div className="search-headings">
-        <h1 className="search-title">BarKEEP</h1>
+        <Header page="search" />
+      </div>
+      <div className="search-subheadings">
         <h2 className="search-header-1">
           Search{" "}
           <a id="link-opencocktaildb" href="https://www.TheCocktailDB.com">
@@ -117,8 +120,6 @@ const SearchCocktails = () => {
           </a>{" "}
           API
         </h2>
-      </div>
-      <div className="search-subheadings">
         <h3 className="search-header-2">
           Search by:{" "}
           <span className="searchBy-text">
@@ -146,7 +147,9 @@ const SearchCocktails = () => {
           </button>
         </div>
       </div>
-      <div className="div-search-component gradient-background">{renderSearchComponent()}</div>
+      <div className="div-search-component gradient-background">
+        {renderSearchComponent()}
+      </div>
     </div>
   );
 };

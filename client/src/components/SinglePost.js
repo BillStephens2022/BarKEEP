@@ -4,7 +4,7 @@ import { GET_SINGLE_POST } from "../utils/queries";
 import { formatElapsedTime } from "../utils/formatting";
 import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
-import "../styles/pages/Feed.css";
+import "../styles/pages/CommunityPosts.css";
 
 const SinglePost = ({
   postId

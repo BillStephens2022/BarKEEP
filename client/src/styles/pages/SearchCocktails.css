@@ -7,6 +7,11 @@
   justify-content: space-between;
 }
 
+
+.header-search > .header-title, .header-search > .header-subtitle {
+  margin-bottom: 0;
+}
+
 .search-subheadings {
   background-color: var(--darkgray);
   display: flex;

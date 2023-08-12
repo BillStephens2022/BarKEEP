@@ -11,7 +11,7 @@ const MyPosts = ({ client }) => {
   // state to control how many posts are visible at a time,
   // user will be able to 'see more'
   const [visiblePosts, setVisiblePosts] = useState(10);
-
+  
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
 
   const { me } = userData || {};
@@ -19,7 +19,7 @@ const MyPosts = ({ client }) => {
   const { posts } = me || {};
 
   const [filteredPosts, setFilteredPosts] = useState(posts || []);
-
+  
   // useMutation hook to delete a post
   const [deletePost] = useMutation(DELETE_POST, {
     update(cache, { data: { deletePost } }) {
@@ -35,6 +35,7 @@ const MyPosts = ({ client }) => {
       });
     },
   });
+
 
   // Event handler for clicking on the delete button (i.e. the 'trash can' icon) on the post
   const handleDeletePost = async (postId) => {

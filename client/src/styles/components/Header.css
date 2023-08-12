@@ -21,7 +21,13 @@
 .header-profile-photo .size-64 {
   width: 3rem;
   height: 3rem;
-  margin-right: 0.75rem;
+  margin-right: 0.5rem;
+}
+
+.header-username {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--white);
 }
 
 .header-title {
@@ -55,6 +61,9 @@
     height: 3rem;
     margin-right: 0.75rem;
   }
+  .header-username {
+    font-size: 1.35rem;
+  }
 }
 
 @media (max-width: 600px) {
@@ -75,6 +84,9 @@
     width: 2.5rem;
     height: 2.5rem;
     margin-right: 0.75rem;
+  }
+  .header-username {
+    font-size: 1rem;
   }
 }
 
