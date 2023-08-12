@@ -224,12 +224,21 @@
 }
 
 .post-recipe {
-  font-size: 1.5rem;
-  text-transform: uppercase;
+  font-size: 1.25rem;
   text-decoration: underline;
-  color: rgb(254, 148, 233);
+  color: var(--blue);
+  /* color: rgb(254, 148, 233); */
   cursor: pointer;
-  
+  animation: pulse 2s infinite cubic-bezier(0.45, 0, 0.85, 1);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
 }
 
 .posts_error {
@@ -466,6 +475,9 @@
   #post-counts-likes,
   #post-counts-comments {
     font-size: 0.8rem;
+  }
+  .post-recipe {
+    font-size: 1rem;
   }
 }
 
