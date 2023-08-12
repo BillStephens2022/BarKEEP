@@ -18,15 +18,8 @@
 
 .subtitle-2-span {
   font-size: 1.5rem;
-  text-transform: uppercase;
   color: var(--yellow);
   font-weight: 500;
-  cursor: pointer;
-}
-
-.subtitle-2-span:hover {
-  text-transform: lowercase;
-  color: var(--blue);
 }
 
 .btn-login-buttons {

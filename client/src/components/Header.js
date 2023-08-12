@@ -11,19 +11,27 @@ import UploadWidget from "./UploadWidget";
 
 // import { Auth } from "../utils/auth";
 
-const Header2 = ({
-  subtitle,
-  page,
-}) => {
-     // State to manage profile photo editing
+const Header = ({ subtitle, page }) => {
+  // State to manage profile photo editing
   const [editingProfilePhoto, setEditingProfilePhoto] = useState(false);
   const [uploadedProfilePhotoUrl, setUploadedProfilePhotoUrl] = useState(null);
   const { loading, data } = useQuery(QUERY_ME);
   const { me } = data || {};
 
-
-
   const [editProfilePhoto] = useMutation(EDIT_PROFILE_PHOTO, {
+    update(cache, { data: { editProfilePhoto } }) {
+      const { me } = cache.readQuery({ query: QUERY_ME });
+
+      cache.writeQuery({
+        query: QUERY_ME,
+        data: {
+          me: {
+            ...me,
+            profilePhoto: editProfilePhoto.profilePhoto,
+          },
+        },
+      });
+    },
     onCompleted(data) {
       console.log("Profile photo updated:", data);
     },
@@ -48,13 +56,17 @@ const Header2 = ({
   // Function to handle the profile photo update
   const handleProfilePhotoUpdate = async (uploadedProfilePhotoUrl) => {
     // Call the mutation to update the profile photo with the new secure_url
-    console.log("url for photo in handleProfilePhotoUpdate function: ", uploadedProfilePhotoUrl);
+    console.log(
+      "url for photo in handleProfilePhotoUpdate function: ",
+      uploadedProfilePhotoUrl
+    );
     if (uploadedProfilePhotoUrl) {
       try {
         editProfilePhoto({
           variables: {
             profilePhoto: uploadedProfilePhotoUrl,
           },
+          refetchQueries: [{ query: QUERY_ME }],
         });
 
         // Reset the uploadedProfilePhotoUrl and toggle editing state
@@ -79,15 +91,16 @@ const Header2 = ({
     <div className={`header header-${page}`}>
       <div className="header-user">
         <div className="header-profile-photo">
-        {(page !== "about" && page !== "logout" && page !== "login") ? 
-          <ProfilePhoto
-            imageUrl={
-              me?.profilePhoto
-                ? me?.profilePhoto
-                : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
-            }
-            size={64}
-          /> : null }
+          {page !== "about" && page !== "logout" && page !== "login" ? (
+            <ProfilePhoto
+              imageUrl={
+                me?.profilePhoto
+                  ? me?.profilePhoto
+                  : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
+              }
+              size={64}
+            />
+          ) : null}
           {page === "profile" ? (
             editingProfilePhoto ? (
               <div className="upload-widget-edit-profile-photo">
@@ -109,10 +122,9 @@ const Header2 = ({
             )
           ) : null}
         </div>
-        {(page !== "about" && page !== "logout" && page !== "login") ? 
-        <h3 className="header-username">{me?.username}</h3>
-        : null }
-        
+        {page !== "about" && page !== "logout" && page !== "login" ? (
+          <h3 className="header-username">{me?.username}</h3>
+        ) : null}
       </div>
       <h1 className="header-title">BarKEEP</h1>
       <h2 className="header-subtitle">{subtitle}</h2>
@@ -120,4 +132,4 @@ const Header2 = ({
   );
 };
 
-export default Header2;
+export default Header;
