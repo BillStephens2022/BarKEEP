@@ -44,6 +44,7 @@
 
 .home-title {
   font-size: 6rem;
+  font-weight: 900;
   letter-spacing: 1rem;
   margin-top: 3rem;
   margin-bottom: 2rem;
@@ -324,6 +325,7 @@
   .home-title {
     font-size: 3rem;
     letter-spacing: 0.7rem;
+    font-weight: 500;
   }
   .home-subtitle {
     font-size: 1.15rem;
