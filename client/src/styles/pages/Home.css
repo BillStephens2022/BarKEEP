@@ -272,6 +272,10 @@
 }
 
 @media (max-width: 900px) {
+  .home-title {
+    font-size: 6rem;
+    letter-spacing: 1rem;
+  }
   #home-quote-h3 {
     font-size: 1.4rem;
     letter-spacing: 0.2rem;
@@ -384,5 +388,25 @@
   }
   #home-quote-div {
     display: none;
+  }
+}
+
+@media ((max-height: 1400px) and (orientation: landscape)) {
+  .home-title {
+    font-size: 5rem;
+  }
+  .home_photo_image {
+    width: 55%;
+    margin-top: 0;
+  }
+}
+
+@media ((max-height: 1100px) and (orientation: landscape)) {
+  .home-title {
+    font-size: 5rem;
+  }
+  .home_photo_image {
+    width: 45%;
+    margin-top: 0;
   }
 }

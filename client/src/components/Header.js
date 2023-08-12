@@ -79,7 +79,7 @@ const Header2 = ({
     <div className={`header header-${page}`}>
       <div className="header-user">
         <div className="header-profile-photo">
-        {page !== "about" ? 
+        {(page !== "about" && page !== "logout" && page !== "login") ? 
           <ProfilePhoto
             imageUrl={
               me?.profilePhoto
@@ -109,7 +109,7 @@ const Header2 = ({
             )
           ) : null}
         </div>
-        {page !== "about" ? 
+        {(page !== "about" && page !== "logout" && page !== "login") ? 
         <h3 className="header-username">{me?.username}</h3>
         : null }
         

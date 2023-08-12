@@ -9,21 +9,31 @@ const Profile = () => {
   // State to manage view - see My Posts or My Favorite Recipes
   const [view, setView] = useState("myFavorites");
 
-
   return (
     <div className="profile">
-      <div className="profile-headings">
-        <Header page="profile" subtitle="Profile" />
-        
-       
-        <div className="profile-button-div">
-          <h3>View:</h3>
-          <button className={`btn btn-view btn-my-favorites ${view === "myFavorites" ? "active" : ""}`} onClick={() => setView("myFavorites")}>Favorite Recipes</button>
-          <button className={`btn btn-view btn-my-posts ${view === "myPosts" ? "active" : ""}`} onClick={() => setView("myPosts")}>My Posts</button>
-        </div>
+      <Header page="profile" subtitle="Profile" />
+
+      <div className="profile-button-div">
+        <h3>View:</h3>
+        <button
+          className={`btn btn-view btn-my-favorites ${
+            view === "myFavorites" ? "active" : ""
+          }`}
+          onClick={() => setView("myFavorites")}
+        >
+          Favorite Recipes
+        </button>
+        <button
+          className={`btn btn-view btn-my-posts ${
+            view === "myPosts" ? "active" : ""
+          }`}
+          onClick={() => setView("myPosts")}
+        >
+          My Posts
+        </button>
       </div>
+
       {view === "myPosts" ? <MyPosts /> : <MyFavorites />}
-     
     </div>
   );
 };

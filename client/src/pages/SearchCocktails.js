@@ -109,9 +109,8 @@ const SearchCocktails = () => {
 
   return (
     <div className="search-cocktails">
-      <div className="search-headings">
-        <Header page="search" />
-      </div>
+      <Header page="search" />
+
       <div className="search-subheadings">
         <h2 className="search-header-1">
           Search{" "}

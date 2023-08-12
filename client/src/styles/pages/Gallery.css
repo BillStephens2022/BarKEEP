@@ -10,15 +10,6 @@
   align-items: center;
 }
 
-.gallery-headings {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  padding: 1rem;
-  background-color: var(--darkgray);
-}
-
 .gallery-heading {
   display: inline-flex;
   align-items: center;
@@ -63,9 +54,6 @@
   }
   .gallery-username {
     font-size: 1.35rem;
-  }
-  .gallery-headings {
-    padding-top: 1.5rem;
   }
   .gallery-title {
     font-size: 3.5rem;

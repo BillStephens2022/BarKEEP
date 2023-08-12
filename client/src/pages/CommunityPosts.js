@@ -134,16 +134,15 @@ const CommunityPosts = ({ client }) => {
 
   const currentUser = userData?.me?._id;
 
-  // isMyPosts is passed as a prop in the 'Post' component. 
-  // isMyPosts=true is used in the "Profile" page where user only sees 
+  // isMyPosts is passed as a prop in the 'Post' component.
+  // isMyPosts=true is used in the "Profile" page where user only sees
   // their own posts with delete button. Used for conditional rendering.
-  const isMyPosts = false;  
- 
+  const isMyPosts = false;
+
   return (
     <div className="community-posts">
-      <div className="community-posts-headings">
-        <Header subtitle="Community Posts" page="community posts"/>
-
+      <Header subtitle="Community Posts" page="community posts" />
+      <div className="community-posts-add-post-div">
         <button
           className="btn btn-add-post"
           onClick={() => {
@@ -153,6 +152,7 @@ const CommunityPosts = ({ client }) => {
           Create a New Post
         </button>
       </div>
+
       <div className="posts-container gradient-background">
         {filteredPosts.length > 0 ? (
           <Post

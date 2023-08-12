@@ -49,11 +49,11 @@
   transform: scale(1.1);
 }
 
-
-
-
-
-
+.community-posts-add-post-div {
+  background-color: var(--darkgray);
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
 .btn-view {
   width: 15rem;
   align-self: center;
