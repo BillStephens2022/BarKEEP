@@ -5,6 +5,32 @@
   padding-bottom: 1rem;
 }
 
+.header-user {
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.header-profile-photo {
+  position: relative;
+}
+
+.header-profile-photo .size-64 {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 0.5rem;
+}
+
+.header-username {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--white);
+}
+
 .header-title {
   font-size: 6rem;
   font-weight: 900;
@@ -28,8 +54,20 @@
 }
 
 @media (max-width: 900px) {
+  .header-user {
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
   .header-subtitle {
     font-size: 1.75rem;
+  }
+  .user-profile .size-64 {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 0.75rem;
+  }
+  .header-username {
+    font-size: 1.35rem;
   }
 }
 
@@ -46,6 +84,14 @@
   }
   .header-subtitle {
     font-size: 1.5rem;
+  }
+  .user-profile .size-64 {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0.75rem;
+  }
+  .header-username {
+    font-size: 1rem;
   }
 }
 

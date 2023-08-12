@@ -151,11 +151,39 @@
   color: red;
 }
 
+.logout {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  height: 73vh;
+}
+
+#logout-comeback, #logout-cheers {
+  color: var(--white);
+  font-size: 3rem;
+  font-weight: 900;
+  text-shadow: 1px 1px var(--darkgray);
+  margin: auto;
+  padding: 1rem;
+}
+
+#logout-photo {
+  padding: 2%;
+  max-width: 40vw;
+  margin: auto;
+}
+
 
 
 @media (max-width: 1023px) {
   .form-login, .form-register {
     width: 40vw;
+  }
+}
+
+@media (max-width: 1023px) {
+  .logout {
+    height: 77vh;
   }
 }
 
@@ -186,6 +214,10 @@
   }
   .how-to-list {
     font-size: 0.9rem;
+  }
+  #logout-comeback, #logout-cheers {
+    font-size: 2.35em;
+    font-weight: 700;
   }
 }
 

@@ -4,10 +4,10 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
 import { ADD_POST, DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
+import Header from "../components/Header";
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
-import ProfilePhoto from "../components/ProfilePhoto";
-import "../styles/pages/Feed.css";
+import "../styles/pages/CommunityPosts.css";
 import "../styles/components/CocktailForm.css";
 
 const CommunityPosts = ({ client }) => {
@@ -134,30 +134,15 @@ const CommunityPosts = ({ client }) => {
 
   const currentUser = userData?.me?._id;
 
-  // isMyPosts is passed as a prop in the 'Post' component. 
-  // isMyPosts=true is used in the "Profile" page where user only sees 
+  // isMyPosts is passed as a prop in the 'Post' component.
+  // isMyPosts=true is used in the "Profile" page where user only sees
   // their own posts with delete button. Used for conditional rendering.
-  const isMyPosts = false;  
- 
-  return (
-    <div className="feed">
-      <div className="feed-headings">
-        <div className="user-heading">
-          <div className="user-profile">
-            <ProfilePhoto
-              imageUrl={
-                me?.profilePhoto
-                  ? me?.profilePhoto
-                  : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
-              }
-              size={64}
-            />
-          </div>
-          <h3 className="feed-username">{me?.username}</h3>
-        </div>
-        <h1 className="feed-title">BarKEEP</h1>
-        <h2 className="feed-subtitle">Cocktail Posts</h2>
+  const isMyPosts = false;
 
+  return (
+    <div className="community-posts">
+      <Header subtitle="Community Posts" page="community posts" />
+      <div className="community-posts-add-post-div">
         <button
           className="btn btn-add-post"
           onClick={() => {
@@ -167,6 +152,7 @@ const CommunityPosts = ({ client }) => {
           Create a New Post
         </button>
       </div>
+
       <div className="posts-container gradient-background">
         {filteredPosts.length > 0 ? (
           <Post

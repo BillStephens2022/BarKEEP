@@ -15,6 +15,7 @@ import CommunityPosts from "./pages/CommunityPosts";
 import SearchCocktails from "./pages/SearchCocktails";
 import Gallery from "./pages/Gallery";
 import Login from "./pages/Login";
+import Logout from "./components/Logout";
 import Footer from "./components/Footer";
 
 const httpLink = createHttpLink({
@@ -70,6 +71,7 @@ function App() {
             <Route path="/searchCocktails" element={<SearchCocktails />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
             <Route
               path="*"
               element={<h1 className="display-2">Wrong page!</h1>}

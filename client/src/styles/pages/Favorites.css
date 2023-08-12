@@ -1,58 +1,4 @@
 /* Favorites Page */
-.favorites {
-  
-  background-color: var(--lightgray);
-  width: 100%;
-  min-height: 72vh;
-}
-
-.favorites-headings {
-  padding: 1rem;
-  background-color: var(--darkgray);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.favorites-username {
-  margin: 0;
-  font-size: 1.25rem;
-  color: var(--blue);
-}
-
-.upload-widget-edit-profile-photo {
-  padding-top: 0.5rem;
-  margin-left: -0.5rem;
-}
-
-.favorites-title {
-  font-size: 6rem;
-  font-weight: 900;
-  letter-spacing: 1rem;
-  margin-top: 0;
-  margin-bottom: 2rem;
-  color: var(--blue);
-  text-align: center;
-  text-shadow: 2px 2px var(--lightgray);
-}
-
-.favorites-title:hover {
-  transform: skewX(-15deg);
-  transition: 0.2s;
-}
-
-.favorites-subtitle {
-  font-size: 2rem;
-  letter-spacing: 0.4rem;
-  margin-bottom: 2rem;
-  color: var(--white);
-  text-align: center;
-  margin-top: auto;
-}
-
-.size-64 {
-  margin-left: 0;
-}
 
 .modal-content {
   width: 50vw;
@@ -63,16 +9,12 @@
 
 
 @media (max-width: 900px) {
-  .user-heading {
-    margin-top: 1rem;
-  }
+ 
   .username {
     font-size: 1.5rem;
     padding-left: 0.5rem;
   }
-  .favorites-headings {
-    padding-top: 0;
-  }
+
   .favorites-title {
     font-size: 3.5rem;
     font-weight: 700;
@@ -83,24 +25,9 @@
 }
 
 @media (max-width: 767px) {
-  .favorites-username {
-    font-size: 1rem;
-    padding-left: 0.5rem;
-    color: var(--blue);
-  }
-  .favorites-headings {
-    padding-top: 0;
-  }
-  .favorites-title {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  .favorites-subtitle {
-    font-size: 1.5rem;
-    letter-spacing: 0.15rem;
-    margin-bottom: 1.25rem;
-  }
+
+  
+
   .size-64 {
     width: 2.5rem;
     height: 2.5rem;

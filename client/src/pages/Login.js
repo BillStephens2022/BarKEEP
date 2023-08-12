@@ -47,7 +47,7 @@ const Login = () => {
 
   return (
     <div className="login_page">
-      <Header subtitle={"Login / Register"} />
+      <Header subtitle="Login / Register" page="login" />
      <div className="login-main gradient-background">
       <h5 className="subtitle-login-2">
         Try our{" "}

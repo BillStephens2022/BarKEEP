@@ -1,4 +1,4 @@
-.feed {
+.community-posts {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.feed-headings {
+.community-posts-headings {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -19,19 +19,6 @@
   background-color: var(--darkgray);
 }
 
-.user-heading {
-  display: inline-flex;
-  align-items: center;
-}
-
-.user-profile {
-  position: relative;
-}
-
-.feed-username {
-  margin: 0;
-  font-size: 1.25rem;
-}
 
 .edit-photo-icon {
   position: absolute;
@@ -62,30 +49,11 @@
   transform: scale(1.1);
 }
 
-.feed-title {
-  font-size: 6rem;
-  font-weight: 900;
-  letter-spacing: 1rem;
-  margin-bottom: 2rem;
-  color: var(--blue);
-  text-align: center;
-  text-shadow: 2px 2px var(--lightgray);
+.community-posts-add-post-div {
+  background-color: var(--darkgray);
+  width: 100%;
+  padding-bottom: 0.5rem;
 }
-
-.feed-title:hover {
-  transform: skewX(-15deg);
-  transition: 0.2s;
-}
-
-.feed-subtitle {
-  font-size: 2rem;
-  letter-spacing: 0.4rem;
-  margin-bottom: 2rem;
-  color: var(--white);
-  text-align: center;
-  margin-top: auto;
-}
-
 .btn-view {
   width: 15rem;
   align-self: center;
@@ -375,25 +343,15 @@
 }
 
 @media (max-width: 900px) {
-  .feed {
+  .community-posts {
     margin: 0;
   }
-  .feed-username {
-    font-size: 1.35rem;
-  }
-  .feed-headings {
+  
+  .community-posts-headings {
     padding-top: 1.5rem;
   }
-  .feed-title {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  .feed-subtitle {
-    font-size: 1.5rem;
-    letter-spacing: 0.15rem;
-    margin-bottom: 1.25rem;
-  }
+  
+  
   .post-card {
     width: 75%;
   }
@@ -422,16 +380,11 @@
 }
 
 @media (max-width: 500px) {
-  .user-heading {
-    margin: 1rem 0;
-  }
+  
   .post-card {
     width: 95%;
   }
-  .feed-username {
-    font-size: 1rem;
-  }
-  .feed-headings {
+  .community-posts-headings {
     padding-top: 0;
   }
   .post-author {
@@ -470,13 +423,7 @@
 }
 
 @media (max-width: 300px) {
-  .feed-title {
-    font-size: 2.5rem;
-    letter-spacing: 0.5rem;
-  }
-  .feed-subtitle {
-    font-size: 1.5rem;
-  }
+ 
   .post-like-button,
   .post-comment-button,
   .div-delete-button {
