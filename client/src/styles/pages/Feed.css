@@ -370,20 +370,8 @@
     background: linear-gradient(45deg, var(--maroon), var(--lightblue), var(--blue));
   }
   75% {
-    background: linear-gradient(45deg, var(--maroon), var(--lightblue), var(--blue));
+    background: linear-gradient(45deg, var(--lightblue), var(--maroon), var(--blue));
   }
-  /* 0%, 100% {
-    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #FF6B6B);
-  }
-  25% {
-    background: linear-gradient(45deg, #4ECDC4, #FF6B6B, #4ECDC4);
-  }
-  50% {
-    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #FF6B6B);
-  }
-  75% {
-    background: linear-gradient(45deg, #4ECDC4, #FF6B6B, #4ECDC4);
-  } */
 }
 
 @media (max-width: 900px) {
