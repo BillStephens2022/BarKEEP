@@ -1,7 +1,6 @@
 /* CocktailForm */
 
 .form-container {
-  
   margin: 0 auto;
   padding: 1.2rem;
   min-height: 80vh;
@@ -16,21 +15,21 @@
 }
 
 .form-container label {
-  margin-top: .6rem;
+  margin-top: 0.6rem;
   font-weight: bold;
 }
 
 .form-container input,
 .form-container textarea {
-  padding: .5rem;
-  margin-top: .3rem;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .cocktail-form-button {
-  padding: .6rem 1.2rem;
-  margin-top: .6rem;
+  padding: 0.6rem 1.2rem;
+  margin-top: 0.6rem;
   background-color: var(--blue);
   color: #fff;
   border: none;
@@ -61,11 +60,11 @@
 
 .form-container .ingredient-inputs .quantity-input {
   width: 25%;
-  margin-right: .3rem;
+  margin-right: 0.3rem;
 }
 
 .form-container .ingredient-inputs button {
-  margin-left: .6rem;
+  margin-left: 0.6rem;
 }
 
 .form-container .tag-inputs {
@@ -74,18 +73,24 @@
 }
 
 .form-container .tag-inputs input {
-  margin-right: .6rem;
+  margin-right: 0.6rem;
 }
 
 .form-container .tag-inputs button {
-  margin-left: .6rem;
+  margin-left: 0.6rem;
 }
 
-.add-ingredient-button, 
+.add-ingredient-button,
 .add-tag-button {
   margin-top: 0.6rem;
 }
 
 #instructions {
   min-height: 5rem !important;
+}
+
+@media (max-width: 767px) {
+  .form-container {
+    width: 90vw;
+  }
 }

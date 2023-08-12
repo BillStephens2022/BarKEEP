@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
-import UploadWidget from "./UploadWidget";
 import { Auth } from "../utils/auth";
 import "../styles/pages/Login.css";
 
 const defaultProfilePhoto =
   "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg";
-
-
 
 const RegisterForm = () => {
   // sets initial form state
@@ -18,14 +15,20 @@ const RegisterForm = () => {
     username: "",
     email: "",
     password: "",
-    profilePhoto: defaultProfilePhoto, // Default photo URL
+    profilePhoto: defaultProfilePhoto, // Default photo URL, user will be able to edit it later with uploaded photo from Profile page
   });
+
+  // state for password verification (user must enter twice upon registration)
+  const [passwordVerification, setPasswordVerification] = useState("");
+
+  // checks whether passwords match so that user gets real time message about whether both passwords entered have matched
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
 
   // set state for form validation
   const [validated, setValidated] = useState(false);
 
   // set loading state for profile photo upload
-  const [isUploading, setIsUploading] = useState(false); 
+  const [isUploading, setIsUploading] = useState(false);
 
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
@@ -34,43 +37,36 @@ const RegisterForm = () => {
 
   let navigate = useNavigate();
 
-  // Function to handle photo upload success
-  const handleUploadSuccess = (result) => {
-    if (result && result.event === "success") {
-      const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
-      setUserFormData({
-        ...userFormData,
-        profilePhoto: convertedUrl, // Save the uploaded photo URL
-      });
-      setIsUploading(false); // Set the uploading state to false after successful upload
-    }
-  };
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
+
+    // Update the password verification state when the second password input changes
+    if (name === "passwordVerification") {
+      setPasswordVerification(value);
+      // Update passwords matching state
+      setPasswordsMatch(userFormData.password === value);
+    }
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    console.log("password 1: ", userFormData.password);
+    console.log("password 2: ", passwordVerification);
+    console.log(validated);
+    console.log(userFormData.password !== passwordVerification);
+    if (
+      form.checkValidity() === false ||
+      userFormData.password !== passwordVerification
+    ) {
       event.preventDefault();
       event.stopPropagation();
+      return;
     }
     console.log(userFormData);
 
-    if (userFormData.username && userFormData.email && userFormData.password) {
-      setIsUploading(true); // Start the upload process if necessary fields are filled
-    }
-
     setValidated(true);
-
-    if (isUploading) {
-      // Wait for the upload to complete before submitting the form
-      return;
-    }
 
     try {
       const { data } = await addUser({
@@ -94,6 +90,7 @@ const RegisterForm = () => {
       password: "",
       profilePhoto: defaultProfilePhoto, //reset profile photo to the default
     });
+    setPasswordVerification("");
   };
 
   return (
@@ -168,9 +165,28 @@ const RegisterForm = () => {
             Password is required!
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group className="form-group-upload">
-          <Form.Label className="login-label">Profile Photo</Form.Label>
-          <UploadWidget onSuccess={handleUploadSuccess} />
+        <Form.Group>
+          <Form.Label htmlFor="passwordVerification" className="login-label">
+            Confirm Password <span className="required">*</span>
+          </Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm password"
+            name="passwordVerification"
+            onChange={handleInputChange}
+            value={passwordVerification}
+            className="login-input"
+            required
+          />
+          <Form.Group>
+            {passwordsMatch ? (
+              <p className="passwords-match-message">Passwords match</p>
+            ) : (
+              <p className="passwords-dontmatch-message">
+                Passwords do not match
+              </p>
+            )}
+          </Form.Group>
         </Form.Group>
         <p className="required-legend">
           <span className="required">*</span> Indicates required field
@@ -181,7 +197,8 @@ const RegisterForm = () => {
               userFormData.username &&
               userFormData.email &&
               userFormData.password &&
-              !isUploading // Disable the button while uploading profile photo
+              userFormData.passwordVerification &&
+              passwordsMatch
             )
           }
           type="submit"

@@ -36,15 +36,18 @@ const Profile = () => {
     if (result && result.info.secure_url) {
       const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
       console.log("converted URL: ", convertedUrl);
-      setUploadedProfilePhotoUrl(convertedUrl);
+      setUploadedProfilePhotoUrl(convertedUrl, () => {
+        handleProfilePhotoUpdate(convertedUrl);
+      });
       console.log("uploaded profile photo url: ", uploadedProfilePhotoUrl);
-      handleProfilePhotoUpdate(uploadedProfilePhotoUrl);
+      handleProfilePhotoUpdate(convertedUrl);
     }
   };
 
   // Function to handle the profile photo update
   const handleProfilePhotoUpdate = async (uploadedProfilePhotoUrl) => {
     // Call the mutation to update the profile photo with the new secure_url
+    console.log("url for photo in handleProfilePhotoUpdate function: ", uploadedProfilePhotoUrl);
     if (uploadedProfilePhotoUrl) {
       try {
         editProfilePhoto({
