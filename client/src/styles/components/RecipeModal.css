@@ -21,3 +21,13 @@
 .custom-modal-card {
   margin: 1.5rem;
 }
+
+.modal-header .close {
+  border-radius: 50%;
+  background-color: var(--white);
+  border: 2px solid darkgray;
+  color: darkgray;
+  font-weight: 900;
+  padding-top: 0;
+  
+}
