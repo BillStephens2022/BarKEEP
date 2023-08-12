@@ -58,6 +58,9 @@
     margin-top: 1rem;
     margin-left: 1rem;
   }
+  .header-title {
+    margin-top: 1rem;
+  }
   .header-subtitle {
     font-size: 1.75rem;
   }
@@ -95,9 +98,32 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
+  .header-user {
+    margin-top: 0.5rem;
+    margin-left: 0;
+   
+  }
+  .header-username {
+    font-size: 0.75rem;
+  }
+  .header-user .size-64 {
+    width: 2rem;
+    height: 2rem;
+  }
+  .header-user .edit-photo-icon {
+    width: 0.75rem !important;
+    height: 0.75rem !important;
+    padding-left: 0.5rem;
+    padding-top: 0.4rem;
+  }
+  .header-user .edit-photo-icon-pencil {
+    width: 0.75rem !important;
+    height: 0.75rem !important;
+  }
   .header-title {
     font-size: 3rem;
+    margin-top: 1rem;
   }
 }
 
