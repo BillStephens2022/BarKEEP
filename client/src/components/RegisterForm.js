@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Button, Alert } from "react-bootstrap";
 import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
-import UploadWidget from "./UploadWidget";
 import { Auth } from "../utils/auth";
 import "../styles/pages/Login.css";
 
@@ -18,7 +17,7 @@ const RegisterForm = () => {
     username: "",
     email: "",
     password: "",
-    profilePhoto: defaultProfilePhoto, // Default photo URL
+    profilePhoto: defaultProfilePhoto, // Default photo URL, user will be able to edit it later with uploaded photo from Profile page
   });
 
   // set state for form validation
@@ -33,18 +32,6 @@ const RegisterForm = () => {
   const [addUser] = useMutation(ADD_USER);
 
   let navigate = useNavigate();
-
-  // Function to handle photo upload success
-  const handleUploadSuccess = (result) => {
-    if (result && result.event === "success") {
-      const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
-      setUserFormData({
-        ...userFormData,
-        profilePhoto: convertedUrl, // Save the uploaded photo URL
-      });
-      setIsUploading(false); // Set the uploading state to false after successful upload
-    }
-  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -61,16 +48,8 @@ const RegisterForm = () => {
     }
     console.log(userFormData);
 
-    if (userFormData.username && userFormData.email && userFormData.password) {
-      setIsUploading(true); // Start the upload process if necessary fields are filled
-    }
 
     setValidated(true);
-
-    if (isUploading) {
-      // Wait for the upload to complete before submitting the form
-      return;
-    }
 
     try {
       const { data } = await addUser({
@@ -167,10 +146,6 @@ const RegisterForm = () => {
           <Form.Control.Feedback type="invalid">
             Password is required!
           </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="form-group-upload">
-          <Form.Label className="login-label">Profile Photo</Form.Label>
-          <UploadWidget onSuccess={handleUploadSuccess} />
         </Form.Group>
         <p className="required-legend">
           <span className="required">*</span> Indicates required field
