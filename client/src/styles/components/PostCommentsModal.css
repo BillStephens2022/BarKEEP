@@ -78,8 +78,11 @@
 }
 
 @media (max-width: 900px) {
+  .modal-content {
+    min-width: 85vw;
+  }
   .post-comments-modal-ul {
-    width: 80%;
+    width: 85%;
   }
 }
 

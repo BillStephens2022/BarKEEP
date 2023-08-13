@@ -33,7 +33,7 @@ const LoginForm = () => {
     try {
       const { data } = await login({ variables: { ...userFormData } });
       Auth.login(data.login.token);
-      navigate("/profile");
+      navigate("/community");
     } catch (err) {
       console.error(err);
       setShowAlert(true);

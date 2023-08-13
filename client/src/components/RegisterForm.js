@@ -75,7 +75,7 @@ const RegisterForm = () => {
       }
 
       Auth.login(data.addUser.token);
-      navigate("/profile");
+      navigate("/community");
     } catch (err) {
       console.error(err);
       setShowAlert(true);
