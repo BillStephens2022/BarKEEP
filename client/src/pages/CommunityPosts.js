@@ -7,6 +7,7 @@ import { Auth } from "../utils/auth";
 import Header from "../components/Header";
 import PostForm from "../components/PostForm";
 import Post from "../components/Post";
+import ShimmerLoader from "../components/ShimmerLoader";
 import "../styles/pages/CommunityPosts.css";
 import "../styles/components/CocktailForm.css";
 
@@ -129,7 +130,7 @@ const CommunityPosts = ({ client }) => {
   }, [postsData, userPosts]);
 
   if (userLoading || postsLoading) {
-    return <div>Loading...</div>;
+    return <ShimmerLoader />;
   }
 
   const currentUser = userData?.me?._id;

@@ -13,6 +13,7 @@ import { Auth } from "../utils/auth";
 import CocktailCard from "./CocktailCard";
 import CocktailForm from "./CocktailForm";
 import ShareRecipeForm from "./ShareRecipeForm";
+import ShimmerLoader from "./ShimmerLoader";
 import "../styles/pages/Favorites.css";
 
 const MyFavorites = () => {
@@ -276,7 +277,7 @@ const MyFavorites = () => {
   }, [uploadedProfilePhotoUrl]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <ShimmerLoader />;
   }
 
   if (!cocktails.length) {

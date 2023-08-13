@@ -4,12 +4,10 @@ import { GET_SINGLE_POST } from "../utils/queries";
 import { formatElapsedTime } from "../utils/formatting";
 import ProfilePhoto from "./ProfilePhoto";
 import PostPhoto from "./PostPhoto";
+import ShimmerLoader from "./ShimmerLoader";
 import "../styles/pages/CommunityPosts.css";
 
-const SinglePost = ({
-  postId
-}) => {
-  
+const SinglePost = ({ postId }) => {
   const { loading: postLoading, data: postData } = useQuery(GET_SINGLE_POST, {
     variables: { postId },
   });
@@ -17,7 +15,7 @@ const SinglePost = ({
   const post = postData?.getSinglePost;
 
   if (postLoading) {
-    return <div>Loading...</div>;
+    return <ShimmerLoader />;
   }
 
   return (
@@ -33,7 +31,9 @@ const SinglePost = ({
               }
               customClass="singlePostAuthor"
             />
-            <span className="post-author-name-singlePost">{post.author.username}</span>
+            <span className="post-author-name-singlePost">
+              {post.author.username}
+            </span>
           </div>
           <div className="post-author-date-singlePost">
             {formatElapsedTime(post.postDate)}
@@ -49,10 +49,7 @@ const SinglePost = ({
           </div>
         </div>
 
-        <div className="post-footer">
-     
-
-        </div>
+        <div className="post-footer"></div>
       </div>
     </>
   );

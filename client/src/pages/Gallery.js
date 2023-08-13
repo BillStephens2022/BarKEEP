@@ -4,7 +4,9 @@ import { useQuery } from "@apollo/client";
 import { QUERY_POSTS } from "../utils/queries";
 import Header from "../components/Header";
 import PostPhoto from "../components/PostPhoto";
+import ShimmerLoader from "../components/ShimmerLoader";
 import "../styles/pages/Gallery.css";
+
 
 const Gallery = () => {
   const { loading, data } = useQuery(QUERY_POSTS);
@@ -13,7 +15,7 @@ const Gallery = () => {
 
   // Show loading message while data is being fetched
   if (loading) {
-    return <div>Loading...</div>;
+    return <ShimmerLoader />;
   }
 
   const breakpointColumnsObj = {

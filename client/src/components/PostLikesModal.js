@@ -4,6 +4,7 @@ import { Modal } from "react-bootstrap";
 import { GET_POST_LIKES_USERS, GET_SINGLE_POST } from "../utils/queries";
 import ProfilePhoto from "./ProfilePhoto";
 import SinglePost from "./SinglePost";
+import ShimmerLoader from "./ShimmerLoader";
 import "../styles/components/PostLikesModal.css";
 
 const PostLikesModal = ({ postId, onClose }) => {
@@ -27,11 +28,13 @@ const PostLikesModal = ({ postId, onClose }) => {
           className="post-likes-modal-btn-close"
           aria-label="Close"
           onClick={onClose}
-        >x</button>
+        >
+          x
+        </button>
       </Modal.Header>
       <Modal.Body>
         {loading || postLoading ? (
-          <p>Loading...</p>
+          <ShimmerLoader />
         ) : (
           <div>
             <ul className="post-likes-modal-ul">

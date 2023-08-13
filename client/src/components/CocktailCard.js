@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { GoPencil, GoTrash, GoPlus } from "react-icons/go";
 import { MdIosShare } from "react-icons/md";
 import { searchCocktails } from "../utils/API";
+import ShimmerLoader from "./ShimmerLoader";
 import "../styles/components/CocktailCard.css";
 
 const CocktailCard = ({
@@ -41,7 +42,7 @@ const CocktailCard = ({
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <ShimmerLoader />;
   }
 
   if (!cocktails.length) {

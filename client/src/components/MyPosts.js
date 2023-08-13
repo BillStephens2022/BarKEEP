@@ -5,6 +5,7 @@ import { QUERY_ME } from "../utils/queries";
 import { DELETE_POST } from "../utils/mutations";
 import { Auth } from "../utils/auth";
 import Post from "./Post";
+import ShimmerLoader from "./ShimmerLoader";
 import "../styles/pages/Profile.css";
 
 const MyPosts = ({ client }) => {
@@ -77,7 +78,7 @@ const MyPosts = ({ client }) => {
   }, [posts]);
 
   if (userLoading) {
-    return <div>Loading...</div>;
+    return <ShimmerLoader />;
   }
 
   const isMyPosts = true;

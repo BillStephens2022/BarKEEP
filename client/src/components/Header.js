@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../styles/components/Header.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../utils/queries";
 import { GoPencil } from "react-icons/go";
@@ -8,6 +7,8 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { EDIT_PROFILE_PHOTO } from "../utils/mutations";
 import ProfilePhoto from "./ProfilePhoto";
 import UploadWidget from "./UploadWidget";
+import ShimmerLoader from "./ShimmerLoader";
+import "../styles/components/Header.css";
 
 // import { Auth } from "../utils/auth";
 
@@ -84,7 +85,7 @@ const Header = ({ subtitle, page }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <ShimmerLoader />;
   }
 
   return (

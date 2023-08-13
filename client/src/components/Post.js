@@ -12,6 +12,7 @@ import PostPhoto from "./PostPhoto";
 import PostLikesModal from "./PostLikesModal";
 import PostCommentsModal from "./PostCommentsModal";
 import RecipeModal from "./RecipeModal";
+import ShimmerLoader from "./ShimmerLoader";
 import "../styles/pages/CommunityPosts.css";
 
 const Post = ({
@@ -143,7 +144,7 @@ const Post = ({
   }, [posts]);
 
   if (loading || meLoading) {
-    return <div>Loading...</div>;
+    return <ShimmerLoader />;
   }
 
   if (!posts.length) {
@@ -234,7 +235,7 @@ const Post = ({
                 onClick={() => handlePostCommentsClick(post._id)}
               >
                 <h6 id="post-counts-comments">
-                  {post.comments?.length === 1 
+                  {post.comments?.length === 1
                     ? `${post.comments?.length} comment`
                     : `${post.comments?.length} comments`}
                 </h6>
@@ -314,7 +315,6 @@ const Post = ({
       {showRecipeModal && selectedRecipe && (
         <RecipeModal
           recipe={selectedRecipe}
-          
           onClose={() => {
             setSelectedRecipe(null);
             setShowRecipeModal(false);
