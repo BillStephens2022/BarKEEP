@@ -180,6 +180,19 @@
   }
 }
 
+@media (max-width: 900px) {
+  .login-main {
+    padding-top: 2rem;
+  }
+  .how-to {
+    margin-top: 3rem;
+  }
+  .how-to-list {
+    width: 60vw;
+    font-size: 1.35rem;
+  }
+}
+
 @media (max-width: 767px) {
   .subtitle-login-2 {
     margin-top: 1rem;
@@ -187,6 +200,12 @@
   }
   .subtitle-2-span {
     font-size: 1.25rem;
+  }
+  .login-main {
+    padding-top: 0.25rem;
+  }
+  .how-to {
+    margin-top: 0.25rem;
   }
   
   .form-container-login {
@@ -206,7 +225,8 @@
     margin-top: 2rem;
   }
   .how-to-list {
-    font-size: 0.9rem;
+    width: 85vw;
+    font-size: 1rem;
   }
   #logout-comeback, #logout-cheers {
     font-size: 2.35em;
@@ -214,14 +234,31 @@
   }
 }
 
+@media (max-width: 380px) {
+  .subtitle-login-2 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  .btn-login-buttons {
+    font-size: 0.8rem;
+  }
+  .how-to-heading {
+    font-size: 1rem;
+  }
+  .how-to-list {
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 300px) {
   
   .subtitle-login-2 {
     margin-top: 1rem;
-    font-size: 1.2rem;
+    font-size: 0.85rem;
+    margin: 0.5rem;
   }
   .subtitle-2-span {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
   .login-label { 
     font-size: 0.7rem;
@@ -235,9 +272,7 @@
     max-width: 100%;
   }
   .btn-login-buttons {
-    width: 5rem;
     font-size: 0.7rem;
-    height: 3rem;
   }
   .login-input,
 .register-input {
