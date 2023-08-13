@@ -9,7 +9,6 @@
   padding: 2% 0;
 }
 
-
 .subtitle-login-2 {
   font-size: 1.25rem;
   margin-bottom: 1.25rem;
@@ -94,7 +93,7 @@
   font-weight: 900;
   letter-spacing: 0.15rem;
   text-transform: uppercase;
-  margin-right:  0.5rem;
+  margin-right: 0.5rem;
   color: var(--white);
 }
 
@@ -151,7 +150,8 @@
   height: 73vh;
 }
 
-#logout-comeback, #logout-cheers {
+#logout-comeback,
+#logout-cheers {
   color: var(--white);
   font-size: 3rem;
   font-weight: 900;
@@ -166,10 +166,9 @@
   margin: auto;
 }
 
-
-
 @media (max-width: 1023px) {
-  .form-login, .form-register {
+  .form-login,
+  .form-register {
     width: 40vw;
   }
 }
@@ -207,7 +206,7 @@
   .how-to {
     margin-top: 0.25rem;
   }
-  
+
   .form-container-login {
     width: 90vw;
   }
@@ -215,7 +214,7 @@
   .form-register {
     width: 80vw;
   }
-  .login-label { 
+  .login-label {
     font-size: 0.9rem;
     font-weight: 700;
   }
@@ -228,7 +227,8 @@
     width: 85vw;
     font-size: 1rem;
   }
-  #logout-comeback, #logout-cheers {
+  #logout-comeback,
+  #logout-cheers {
     font-size: 2.35em;
     font-weight: 700;
   }
@@ -251,7 +251,6 @@
 }
 
 @media (max-width: 300px) {
-  
   .subtitle-login-2 {
     margin-top: 1rem;
     font-size: 0.85rem;
@@ -260,7 +259,7 @@
   .subtitle-2-span {
     font-size: 1.1rem;
   }
-  .login-label { 
+  .login-label {
     font-size: 0.7rem;
     font-weight: 700;
   }
@@ -275,8 +274,8 @@
     font-size: 0.7rem;
   }
   .login-input,
-.register-input {
-  margin: 0.5rem auto;
-  height: 2rem;
-}
+  .register-input {
+    margin: 0.5rem auto;
+    height: 2rem;
+  }
 }

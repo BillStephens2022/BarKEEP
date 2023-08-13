@@ -39,7 +39,7 @@ const Login = () => {
     try {
       const { data } = await login({ variables: { ...guestLoginData } });
       Auth.login(data.login.token);
-      navigate("/profile");
+      navigate("/community");
     } catch (err) {
       console.error(err);
     }
