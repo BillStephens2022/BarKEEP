@@ -604,16 +604,11 @@ export const drinkingQuotes = [
     author: "Ernest Hemingway",
   },
   {
-    quote: "I like my whiskey old and my women young.",
-    author: "Errol Flynn",
-  },
-  {
     quote: "I’m not drunk, I’m just intoxicated by you.",
     author: "Anonymous",
   },
   {
-    quote:
-      "Beer: because no good story ever started with someone eating a salad.",
+    quote: "Beer: because no good story ever started with someone eating a salad.",
     author: "Anonymous",
   },
   {
@@ -648,11 +643,6 @@ export const drinkingQuotes = [
     author: "Coco Chanel",
   },
   {
-    quote:
-      "I like to have a martini, two at the very most. After three I'm under the table, after four I'm under my host.",
-    author: "Dorothy Parker",
-  },
-  {
     quote: "24 hours in a day, 24 beers in a case. Coincidence? I think not.",
     author: "Stephen Wright",
   },
@@ -666,4 +656,28 @@ export const drinkingQuotes = [
       "Always do sober what you said you'd do drunk. That will teach you to keep your mouth shut.",
     author: "Ernest Hemingway",
   },
+  {
+    "quote": "I'm not sure what the question is, but the answer is probably beer.",
+    "author": "Anonymous"
+  },
+  {
+    "quote": "In dog beers, I've only had one.",
+    "author": "Anonymous"
+  },
+  {
+    "quote": "Alcohol is the anesthesia by which we endure the operation of life.",
+    "author": "George Bernard Shaw"
+  },
+  {
+    "quote": "I'm not as think as you drunk I am.",
+    "author": "Anonymous"
+  },
+  {
+    "quote": "Here's to a long life and a merry one, a quick death and an easy one, a pretty girl and an honest one, a cold beer and another one!",
+    "author": "Anonymous Irish Toast"
+  },
+  {
+    "quote": "I've stopped drinking, but only while I'm asleep.",
+    "author": "George Best"
+  }
 ];
