@@ -31,11 +31,11 @@ const SinglePost = ({
                   ? post.author.profilePhoto
                   : "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg"
               }
-              size={48}
+              customClass="singlePostAuthor"
             />
-            <span className="post-author-name">{post.author.username}</span>
+            <span className="post-author-name-singlePost">{post.author.username}</span>
           </div>
-          <div className="post-author-date">
+          <div className="post-author-date-singlePost">
             {formatElapsedTime(post.postDate)}
           </div>
         </div>

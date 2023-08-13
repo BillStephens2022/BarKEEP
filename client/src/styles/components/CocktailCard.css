@@ -219,3 +219,24 @@
     font-size: 1rem;
   }
 }
+
+@media (max-width: 300px) {
+
+  .card-cocktail {
+    max-width: 95vw;
+    max-height: 95vh;
+    margin: 0.5rem auto;
+  }
+  .card-content {
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+  .expanded-content {
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+  .cocktail-card-default-message {
+    margin: 1rem 5%;
+    font-size: 1rem;
+  }
+}

@@ -4,7 +4,7 @@ import { Modal } from "react-bootstrap";
 
 const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME });
 
-const ProfilePhoto = ({ imageUrl, size }) => {
+const ProfilePhoto = ({ imageUrl, size, customClass }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,7 +21,7 @@ const ProfilePhoto = ({ imageUrl, size }) => {
   
     return (
       <>
-      <img className={`profile-photo post-author-image size-${size}`} src={transformedImageUrl} onClick={handleToggleModal} alt="Profile" />
+      <img className={`profile-photo post-author-image size-${size} ${customClass}`} src={transformedImageUrl} onClick={handleToggleModal} alt="Profile" />
       <Modal
         show={isModalOpen}
         onHide={handleToggleModal}

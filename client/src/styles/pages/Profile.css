@@ -361,7 +361,7 @@
     padding: 0.35rem;
   }
   .post-author-name {
-    font-size: 1.15rem;
+    font-size: 0.9rem;
   }
   .post-author-date {
     width: 35%;
@@ -378,6 +378,7 @@
     max-height: 33.33vh;
     max-width: 100%;
   }
+  
   .btn-post-delete {
     font-size: 1.25rem;
   }
@@ -397,6 +398,9 @@
 }
 
 @media (max-width: 300px) {
+  .profile {
+    width: 100%;
+  }
   .feed-title,
   .profile-title {
     font-size: 2.75rem;
@@ -436,4 +440,11 @@
   #post-comment-count {
     font-size: 0.7rem;
   }
+  .favorites-buttons-div {
+    width: 100%;
+  }
+  .card-container {
+    width: 100%;
+  }
+  
 }

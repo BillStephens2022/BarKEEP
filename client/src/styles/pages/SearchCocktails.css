@@ -224,6 +224,7 @@
 }
 
 @media (max-width: 300px) {
+  
   .search-title {
     font-size: 2.75rem;
     letter-spacing: 0.7rem;
@@ -246,5 +247,17 @@
   }
   .ingredient-dropdown {
     width: 12rem;
+  }
+  .div-search-component {
+    max-width: 100vw;
+  }
+  .searchNameForm {
+    height: 16vh;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+  }
+  .input-search-cocktails, .button-search-cocktails {
+    margin: auto;
   }
 }

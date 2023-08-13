@@ -19,7 +19,6 @@
   background-color: var(--darkgray);
 }
 
-
 .edit-photo-icon {
   position: absolute;
   width: 1.35rem;
@@ -146,6 +145,13 @@
   width: 50%;
 }
 
+.post-author-date-singlePost {
+  color: var(--white);
+  padding-right: 1rem;
+  text-align: end;
+  width: 50%;
+}
+
 .post-main-container {
   display: flex;
   flex-direction: column;
@@ -200,8 +206,14 @@
   animation: pulse 2s infinite cubic-bezier(0.45, 0, 0.85, 1);
 }
 
+.singlePostAuthor {
+  width: 1rem;
+  height: 1rem;
+}
+
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -328,17 +340,38 @@
 }
 
 @keyframes gradientAnimation {
-  0%, 100% {
-    background: linear-gradient(45deg, var(--blue), var(--lightblue), var(--maroon));
+  0%,
+  100% {
+    background: linear-gradient(
+      45deg,
+      var(--blue),
+      var(--lightblue),
+      var(--maroon)
+    );
   }
   25% {
-    background: linear-gradient(45deg, var(--blue), var(--maroon), var(--lightblue));
+    background: linear-gradient(
+      45deg,
+      var(--blue),
+      var(--maroon),
+      var(--lightblue)
+    );
   }
   50% {
-    background: linear-gradient(45deg, var(--maroon), var(--lightblue), var(--blue));
+    background: linear-gradient(
+      45deg,
+      var(--maroon),
+      var(--lightblue),
+      var(--blue)
+    );
   }
   75% {
-    background: linear-gradient(45deg, var(--lightblue), var(--maroon), var(--blue));
+    background: linear-gradient(
+      45deg,
+      var(--lightblue),
+      var(--maroon),
+      var(--blue)
+    );
   }
 }
 
@@ -346,12 +379,15 @@
   .community-posts {
     margin: 0;
   }
-  
+
   .community-posts-headings {
     padding-top: 1.5rem;
   }
-  
-  
+  .singlePostAuthor {
+    width: 2rem;
+    height: 2rem;
+  }
+
   .post-card {
     width: 75%;
   }
@@ -361,9 +397,16 @@
   .post-author-name {
     font-size: 1.5rem;
   }
+  .post-author-name-singlePost {
+    font-size: 1.25rem;
+  }
   .post-author-date {
     width: 35%;
     font-size: 1.25rem;
+  }
+  .post-author-date-singlePost {
+    width: 35%;
+    font-size: 1rem;
   }
   .size-48 {
     width: 3.5rem;
@@ -380,7 +423,6 @@
 }
 
 @media (max-width: 500px) {
-  
   .post-card {
     width: 95%;
   }
@@ -394,9 +436,16 @@
   .post-author-name {
     font-size: 1.15rem;
   }
+  .post-author-name-singlePost {
+    font-size: 0.8rem;
+  }
   .post-author-date {
     width: 35%;
     font-size: 0.9rem;
+  }
+  .post-author-date-singlePost {
+    width: 35%;
+    font-size: 0.75rem;
   }
   .size-64 {
     width: 2rem;
@@ -405,6 +454,10 @@
   .size-48 {
     width: 2.5rem;
     height: 2.5rem;
+  }
+  .singlePostAuthor {
+    width: 1.75rem;
+    height: 1.75rem;
   }
   .post-image img {
     max-height: 33.33vh;
@@ -423,7 +476,6 @@
 }
 
 @media (max-width: 300px) {
- 
   .post-like-button,
   .post-comment-button,
   .div-delete-button {
@@ -432,5 +484,16 @@
   #post-counts-likes,
   #post-counts-comments {
     font-size: 0.7rem;
+  }
+  .post-author-name-singlePost {
+    font-size: 0.7rem;
+  }
+
+  .post-author-date-singlePost {
+    font-size: 0.7rem;
+  }
+  .singlePostAuthor {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }

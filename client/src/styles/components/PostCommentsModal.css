@@ -52,7 +52,7 @@
 }
 
 .post-comments-modal-footer {
-  background-color: var(--darkgray);
+  background-color: var(--white);
   color: var(--white);
 }
 
@@ -80,6 +80,12 @@
 @media (max-width: 900px) {
   .post-comments-modal-ul {
     width: 80%;
+  }
+}
+
+@media (max-width: 767px) {
+  .modal-content {
+    min-width: 95vw;
   }
 }
 
