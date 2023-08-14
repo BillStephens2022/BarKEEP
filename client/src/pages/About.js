@@ -79,7 +79,7 @@ const About = () => {
               Discover an extensive collection of{" "}
               <span id="about-span-cocktail-recipes">cocktail recipes</span>{" "}
               from classic to contemporary. Save your favorite recipes to your profile for easy access. 
-              In example below, click "See
+              In the example below, click "See
               Recipe".
               <div className="about-cocktail-recipe">
                 <CocktailCard

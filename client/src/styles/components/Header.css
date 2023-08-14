@@ -40,6 +40,11 @@
   text-shadow: 2px 2px var(--lightgray);
 }
 
+.header-title-left {
+  color: var(--white);
+  text-shadow: 2px 2px var(--lightgray);
+}
+
 .header-title:hover {
   transform: skewX(-15deg);
   transition: 0.2s;

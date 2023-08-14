@@ -80,9 +80,9 @@ const Login = () => {
         <div className="how-to">
           <h3 className="how-to-heading">How to Get Started</h3>
           <ul className="how-to-list">
-            <li>"Login as Guest" for a test drive</li>
+            <li>"Login as Guest" for a test drive.</li>
             <li>Create an account or sign in if you already have one.</li>
-            <li>Search TheCocktailDB API for recipes </li>
+            <li>Search TheCocktailDB API for recipes.</li>
             <li>
               Explore cocktail photos & recipes posted by other enthusiasts.
             </li>

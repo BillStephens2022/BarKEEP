@@ -127,7 +127,7 @@ const Header = ({ subtitle, page }) => {
           <h3 className="header-username">{me?.username}</h3>
         ) : null}
       </div>
-      <h1 className="header-title">BarKEEP</h1>
+      <h1 className="header-title"><span className="header-title-left">Bar</span><span className="header-title-right">KEEP</span></h1>
       <h2 className="header-subtitle">{subtitle}</h2>
     </div>
   );
