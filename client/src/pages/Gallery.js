@@ -25,6 +25,9 @@ const Gallery = () => {
     700: 2,
     500: 1, // Number of columns for viewport width 700px and above
   };
+  
+
+  const reversedPosts = [...allPosts].reverse();
 
   return (
     <div className="gallery">
@@ -36,7 +39,7 @@ const Gallery = () => {
           className="gallery-grid"
           columnClassName="gallery-item"
         >
-          {allPosts.map((post) => (
+          {reversedPosts.map((post) => (
             <div className="gallery-item" key={post._id}>
               <PostPhoto imageUrl={post.postImageURL} />
               <h5 className="gallery-item-author">
