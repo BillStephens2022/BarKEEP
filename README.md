@@ -2,7 +2,7 @@
 
 ## Description
 
-Site for cocktail enthusiasts built with MERN stack. Search API for cocktail recipes, add to favorites, post about cocktails, and more...  NOTE:  This is a work in process, more features to come!
+Full MERN stack application for Cocktail Enthusiasts. Search API for cocktail recipes, add to favorites, share recipes with the community.   Post about cocktails, comment on and like other enthusiasts' posts, and more!
 
 App Screenshots:
 
@@ -11,6 +11,10 @@ App Screenshots:
 ![Barkeep2 image](client/public/images/barkeep2.png)
 
 ![Barkeep3 image](client/public/images/barkeep3.png)
+
+![Barkeep4 image](client/public/images/barkeep4.png)
+
+![Barkeep5 image](client/public/images/barkeep5.png)
 
 
 ## Table of Contents
