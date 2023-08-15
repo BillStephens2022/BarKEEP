@@ -5,9 +5,11 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    // me: User
+    // Resolver for fetching the logged-in user's profile
     me: async (parent, args, context) => {
+      // Check if user is authenticated
       if (context.user) {
+        // ... Logic to fetch and format user data ...
         const user = await User.findOne({ _id: context.user._id })
           .populate({
             path: "cocktails",
@@ -42,8 +44,6 @@ const resolvers = {
           // Calculate the number of likes for each post
           post.likes = post.likes.length;
 
-          // Calculate the number of comments for each post
-          // post.comments = post.comments.length;
 
           // Check if the current post is liked by the user
           if (likedPostIds.includes(post._id)) {
@@ -58,11 +58,15 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    // Resolver for fetching cocktails
     cocktails: async (parent, args) => {
       return await Cocktail.find({}).sort({ name: "asc" });
     },
+    // Resolver for fetching posts
     posts: async (parent, args) => {
       return await Post.find({})
+      // ... Logic to fetch and format post data - 
+      // includes the posts author details and any comments (along with comment author) associated with the post.
         .populate({
           path: "author",
           model: "User",
@@ -79,6 +83,7 @@ const resolvers = {
         })
         .populate("recipe");
     },
+    // resolver for fetching an individial post and the list of users that "liked" it
     postLikesUsers: async (parent, { postId }, context) => {
       try {
         if (context.user) {
@@ -103,6 +108,8 @@ const resolvers = {
         throw new ApolloError("Failed to fetch liked users.");
       }
     },
+    // Resolver for fetching a single post and populating with relevant detals such as author and comments
+    // associated with the post (as well as comment author) and recipe if recipe was shared as part of the post.
     getSinglePost: async (parent, { postId }, context) => {
       try {
         if (context.user) {
@@ -139,7 +146,7 @@ const resolvers = {
   },
 
   Mutation: {
-    // addUser
+    // Resolver for registering a new user
     addUser: async (parent, { username, email, password, profilePhoto }) => {
       console.log(
         "back end response: ",
@@ -157,7 +164,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    // login
+    // Resolver for user login
     login: async (parent, { email, password }, context) => {
       const user = await User.findOne({ email });
 
@@ -175,7 +182,7 @@ const resolvers = {
 
       return { token, user };
     },
-    // add a cocktail
+    // Resolver for adding a new cocktail
     addCocktail: async (parent, args, context) => {
       const { name, ingredients, imageURL, glassware, instructions, tags } =
         args;
@@ -208,6 +215,7 @@ const resolvers = {
         throw new AuthenticationError(err);
       }
     },
+    // Resolver for deleting a cocktail
     deleteCocktail: async (parent, { cocktailId }, context) => {
       if (context.user) {
         const cocktail = await Cocktail.findOneAndDelete({
@@ -223,6 +231,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    // Resolver for editing a cocktail
     editCocktail: async (
       parent,
       {
@@ -264,7 +273,7 @@ const resolvers = {
         throw new Error(err);
       }
     },
-    // add a new post
+    // Resolver for adding a new post
     addPost: async (parent, args, context) => {
       const { postTitle, postContent, postImageURL, postDate, recipe } = args;
       try {
@@ -296,6 +305,7 @@ const resolvers = {
         throw new ApolloError("Failed to create a new post.");
       }
     },
+    // Resolver for deleting a post
     deletePost: async (parent, { postId }, context) => {
       if (context.user) {
         const post = await Post.findOneAndDelete({
@@ -311,6 +321,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    // Resolver for editing a profile photo
     editProfilePhoto: async (parent, { profilePhoto }, context) => {
       try {
         if (context.user) {
@@ -331,7 +342,7 @@ const resolvers = {
       }
     },
 
-    // Add a comment to a post
+    // Resolver for adding a comment to a post
     addComment: async (parent, { postId, text }, context) => {
       try {
         if (context.user) {
@@ -372,7 +383,7 @@ const resolvers = {
       }
     },
 
-    // Add a like to a post
+    // Resolver for "liking" a post
     addLike: async (parent, { postId }, context) => {
       try {
         if (context.user) {
