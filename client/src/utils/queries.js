@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+// Query the current logged in user to get deatils including username, profilePhoto, email, cocktail recipes saved to profile, posts, comments, liked posts
 export const QUERY_ME = gql`
   query Me {
     me {
@@ -74,6 +75,7 @@ export const QUERY_ME = gql`
   }
 `;
 
+// query all cocktail recipes saved to the database
 export const QUERY_COCKTAILS = gql`
   query Cocktails {
     cocktails {
@@ -91,6 +93,7 @@ export const QUERY_COCKTAILS = gql`
   }
 `;
 
+// query all posts including comments on that post, likes, and the author's details for those posts
 export const QUERY_POSTS = gql`
   query Posts {
     posts {
@@ -142,6 +145,7 @@ export const GET_POST_LIKES_USERS = gql`
   }
 `;
 
+// query a signle post along with details
 export const GET_SINGLE_POST = gql`
   query GetSinglePost($postId: ID!) {
     getSinglePost(postId: $postId) {

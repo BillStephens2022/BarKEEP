@@ -1,3 +1,5 @@
+
+// random set of cocktails to be used on the 'About' page, which will render 1 random cocktail recipe card as an example
 export const cocktailData = {
   data: {
     cocktails: [
@@ -551,6 +553,7 @@ export const cocktailData = {
   },
 };
 
+// set of quotes - a random quote is rendered on the home page
 export const drinkingQuotes = [
   {
     quote:

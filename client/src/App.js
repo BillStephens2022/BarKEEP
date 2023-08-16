@@ -18,10 +18,12 @@ import Login from "./pages/Login";
 import Logout from "./components/Logout";
 import Footer from "./components/Footer";
 
+// Create an HTTP link to the GraphQL server
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
 
+// Set up an authentication link to include the token in the request headers
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("id_token");
@@ -34,6 +36,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+// Create an Apollo Client instance
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache({
@@ -60,9 +63,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      {/* Set up routing for different pages */}
       <Router basename={process.env.PUBLIC_URL}>
         <>
+          {/* Display the navigation bar on each page */}
           <Navbar />
+          {/* Define routes for different pages */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -77,6 +83,7 @@ function App() {
               element={<h1 className="display-2">Wrong page!</h1>}
             />
           </Routes>
+          {/* Display the footer on each page*/}
           <Footer />
         </>
       </Router>

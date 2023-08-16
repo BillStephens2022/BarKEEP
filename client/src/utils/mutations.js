@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+// add a new user (i.e. upon sign up/registration)
 export const ADD_USER = gql`
   mutation addUser(
     $username: String
@@ -24,6 +25,7 @@ export const ADD_USER = gql`
   }
 `;
 
+// login a user
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -36,6 +38,7 @@ export const LOGIN_USER = gql`
   }
 `;
 
+// add a new cocktail recipe
 export const ADD_COCKTAIL = gql`
   mutation AddCocktail(
     $name: String!
@@ -67,6 +70,7 @@ export const ADD_COCKTAIL = gql`
   }
 `;
 
+// delete a cocktail recipe
 export const DELETE_COCKTAIL = gql`
   mutation DeleteCocktail($cocktailId: ID!) {
     deleteCocktail(cocktailId: $cocktailId) {
@@ -75,6 +79,7 @@ export const DELETE_COCKTAIL = gql`
   }
 `;
 
+// edit an existing cocktail recipe
 export const EDIT_COCKTAIL = gql`
   mutation EditCocktail(
     $cocktailId: ID!
@@ -108,6 +113,7 @@ export const EDIT_COCKTAIL = gql`
   }
 `;
 
+// add a new post
 export const ADD_POST = gql`
   mutation AddPost(
     $postTitle: String!
@@ -151,6 +157,7 @@ export const ADD_POST = gql`
   }
 `;
 
+// delete an existing post
 export const DELETE_POST = gql`
   mutation DeletePost($postId: ID!) {
     deletePost(postId: $postId) {
@@ -159,6 +166,7 @@ export const DELETE_POST = gql`
   }
 `;
 
+// edit the user's profile photo
 export const EDIT_PROFILE_PHOTO = gql`
   mutation EditProfilePhoto($profilePhoto: String!) {
     editProfilePhoto(profilePhoto: $profilePhoto) {
@@ -170,6 +178,7 @@ export const EDIT_PROFILE_PHOTO = gql`
   }
 `;
 
+// "like" a post
 export const ADD_LIKE = gql`
   mutation AddLike($postId: ID!) {
     addLike(postId: $postId) {
@@ -183,6 +192,7 @@ export const ADD_LIKE = gql`
   }
 `;
 
+// add a comment to a post
 export const ADD_COMMENT = gql`
   mutation AddComment($postId: ID!, $text: String!) {
     addComment(postId: $postId, text: $text) {
