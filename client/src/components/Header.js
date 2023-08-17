@@ -10,16 +10,16 @@ import UploadWidget from "./UploadWidget";
 import ShimmerLoader from "./ShimmerLoader";
 import "../styles/components/Header.css";
 
-// import { Auth } from "../utils/auth";
-
 const Header = ({ subtitle, page }) => {
   // State to manage profile photo editing
   const [editingProfilePhoto, setEditingProfilePhoto] = useState(false);
   const [uploadedProfilePhotoUrl, setUploadedProfilePhotoUrl] = useState(null);
   const { loading, data } = useQuery(QUERY_ME);
   const { me } = data || {};
-
+  
+  // Mutation to edit the profile photo
   const [editProfilePhoto] = useMutation(EDIT_PROFILE_PHOTO, {
+    // Update the cache after editing the profile photo
     update(cache, { data: { editProfilePhoto } }) {
       const { me } = cache.readQuery({ query: QUERY_ME });
 
@@ -40,7 +40,8 @@ const Header = ({ subtitle, page }) => {
       console.error("Profile photo update failed:", error);
     },
   });
-
+  
+  // Handler for successful image upload
   const handleSuccessfulUpload = (result) => {
     // When the upload is successful, Cloudinary returns the secure_url in the result
     if (result && result.info.secure_url) {
@@ -57,10 +58,6 @@ const Header = ({ subtitle, page }) => {
   // Function to handle the profile photo update
   const handleProfilePhotoUpdate = async (uploadedProfilePhotoUrl) => {
     // Call the mutation to update the profile photo with the new secure_url
-    console.log(
-      "url for photo in handleProfilePhotoUpdate function: ",
-      uploadedProfilePhotoUrl
-    );
     if (uploadedProfilePhotoUrl) {
       try {
         editProfilePhoto({
@@ -69,7 +66,6 @@ const Header = ({ subtitle, page }) => {
           },
           refetchQueries: [{ query: QUERY_ME }],
         });
-
         // Reset the uploadedProfilePhotoUrl and toggle editing state
         setUploadedProfilePhotoUrl(null);
         toggleEditingProfilePhoto();
@@ -83,7 +79,8 @@ const Header = ({ subtitle, page }) => {
   const toggleEditingProfilePhoto = () => {
     setEditingProfilePhoto((prevState) => !prevState);
   };
-
+  
+  // if data loading, render the ShimmerLoader component
   if (loading) {
     return <ShimmerLoader />;
   }
@@ -92,6 +89,7 @@ const Header = ({ subtitle, page }) => {
     <div className={`header header-${page}`}>
       <div className="header-user">
         <div className="header-profile-photo">
+          {/* Render profile photo in page header for various pages except for About, Login, and Logout pages */}
           {page !== "about" && page !== "logout" && page !== "login" ? (
             <ProfilePhoto
               imageUrl={
@@ -102,13 +100,15 @@ const Header = ({ subtitle, page }) => {
               size={64}
             />
           ) : null}
+          {/* Conditionally render edit button on Profile page */}
           {page === "profile" ? (
             editingProfilePhoto ? (
               <div className="upload-widget-edit-profile-photo">
-                {/* Conditionally render the UploadWidget when editingProfilePhoto is true */}
+                {/* Conditionally render the UploadWidget when editingProfilePhoto is true (i.e. when edit button/pencil is clicked) */}
                 <UploadWidget onSuccess={handleSuccessfulUpload} />
               </div>
             ) : (
+              // Display message to user when Pencil icon is hovered
               <OverlayTrigger
                 placement="right"
                 overlay={<Tooltip>Edit Profile Photo</Tooltip>}
@@ -123,10 +123,12 @@ const Header = ({ subtitle, page }) => {
             )
           ) : null}
         </div>
+        {/* Render username next to profile photo except on About, Login, and Logout pages */}
         {page !== "about" && page !== "logout" && page !== "login" ? (
           <h3 className="header-username">{me?.username}</h3>
         ) : null}
       </div>
+      {/* Render header title and subtitle */}
       <h1 className="header-title"><span className="header-title-left">Bar</span><span className="header-title-right">KEEP</span></h1>
       <h2 className="header-subtitle">{subtitle}</h2>
     </div>

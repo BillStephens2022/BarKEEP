@@ -7,19 +7,24 @@ import "../styles/pages/Home.css";
 import { Auth } from "../utils/auth";
 
 const LoginForm = () => {
+  // State to manage user form data, validation, and alerts
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+
+  // Use mutation for login
   const [login] = useMutation(LOGIN_USER);
   
+  // Hook to handle navigation after login
   let navigate = useNavigate();
 
-
+  // Handler for input change in the form
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  // Handler for form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -31,14 +36,15 @@ const LoginForm = () => {
     }
 
     try {
+      // Login using GraphQL mutation and set Auth token
       const { data } = await login({ variables: { ...userFormData } });
       Auth.login(data.login.token);
-      navigate("/community");
+      navigate("/community");  // navigate to CommunityPosts after login
     } catch (err) {
       console.error(err);
       setShowAlert(true);
     }
-
+    // Reset form data
     setUserFormData({
       username: "",
       email: "",
@@ -53,7 +59,8 @@ const LoginForm = () => {
         validated={validated}
         className="form-login"
         onSubmit={handleFormSubmit}
-      >
+      >  
+        {/* Display an alert for login errors */}
         <Alert
           dismissible
           onClose={() => setShowAlert(false)}
@@ -62,6 +69,7 @@ const LoginForm = () => {
         >
           Something went wrong with your login credentials!
         </Alert>
+         {/* Email input field */}
         <Form.Group>
           <Form.Label htmlFor="email" className="login-label">
             Email
@@ -79,7 +87,7 @@ const LoginForm = () => {
             Email is required!
           </Form.Control.Feedback>
         </Form.Group>
-
+        {/* Password input field */}
         <Form.Group>
           <Form.Label htmlFor="password" className="login-label">
             Password
@@ -97,6 +105,7 @@ const LoginForm = () => {
             Password is required!
           </Form.Control.Feedback>
         </Form.Group>
+        {/* Submit button */}
         <Button
           disabled={!(userFormData.email && userFormData.password)}
           type="submit"
