@@ -26,19 +26,22 @@ const CocktailForm = ({
   setShowCocktailForm,
   setCocktails,
 }) => {
+  // State variables for ingredient and tag inputs
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
   const [tagInput, setTagInput] = useState("");
   const [uploadedImageURL, setUploadedImageURL] = useState("");
   const [imageUploaded, setImageUploaded] = useState(false);
   
-
+  // Function to handle adding an ingredient to the form state
   const handleIngredientAdd = () => {
+    // Validate ingredient input
     if (ingredientName && ingredientQuantity) {
       const newIngredient = {
         name: ingredientName,
         quantity: ingredientQuantity,
       };
+      // Update form state and reset input fields
       setCocktailFormState((prevState) => ({
         ...prevState,
         ingredients: [...prevState.ingredients, newIngredient],
@@ -48,8 +51,11 @@ const CocktailForm = ({
     }
   };
 
+  // Function to handle adding a tag to the form state
   const handleTagAdd = () => {
+    // Validate tag input
     if (tagInput) {
+      // Update form state and reset input field
       setCocktailFormState((prevState) => ({
         ...prevState,
         tags: [...prevState.tags, tagInput],
@@ -58,6 +64,7 @@ const CocktailForm = ({
     }
   };
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, ingredients, glassware, instructions, tags } =
@@ -84,7 +91,7 @@ const CocktailForm = ({
       return;
     }
 
-    // Send form data to the server
+    // Send form data to the server for either adding or editing
     try {
       // If an image has been uploaded, use its secure_url in the form submission
       let imageURL = cocktailFormState.imageURL; // Default to the URL input value
@@ -116,7 +123,7 @@ const CocktailForm = ({
         console.log(formData);
       }
 
-      // Reset form fields
+      // Reset form fields and state after submission
       setImageUploaded(null);
       setCocktailFormState(initialState);
       setIngredientName("");
@@ -127,15 +134,16 @@ const CocktailForm = ({
       console.error(err);
     }
   };
-
+  
+  // UseEffect to set form state based on selected cocktail
   useEffect(() => {
-    console.log("SELECTED COCKTAIL: ", selectedCocktail);
+     // If editing a cocktail, populate form fields with selected cocktail's data
     if (selectedCocktail) {
       // Create a deep copy of the ingredients array
       const initialIngredients = JSON.parse(
         JSON.stringify(selectedCocktail.ingredients)
       );
-
+      // Update the form state with selected cocktail's data
       setCocktailFormState((prevState) => ({
         ...prevState,
         name: selectedCocktail.name,
@@ -146,22 +154,24 @@ const CocktailForm = ({
         tags: selectedCocktail.tags,
       }));
     } else {
-      // Reset the form state
+      // Reset the form state if no cocktail is selected
       setCocktailFormState(initialState);
     }
     // Clean up the form state when the component is unmounted or when selectedCocktail changes
     return () => {
-      // setImageUploaded(null);
+      // reset the form state
       setCocktailFormState(initialState);
       setIngredientName("");
       setIngredientQuantity("");
       setTagInput("");
     };
   }, [selectedCocktail, setCocktailFormState]);
-
+  
+  // Destructuring form state values
   const { name, ingredients, glassware, instructions, tags } =
     cocktailFormState;
 
+  // Function to handle ingredient input change
   const handleIngredientChange = (index, field, value) => {
     setCocktailFormState((prevState) => {
       const updatedIngredients = [...prevState.ingredients];
@@ -179,13 +189,15 @@ const CocktailForm = ({
 
   // Handler for successful image upload from UploadWidget
   const handleUploadSuccess = (result) => {
-    if (result && result.event === "success") {
+    if (result && result.event === "success") {      
       console.log("Done! Here is the image info: ", result.info);
       console.log("secure_url: ", result.info.secure_url);
+      // Update form state with uploaded image URL
       setCocktailFormState((prevState) => ({
         ...prevState,
         imageURL: result.info.secure_url,
       }));
+      // Handle image format conversion if needed
       const convertedUrl = result.info.secure_url.replace(/\.heic$/, ".jpg");
       if (convertedUrl.length > 0) {
         setImageUploaded(true);
@@ -200,6 +212,7 @@ const CocktailForm = ({
   return (
     <div className="form-container">
       <form className="cocktail-form" onSubmit={handleSubmit}>
+        {/* ... Input fields for the form */}
         <label htmlFor="name">Name:</label>
         <input
           type="text"
