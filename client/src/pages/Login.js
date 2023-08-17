@@ -14,22 +14,27 @@ const Login = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [activeButton, setActiveButton] = useState("");
 
+  // Use LOGIN_USER mutation to perform user login
   const [login] = useMutation(LOGIN_USER);
 
+  // Initialize the navigation hook
   let navigate = useNavigate();
-
+  
+  // Handle click event to show the registration form
   const handleRegisterClick = () => {
     setShowRegisterForm(true);
     setShowLoginForm(false);
     setActiveButton("register");
   };
 
+  // Handle click event to show the login form
   const handleLoginClick = () => {
     setShowRegisterForm(false);
     setShowLoginForm(true);
     setActiveButton("login");
   };
-
+ 
+  // Handle guest login click event to allow user to login as a "guest"
   const handleGuestClick = async () => {
     const guestLoginData = {
       email: "guest@gmail.com",
@@ -37,8 +42,11 @@ const Login = () => {
     };
 
     try {
+      // Call the LOGIN_USER mutation with guest login data
       const { data } = await login({ variables: { ...guestLoginData } });
+      // Use the Auth utility to store the token in local storage
       Auth.login(data.login.token);
+      // Navigate to the "CommunityPosts" page after successful login
       navigate("/community");
     } catch (err) {
       console.error(err);
@@ -49,9 +57,11 @@ const Login = () => {
     <div className="login_page">
       <Header subtitle="Login / Register" page="login" />
       <div className="login-main gradient-background">
+        {/* Display information about guest login */}
         <h5 className="subtitle-login-2">Try our <span className="subtitle-2-span"> 'Guest Login' </span>
           for a test drive
         </h5>
+        {/* Render login, guest login, and registration buttons */}
         <Button
           onClick={handleLoginClick}
           activeButton={activeButton}
@@ -77,6 +87,7 @@ const Login = () => {
             {showLoginForm && <LoginForm />}
           </div>
         ) : null}
+        {/* Display a list of steps to get started */}
         <div className="how-to">
           <h3 className="how-to-heading">How to Get Started</h3>
           <ul className="how-to-list">
