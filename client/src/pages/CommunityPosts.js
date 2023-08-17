@@ -12,7 +12,9 @@ import "../styles/pages/CommunityPosts.css";
 import "../styles/components/CocktailForm.css";
 
 const CommunityPosts = ({ client }) => {
+  // State for toggling the post creation form modal
   const [showPostForm, setShowPostForm] = useState(false);
+  // State for the form inputs when creating a post
   const [postFormState, setPostFormState] = useState({
     postTitle: "",
     postContent: "",
@@ -23,15 +25,19 @@ const CommunityPosts = ({ client }) => {
   // user will be able to 'see more'
   const [visiblePosts, setVisiblePosts] = useState(10);
 
+  // Fetch the user's data and all posts using useQuery (note: user will be able to see all posts posted by other users)
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
   const { loading: postsLoading, data: postsData } = useQuery(QUERY_POSTS);
-
+  
+  // Destructure user data to get the user's posts
   const { me } = userData || {};
   const { posts: userPosts = [] } = me || {};
 
   const [filteredPosts, setFilteredPosts] = useState(postsData?.posts || []);
-
+  
+  // Use useMutation to add a new post
   const [addPost] = useMutation(ADD_POST, {
+     // Update the cache after adding a new post
     update(cache, { data: { addPost } }) {
       try {
         const { posts } = cache.readQuery({
@@ -128,11 +134,13 @@ const CommunityPosts = ({ client }) => {
       setFilteredPosts(sortedPosts);
     }
   }, [postsData, userPosts]);
-
+  
+  // render the ShimmerLoader component if data is being fetched
   if (userLoading || postsLoading) {
     return <ShimmerLoader />;
   }
 
+  // Get the current user's ID
   const currentUser = userData?.me?._id;
 
   // isMyPosts is passed as a prop in the 'Post' component.
@@ -142,8 +150,10 @@ const CommunityPosts = ({ client }) => {
 
   return (
     <div className="community-posts">
+      {/* Display page title using the Header component */}
       <Header subtitle="Community Posts" page="community posts" />
       <div className="community-posts-add-post-div">
+        {/* Button to toggle the post form modal to create new posts */}
         <button
           className="btn btn-add-post"
           onClick={() => {
@@ -153,7 +163,7 @@ const CommunityPosts = ({ client }) => {
           Create a New Post
         </button>
       </div>
-
+      {/* Display the posts container */}
       <div className="posts-container gradient-background">
         {filteredPosts.length > 0 ? (
           <Post
@@ -172,6 +182,7 @@ const CommunityPosts = ({ client }) => {
           <h3 className="posts-error">No posts to display yet</h3>
         )}
       </div>
+      {/* Display the create new post form modal */}
       {showPostForm && (
         <div className="modal-background">
           <div className="modal">
