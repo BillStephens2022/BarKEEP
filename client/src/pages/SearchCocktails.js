@@ -10,8 +10,7 @@ import RandomCocktail from "../components/RandomCocktail";
 import "../styles/pages/SearchCocktails.css";
 
 const SearchCocktails = () => {
-  // state variable will drive which component is shown on the screen depending on whether user chooses
-  // to search by cocktail name or ingredient
+  // State variable to track whether user is searching by name, ingredient, or random
   const [searchBy, setSearchBy] = useState("name");
   const [addedCocktailId, setAddedCocktailId] = useState(null);
   const [cocktailAdded, setCocktailAdded] = useState({});
@@ -35,8 +34,7 @@ const SearchCocktails = () => {
       setAddedCocktailId(cocktailData._id);
     }
     setAddedCocktailId(cocktailData._id);
-    console.log(addedCocktailId);
-    console.log("Cocktail data:", cocktailData);
+    
     try {
       const { data } = await addCocktail({
         variables: cocktailData,
@@ -61,6 +59,7 @@ const SearchCocktails = () => {
   };
 
   const renderSearchComponent = () => {
+    // Render the appropriate search component based on the selected searchBy value
     switch (searchBy) {
       case "name":
         return (
@@ -91,6 +90,7 @@ const SearchCocktails = () => {
     }
   };
 
+  // Highlight the active search button by adding an "active" class
   var buttons = document.getElementsByClassName("btn-search");
 
   // determines which button is active and uses the active class to change styling when
@@ -109,8 +109,9 @@ const SearchCocktails = () => {
 
   return (
     <div className="search-cocktails">
+      {/* Display the header */}
       <Header page="search" />
-
+      {/* Search subheadings and buttons */}
       <div className="search-subheadings">
         <h2 className="search-header-1">
           Search{" "}
@@ -125,6 +126,7 @@ const SearchCocktails = () => {
             {searchBy.charAt(0).toUpperCase() + searchBy.slice(1)}
           </span>
         </h3>
+        {/* Buttons for different search options */}
         <div className="div-search-btn">
           <button
             className="btn btn-search btn-searchByName"
@@ -146,6 +148,7 @@ const SearchCocktails = () => {
           </button>
         </div>
       </div>
+      {/* Render the selected search component */}
       <div className="div-search-component gradient-background">
         {renderSearchComponent()}
       </div>
