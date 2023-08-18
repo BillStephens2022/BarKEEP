@@ -17,7 +17,8 @@ const Navbar = () => {
     setActiveNavItem(navItem);
     setIsExpanded(false);
   };
-
+  
+  // render the NavBar component
   return (
     <div className={`navigation ${isExpanded ? "expanded" : ""}`}>
       {/* Sidebar */}
@@ -36,6 +37,7 @@ const Navbar = () => {
           </span>
         </button>
         <ul className={`navigation_list ${isExpanded ? "expanded" : ""}`}>
+          {/* Home */}
           <li
             className={`navigation_item ${
               activeNavItem === "home" ? "navigation_item--active" : ""
@@ -46,6 +48,7 @@ const Navbar = () => {
               Home
             </Link>
           </li>
+          {/* About */}
           <li
             className={`navigation_item ${
               activeNavItem === "about" ? "navigation_item--active" : ""
@@ -56,8 +59,11 @@ const Navbar = () => {
               About
             </Link>
           </li>
+          {/* Conditional rendering based on user authentication */}
           {Auth.loggedIn() ? (
+             // If user is logged in
             <>
+            {/* Profile */}
             <li
                 className={`navigation_item ${
                   activeNavItem === "profile" ? "navigation_item--active" : ""
@@ -68,6 +74,7 @@ const Navbar = () => {
                   Profile
                 </Link>
               </li>
+              {/* Community Posts */}
               <li
                 className={`navigation_item ${
                   activeNavItem === "community" ? "navigation_item--active" : ""
@@ -78,6 +85,7 @@ const Navbar = () => {
                   Community Posts
                 </Link>
               </li>
+              {/* Search */}
               <li
                 className={`navigation_item ${
                   activeNavItem === "search" ? "navigation_item--active" : ""
@@ -88,6 +96,7 @@ const Navbar = () => {
                   Search
                 </Link>
               </li>
+              {/* Gallery */}
               <li
                 className={`navigation_item ${
                   activeNavItem === "gallery" ? "navigation_item--active" : ""
@@ -98,7 +107,7 @@ const Navbar = () => {
                   Gallery
                 </Link>
               </li>
-
+              {/* Log Out */}
               <li className="navigation_item">
                 <Link
                   to="/logout"
@@ -113,6 +122,7 @@ const Navbar = () => {
               </li>
             </>
           ) : (
+            // If user is not logged in, render Login page
             <li
               className={`navigation_item ${
                 activeNavItem === "login" ? "navigation_item--active" : ""
