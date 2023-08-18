@@ -17,11 +17,17 @@ import ShimmerLoader from "./ShimmerLoader";
 import "../styles/pages/Favorites.css";
 
 const MyFavorites = () => {
+  // state for managing favorited cocktail recipes
   const [cocktails, setCocktails] = useState([]);
+  // State for managing the display of cocktail form
   const [showCocktailForm, setShowCocktailForm] = useState(false);
+  // State for managing the display of share recipe form
   const [showShareRecipeForm, setShowShareRecipeForm] = useState(false);
+  // State for the selected cocktail for editing or sharing
   const [selectedCocktail, setSelectedCocktail] = useState(null);
+  // State for cocktail form data
   const [cocktailFormState, setCocktailFormState] = useState({
+    // Initial cocktail form data
     name: "",
     ingredients: [
       {
@@ -34,20 +40,23 @@ const MyFavorites = () => {
     instructions: "",
     tags: [],
   });
+  // State for share recipe form data
   const [shareRecipeFormState, setShareRecipeFormState] = useState({
     postTitle: "",
     postContent: "",
     postImageURL: "",
     recipe: "",
   });
+  // State to indicate whether it's an "add" or "edit" form
   const [formType, setFormType] = useState("add");
   // State to manage profile photo editing
   const [editingProfilePhoto, setEditingProfilePhoto] = useState(false);
   const [uploadedProfilePhotoUrl, setUploadedProfilePhotoUrl] = useState(null);
-
+   // Fetch user data from query
   const { data, loading, refetch } = useQuery(QUERY_ME);
   const { me } = data || {};
 
+  // Mutation for adding a cocktail recipe
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     update(cache, { data: { addCocktail } }) {
       try {
@@ -90,7 +99,7 @@ const MyFavorites = () => {
     },
     refetchQueries: [{ query: QUERY_COCKTAILS }],
   });
-
+  // Mutation for deleting a cocktail recipe
   const [deleteCocktail] = useMutation(DELETE_COCKTAIL, {
     update(cache, { data: { deleteCocktail } }) {
       try {
@@ -126,7 +135,7 @@ const MyFavorites = () => {
       console.log("updated cache:", cache.data.data);
     },
   });
-
+  // Mutation for editing a cocktail recipe
   const [editCocktail] = useMutation(EDIT_COCKTAIL, {
     update(cache, { data: { editCocktail } }) {
       try {
@@ -182,7 +191,7 @@ const MyFavorites = () => {
     },
     refetchQueries: [{ query: QUERY_COCKTAILS }],
   });
-
+  // Mutation for editing the user's profile photo
   const [editProfilePhoto] = useMutation(EDIT_PROFILE_PHOTO, {
     onCompleted(data) {
       console.log("Profile photo updated:", data);
@@ -191,7 +200,7 @@ const MyFavorites = () => {
       console.error("Profile photo update failed:", error);
     },
   });
-
+  // Function to handle editing a cocktail
   const handleEditCocktail = (cocktail) => {
     setSelectedCocktail(cocktail);
     setShowCocktailForm(true);
@@ -203,7 +212,7 @@ const MyFavorites = () => {
   const toggleEditingProfilePhoto = () => {
     setEditingProfilePhoto((prevState) => !prevState);
   };
-
+  // Function to handle a successful image upload for profile photo
   const handleSuccessfulUpload = (result) => {
     // When the upload is successful, Cloudinary returns the secure_url in the result
     if (result && result.info.secure_url) {
@@ -234,7 +243,7 @@ const MyFavorites = () => {
       }
     }
   };
-
+  // Function to handle deleting a cocktail recipe
   const handleDeleteCocktail = async (cocktailId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) return false;
@@ -255,7 +264,7 @@ const MyFavorites = () => {
       console.error(err);
     }
   };
-
+  // Function to handle sharing a cocktail recipe
   const handleShareRecipe = (selectedCocktail) => {
     setSelectedCocktail(selectedCocktail);
     console.log("selected cocktail: ", selectedCocktail);
@@ -263,6 +272,7 @@ const MyFavorites = () => {
     return;
   }
 
+  // Fetch and set cocktails when data or cocktails change
   useEffect(() => {
     if (data?.me?.cocktails) {
       setCocktails(data?.me?.cocktails);
@@ -271,22 +281,25 @@ const MyFavorites = () => {
     }
   }, [data, refetch, cocktails, setCocktails]);
 
+  // Update profile photo when uploadedProfilePhotoUrl changes
   useEffect(() => {
     handleProfilePhotoUpdate(uploadedProfilePhotoUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedProfilePhotoUrl]);
 
+  // Render the ShimmerLoader when data is still loading
   if (loading) {
     return <ShimmerLoader />;
   }
-
+  // Render message if no cocktails are available
   if (!cocktails.length) {
     return <h3 className="cocktail_card_error">No cocktails to display yet</h3>;
   }
-
+  // Render MyFavorites component
   return (
     <div className="favorites">
     <div className="gradient-background">
+      {/* Buttons to add a cocktail and search for a new cocktail */}
       <div className="favorites-buttons-div">
         <button
           className="btn add-cocktail-button"
@@ -303,6 +316,7 @@ const MyFavorites = () => {
           Search for a new Cocktail
         </Link>
       </div>
+      {/* Modal for adding/editing a cocktail */}
       {showCocktailForm && (
         <div className="modal-background">
           <div className="modal">
@@ -336,6 +350,7 @@ const MyFavorites = () => {
           </div>
         </div>
       )}
+      {/* Modal for sharing a cocktail recipe */}
       {showShareRecipeForm && (
         <div className="modal-background">
           <div className="modal">
@@ -362,7 +377,7 @@ const MyFavorites = () => {
           </div>
         </div>
       )}
-
+      {/* Display cocktail cards */}
       <div className="card-container">
         <CocktailCard
           loading={loading}
