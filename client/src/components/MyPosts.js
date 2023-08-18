@@ -12,16 +12,16 @@ const MyPosts = ({ client }) => {
   // state to control how many posts are visible at a time,
   // user will be able to 'see more'
   const [visiblePosts, setVisiblePosts] = useState(10);
-  
+
+  // Query user data to get logged-in user's posts
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
-
   const { me } = userData || {};
-
   const { posts } = me || {};
 
+  // State to hold filtered and sorted posts
   const [filteredPosts, setFilteredPosts] = useState(posts || []);
   
-  // useMutation hook to delete a post
+  // Mutation to delete a post
   const [deletePost] = useMutation(DELETE_POST, {
     update(cache, { data: { deletePost } }) {
       // Update the cache by removing the deleted post
@@ -49,10 +49,12 @@ const MyPosts = ({ client }) => {
       await deletePost({
         variables: { postId },
         update(cache) {
+          // Evict the deleted post from the cache
           cache.evict({
             id: cache.identify({ __typename: "Post", _id: postId }),
           });
           cache.gc();
+          // Update filteredPosts to remove the deleted post
           setFilteredPosts((prevPosts) =>
             prevPosts.filter((post) => post._id !== postId)
           );
@@ -77,12 +79,14 @@ const MyPosts = ({ client }) => {
     }
   }, [posts]);
 
+  // render the ShimmerLoader component when data is loading
   if (userLoading) {
     return <ShimmerLoader />;
   }
 
   const isMyPosts = true;
-
+  
+  // Render MyPosts component
   return (
     <div className="posts-container gradient-background">
       {filteredPosts.length > 0 ? (
