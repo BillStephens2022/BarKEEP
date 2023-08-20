@@ -26,17 +26,21 @@ const Post = ({
 }) => {
   const { loading: meLoading, data: meData } = useQuery(QUERY_ME);
 
+  // State to manage updated posts
   const [updatedPosts, setUpdatedPosts] = useState(posts);
-  const [showLikesModal, setShowLikesModal] = useState(false); // State to manage modal visibility
-  const [showCommentsModal, setShowCommentsModal] = useState(false); // State to manage modal visibility
-  const [selectedPostId, setSelectedPostId] = useState(null); // State to store selected post id for the modal
+  // States to manage (likes, comments, recipe) modal visibility
+  const [showLikesModal, setShowLikesModal] = useState(false); 
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
   const [showRecipeModal, setShowRecipeModal] = useState(false);
+  // State to store selected post id for the modal
+  const [selectedPostId, setSelectedPostId] = useState(null); 
+  // State to store selected recipe for the modal
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   // Separate loading state for liked users query
-  // const [likedUsersLoading, setLikedUsersLoading] = useState(false);
   const [likedUsers, setLikedUsers] = useState([]);
 
+  // Mutation for adding a comment to a post
   const [addComment] = useMutation(ADD_COMMENT, {
     // The update function to update the cache after adding a comment
     update(cache, { data: { addComment } }) {
@@ -66,6 +70,7 @@ const Post = ({
     refetchQueries: [{ query: QUERY_POSTS }], // Refetch the posts to update the UI
   });
 
+  // Mutation for adding a 'like' to a post
   const [addLike] = useMutation(ADD_LIKE, {
     update(cache, { data: { addLike } }) {
       try {
@@ -120,13 +125,14 @@ const Post = ({
     refetchQueries: [{ query: QUERY_POSTS }, { query: QUERY_ME }],
   });
 
+  // Fetch liked users data when selectedPostId changes
   useEffect(() => {
     if (selectedPostId) {
-      // Fetch liked users data when selectedPostId changes
       fetchLikedUsersData(selectedPostId);
     }
   }, [selectedPostId]);
 
+  // Fetch liked users data from the server
   const fetchLikedUsersData = async (postId) => {
     try {
       const { data } = await client.query({
@@ -138,28 +144,34 @@ const Post = ({
       console.error("Error fetching liked users data:", error);
     }
   };
-
+  
+  // Update the state when the posts prop changes
   useEffect(() => {
     setUpdatedPosts(posts);
   }, [posts]);
 
+  // Display the ShimmerLoader component when data is loading
   if (loading || meLoading) {
     return <ShimmerLoader />;
   }
 
+  // Display message if there are no posts
   if (!posts.length) {
     return <h3 className="posts_error">No posts to display yet</h3>;
   }
 
+  // Function to load more posts
   const handleSeeMoreClick = () => {
     setVisiblePosts((prevValue) => prevValue + 10);
   };
-
+  
+  // Function to open post comments modal
   const handlePostCommentsClick = (postId) => {
     setSelectedPostId(postId);
     setShowCommentsModal(true);
   };
-
+  
+  // Function to open post likes modal
   const handlePostLikeCountClick = (postId) => {
     setSelectedPostId(postId);
     setShowLikesModal(true);
@@ -175,9 +187,13 @@ const Post = ({
           meData?.me?.likedPosts?.some(
             (likedPost) => likedPost._id === post._id
           ) || false;
+
+        // JSX for each post
         return (
           <div className="post-card" key={post._id}>
+            {/* Post header */}
             <div className="post-header">
+              {/* ... (profile photo, author name, post date) */}
               <div className="post-author">
                 <ProfilePhoto
                   imageUrl={
@@ -193,7 +209,9 @@ const Post = ({
                 {formatElapsedTime(post.postDate)}
               </div>
             </div>
+            {/* Main post content */}
             <div className="post-main-container">
+              {/* ... (post image, title, content, recipe link) */}
               <div className="post-image">
                 <PostPhoto imageUrl={post.postImageURL} />
               </div>
@@ -214,7 +232,9 @@ const Post = ({
                 )}
               </div>
             </div>
+            {/* Like and comment counts */}
             <div className="post-like-comment-counts">
+              {/* ... (like count with icon, comment count with icon) */}
               <div
                 className="post-counts"
                 onClick={() => handlePostLikeCountClick(post._id)}
@@ -241,8 +261,10 @@ const Post = ({
                 </h6>
               </div>
             </div>
+            {/* Post footer */}
             <div className="post-footer">
               <div className="post-comment-like">
+                {/* Like button */}
                 <div className="post-like-button">
                   <button
                     className="btn btn-post-like"
@@ -253,12 +275,14 @@ const Post = ({
                       });
                     }}
                   >
+                    {/* ... (like icon based on user's like status) */}
                     {isPostLikedByUser ? (
                       <BiSolidLike className="like-icon-solid" />
                     ) : (
                       <BiLike />
                     )}
                   </button>
+                  {/* ... (like label based on user's like status) */}
                   <h6
                     className={`post-like-label ${
                       !isPostLikedByUser ? null : "liked"
@@ -268,6 +292,7 @@ const Post = ({
                     {isPostLikedByUser ? "Liked" : "Like"}
                   </h6>
                 </div>
+                {/* Comment button */}
                 <div className="post-comment-button">
                   <button
                     className="btn btn-post-comment"
@@ -279,6 +304,7 @@ const Post = ({
 
                   <h6 id="post-comment-label">Comment</h6>
                 </div>
+                {/* Delete button (visible only for the post owner in MyPosts view on Profile page) */}
                 {isMyPosts && isMyPost && (
                   <div className="div-delete-button">
                     <button
@@ -296,7 +322,8 @@ const Post = ({
           </div>
         );
       })}
-
+      {/* Modals */}
+      {/* ... (likes, comments, recipe modals) */}
       {showLikesModal && selectedPostId && (
         <PostLikesModal
           postId={selectedPostId}
@@ -321,7 +348,7 @@ const Post = ({
           }}
         />
       )}
-
+      {/* "See More" button */}
       {visiblePosts <= posts.length && (
         <div className="see-more-container">
           <button className="btn btn-see-more" onClick={handleSeeMoreClick}>
