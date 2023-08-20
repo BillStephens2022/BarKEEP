@@ -10,12 +10,16 @@ import "../styles/components/PostCommentsModal.css";
 const PostCommentsModal = ({ postId, onClose, addComment }) => {
   // State to hold the comment input
   const [commentInput, setCommentInput] = useState(""); 
+
+  // Query to fetch post data
   const { loading: postLoading, data: postData } = useQuery(GET_SINGLE_POST, {
     variables: { postId },
   });
 
+  // Extract post data from query result
   const post = postData?.getSinglePost;
 
+  // Function to handle adding a comment
   const handleAddComment = async () => {
     if (commentInput.trim() !== "") {
       try {
@@ -53,7 +57,9 @@ const PostCommentsModal = ({ postId, onClose, addComment }) => {
           <p>Loading...</p>
         ) : (
           <div className="post-modal-comments-section">
+            {/* Render the post using SinglePost component */}
             {post && <SinglePost postId={postId} />}
+            {/* Render comments */}
             <ul className="post-comments-modal-ul">
               {post.comments?.map((comment) => (
                 <li className="post-comments-modal-li" key={comment._id}>
@@ -71,6 +77,7 @@ const PostCommentsModal = ({ postId, onClose, addComment }) => {
                 </li>
               ))}
             </ul>
+            {/* Comment input */}
             <div className="comment-input-container">
               <input
                 type="text"
