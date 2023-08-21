@@ -7,12 +7,14 @@ import CocktailCard from "./CocktailCard";
 import "../styles/components/RecipeModal.css";
 
 const RecipeModal = ({ recipe, onClose }) => {
-
+  // State variables to keep track of added cocktail and its status
   const [addedCocktailId, setAddedCocktailId] = useState(null);
   const [cocktailAdded, setCocktailAdded] = useState({});
 
+  // Initialize the Apollo client
   const client = useApolloClient();
 
+  // Use the ADD_COCKTAIL mutation
   const [addCocktail] = useMutation(ADD_COCKTAIL, {
     refetchQueries: [{ query: QUERY_ME }],
   });
@@ -21,11 +23,12 @@ const RecipeModal = ({ recipe, onClose }) => {
     console.log(addedCocktailId);
   }, [addedCocktailId]);
 
+  // Function to handle adding a cocktail
   const handleAddCocktail = async (cocktailData) => {
-
     setAddedCocktailId(cocktailData._id);
 
     try {
+      // Use the addCocktail mutation to add a new cocktail
       const { data } = await addCocktail({
         variables: cocktailData,
       });
@@ -38,6 +41,7 @@ const RecipeModal = ({ recipe, onClose }) => {
         query: QUERY_COCKTAILS,
         data: { cocktails: [data.addCocktail, ...cocktails] },
       });
+      // Update cocktailAdded state to indicate that the cocktail was added
       setCocktailAdded((prev) => ({
         ...prev,
         [cocktailData._id]: true,
@@ -47,6 +51,7 @@ const RecipeModal = ({ recipe, onClose }) => {
     }
   };
 
+  // Clone the recipe object without __typename
   const recipeWithoutTypename = { ...recipe };
   delete recipeWithoutTypename.__typename;
 
@@ -56,6 +61,7 @@ const RecipeModal = ({ recipe, onClose }) => {
         <Modal.Title>{recipe.name} Recipe</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {/* Render CocktailCard with the recipe data */}
         <CocktailCard
           cocktails={[recipeWithoutTypename]}
           page="RecipeModal"
