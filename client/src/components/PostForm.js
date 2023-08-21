@@ -14,13 +14,16 @@ const PostForm = ({
   setShowPostForm,
   currentUser,
 }) => {
+  // state to manage the form fields and uploaded image URL
   const [postFormState, setPostFormState] = useState(initialState);
   const [uploadedImageURL, setUploadedImageURL] = useState("");
   const [imageUploaded, setImageUploaded] = useState(false);
   
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { postTitle, postContent } = postFormState;
+    // Get the user's time zone
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const postDate = moment().tz(userTimeZone).toDate();
 
@@ -41,17 +44,17 @@ const PostForm = ({
           author: currentUser,
         },
       });
-      console.log("form data", formData);
 
-      // Reset form fields
+      // Reset form fields and uploaded image URL
       setPostFormState(initialState);
       setUploadedImageURL("");
-      setShowPostForm(false);
+      setShowPostForm(false);  // Close the form
     } catch (err) {
       console.error(err);
     }
   };
 
+  // Function to handle image upload success
   const handleUploadSuccess = (result) => {
     if (result && result.event === "success") {
       console.log("Done! Here is the image info: ", result.info);
@@ -98,7 +101,8 @@ const PostForm = ({
             }))
           }
         />
-
+        
+        {/* UploadWidget component for handling image upload */}
         <UploadWidget onSuccess={handleUploadSuccess} />
 
         <button
