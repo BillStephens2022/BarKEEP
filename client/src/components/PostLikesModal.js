@@ -8,6 +8,7 @@ import ShimmerLoader from "./ShimmerLoader";
 import "../styles/components/PostLikesModal.css";
 
 const PostLikesModal = ({ postId, onClose }) => {
+  // Query to fetch users who liked the post
   const { loading, data } = useQuery(GET_POST_LIKES_USERS, {
     variables: { postId },
   });
@@ -33,7 +34,7 @@ const PostLikesModal = ({ postId, onClose }) => {
         </button>
       </Modal.Header>
       <Modal.Body>
-        {loading || postLoading ? (
+        {loading || postLoading ? (  // Display ShimmerLoader component if data is loading
           <ShimmerLoader />
         ) : (
           <div>
