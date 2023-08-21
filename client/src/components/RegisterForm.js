@@ -10,7 +10,8 @@ const defaultProfilePhoto =
   "https://helloartsy.com/wp-content/uploads/kids/food/how-to-draw-a-martini-glass/how-to-draw-a-martini-glass-step-6.jpg";
 
 const RegisterForm = () => {
-  // sets initial form state
+
+  // State for user registration form data
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
@@ -27,13 +28,16 @@ const RegisterForm = () => {
   // set state for form validation
   const [validated, setValidated] = useState(false);
 
-  // set state for alert
+  // State for showing an alert in case of errors
   const [showAlert, setShowAlert] = useState(false);
 
+  // Use the ADD_USER mutation
   const [addUser] = useMutation(ADD_USER);
 
+  // Use the React Router navigation hook
   let navigate = useNavigate();
 
+  // Function to handle form input changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -46,13 +50,12 @@ const RegisterForm = () => {
     }
   };
 
+  // Function to handle form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    console.log("password 1: ", userFormData.password);
-    console.log("password 2: ", passwordVerification);
-    console.log(validated);
-    console.log(userFormData.password !== passwordVerification);
+
+    // Validate the form and check if passwords match
     if (
       form.checkValidity() === false ||
       userFormData.password !== passwordVerification
@@ -61,8 +64,8 @@ const RegisterForm = () => {
       event.stopPropagation();
       return;
     }
-    console.log(userFormData);
-
+    
+    // Form is valid, set validated state
     setValidated(true);
 
     try {
@@ -74,6 +77,7 @@ const RegisterForm = () => {
         throw new Error("something went wrong!");
       }
 
+      // Login the user after successful registration
       Auth.login(data.addUser.token);
       navigate("/community");
     } catch (err) {
@@ -81,6 +85,7 @@ const RegisterForm = () => {
       setShowAlert(true);
     }
 
+    // Reset form data and password verification
     setUserFormData({
       username: "",
       email: "",
@@ -92,14 +97,14 @@ const RegisterForm = () => {
 
   return (
     <>
-      {/* This is needed for the validation functionality above */}
+      {/* Registration form */}
       <Form
         noValidate
         validated={validated}
         className="form-register"
         onSubmit={handleFormSubmit}
       >
-        {/* show alert if server response is bad */}
+        {/* Show alert for errors */}
         <Alert
           dismissible
           onClose={() => setShowAlert(false)}
@@ -108,7 +113,7 @@ const RegisterForm = () => {
         >
           Something went wrong with your signup!
         </Alert>
-
+        {/* Username field */}
         <Form.Group>
           <Form.Label htmlFor="username" className="login-label">
             Username <span className="required">*</span>
@@ -127,6 +132,7 @@ const RegisterForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
+        {/* Email field */}
         <Form.Group>
           <Form.Label htmlFor="email" className="login-label">
             Email <span className="required">*</span>
@@ -145,6 +151,7 @@ const RegisterForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
+        {/* Password field */}
         <Form.Group>
           <Form.Label htmlFor="password" className="login-label">
             Password <span className="required">*</span>
@@ -162,6 +169,8 @@ const RegisterForm = () => {
             Password is required!
           </Form.Control.Feedback>
         </Form.Group>
+
+        {/* Password verification field */}
         <Form.Group>
           <Form.Label htmlFor="passwordVerification" className="login-label">
             Confirm Password <span className="required">*</span>
@@ -185,9 +194,13 @@ const RegisterForm = () => {
             )}
           </Form.Group>
         </Form.Group>
+
+        {/* Required field legend */}
         <p className="required-legend">
           <span className="required">*</span> Indicates required field
         </p>
+
+        {/* Submit button */}
         <Button
           disabled={
             !(
