@@ -4,20 +4,17 @@ import CocktailCard from "./CocktailCard";
 import "../styles/pages/SearchCocktails.css";
 
 const SearchCocktailName = ({handleAddCocktail, addedCocktailId, cocktailAdded}) => {
-  // create state for holding returned google api data
+  // State to hold returned cocktail data from the API
   const [searchedCocktails, setSearchedCocktails] = useState([]);
-  // create state for holding our search field data
+
+  // State to hold the search input value
   const [searchInput, setSearchInput] = useState("");
-  // Track if a search has been executed
+
+  // State to track whether a search has been executed
   const [searchExecuted, setSearchExecuted] = useState(false); 
 
- 
-
-  // create state to hold saved bookId values in local storage - need to add function in utils folder
-  // const [savedCocktailIds, setSavedCocktailIds] = useState(getSavedCocktailIds());
-
+  // Function to handle the search form submission
   const handleSearchSubmit = async (event) => {
-    // add asynchronous function to handle cocktail searches from the API
     if (event) {
       event.preventDefault();
     }
@@ -25,16 +22,17 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId, cocktailAdded})
       return false;
     }
 
-    // searchCocktails is a helper function in utilities folder for API call to TheCocktailDB to search recipes by cocktail name
+    // Call the API to search cocktails by name
     const cocktailData = await searchCocktails(searchInput);
 
-   
+    // Update the state with the retrieved cocktail data and mark search as executed
     setSearchedCocktails(cocktailData);
     setSearchExecuted(true);
   };
 
   return (
     <div className="searchName">
+      {/* Search form */}
       <form className="searchNameForm" onSubmit={handleSearchSubmit}>
         <input
           type="text"
@@ -60,6 +58,7 @@ const SearchCocktailName = ({handleAddCocktail, addedCocktailId, cocktailAdded})
        {searchExecuted && searchedCocktails.length === 0 && (
           <p id="search-no-results-message">No cocktails found. Try a different search.</p>
         )}
+        {/* Display searched cocktails */}
         {searchedCocktails.length > 0 && (
           <CocktailCard
             cocktails={searchedCocktails}
