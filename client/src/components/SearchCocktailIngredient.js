@@ -3,18 +3,22 @@ import { getCocktailsbyIngredient } from "../utils/API";
 import CocktailCard from "./CocktailCard";
 import "../styles/pages/Home.css";
 
-// component for when user chooses to search cocktails by ingredient
+// Component for searching cocktails by ingredient
 
 const SearchCocktailIngredient = ({ handleAddCocktail, addedCocktailId, cocktailAdded }) => {
+  // State to store the selected ingredient
   const [selectedIngredient, setSelectedIngredient] = useState("");
+
+  // State to store the cocktails searched by ingredient
   const [searchedCocktails, setSearchedCocktails] = useState([]);
 
-  // picks up selected value from dropdown menu so search can be done by the specific ingredient chosen
+  // Handler for changing the selected ingredient
   const handleIngredientChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedIngredient(selectedValue);
   };
-  // array of specific ingredients - used to populate dropdown menu(Select element options)
+
+  // List of ingredient options for the dropdown menu
   const ingredientOptions = [
     "",
     "absinthe",
@@ -36,7 +40,8 @@ const SearchCocktailIngredient = ({ handleAddCocktail, addedCocktailId, cocktail
     "vodka",
     "whiskey",
   ];
-
+  
+  // Effect to handle searching cocktails by selected ingredient
   useEffect(() => {
     const handleSearchbyIngredient = async () => {
       if (selectedIngredient) {
@@ -51,6 +56,7 @@ const SearchCocktailIngredient = ({ handleAddCocktail, addedCocktailId, cocktail
 
   return (
     <div className="searchIngredient">
+      {/* Dropdown menu for selecting an ingredient */}
       <select
         className="ingredient-dropdown"
         value={selectedIngredient}
@@ -63,6 +69,7 @@ const SearchCocktailIngredient = ({ handleAddCocktail, addedCocktailId, cocktail
           </option>
         ))}
       </select>
+      {/* Display the searched cocktails */}
       <div className="card-container">
         <CocktailCard
           cocktails={searchedCocktails}
