@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 const cloudinaryCloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
 
+
+// Upload Widget for use with Cloudinary allows user to upload an image (used for User's Profile Photo, Post Images, Recipe Images)
 class UploadWidget extends Component {
   componentDidMount() {
     const cloudName = cloudinaryCloudName;
