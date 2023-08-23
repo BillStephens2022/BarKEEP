@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/components/ShimmerLoader.css"; 
 
+// Component to render when data is loading
 const ShimmerLoader = () => {
   return (
     <div className="shimmer-loader gradient-background">
