@@ -7,6 +7,7 @@ import { ADD_POST } from "../utils/mutations";
 import { QUERY_POSTS, QUERY_ME } from "../utils/queries";
 import "../styles/components/PostForm.css";
 
+// initial state of the form fields
 const initialState = {
   postTitle: "",
   postContent: "",
@@ -14,17 +15,24 @@ const initialState = {
   recipe: "",
 };
 
-const ShareRecipeForm = ({ setShowShareRecipeForm, setShareRecipeFormState, selectedCocktail }) => {
+const ShareRecipeForm = ({
+  setShowShareRecipeForm,
+  setShareRecipeFormState,
+  selectedCocktail,
+}) => {
+  // State to manage the form fields
   const [postFormState, setPostFormState] = useState({
     ...initialState,
     postTitle: selectedCocktail.name + " Recipe",
     postImageURL: selectedCocktail.imageURL,
   });
 
+  // Fetch the logged-in user's data and posts
   const { loading: userLoading, data: userData } = useQuery(QUERY_ME);
   const { loading: postsLoading, data: postsData } = useQuery(QUERY_POSTS);
   const [filteredPosts, setFilteredPosts] = useState(postsData?.posts || []);
 
+  // Mutation to add a new post
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
       try {
@@ -32,16 +40,15 @@ const ShareRecipeForm = ({ setShowShareRecipeForm, setShareRecipeFormState, sele
           query: QUERY_POSTS,
         }) ?? { posts: [] };
 
+        // Update the cache with the new post
         const updatedPosts = [addPost, ...posts];
-
         cache.writeQuery({
           query: QUERY_POSTS,
           data: { posts: updatedPosts },
         });
 
-        const { me } = cache.readQuery({ query: QUERY_ME });
-
         // Update the user's posts array with the new post
+        const { me } = cache.readQuery({ query: QUERY_ME });
         const updatedUserPosts = [addPost, ...me.posts];
 
         cache.writeQuery({
@@ -69,8 +76,10 @@ const ShareRecipeForm = ({ setShowShareRecipeForm, setShareRecipeFormState, sele
   });
   let navigate = useNavigate();
 
+  // Get the current user's ID
   const currentUser = userData?.me?._id;
 
+  // Handle the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { postTitle, postContent } = postFormState;
@@ -82,24 +91,6 @@ const ShareRecipeForm = ({ setShowShareRecipeForm, setShareRecipeFormState, sele
       console.log("Please fill in all required fields");
       return;
     }
-
-    // Log the variables before sending them to the mutation
-    console.log("Variables to be sent:", {
-      postTitle,
-      postContent,
-      postImageURL: postFormState.postImageURL,
-      recipe: {
-        _id: selectedCocktail._id,
-        name: selectedCocktail.name,
-        ingredients: selectedCocktail.ingredients,
-        imageURL: selectedCocktail.imageURL,
-        glassware: selectedCocktail.glassware,
-        instructions: selectedCocktail.instructions,
-        tags: selectedCocktail.tags,
-      },
-      postDate,
-      author: currentUser,
-    });
 
     // Send form data to the server
     try {
@@ -121,12 +112,11 @@ const ShareRecipeForm = ({ setShowShareRecipeForm, setShareRecipeFormState, sele
           author: currentUser,
         },
       });
-      console.log("form data", formData);
 
       // Reset form fields
       setShareRecipeFormState(initialState);
       setShowShareRecipeForm(false);
-      navigate('/community');
+      navigate("/community");
     } catch (err) {
       console.error(err);
     }
@@ -136,7 +126,13 @@ const ShareRecipeForm = ({ setShowShareRecipeForm, setShareRecipeFormState, sele
 
   return (
     <div className="form-post-container">
-    <img src={selectedCocktail.imageURL} alt="cocktail to be shared" className="share-cocktail-img" />
+      {/* Display the selected cocktail's image */}
+      <img
+        src={selectedCocktail.imageURL}
+        alt="cocktail to be shared"
+        className="share-cocktail-img"
+      />
+      {/* Form to allow user to enter a title and additional content along with the recipe being shared */}
       <form onSubmit={handleSubmit}>
         <label htmlFor="postTitle">Title: </label>
         <input
@@ -184,7 +180,6 @@ const ShareRecipeForm = ({ setShowShareRecipeForm, setShareRecipeFormState, sele
           Submit Post
         </button>
       </form>
-      
     </div>
   );
 };
