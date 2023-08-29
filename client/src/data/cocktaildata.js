@@ -682,5 +682,9 @@ export const drinkingQuotes = [
   {
     "quote": "I've stopped drinking, but only while I'm asleep.",
     "author": "George Best"
+  },
+  {
+    "quote": "The problem with the world is that everyone is a few drinks behind.",
+    "author": "Humphrey Bogart"
   }
 ];
