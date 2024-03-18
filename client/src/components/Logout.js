@@ -12,7 +12,7 @@ const Logout = () => {
       {/* Logout content */}
       <div className="logout gradient-background">
         <h2 id="logout-comeback">Come back soon...</h2>
-        <img id="logout-photo" src={`${process.env.PUBLIC_URL}/images/cocktailIcon.png`}></img>
+        <img id="logout-photo" alt="cocktail" src={`${process.env.PUBLIC_URL}/images/cocktailIcon.png`}></img>
         <h2 id="logout-cheers">Cheers!!!</h2>
       </div>
     </div>

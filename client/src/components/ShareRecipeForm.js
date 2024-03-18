@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "react-bootstrap";
 import moment from "moment-timezone";
 import { useQuery, useMutation } from "@apollo/client";
 import { ADD_POST } from "../utils/mutations";
