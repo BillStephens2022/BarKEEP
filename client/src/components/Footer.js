@@ -2,6 +2,7 @@ import React from 'react';
 import "../styles/components/Footer.css";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
   return (
     <div className="footer">
     {/* Include the Font Awesome stylesheet for icons */}
@@ -27,7 +28,7 @@ const Footer = () => {
             <div className="footer-text-div">
               <h2 className="footer-text">
               {/* Copyright text with a link to personal portfolio */}
-                &copy; 2023 <a title="Link to My Portfolio" href="https://billstephens2022.github.io/my_portfolio/" className="portfolio-link">Bill Stephens</a>
+                &copy; {currentYear} <a title="Link to My Portfolio" href="https://billstephens2022.github.io/my_portfolio/" className="portfolio-link">Bill Stephens</a>
               </h2>
             </div>
           </div>
